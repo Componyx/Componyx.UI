@@ -1,0 +1,1263 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+:root
+{
+    --app-skin-menu-width: 300px;
+    --app-skin-content-width: 960px; /* updated per media query below */
+    --app-skin-content-margin: auto; /* Use this on your content wrapper's margin-left to keep it correctly offset when a menu is open and content-pinned (not viewport-pinned). Pair with margin-right: auto. */
+}
+
+img
+{
+    border: none;
+}
+
+select
+{
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -ms-box-sizing: content-box;
+}
+
+html
+{
+    height: 100%;
+    overflow-y: scroll;
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol, li
+{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+body, form
+{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear
+{
+    display: none;
+}
+
+.app-skin.theme
+{
+    margin: 0;
+    padding: 0;
+
+    &.portal-menu,
+    &.login
+    {
+        min-height: 100%; /* skin and positioned body bg should stretch with content height */
+    }
+
+    &:not(.portal):not(.login)
+    {
+        height: 100%;
+    }
+
+    & > header,
+    & > footer,
+    & div.topbar,
+    & .menu.theme.portal,
+    & div.login-screen,
+    & div.body,
+    & div.app-content
+    {
+        border-radius: 0px;
+    }
+
+    & div.body
+    {
+        display: none;
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        z-index: 2;
+    }
+
+    &.portal-menu div.body,
+    &.login div.body
+    {
+        display: block;
+    }
+
+    & div.app-content
+    {
+        width: auto;
+        margin: auto;
+    }
+
+    & div.view > div.app-content
+    {
+        width: auto;
+    }
+
+    &.full div.view > div.app-content,
+    & div.page div.app-content.full
+    {
+        max-width: none !important;
+        width: auto !important;
+    }
+
+    & div.page
+    {
+        position: relative;
+        padding-top: 48px;
+
+        div.app-content
+        {
+            transition: all .1s;
+        }
+    }
+
+    &.topbar div.page
+    {
+        padding-top: 96px;
+        height: calc(100% - 96px);
+    }
+
+    &.footer div.page
+    {
+        padding-bottom: 48px;
+        height: calc(100% - 96px);
+    }
+
+    &.topbar.footer div.page
+    {
+        height: calc(100% - 144px);
+    }
+
+    /* header */
+    & > header
+    {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        height: 48px;
+        vertical-align: middle;
+        z-index: 2;
+
+        /* header topbar content*/
+        > .topbar > div.app-content
+        {
+            position: relative;
+            height: 100%;
+        }
+    }
+
+    /* header content */
+    & > header > div.app-content,
+    & > footer > div.app-content
+    {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    /* header-menu is in topbar by default */
+    & > header > div.app-content .menu.theme
+    {
+        position: absolute;
+        width: calc(100% - 400px); /* 400px is the default reserved space for the menu between the logo/menu-button and search-box. Change as desired accordingly to the displayed items in the header.  */
+        text-align: center;
+        white-space: nowrap;
+        left: 68px; /* 68px for menu-button */
+        top: 0px;
+    }
+
+    &:not(.menu-left) > header > div.app-content .menu.theme
+    {
+        left: 208px; /* 208px for logo */
+    }
+
+    /* menu in footer */
+    div &
+    {
+        > footer > div.app-content .menu.theme
+        {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            white-space: nowrap;
+        }
+    }
+
+    /* menu in topbar */
+    & > header > div.app-content > .topbar > div.app-content .menu.theme
+    {
+        position: static;
+        left: auto;
+        transform: none;
+        width: 100%;
+    }
+
+    /* center first menu when both header- and quicklaunch- menu are in the same parent within header or footer  */
+    & > header > div.app-content > div.header-menu ~ .menu.theme.quick-lauch,
+    & > header > div.app-content > topbar > div.header-menu ~ .menu.theme.quick-lauch,
+    & > footer > div.app-content > div.header-menu ~ .menu.theme.quick-lauch
+    {
+        position: static;
+        transform: none;
+        width: auto;
+        order: 3;
+    }
+
+    /* header item order for menu-right(default) or menu-left */
+    &:not(.menu-left) > header > div.app-content > .button.theme
+    {
+        order: 3;
+    }
+
+    &:not(.menu-left) > header > div.app-content > figure.logo
+    {
+        order: 1;
+        margin-left: 20px;
+    }
+
+    &.menu-left > header > div.app-content > .button.theme
+    {
+        order: 1;
+    }
+
+    &.menu-left > header > div.app-content > figure.logo
+    {
+        order: 3;
+        margin-right: 20px;
+    }
+
+    /* top bar */
+    & .topbar
+    {
+        position: fixed;
+        top: 48px;
+        left: 0px;
+        right: 0px;
+        z-index: 2;
+        height: 48px;
+    }
+
+    /* shadow */
+    & > header::after
+    {
+        position: absolute;
+        z-index: 2;
+        content: '';
+        left: 0px;
+        right: 0px;
+        top: 48px;
+        height: 10px;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%,rgba(0,0,0,0) 100%);
+    }
+
+    & .menu.theme.portal
+    {
+        width: 240px; /* max 1 horizontal large sub-groups */
+        overflow: hidden;
+        position: relative;
+        margin: auto;
+        padding-top: 50px;
+        padding-bottom: 48px;
+        text-align: center;
+        z-index: 3;
+
+        /* -- viewport widths -- */
+        @media screen and (min-width: 480px)
+        {
+            width: 480px; /* max 2 horizontal large sub-groups */
+        }
+
+        @media screen and (min-width: 720px)
+        {
+            width: 720px; /* max 3 horizontal large sub-groups */
+        }
+
+        @media screen and (min-width: 960px)
+        {
+            width: var(--app-skin-content-width);
+        }
+    }
+
+    &.topbar .menu.theme.portal
+    {
+        padding-top: 98px;
+    }
+
+    @media screen and (min-width: 960px)
+    {
+        &:not(.full) div.app-content,
+        & div.page div.app-content:not(.full)
+        {
+            max-width: var(--app-skin-content-width);
+        }
+
+        &:not(.full) .box.side-menu
+        {
+            right: calc((100% - var(--app-skin-content-width)) / 2);
+        }
+
+        &.menu-left:not(.full) .box.side-menu
+        {
+            left: calc((100% - var(--app-skin-content-width)) / 2);
+        }
+
+        /* -- margins when side-menu is visible, from this viewport width we no longer overlap the menu over the content -- */
+
+        /* menu pinned to content */
+        &.side-menu.menu-left
+        {
+            --app-skin-content-margin: calc((100% - var(--app-skin-content-width)) / 2 + var(--app-skin-menu-width));
+        }
+
+        /* menu pinned to viewport */
+        &.full.side-menu.menu-left
+        {
+            --app-skin-content-margin: var(--app-skin-menu-width);
+        }
+
+        &.full.side-menu div.page > * > div.app-content
+        {
+            margin-left: var(--app-skin-content-margin);
+        }
+
+        &.full.side-menu:not(.menu-left) div.page > * > div.app-content
+        {
+            margin-left: 0;
+            margin-right: var(--app-skin-content-margin);
+        }
+
+        /* apply margin to deepest nested content container */
+        &:not(.full).side-menu .app-content:not(:has(.app-content))
+        {
+            margin-left: var(--app-skin-content-margin);
+        }
+
+        &:not(.full).side-menu:not(.menu-left)  .app-content:not(:has(.app-content))
+        {
+            margin-left: 0;
+            margin-right: var(--app-skin-content-margin);
+        }
+    }
+
+    /* logo */
+    & figure.logo
+    {
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-position: 0px 0px;
+        margin: 0px;
+        margin-bottom: 25px;
+        height: 23px;
+        width: 168px;
+
+        &::before
+        {
+            content: 'COMPANY LOGO';
+            display: inline-block;
+            position: relative;
+            top: 50%;
+            left: 0px;
+            transform: translateY(-50%);
+        }
+    }
+
+    & > header div.app-content figure.logo
+    {
+        margin-bottom: 0px;
+    }
+
+    /* search-box */
+    & div.search
+    {
+        order: 2;
+        margin-left: auto;
+        margin-right: 12px;
+        position: relative;
+        z-index: 2;
+
+        &::after
+        {
+            display: inline-block;
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'UI';
+            content: '\e906';
+            font-size: 20px;
+            opacity: 0.5;
+        }
+
+        > input
+        {
+            border-color: transparent;
+            width: 0px;
+            height: 28px;
+            padding-left: 5px;
+            padding-right: 25px;
+            transition: width .1s;
+
+            &:focus
+            {
+                width: clamp(150px, 20vw, 320px);
+            }
+        }
+    }
+
+    & div.search:hover::after,
+    &.search-active div.search::after
+    {
+        opacity: 0.7;
+    }
+
+    @media screen and (max-width: 767px)
+    {
+        & div.search > input:focus
+        {
+            width: 150px;
+        }
+    }
+
+    /* footer */
+    & > footer
+    {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        height: 48px;
+        text-align: right;
+        z-index: 2;
+    }
+
+    /* header menu */
+    & > header .menu > .item-group.root > nav
+    {
+        display: flex;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    & .menu .item-group:not(.root)
+    {
+        z-index: 5;
+    }
+
+    /* side menu */
+    & .box.side-menu
+    {
+        position: fixed;
+        right: 0px;
+        top: 48px;
+        bottom: 0px;
+        width: var(--app-skin-menu-width);
+        box-sizing: border-box;
+        z-index: 3;
+        overflow-y: visible;
+        overflow-x: hidden;
+        white-space: nowrap;
+        transform: scaleX(0);
+        transform-origin: right top;
+        will-change: transform opacity width;
+        opacity: 0;
+        border-radius: 0px;
+        padding: 10px;
+        background: transparent;
+        box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.08);
+        scrollbar-width: thin;
+
+        &.show
+        {
+            white-space: normal;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        &.show-animation
+        {
+            animation: side-menu-animation .1s;
+        }
+
+        &.hide-animation
+        {
+            animation: side-menu-animation .1s;
+            animation-direction: reverse;
+        }
+
+        .button.item.split > div.command
+        {
+            display: flex;
+            align-items: center;
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .button.item .content-holder
+        {
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &.menu-left .box.side-menu
+    {
+        right: auto;
+        left: 0px;
+        transform-origin: left top;
+    }
+
+    &.topbar .box.side-menu
+    {
+        top: 96px;
+    }
+
+    &.footer .box.side-menu
+    {
+        bottom: 48px;
+    }
+
+    & .menu.theme.side .item-group:not(.root)
+    {
+        position: relative;
+    }
+
+    /* side menu overlay */
+    & .overlay
+    {
+        display: none;
+        content: '';
+        position: fixed;
+        left: 0px;
+        right: 0px;
+        top: 48px;
+        bottom: 0px;
+        background: rgba(0,0,0,0.3);
+        z-index: 1;
+    }
+
+    &.topbar .overlay
+    {
+        top: 96px;
+    }
+
+    /* overlay only when the side-menu overlaps the content (below 960px there is no room next to the content) */
+    @media screen and (max-width: 959px)
+    {
+        &.side-menu .overlay
+        {
+            display: block;
+        }
+    }
+
+    /* header, topbar, footer buttons */
+    & .button.theme.menu-button, & .button.theme.account,
+    & > header .menu > .item-group.root > nav > .button.theme,
+    & > footer .menu > .item-group.root > nav > .button.theme
+    {
+        flex-shrink: 0;
+        height: 46px;
+        width: auto;
+        line-height: 46px !important;
+        vertical-align: top;
+        border-radius: 0;
+        padding-left: 0px;
+        padding-right: 0px;
+        text-align: center;
+    }
+
+    /* account button avatar */
+    & .button.theme.account-avatar
+    {
+        display: flex;
+        position: relative;
+        border-radius: 50%;
+        width: 46px;
+        height: 46px;
+        padding: 0;
+        margin: 20px;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+
+        &::before
+        {
+            content: var(--avatar-initials);
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        &::after
+        {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-image: var(--avatar-image);
+        }
+    }
+
+    & > header > div.app-content > .topbar .menu > .item-group.root > nav > .button.theme
+    {
+        flex: 1;
+        justify-content: center;
+    }
+
+    /* header, footer content */
+    & > header .menu > .item-group.root > nav > .button.theme:not(.childless) .content-holder,
+    & > footer .menu > .item-group.root > nav > .button.theme:not(.childless) .content-holder
+    {
+        margin-right: 24px; /* reserve space for expand-icon to keep combined content centered */
+    }
+
+    /* header, footer expand icon */
+    & > header .menu > .item-group.root > nav > .button.theme span.expand-icon,
+    & > footer .menu > .item-group.root > nav > .button.theme span.expand-icon
+    {
+        right: auto;
+        margin-left: -12px;
+    }
+
+    /* portal icon */
+    & > .menu.theme.portal .item-group.root > nav > * > .button.theme span.expand-icon
+    {
+        margin-right: 8px;
+        margin-top: -4px;
+        transform: none;
+    }
+
+    & > .menu.theme.portal .item-group.root > nav > * > .button.theme[class*="small"] span.expand-icon
+    {
+        margin-right: 0px;
+    }
+
+    & .menu.header-menu .item-group.root > nav > .button.theme .content-holder,
+    & .menu.header-menu .item-group.root > nav > * > .button.theme .content-holder,
+    & .menu.footer-menu .item-group.root > nav > .button.theme .content-holder,
+    & .menu.footer-menu .item-group.root > nav > * > .button.theme .content-holder,
+    & .menu.portal .item-group.root > nav > .button.theme .content-holder,
+    & .menu.portal .item-group.root > nav > * > .button.theme .content-holder,
+    & .menu.side .item-group > nav > .button.theme .content-holder,
+    & .menu.side .item-group > nav > * > .button.theme .content-holder
+    {
+        padding: 0px;
+    }
+
+    /* fixed width buttons */
+    & .button.theme.menu-button, & .button.theme.account
+    {
+        width: 46px;
+        flex: none;
+    }
+
+    & .button.theme.menu-button
+    {
+        line-height: 35px !important;
+        font-size: 0px;
+        display: inline-block;
+    }
+
+    & > header .menu > .item-group.root > nav > .button.theme .content-holder,
+    & > footer .menu > .item-group.root > nav > .button.theme .content-holder
+    {
+        display: inline-block;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    /* icon only header buttons when there is a header overflow */
+    &.header-overflow > header .menu > .item-group.root > nav > .button.theme span + .content-holder
+    {
+        display: none;
+    }
+
+    &.header-overflow > header .menu > .item-group.root > nav > .button.theme:not(.childless) span
+    {
+        margin-right: 22px;
+    }
+
+    /* button icon size */
+    & .button.theme.account span[class*='ico-'],
+    & > header .menu > .item-group.root > nav > .button.theme span[class*='ico-'],
+    & > footer .menu > .item-group.root > nav > .button.theme span[class*='ico-'],
+    & div.toolbar > .button.theme span[class*='ico-']
+    {
+        font-size: 20px;
+    }
+
+    & > .menu.theme.portal .item-group.root > nav > * > .button.theme span[class*='ico-']
+    {
+        font-size: 24px;
+    }
+
+    & > .menu.theme.portal .item-group.root > nav > * > .button.theme[class*='large'] span[class*='ico-']
+    {
+        font-size: 48px;
+    }
+
+    /* portal menu (trick to center floats) */
+    & > .menu.theme.portal .item-group.root
+    {
+        position: relative;
+        float: right;
+        left: -50%;
+
+        > nav
+        {
+            position: relative;
+            left: 50%;
+        }
+    }
+
+    /* portal menu tile groups, sizes, and buttons */
+    & .menu.theme.portal .item-group.root > nav
+    {
+        > .sub-group
+        {
+            float: left;
+
+            &.small
+            {
+                width: 60px;
+                height: 60px;
+            }
+
+            &.small-wide
+            {
+                width: 120px;
+            }
+
+            &.medium
+            {
+                width: 120px;
+                height: 120px;
+            }
+
+            &.medium-wide
+            {
+                width: 240px;
+            }
+
+            &.large
+            {
+                width: 240px;
+                height: 240px;
+
+                /* portal menu small buttons in large container */
+                > .button.theme.row-start
+                {
+                    clear: both; /* move to bottom left */
+                }
+
+                /* portal menu button next to row-start button */
+                > .button.theme.small-wide.row-start + .button.theme,
+                > .button.theme.small.row-start + .button.theme.small + .button.theme
+                {
+                    margin-top: -58px; /* move to top (height + margin) */
+                }
+            }
+        }
+
+        > * > .button.theme
+        {
+            display: block;
+            float: left;
+            margin: 2px;
+            line-height: 32px;
+            padding: 0px;
+            text-align: center;
+            border-radius: 0px;
+
+            &.small
+            {
+                width: 54px;
+                height: 54px;
+            }
+
+            &.small-wide
+            {
+                width: 114px;
+                height: 54px;
+            }
+
+            &.small .content-holder,
+            &.small-wide .content-holder
+            {
+                display: none;
+            }
+
+            &.medium
+            {
+                width: 114px;
+                height: 114px;
+            }
+
+            &.medium-wide
+            {
+                width: 234px;
+                height: 114px;
+            }
+
+            &.large
+            {
+                width: 234px;
+                height: 234px;
+            }
+
+            > span:first-child
+            {
+                position: relative;
+                display: block;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            > .content-holder
+            {
+                display: inline-block;
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateY(-40px) translateX(-50%);
+                line-height: 18px;
+                margin: 0px;
+                width: 100%;
+                white-space: pre-line;
+            }
+        }
+    }
+
+    /* overwrite portal cat-nav icon */
+    & > .menu.theme.portal.horizontal div.item-group.root .button.theme.cat-nav span.icon::before
+    {
+        transform: rotate(-135deg); /* left */
+    }
+
+    /* overwrite portal-menu category animation (slide not possible with complex floating positions) */
+    & > .menu.theme.portal.cat
+    {
+        height: auto;
+
+        > .cat-container .item-group.show-animation
+        {
+            animation: portal-category-display .2s ease;
+        }
+
+        > .cat-container .item-group.hide-animation
+        {
+            animation: portal-category-display .2s ease;
+            animation-direction: reverse;
+        }
+
+        > .cat-container .item-group.show-animation + .item-group.cat,
+        > .cat-container .item-group.hide-animation + .item-group.cat
+        {
+            display: none;
+        }
+    }
+
+    /* username label */
+    & b.username
+    {
+        line-height: 48px;
+        font-weight: normal;
+        white-space: nowrap;
+        margin-left: auto;
+        margin-right: 20px;
+    }
+
+    &:not(.authenticated) b.username
+    {
+        font-style: italic;
+    }
+
+    /* login-screen */
+    & div.login-screen
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        height: 100vh;
+        padding-top: 48px;
+        z-index: 2;
+        position: relative;
+
+        &.login-verification input
+        {
+            height: 20px;
+            width: 280px;
+            padding: 10px;
+        }
+
+        div.content > div
+        {
+            margin-top: 15px;
+        }
+
+        div.content .button.theme
+        {
+            margin-top: 15px;
+        }
+
+        div.user input,
+        div.pass input
+        {
+            height: 20px;
+            width: 250px;
+            padding: 10px;
+            padding-left: 40px;
+        }
+
+        div.user,
+        div.pass
+        {
+            position: relative;
+        }
+
+        .form-field.theme label
+        {
+            line-height: 40px;
+        }
+
+        div.user .form-field.theme label,
+        div.pass .form-field.theme label
+        {
+            left: 40px;
+        }
+
+        i[class*='ico-']
+        {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            text-shadow: none;
+        }
+
+        .form-field.floating i[class*='ico-']
+        {
+            top: calc(0.5rem + 28px); /* use the default form-field margin-top + reserved label height */
+            transform: translateY(50%); /* center using own height */
+        }
+
+        i[class*='ico-eye']
+        {
+            right: 10px;
+        }
+
+        i.ico-user,
+        i.ico-key
+        {
+            left: 10px;
+        }
+
+        input.default + i + i.ico-eye
+        {
+            display: none;
+        }
+
+        input
+        {
+            font-size: 15px;
+        }
+
+        div.remember
+        {
+            text-shadow: none !important;
+        }
+
+        .button.theme
+        {
+            height: 38px;
+            line-height: 38px;
+            width: 298px;
+            padding: 0px;
+        }
+
+        div.message
+        {
+            height: 25px;
+        }
+    }
+
+    & div.login-screen div.content
+    {
+        padding: 50px;
+        width: 300px;
+        margin: auto;
+        text-align: center;
+    }
+
+    /* login required launch screen (no header) */
+    &.login.required
+    {
+        > header
+        {
+            display: none;
+        }
+
+        div.login-screen
+        {
+            top: 0px;
+        }
+    }
+
+    &:not(.required) div.login-screen figure.logo
+    {
+        display: none;
+    }
+
+    /* preloader */
+    & .box.preloader
+    {
+        z-index: 6;
+
+        div.content
+        {
+            position: relative;
+            padding: 20px;
+            width: auto;
+            margin: 0px;
+            min-width: initial;
+
+            > div
+            {
+                display: flex;
+                align-items: center;
+            }
+
+            i.spinner
+            {
+                position: relative;
+                margin-right: 10px;
+            }
+
+            b
+            {
+                vertical-align: top;
+                font-weight: normal;
+            }
+        }
+    }
+
+    & > header h1
+    {
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    & h1,
+    & h2,
+    & h3
+    {
+        line-height: 34px;
+    }
+
+    /* page content */
+    & .toolbar
+    {
+        position: relative;
+        line-height: 34px;
+        height: 34px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-radius: 0;
+
+        &.fixed
+        {
+            position: fixed;
+            z-index: 1;
+            left: 0px;
+            right: 0px;
+            height: 34px;
+
+            + h1
+            {
+                padding-top: 33px;
+            }
+        }
+    }
+
+    & section
+    {
+        padding: 12px;
+        margin-bottom: 20px;
+
+        > div.column
+        {
+            margin-right: 12px;
+            padding: 12px;
+
+            &.list
+            {
+                overflow-y: auto;
+            }
+
+            &.grow
+            {
+                flex-grow: 1;
+            }
+
+            &:last-child
+            {
+                margin-right: 0px;
+            }
+        }
+    }
+
+    & div.error > div.app-content > section
+    {
+        display: block;
+    }
+
+    /* inputs */
+    & select
+    {
+        box-sizing: content-box;
+    }
+
+    & input[type="text"],
+    & input[type="password"],
+    & textarea,
+    & select
+    {
+        font-family: inherit;
+        border-width: 1px;
+        border-style: solid;
+        height: 28px;
+        padding-left: 4px;
+        padding-right: 4px;
+        vertical-align: top;
+        min-width: 200px;
+    }
+
+    & .numeric-box.theme input,
+    & div.combo-box input
+    {
+        min-width: 0;
+    }
+
+    & textarea
+    {
+        min-height: 30px;
+        height: 50px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    /* search-result */
+    & .search-result
+    {
+        position: fixed;
+        z-index: 12;
+        top: 48px;
+        bottom: 0;
+        left: 0px;
+        right: 0px;
+        overflow-y: auto;
+        padding: 20px;
+        display: flex;
+        gap: 2rem;
+        justify-content: space-around;
+        border-style: solid;
+
+        > nav
+        {
+            > h2
+            {
+                text-transform: uppercase;
+            }
+
+            > a
+            {
+                display: block;
+            }
+        }
+    }
+
+    /* hide root category navigator in main side-menu when all navigation items are in header-menu and header-menu is visible */
+    &.header-all:not(.header-menu-hidden) .menu.theme.side .button.theme.cat-nav.root
+    {
+        display: none;
+    }
+}
+
+@keyframes side-menu-animation
+{
+    0%
+    {
+        opacity: 0;
+        transform: scaleX(0) rotate(0deg) translate3d(0,0,0);
+    }
+
+    100%
+    {
+        opacity: 1;
+        transform: scaleX(1) rotate(0deg) translate3d(0,0,0);
+    }
+}
+
+@keyframes portal-category-display
+{
+    0%
+    {
+        opacity: 0;
+    }
+
+    100%
+    {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1200px)
+{
+    :root
+    {
+        --app-skin-content-width: 1200px;
+    }
+}
+
+@media screen and (min-width: 1280px)
+{
+    :root
+    {
+        --app-skin-content-width: 1280px;
+    }
+}
+
+@media screen and (min-width: 1440px)
+{
+    :root
+    {
+        --app-skin-content-width: 1440px;
+    }
+}
+
+@media screen and (max-width: 767px)
+{
+    :root
+    {
+        --app-skin-menu-width: 280px;
+    }
+}

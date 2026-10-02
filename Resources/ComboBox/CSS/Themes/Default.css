@@ -1,0 +1,23 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.combo-box.theme.theme-default.multi li.item.select-all,
+.combo-box.theme.theme-default.multi li.item.select-all:hover,
+.combo-box.theme.theme-default.multi li.item.select-all:focus,
+.combo-box.theme.theme-default li.preloader,
+.combo-box.theme.theme-default li.no-result
+{
+    color: var(--cui-base-text-color);
+    background: var(--cui-base-bg-color);
+}
+
+.combo-box.theme.theme-default .button.theme.expand.split div.command,
+.combo-box.theme.theme-default .button.theme.expand.split:hover div.command
+{
+    color: inherit;
+    border-color: var(--cui-button-border-color);
+}
+
+.combo-box.theme.theme-default:not(.disabled).focus .button.theme:not(.split).expand,
+.combo-box.theme.theme-default:not(.disabled).focus .button.theme.split.expand div.command
+{
+    box-shadow: inset 0px -2px 0px 0px var(--cui-button-selected-bg-color);
+}

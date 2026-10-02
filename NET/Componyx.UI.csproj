@@ -1,0 +1,1079 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>Componyx.UI</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+    <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+    
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\Componyx.UI.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+<ItemGroup>
+  <None Include="..\TypeDefinitions\**\*.ts">
+    <Link>TypeDefinitions\%(RecursiveDir)%(Filename)%(Extension)</Link>
+  </None>
+</ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="..\Resources\AppSkin\Resources\CSS\AppSkin.css" />
+    <None Remove="..\Resources\AppSkin\Resources\CSS\AppSkin.min.css" />
+    <None Remove="..\Resources\AppSkin\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\AppSkin\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\AppSkin\Resources\Script\AppSkin.js" />
+    <None Remove="..\Resources\AppSkin\Resources\Script\AppSkin.min.js" />
+    <None Remove="..\Resources\Base\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\Base\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\Base\Resources\CSS\UI.css" />
+    <None Remove="..\Resources\Base\Resources\CSS\UI.min.css" />
+    <None Remove="..\Resources\Base\Resources\CSS\ComponentIcons.css" />
+    <None Remove="..\Resources\Base\Resources\CSS\ComponentIcons.min.css" />
+    <None Remove="..\Resources\Base\Resources\Font\UI.woff" />
+    <None Remove="..\Resources\Base\Resources\Script\Base.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Base.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Library.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Library.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\ResponsiveTemplates.js" />
+    <None Remove="..\Resources\Base\Resources\Script\ResponsiveTemplates.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Core.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Core.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Connection.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Connection.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.DataUpdater.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.DataUpdater.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.ExpressionEngine.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.ExpressionEngine.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.ProxyManager.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.ProxyManager.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Renderer.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Renderer.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Router.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Router.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Scroller.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Scroller.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Template.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Bindary.Template.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\NavigationManager.js" />
+    <None Remove="..\Resources\Base\Resources\Script\NavigationManager.min.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Sanitizer.js" />
+    <None Remove="..\Resources\Base\Resources\Script\Sanitizer.min.js" />
+    
+    <None Remove="..\Resources\Base\Resources\Script\UI.js" />
+    <None Remove="..\Resources\Base\Resources\Script\UI.min.js" />  
+    
+    <None Remove="..\Resources\BookmarkSpy\Resources\Script\BookmarkSpy.js" />
+    <None Remove="..\Resources\BookmarkSpy\Resources\Script\BookmarkSpy.min.js" />
+    
+    <None Remove="..\Resources\Box\Resources\CSS\Box.css" />
+    <None Remove="..\Resources\Box\Resources\CSS\Box.min.css" />
+    <None Remove="..\Resources\Box\Resources\Script\Box.js" />
+    <None Remove="..\Resources\Box\Resources\Script\Box.min.js" />
+    
+    <None Remove="..\Resources\Button\Resources\CSS\Button.css" />
+    <None Remove="..\Resources\Button\Resources\CSS\Button.min.css" />
+    <None Remove="..\Resources\Button\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\Button\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\Button\Resources\Script\Button.js" />
+    <None Remove="..\Resources\Button\Resources\Script\Button.min.js" />
+    
+    <None Remove="..\Resources\Carousel\Resources\CSS\Carousel.css" />
+    <None Remove="..\Resources\Carousel\Resources\CSS\Carousel.min.css" />
+    <None Remove="..\Resources\Carousel\Resources\Script\Carousel.js" />
+    <None Remove="..\Resources\Carousel\Resources\Script\Carousel.min.js" />
+    
+    <None Remove="..\Resources\ColorButton\Resources\CSS\ColorButton.css" />
+    <None Remove="..\Resources\ColorButton\Resources\CSS\ColorButton.min.css" />
+    <None Remove="..\Resources\ColorButton\Resources\Script\ColorButton.js" />
+    <None Remove="..\Resources\ColorButton\Resources\Script\ColorButton.min.js" />
+    
+    <None Remove="..\Resources\ColorPicker\Resources\CSS\ColorPicker.css" />
+    <None Remove="..\Resources\ColorPicker\Resources\CSS\ColorPicker.min.css" />
+    <None Remove="..\Resources\ColorPicker\Resources\Script\ColorPicker.js" />
+    <None Remove="..\Resources\ColorPicker\Resources\Script\ColorPicker.min.js" />
+    
+    <None Remove="..\Resources\ComboBox\Resources\CSS\ComboBox.css" />
+    <None Remove="..\Resources\ComboBox\Resources\CSS\ComboBox.min.css" />
+    <None Remove="..\Resources\ComboBox\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\ComboBox\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\ComboBox\Resources\Script\ComboBox.js" />
+    <None Remove="..\Resources\ComboBox\Resources\Script\ComboBox.min.js" />
+    
+    <None Remove="..\Resources\DataPager\Resources\CSS\DataPager.css" />
+    <None Remove="..\Resources\DataPager\Resources\CSS\DataPager.min.css" />
+    <None Remove="..\Resources\DataPager\Resources\Script\DataPager.js" />
+    <None Remove="..\Resources\DataPager\Resources\Script\DataPager.min.js" />
+    
+    <None Remove="..\Resources\DatePicker\Resources\CSS\DatePicker.css" />
+    <None Remove="..\Resources\DatePicker\Resources\CSS\DatePicker.min.css" />
+    <None Remove="..\Resources\DatePicker\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\DatePicker\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\DatePicker\Resources\Script\DatePicker.js" />
+    <None Remove="..\Resources\DatePicker\Resources\Script\DatePicker.min.js" />
+    
+    <None Remove="..\Resources\Dialog\Resources\CSS\Dialog.css" />
+    <None Remove="..\Resources\Dialog\Resources\CSS\Dialog.min.css" />
+    <None Remove="..\Resources\Dialog\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\Dialog\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\Dialog\Resources\Script\Dialog.js" />
+    <None Remove="..\Resources\Dialog\Resources\Script\Dialog.min.js" />
+    
+    <None Remove="..\Resources\Editor\Resources\CSS\Editor.css" />
+    <None Remove="..\Resources\Editor\Resources\CSS\Editor.min.css" />
+    <None Remove="..\Resources\Editor\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\Editor\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\Editor\Resources\Font\Editor.woff" />
+    <None Remove="..\Resources\Editor\Resources\Data\Emoji.json" />
+    <None Remove="..\Resources\Editor\Resources\Data\Special.json" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\ComponentFactory.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\ComponentFactory.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\ContentManager.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\ContentManager.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\DialogManager.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\DialogManager.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\EventManager.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\EventManager.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\Format.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\Format.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\History.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\History.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\ImageResizer.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\ImageResizer.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\LayoutState.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\LayoutState.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\ListManager.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\ListManager.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\MenuManager.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\MenuManager.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\NodeManager.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\NodeManager.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\ParagraphButtons.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\ParagraphButtons.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\SelectionRange.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\SelectionRange.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\SourceViewBuilder.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\SourceViewBuilder.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\SymbolPicker.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\SymbolPicker.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\Table.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\Table.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\TableDialog.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\TableDialog.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\Toolbar.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\Toolbar.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\TooltipMenu.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\TooltipMenu.min.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\Utility.js" />
+    <None Remove="..\Resources\Editor\Resources\Script\Editor\Utility.min.js" />
+
+    <None Remove="..\Resources\FileUpload\Resources\CSS\FileUpload.css" />
+    <None Remove="..\Resources\FileUpload\Resources\CSS\FileUpload.min.css" />
+    <None Remove="..\Resources\FileUpload\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\FileUpload\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\FileUpload\Resources\Script\FileUpload.js" />
+    <None Remove="..\Resources\FileUpload\Resources\Script\FileUpload.min.js" />
+    
+    <None Remove="..\Resources\FormField\Resources\CSS\FormField.css" />
+    <None Remove="..\Resources\FormField\Resources\CSS\FormField.min.css" />
+    <None Remove="..\Resources\FormField\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\FormField\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\FormField\Resources\Script\FormField.js" />
+    <None Remove="..\Resources\FormField\Resources\Script\FormField.min.js" />
+
+    <None Remove="..\Resources\Form\Resources\CSS\Form.css" />
+    <None Remove="..\Resources\Form\Resources\CSS\Form.min.css" />
+    <None Remove="..\Resources\Form\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\Form\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\Form\Resources\Script\Form.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\ActionManager.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\ActionManager.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\BuildPanelManager.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\BuildPanelManager.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\DataBinder.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\DataBinder.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\Draggable.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\Draggable.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\DataObserver.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\DataObserver.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\ComponentFactory.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\ComponentFactory.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\ConfigPanelManager.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\ConfigPanelManager.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\ComponentPanel.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\ComponentPanel.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\OptionsPanel.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\OptionsPanel.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\RulesPanel.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\RulesPanel.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\Renderer.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\Renderer.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\RuleEngine.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\RuleEngine.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\Types.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\Types.min.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\ValidationManager.js" />
+    <None Remove="..\Resources\Form\Resources\Script\Form\ValidationManager.min.js" />
+
+    <None Remove="..\Resources\Grid\Resources\CSS\Grid.css" />
+    <None Remove="..\Resources\Grid\Resources\CSS\Grid.min.css" />
+    <None Remove="..\Resources\Grid\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\Grid\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\Grid\Resources\Script\Grid.js" />
+    <None Remove="..\Resources\Grid\Resources\Script\Grid.min.js" />
+    
+    <None Remove="..\Resources\MaskedTextBox\Resources\CSS\MaskedTextBox.css" />
+    <None Remove="..\Resources\MaskedTextBox\Resources\CSS\MaskedTextBox.min.css" />
+    <None Remove="..\Resources\MaskedTextBox\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\MaskedTextBox\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\MaskedTextBox\Resources\Script\MaskedTextBox.js" />
+    <None Remove="..\Resources\MaskedTextBox\Resources\Script\MaskedTextBox.min.js" />
+    
+    <None Remove="..\Resources\Menu\Resources\CSS\Menu.css" />
+    <None Remove="..\Resources\Menu\Resources\CSS\Menu.min.css" />
+    <None Remove="..\Resources\Menu\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\Menu\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\Menu\Resources\Script\Menu.js" />
+    <None Remove="..\Resources\Menu\Resources\Script\Menu.min.js" />
+
+    <None Remove="..\Resources\NumericBox\Resources\CSS\NumericBox.css" />
+    <None Remove="..\Resources\NumericBox\Resources\CSS\NumericBox.min.css" />
+    <None Remove="..\Resources\NumericBox\Resources\Script\NumericBox.js" />
+    <None Remove="..\Resources\NumericBox\Resources\Script\NumericBox.min.js" />
+    <None Remove="..\Resources\PanelBar\Resources\CSS\PanelBar.css" />
+    <None Remove="..\Resources\PanelBar\Resources\CSS\PanelBar.min.css" />
+    <None Remove="..\Resources\PanelBar\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\PanelBar\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\PanelBar\Resources\Script\PanelBar.js" />
+    <None Remove="..\Resources\PanelBar\Resources\Script\PanelBar.min.js" />
+    
+    <None Remove="..\Resources\PieChart\Resources\CSS\PieChart.css" />
+    <None Remove="..\Resources\PieChart\Resources\CSS\PieChart.min.css" />
+    <None Remove="..\Resources\PieChart\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\PieChart\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\PieChart\Resources\Script\PieChart.js" />
+    <None Remove="..\Resources\PieChart\Resources\Script\PieChart.min.js" />
+        
+    <None Remove="..\Resources\Slider\Resources\CSS\Slider.css" />
+    <None Remove="..\Resources\Slider\Resources\CSS\Slider.min.css" />
+    <None Remove="..\Resources\Slider\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\Slider\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\Slider\Resources\Script\Slider.js" />
+    <None Remove="..\Resources\Slider\Resources\Script\Slider.min.js" />
+    
+    <None Remove="..\Resources\TabStrip\Resources\CSS\TabStrip.css" />
+    <None Remove="..\Resources\TabStrip\Resources\CSS\TabStrip.min.css" />
+    <None Remove="..\Resources\TabStrip\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\TabStrip\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\TabStrip\Resources\Script\TabStrip.js" />
+    <None Remove="..\Resources\TabStrip\Resources\Script\TabStrip.min.js" />
+    
+    <None Remove="..\Resources\TimePicker\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\TimePicker\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\TimePicker\Resources\CSS\TimePicker.css" />
+    <None Remove="..\Resources\TimePicker\Resources\CSS\TimePicker.min.css" />
+    <None Remove="..\Resources\TimePicker\Resources\Script\TimePicker.js" />
+    <None Remove="..\Resources\TimePicker\Resources\Script\TimePicker.min.js" />
+    
+    <None Remove="..\Resources\TooltipManager\Resources\CSS\Themes\Default.css" />
+    <None Remove="..\Resources\TooltipManager\Resources\CSS\Themes\Default.min.css" />
+    <None Remove="..\Resources\TooltipManager\Resources\CSS\TooltipManager.css" />
+    <None Remove="..\Resources\TooltipManager\Resources\CSS\TooltipManager.min.css" />
+    <None Remove="..\Resources\TooltipManager\Resources\Script\TooltipManager.js" />
+    <None Remove="..\Resources\TooltipManager\Resources\Script\TooltipManager.min.js" />
+   
+    <None Remove="..\Resources\Validator\Resources\CSS\Validator.css" />
+    <None Remove="..\Resources\Validator\Resources\CSS\Validator.min.css" />
+    <None Remove="..\Resources\Validator\Resources\Script\Validator.js" />
+    <None Remove="..\Resources\Validator\Resources\Script\Validator.min.js" />
+    <None Remove="..\TypeDefinitions\ResponsiveTemplates.d.ts" />
+
+    <None Remove="UI.min.js" />
+    <None Remove="UIResourcePath.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\AppSkin\CSS\AppSkin.css">
+      <Link>AppSkin\Resources\CSS\AppSkin.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\AppSkin\CSS\AppSkin.min.css">
+      <Link>AppSkin\Resources\CSS\AppSkin.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\AppSkin\CSS\Themes\Default.css">
+      <Link>AppSkin\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\AppSkin\CSS\Themes\Default.min.css">
+      <Link>AppSkin\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\AppSkin\Script\AppSkin.js">
+      <Link>AppSkin\Resources\Script\AppSkin.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\AppSkin\Script\AppSkin.min.js">
+      <Link>AppSkin\Resources\Script\AppSkin.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\CSS\Themes\Default.css">
+      <Link>Base\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\CSS\Themes\Default.min.css">
+      <Link>Base\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\CSS\UI.css">
+      <Link>Base\Resources\CSS\UI.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\CSS\UI.min.css">
+      <Link>Base\Resources\CSS\UI.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\Base\CSS\ComponentIcons.css">
+      <Link>Base\Resources\CSS\ComponentIcons.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\CSS\ComponentIcons.min.css">
+      <Link>Base\Resources\CSS\ComponentIcons.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Base.js">
+      <Link>Base\Resources\Script\Base.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Base.min.js">
+      <Link>Base\Resources\Script\Base.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Library.js">
+      <Link>Base\Resources\Script\Library.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Library.min.js">
+      <Link>Base\Resources\Script\Library.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\ResponsiveTemplates.min.js">
+      <Link>Base\Resources\Script\ResponsiveTemplates.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Bindary.js">
+      <Link>Base\Resources\Script\Bindary.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Bindary.min.js">
+      <Link>Base\Resources\Script\Bindary.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Connection.js">
+      <Link>Base\Resources\Script\Bindary\Connection.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Connection.min.js">
+      <Link>Base\Resources\Script\Bindary\Connection.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Core.js">
+      <Link>Base\Resources\Script\Bindary\Core.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Core.min.js">
+      <Link>Base\Resources\Script\Bindary\Core.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Bindary\DataUpdater.js">
+      <Link>Base\Resources\Script\Bindary\DataUpdater.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Bindary\DataUpdater.min.js">
+      <Link>Base\Resources\Script\Bindary\DataUpdater.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Bindary\ExpressionEngine.js">
+      <Link>Base\Resources\Script\Bindary\ExpressionEngine.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Bindary\ExpressionEngine.min.js">
+      <Link>Base\Resources\Script\Bindary\ExpressionEngine.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Bindary\ProxyManager.js">
+      <Link>Base\Resources\Script\Bindary\ProxyManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Bindary\ProxyManager.min.js">
+      <Link>Base\Resources\Script\Bindary\ProxyManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Renderer.js">
+      <Link>Base\Resources\Script\Bindary\Renderer.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Renderer.min.js">
+      <Link>Base\Resources\Script\Bindary\Renderer.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Router.js">
+      <Link>Base\Resources\Script\Bindary\Router.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Router.min.js">
+      <Link>Base\Resources\Script\Bindary\Router.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Scroller.js">
+      <Link>Base\Resources\Script\Bindary\Scroller.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Scroller.min.js">
+      <Link>Base\Resources\Script\Bindary\Scroller.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Template.js">
+      <Link>Base\Resources\Script\Bindary\Template.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Bindary\Template.min.js">
+      <Link>Base\Resources\Script\Bindary\Template.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\NavigationManager.js">
+      <Link>Base\Resources\Script\NavigationManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\NavigationManager.min.js">
+      <Link>Base\Resources\Script\NavigationManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Base\Script\Sanitizer.js">
+      <Link>Base\Resources\Script\Sanitizer.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Base\Script\Sanitizer.min.js">
+      <Link>Base\Resources\Script\Sanitizer.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\Base\Font\UI.woff">
+      <Link>Base\Resources\Font\UI.woff</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\Base\Font\ComponentIcons.woff">
+      <Link>Base\Resources\Font\ComponentIcons.woff</Link>
+    </EmbeddedResource>
+    
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\BookmarkSpy\Script\BookmarkSpy.js">
+      <Link>BookmarkSpy\Resources\Script\BookmarkSpy.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\BookmarkSpy\Script\BookmarkSpy.min.js">
+      <Link>BookmarkSpy\Resources\Script\BookmarkSpy.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Box\CSS\Box.css">
+      <Link>Box\Resources\CSS\Box.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Box\CSS\Box.min.css">
+      <Link>Box\Resources\CSS\Box.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Box\Script\Box.js">
+      <Link>Box\Resources\Script\Box.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Box\Script\Box.min.js">
+      <Link>Box\Resources\Script\Box.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Button\CSS\Button.css">
+      <Link>Button\Resources\CSS\Button.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Button\CSS\Button.min.css">
+      <Link>Button\Resources\CSS\Button.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Button\CSS\Themes\Default.css">
+      <Link>Button\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Button\CSS\Themes\Default.min.css">
+      <Link>Button\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Button\Script\Button.js">
+      <Link>Button\Resources\Script\Button.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Button\Script\Button.min.js">
+      <Link>Button\Resources\Script\Button.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Carousel\CSS\Carousel.css">
+      <Link>Carousel\Resources\CSS\Carousel.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Carousel\CSS\Carousel.min.css">
+      <Link>Carousel\Resources\CSS\Carousel.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Carousel\Script\Carousel.js">
+      <Link>Carousel\Resources\Script\Carousel.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Carousel\Script\Carousel.min.js">
+      <Link>Carousel\Resources\Script\Carousel.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\ColorButton\CSS\ColorButton.css">
+      <Link>ColorButton\Resources\CSS\ColorButton.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\ColorButton\CSS\ColorButton.min.css">
+      <Link>ColorButton\Resources\CSS\ColorButton.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\ColorButton\Script\ColorButton.js">
+      <Link>ColorButton\Resources\Script\ColorButton.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\ColorButton\Script\ColorButton.min.js">
+      <Link>ColorButton\Resources\Script\ColorButton.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\ColorPicker\Script\ColorPicker.js">
+      <Link>ColorPicker\Resources\Script\ColorPicker.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\ColorPicker\Script\ColorPicker.min.js">
+      <Link>ColorPicker\Resources\Script\ColorPicker.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\ColorPicker\CSS\ColorPicker.css">
+      <Link>ColorPicker\Resources\CSS\ColorPicker.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\ColorPicker\CSS\ColorPicker.min.css">
+      <Link>ColorPicker\Resources\CSS\ColorPicker.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\ComboBox\Script\ComboBox.js">
+      <Link>ComboBox\Resources\Script\ComboBox.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\ComboBox\Script\ComboBox.min.js">
+      <Link>ComboBox\Resources\Script\ComboBox.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\ComboBox\CSS\ComboBox.css">
+      <Link>ComboBox\Resources\CSS\ComboBox.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\ComboBox\CSS\ComboBox.min.css">
+      <Link>ComboBox\Resources\CSS\ComboBox.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\ComboBox\CSS\Themes\Default.css">
+      <Link>ComboBox\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\ComboBox\CSS\Themes\Default.min.css">
+      <Link>ComboBox\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\DataPager\CSS\DataPager.css">
+      <Link>DataPager\Resources\CSS\DataPager.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\DataPager\CSS\DataPager.min.css">
+      <Link>DataPager\Resources\CSS\DataPager.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\DataPager\Script\DataPager.js">
+      <Link>DataPager\Resources\Script\DataPager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\DataPager\Script\DataPager.min.js">
+      <Link>DataPager\Resources\Script\DataPager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\DatePicker\CSS\DatePicker.css">
+      <Link>DatePicker\Resources\CSS\DatePicker.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\DatePicker\CSS\DatePicker.min.css">
+      <Link>DatePicker\Resources\CSS\DatePicker.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\DatePicker\CSS\Themes\Default.css">
+      <Link>DatePicker\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\DatePicker\CSS\Themes\Default.min.css">
+      <Link>DatePicker\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\DatePicker\Script\DatePicker.js">
+      <Link>DatePicker\Resources\Script\DatePicker.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\DatePicker\Script\DatePicker.min.js">
+      <Link>DatePicker\Resources\Script\DatePicker.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Dialog\CSS\Dialog.css">
+      <Link>Dialog\Resources\CSS\Dialog.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Dialog\CSS\Dialog.min.css">
+      <Link>Dialog\Resources\CSS\Dialog.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Dialog\CSS\Themes\Default.css">
+      <Link>Dialog\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Dialog\CSS\Themes\Default.min.css">
+      <Link>Dialog\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Dialog\Script\Dialog.js">
+      <Link>Dialog\Resources\Script\Dialog.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Dialog\Script\Dialog.min.js">
+      <Link>Dialog\Resources\Script\Dialog.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\CSS\Editor.css">
+      <Link>Editor\Resources\CSS\Editor.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\CSS\Editor.min.css">
+      <Link>Editor\Resources\CSS\Editor.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\CSS\Themes\Default.css">
+      <Link>Editor\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\CSS\Themes\Default.min.css">
+      <Link>Editor\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor.js">
+      <Link>Editor\Resources\Script\Editor.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor.min.js">
+      <Link>Editor\Resources\Script\Editor.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\ComponentFactory.js">
+      <Link>Editor\Resources\Script\Editor\ComponentFactory.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\ComponentFactory.min.js">
+      <Link>Editor\Resources\Script\Editor\ComponentFactory.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\ContentManager.js">
+      <Link>Editor\Resources\Script\Editor\ContentManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\ContentManager.min.js">
+      <Link>Editor\Resources\Script\Editor\ContentManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\DialogManager.js">
+      <Link>Editor\Resources\Script\Editor\DialogManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\DialogManager.min.js">
+      <Link>Editor\Resources\Script\Editor\DialogManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\EventManager.js">
+      <Link>Editor\Resources\Script\Editor\EventManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\EventManager.min.js">
+      <Link>Editor\Resources\Script\Editor\EventManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\Format.js">
+      <Link>Editor\Resources\Script\Editor\Format.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\Format.min.js">
+      <Link>Editor\Resources\Script\Editor\Format.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\History.js">
+      <Link>Editor\Resources\Script\Editor\History.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\History.min.js">
+      <Link>Editor\Resources\Script\Editor\History.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\LayoutState.js">
+      <Link>Editor\Resources\Script\Editor\LayoutState.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\LayoutState.min.js">
+      <Link>Editor\Resources\Script\Editor\LayoutState.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\ListManager.js">
+      <Link>Editor\Resources\Script\Editor\ListManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\ListManager.min.js">
+      <Link>Editor\Resources\Script\Editor\ListManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\MenuManager.js">
+      <Link>Editor\Resources\Script\Editor\MenuManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\MenuManager.min.js">
+      <Link>Editor\Resources\Script\Editor\MenuManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\NodeManager.js">
+      <Link>Editor\Resources\Script\Editor\NodeManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\NodeManager.min.js">
+      <Link>Editor\Resources\Script\Editor\NodeManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\ParagraphButtons.js">
+      <Link>Editor\Resources\Script\Editor\ParagraphButtons.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\ParagraphButtons.min.js">
+      <Link>Editor\Resources\Script\Editor\ParagraphButtons.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\Resizer.js">
+      <Link>Editor\Resources\Script\Editor\Resizer.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\Resizer.min.js">
+      <Link>Editor\Resources\Script\Editor\Resizer.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\SelectionRange.js">
+      <Link>Editor\Resources\Script\Editor\SelectionRange.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\SelectionRange.min.js">
+      <Link>Editor\Resources\Script\Editor\SelectionRange.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\SourceViewBuilder.js">
+      <Link>Editor\Resources\Script\Editor\SourceViewBuilder.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\SourceViewBuilder.min.js">
+      <Link>Editor\Resources\Script\Editor\SourceViewBuilder.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\SymbolPicker.js">
+      <Link>Editor\Resources\Script\Editor\SymbolPicker.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\SymbolPicker.min.js">
+      <Link>Editor\Resources\Script\Editor\SymbolPicker.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\Table.js">
+      <Link>Editor\Resources\Script\Editor\Table.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\Table.min.js">
+      <Link>Editor\Resources\Script\Editor\Table.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\TableDialog.js">
+      <Link>Editor\Resources\Script\Editor\TableDialog.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\TableDialog.min.js">
+      <Link>Editor\Resources\Script\Editor\TableDialog.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\Toolbar.js">
+      <Link>Editor\Resources\Script\Editor\Toolbar.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\Toolbar.min.js">
+      <Link>Editor\Resources\Script\Editor\Toolbar.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\TooltipMenu.js">
+      <Link>Editor\Resources\Script\Editor\TooltipMenu.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\TooltipMenu.min.js">
+      <Link>Editor\Resources\Script\Editor\TooltipMenu.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Editor\Script\Editor\Utility.js">
+      <Link>Editor\Resources\Script\Editor\Utility.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Editor\Script\Editor\Utility.min.js">
+      <Link>Editor\Resources\Script\Editor\Utility.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\Editor\Font\Editor.woff">
+      <Link>Editor\Resources\Font\Editor.woff</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\Editor\Data\Emoji.json">
+      <Link>Editor\Resources\Data\Emoji.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\Editor\Data\Special.json">
+      <Link>Editor\Resources\Data\Special.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\FileUpload\CSS\FileUpload.css">
+      <Link>FileUpload\Resources\CSS\FileUpload.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\FileUpload\CSS\FileUpload.min.css">
+      <Link>FileUpload\Resources\CSS\FileUpload.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\FileUpload\CSS\Themes\Default.css">
+      <Link>FileUpload\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\FileUpload\CSS\Themes\Default.min.css">
+      <Link>FileUpload\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\FileUpload\Script\FileUpload.js">
+      <Link>FileUpload\Resources\Script\FileUpload.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\FileUpload\Script\FileUpload.min.js">
+      <Link>FileUpload\Resources\Script\FileUpload.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\CSS\Form.css">
+      <Link>Form\Resources\CSS\Form.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\CSS\Form.min.css">
+      <Link>Form\Resources\CSS\Form.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\CSS\Themes\Default.css">
+      <Link>Form\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\CSS\Themes\Default.min.css">
+      <Link>Form\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form.js">
+      <Link>Form\Resources\Script\Form.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form.min.js">
+      <Link>Form\Resources\Script\Form.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\ActionManager.js">
+      <Link>Form\Resources\Script\Form\ActionManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\ActionManager.min.js">
+      <Link>Form\Resources\Script\Form\ActionManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\BuildPanelManager.js">
+      <Link>Form\Resources\Script\Form\BuildPanelManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\BuildPanelManager.min.js">
+      <Link>Form\Resources\Script\Form\BuildPanelManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\DataBinder.js">
+      <Link>Form\Resources\Script\Form\DataBinder.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\DataBinder.min.js">
+      <Link>Form\Resources\Script\Form\DataBinder.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\Draggable.js">
+      <Link>Form\Resources\Script\Form\Draggable.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\Draggable.min.js">
+      <Link>Form\Resources\Script\Form\Draggable.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\DataObserver.js">
+      <Link>Form\Resources\Script\Form\DataObserver.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\DataObserver.min.js">
+      <Link>Form\Resources\Script\Form\DataObserver.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\ComponentFactory.js">
+      <Link>Form\Resources\Script\Form\ComponentFactory.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\ComponentFactory.min.js">
+      <Link>Form\Resources\Script\Form\ComponentFactory.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\ConfigPanelManager.js">
+      <Link>Form\Resources\Script\Form\ConfigPanelManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\ConfigPanelManager.min.js">
+      <Link>Form\Resources\Script\Form\ConfigPanelManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\ComponentPanel.js">
+      <Link>Form\Resources\Script\Form\ComponentPanel.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\ComponentPanel.min.js">
+      <Link>Form\Resources\Script\Form\ComponentPanel.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\OptionsPanel.js">
+      <Link>Form\Resources\Script\Form\OptionsPanel.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\OptionsPanel.min.js">
+      <Link>Form\Resources\Script\Form\OptionsPanel.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\RulesPanel.js">
+      <Link>Form\Resources\Script\Form\RulesPanel.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\RulesPanel.min.js">
+      <Link>Form\Resources\Script\Form\RulesPanel.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\Renderer.js">
+      <Link>Form\Resources\Script\Form\Renderer.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\Renderer.min.js">
+      <Link>Form\Resources\Script\Form\Renderer.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\RuleEngine.js">
+      <Link>Form\Resources\Script\Form\RuleEngine.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\RuleEngine.min.js">
+      <Link>Form\Resources\Script\Form\RuleEngine.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\Types.js">
+      <Link>Form\Resources\Script\Form\Types.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\Types.min.js">
+      <Link>Form\Resources\Script\Form\Types.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Form\Script\Form\ValidationManager.js">
+      <Link>Form\Resources\Script\Form\ValidationManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Form\Script\Form\ValidationManager.min.js">
+      <Link>Form\Resources\Script\Form\ValidationManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\FormField\CSS\FormField.css">
+      <Link>FormField\Resources\CSS\FormField.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\FormField\CSS\FormField.min.css">
+      <Link>FormField\Resources\CSS\FormField.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\FormField\CSS\Themes\Default.css">
+      <Link>FormField\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\FormField\CSS\Themes\Default.min.css">
+      <Link>FormField\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\FormField\Script\FormField.js">
+      <Link>FormField\Resources\Script\FormField.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\FormField\Script\FormField.min.js">
+      <Link>FormField\Resources\Script\FormField.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Grid\CSS\Grid.css">
+      <Link>Grid\Resources\CSS\Grid.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Grid\CSS\Grid.min.css">
+      <Link>Grid\Resources\CSS\Grid.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Grid\CSS\Themes\Default.css">
+      <Link>Grid\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Grid\CSS\Themes\Default.min.css">
+      <Link>Grid\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Grid\Script\Grid.js">
+      <Link>Grid\Resources\Script\Grid.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Grid\Script\Grid.min.js">
+      <Link>Grid\Resources\Script\Grid.min.js</Link>
+    </EmbeddedResource>
+
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\MaskedTextBox\CSS\MaskedTextBox.css">
+      <Link>MaskedTextBox\Resources\CSS\MaskedTextBox.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\MaskedTextBox\CSS\MaskedTextBox.min.css">
+      <Link>MaskedTextBox\Resources\CSS\MaskedTextBox.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\MaskedTextBox\CSS\Themes\Default.css">
+      <Link>MaskedTextBox\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\MaskedTextBox\CSS\Themes\Default.min.css">
+      <Link>MaskedTextBox\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\MaskedTextBox\Script\MaskedTextBox.js">
+      <Link>MaskedTextBox\Resources\Script\MaskedTextBox.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\MaskedTextBox\Script\MaskedTextBox.min.js">
+      <Link>MaskedTextBox\Resources\Script\MaskedTextBox.min.js</Link>
+    </EmbeddedResource>
+
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Menu\CSS\Menu.css">
+      <Link>Menu\Resources\CSS\Menu.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Menu\CSS\Menu.min.css">
+      <Link>Menu\Resources\CSS\Menu.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Menu\CSS\Themes\Default.css">
+      <Link>Menu\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Menu\CSS\Themes\Default.min.css">
+      <Link>Menu\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Menu\Script\Menu.js">
+      <Link>Menu\Resources\Script\Menu.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Menu\Script\Menu.min.js">
+      <Link>Menu\Resources\Script\Menu.min.js</Link>
+    </EmbeddedResource>
+
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\NumericBox\CSS\NumericBox.css">
+      <Link>NumericBox\Resources\CSS\NumericBox.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\NumericBox\CSS\NumericBox.min.css">
+      <Link>NumericBox\Resources\CSS\NumericBox.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\NumericBox\Script\NumericBox.js">
+      <Link>NumericBox\Resources\Script\NumericBox.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\NumericBox\Script\NumericBox.min.js">
+      <Link>NumericBox\Resources\Script\NumericBox.min.js</Link>
+    </EmbeddedResource>
+
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\PanelBar\CSS\PanelBar.css">
+      <Link>PanelBar\Resources\CSS\PanelBar.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\PanelBar\CSS\PanelBar.min.css">
+      <Link>PanelBar\Resources\CSS\PanelBar.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\PanelBar\CSS\Themes\Default.css">
+      <Link>PanelBar\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\PanelBar\CSS\Themes\Default.min.css">
+      <Link>PanelBar\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\PanelBar\Script\PanelBar.js">
+      <Link>PanelBar\Resources\Script\PanelBar.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\PanelBar\Script\PanelBar.min.js">
+      <Link>PanelBar\Resources\Script\PanelBar.min.js</Link>
+    </EmbeddedResource>
+
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\PieChart\CSS\PieChart.css">
+      <Link>PieChart\Resources\CSS\PieChart.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\PieChart\CSS\PieChart.min.css">
+      <Link>PieChart\Resources\CSS\PieChart.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\PieChart\CSS\Themes\Default.css">
+      <Link>PieChart\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\PieChart\CSS\Themes\Default.min.css">
+      <Link>PieChart\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\PieChart\Script\PieChart.js">
+      <Link>PieChart\Resources\Script\PieChart.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\PieChart\Script\PieChart.min.js">
+      <Link>PieChart\Resources\Script\PieChart.min.js</Link>
+    </EmbeddedResource>
+
+
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Slider\CSS\Slider.css">
+      <Link>Slider\Resources\CSS\Slider.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Slider\CSS\Slider.min.css">
+      <Link>Slider\Resources\CSS\Slider.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Slider\CSS\Themes\Default.css">
+      <Link>Slider\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Slider\CSS\Themes\Default.min.css">
+      <Link>Slider\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Slider\Script\Slider.js">
+      <Link>Slider\Resources\Script\Slider.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Slider\Script\Slider.min.js">
+      <Link>Slider\Resources\Script\Slider.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\TabStrip\CSS\TabStrip.css">
+      <Link>TabStrip\Resources\CSS\TabStrip.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\TabStrip\CSS\TabStrip.min.css">
+      <Link>TabStrip\Resources\CSS\TabStrip.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\TabStrip\CSS\Themes\Default.css">
+      <Link>TabStrip\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\TabStrip\CSS\Themes\Default.min.css">
+      <Link>TabStrip\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\TabStrip\Script\TabStrip.js">
+      <Link>TabStrip\Resources\Script\TabStrip.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\TabStrip\Script\TabStrip.min.js">
+      <Link>TabStrip\Resources\Script\TabStrip.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\TimePicker\CSS\Themes\Default.css">
+      <Link>TimePicker\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\TimePicker\CSS\Themes\Default.min.css">
+      <Link>TimePicker\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\TimePicker\CSS\TimePicker.css">
+      <Link>TimePicker\Resources\CSS\TimePicker.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\TimePicker\CSS\TimePicker.min.css">
+      <Link>TimePicker\Resources\CSS\TimePicker.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\TimePicker\Script\TimePicker.js">
+      <Link>TimePicker\Resources\Script\TimePicker.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\TimePicker\Script\TimePicker.min.js">
+      <Link>TimePicker\Resources\Script\TimePicker.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\TooltipManager\CSS\Themes\Default.css">
+      <Link>TooltipManager\Resources\CSS\Themes\Default.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\TooltipManager\CSS\Themes\Default.min.css">
+      <Link>TooltipManager\Resources\CSS\Themes\Default.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\TooltipManager\CSS\TooltipManager.css">
+      <Link>TooltipManager\Resources\CSS\TooltipManager.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\TooltipManager\CSS\TooltipManager.min.css">
+      <Link>TooltipManager\Resources\CSS\TooltipManager.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\TooltipManager\Script\TooltipManager.js">
+      <Link>TooltipManager\Resources\Script\TooltipManager.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\TooltipManager\Script\TooltipManager.min.js">
+      <Link>TooltipManager\Resources\Script\TooltipManager.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Validator\CSS\Validator.css">
+      <Link>Validator\Resources\CSS\Validator.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Validator\CSS\Validator.min.css">
+      <Link>Validator\Resources\CSS\Validator.min.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\Validator\Script\Validator.js">
+      <Link>Validator\Resources\Script\Validator.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Validator\Script\Validator.min.js">
+      <Link>Validator\Resources\Script\Validator.min.js</Link>
+    </EmbeddedResource>
+    <Content Include="..\Resources\Base\Script\UI.js">
+      <Link>Base\Resources\Script\UI.js</Link>
+    </Content>
+    <Content Include="..\Resources\Base\Script\UI.min.js">
+      <Link>Base\Resources\Script\UI.min.js</Link>
+    </Content>
+    <Content Include="..\Resources\Base\Script\UIResourcePath.js">
+      <Link>Base\Resources\Script\UIResourcePath.js</Link>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Componyx.Common" Version="1.0.3" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="node &quot;$(ProjectDir)\..\Build\build.js&quot;" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="IF EXIST &quot;$(ProjectDir)\..\Data\Utils\AssemblyInfoUtil.exe&quot; &quot;$(ProjectDir)\..\Data\Utils\AssemblyInfoUtil.exe&quot; -inc:4 &quot;$(ProjectDir)\Properties\AssemblyInfo.cs&quot;" />
+  </Target>
+
+ 
+</Project>

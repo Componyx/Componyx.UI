@@ -1,0 +1,2 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.tooltip-manager.theme.theme-default .box.tooltip{background:var(--cui-tooltip-bg-color);border-color:var(--cui-tooltip-border-color)}.tooltip-manager.theme.theme-default .box.tooltip:before{border-color:var(--cui-tooltip-border-color)}.tooltip-manager.theme.theme-default .box.tooltip:after{border-color:var(--cui-tooltip-bg-color)}.tooltip-manager.theme.theme-default .box.tooltip>div.content{color:var(--cui-tooltip-text-color)}

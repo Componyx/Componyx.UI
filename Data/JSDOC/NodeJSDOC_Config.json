@@ -1,0 +1,29 @@
+{
+  "plugins": [ "plugins/markdown" ],
+  "recurse": true,
+  "recurseDepth": 50,
+  "source": {
+    "include": ["NodeBackend"],
+    "recurse": true,
+    "includePattern": ".+\\.js$"
+  },
+  "sourceType": "module",
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": [ "jsdoc", "closure" ]
+  },
+  "opts": {
+    "template": "Data/JSDOC/Template/default",
+    "destination": "C:\\JSDOC_OUTPUT"
+  },
+  "templates": {
+    "default": {
+      "outputSourceFiles": false,
+      "layoutFile": "Data/JSDOC/Template/default/tmpl/layout.tmpl",
+      "staticFiles": { "include": ["Data/JSDOC/Template/default/static"] }
+    },
+    "cleverLinks": true,
+    "monospaceLinks": false,
+	"linkPath": "api/nodejs"
+  }
+}

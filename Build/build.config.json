@@ -1,0 +1,23 @@
+{
+  "resourcesPath": "../Resources",
+  "entryFilePath": "entry.js",
+  "backupDir": "backup",
+  "esmOutputPath": "../ESM",
+  "bundledOutputPath": "../ESM",
+  "isMinify": true,
+  "buildESM": true,
+  "typeDefinitionsPath": "../TypeDefinitions",
+  "copyToEsm": [
+    "../README.md",
+    "../LICENSE",
+    "../componyx.html-data.json"
+  ],
+  "scriptOrder": [ "Library.js", "Base.js", "UIResourcePath.js", "ResponsiveTemplates.js", "NavigationManager.js", "Sanitizer.js" ],
+  "moduleFolders": {
+    "Bindary": [ "Core.js", "DataUpdater.js", "Connection.js" ],
+    "Editor": [ "HtmlSourceViewBuilder.js" ],
+    "Form": [ "Types.js", "Draggable.js" ]
+  },
+  "excludeFiles": [ "UI.js" ],
+  "copyrightHeader": "/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */"
+}

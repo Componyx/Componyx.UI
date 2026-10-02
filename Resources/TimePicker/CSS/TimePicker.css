@@ -1,0 +1,253 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.time-picker.theme > .dialog.theme .header .input,
+.time-picker.theme > .dialog.theme .clock
+{
+    opacity: 0.5;
+    transition: opacity .2s;
+}
+
+.time-picker.theme .button-holder
+{
+    display: inline-block;
+    line-height: 28px;
+}
+
+.time-picker.theme .dialog.theme .clock
+{
+    opacity: 0;
+}
+
+.time-picker.theme .dialog.theme .clock
+{
+    display: none;
+}
+
+    .time-picker.theme .dialog.theme .clock.selected
+    {
+        display: block;
+        opacity: 1;
+    }
+
+.time-picker.theme .dialog.theme .box.dialog-box
+{
+    display: inline-block;
+    user-select: none;
+    touch-action: none;
+}
+
+    .time-picker.theme .dialog.theme .box.dialog-box > div.content > div > .content-holder
+    {
+        padding: 12px;
+    }
+
+    .time-picker.theme .dialog.theme .box.dialog-box > div.content > div > div.header
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 64px;
+        line-height: 64px;
+        padding-left: 0px;
+    }
+
+        .time-picker.theme .dialog.theme .box.dialog-box > div.content > div > div.footer
+        {
+            display: none;
+        }
+
+        .time-picker.theme > .dialog.theme .box.dialog-box > div.content > div > div.header > div
+        {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            top: auto;
+            transform: none;
+            width: 100%;
+        }
+
+            .time-picker.theme > .dialog.theme .box.dialog-box > div.content > div > div.header > div .button-holder
+            {
+                position: absolute;
+                right: 0px;
+                margin-right: 0.5rem;
+                font-size: 1rem;
+            }        
+            .time-picker.theme > .dialog.theme .box.dialog-box > div.content > div > div.content-holder > div
+            {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+.time-picker.theme > .dialog.theme .header
+{
+    display: inline-block;
+    line-height: 2rem;
+    font-size: 2rem;
+}
+
+.time-picker.theme > .dialog.theme .input:hover,
+.time-picker.theme > .dialog.theme .input.selected
+{
+    opacity: 1;
+}
+
+.time-picker.theme .button.theme.picker span.icon
+{
+    font-family: 'UI';
+}
+
+    .time-picker.theme .button.theme.picker span.icon::after
+    {
+        content: '\e903';
+        font-size: 16px !important;
+    }
+
+.time-picker.theme span.separator
+{
+    display: inline-block;
+    line-height: 28px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.time-picker.theme .button.theme.am
+{
+}
+
+.time-picker.theme .button.theme.pm,
+.time-picker.theme .button.theme.am
+{
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+}
+
+.time-picker.theme .clock
+{
+    position: relative;
+    width: 290px;
+    height: 290px;
+    border-radius: 100%;
+    
+}
+
+    .time-picker.theme .clock > div
+    {
+        position: absolute;
+        width: auto;
+        height: auto;
+        top: 25px;
+        bottom: 25px;
+        left: 25px;
+        right: 25px;
+        background: transparent;
+        border-radius: 100%;
+    }
+
+    .time-picker.theme .clock div.clock-24
+    {
+        position: absolute;
+        top: 20%;
+        bottom: 20%;
+        left: 20%;
+        right: 20%;
+        background: transparent;
+        border-radius: 100%;
+        height: auto;
+        width: auto;
+    }
+
+    .time-picker.theme .clock .clock-item
+    {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        border-radius: 100%;
+        transform: translate(-50%, -50%);
+        background: transparent;
+        color: inherit;
+    }
+
+        .time-picker.theme .clock .clock-item.selected
+        {
+            z-index: 1;
+        }
+
+    .time-picker.theme .clock .clock-hand
+    {
+        position: absolute;
+        border-radius: 0%;
+        bottom: 50%;
+        left: calc(50% - 1px);
+        width: 2px;
+        height: 50%;
+        transform-origin: center bottom;
+        transform: rotate(0deg);
+        outline: 0;
+    }
+
+        .time-picker.theme .clock .clock-hand.hand-24
+        {
+            height: 25%;
+        }
+
+        .time-picker.theme .clock .clock-hand > div
+        {
+            position: absolute;
+            display: flex;
+            z-index: 2;
+            top: -10px;
+            left: -9px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+        }
+
+        .time-picker.theme .clock .clock-hand.selected
+        {
+            z-index: 1;
+        }
+
+
+        .time-picker.theme .clock .clock-hand::before
+        {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            border-radius: 100%;
+            width: 10px;
+            height: 10px;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            bottom: -10px;
+        }
+
+        .time-picker.theme .clock .clock-hand::after
+        {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            border-radius: 100%;
+            width: 40px;
+            height: 40px;
+            transform: translate(-50%, -50%);
+            left: 50%;
+        }
+
+        .time-picker.theme .clock .clock-hand.between::after
+        {
+            width: 20px;
+            height: 20px;
+        }
+
+
+.time-picker.theme .numeric-box.hour > input,
+.time-picker.theme .numeric-box.minute > input
+{
+    width: 2ch;
+}

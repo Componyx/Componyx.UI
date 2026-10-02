@@ -1,0 +1,357 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.combo-box.theme
+{
+    display: inline-flex;
+    max-width: 100%;
+
+    /* box */
+
+    .box
+    {
+        margin-top: 1px;
+        position: fixed;
+    }
+
+    &.split .box
+    {
+        margin-left: 0px;
+    }
+
+
+    /* button */
+    .button.theme.split
+    {
+        flex-wrap: nowrap;
+    }
+
+    .button.theme.expand.split
+    {
+        height: fit-content;
+    }
+
+        .button.theme.expand:not(.split),
+        .button.theme.expand.split div.command
+        {
+            height: auto;
+            min-height: 28px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .button.theme.expand.split div.expand
+        {
+            height: stretch;
+            min-height: 28px;
+        }
+
+    .button.theme.expand.split
+    {
+        min-width: 0;
+        width: 100%;
+    }
+
+        .button.theme.expand.split div.command
+        {
+            background: none;
+            color: inherit;
+            box-shadow: none;
+        }
+
+    &.theme-default.allow-input .button.theme.expand:not(.split),
+    &.theme-default.allow-input .button.theme.expand:not(.split),
+    &.theme-default.allow-input .button.theme.expand.split div.command,
+    &.theme-default.allow-input .button.theme.expand.split:hover div.command
+    {
+        background: transparent !important;
+        color: inherit !important;
+        border-color: inherit !important;
+    }
+
+
+    /* input */
+    .button.theme.expand input
+    {
+        border: 0px !important;
+        background: transparent !important;
+        min-width: 50px; /* needed to reserve some space for typing when tagging is active */
+        width: 100%;
+        height: 28px;
+        padding: 0px;
+        padding-right: 8px;
+        position: relative;
+        text-shadow: none;
+        cursor: default;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        margin-bottom: 0px;
+        position: relative;
+        z-index: 1; /* fixes click issues */
+        flex: 1;
+    }
+
+        .button.theme.expand input::-ms-clear
+        {
+            display: none;
+        }
+
+        .button.theme.expand input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(:disabled):focus,
+        .button.theme.expand input:focus
+        {
+            outline: none;
+            box-shadow: none;
+            margin-bottom: 0px;
+        }
+
+
+    .button.theme.expand:not(.split) > .content-holder,
+    .button.theme.expand.split > .command > .content-holder
+    {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    &.auto-grow .button.theme.expand input
+    {
+        width: auto;
+    }
+
+    &.tagging .button.theme.expand input
+    {
+        margin-right: 0px;
+        width: auto;
+        max-width: 100%;
+    }
+
+    &.tagging .button.theme.expand .button.theme.tag
+    {
+        position: relative;
+        font-size: 0.85rem;
+        line-height: initial;
+        border-radius: 16px;
+        margin: 2px;
+        line-height: 23px;
+        border: 0px;
+    }
+
+        &.tagging .button.theme.expand .button.theme.tag > span.icon::after
+        {
+            content: '\e90a';
+        }
+
+    /* expand icon */
+    .button.theme.expand .content-holder > span.expand-icon
+    {
+        display: inline-block;
+        order: 2;
+        width: 8px;
+        height: 6px;
+        background-color: transparent;
+        top: auto;
+        transform: none;
+    }
+
+    /* clear button */
+    &.disabled .button.theme.expand .button.theme.clear
+    {
+        visibility: hidden;
+    }
+
+
+    /* clear icon */
+    .button.theme.clear > span.icon::after
+    {
+        content: '\e90a';
+    }
+
+
+    /* dataPager */
+    .data-pager.theme
+    {
+        display: flex;
+        min-height: 36px;
+        border-top-style: solid;
+    }
+
+        .data-pager.theme > div:first-child
+        {
+            display: flex;
+            align-items: center;
+        }
+
+        .data-pager.theme > div + div
+        {
+            line-height: 34px;
+            padding-right: 4px;
+            text-align: right;
+        }
+
+        .data-pager.theme .numeric-box.theme input
+        {
+            width: 18px;
+        }
+
+
+    /* list */
+
+    ul.list li.item i.icon
+    {
+        margin-right: 0.5rem;
+    }
+
+    ul.list:not(:first-child) li.item:first-child
+    {
+        border-radius: 0px;
+    }
+
+    ul.list:not(:last-child) li.item:last-child
+    {
+        border-radius: 0px;
+    }
+
+    ul.list:first-child li.item:first-child
+    {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    ul.list:last-child li.item:last-child
+    {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+    ul
+    {
+        list-style: none;
+        display: inline-block;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        vertical-align: top;
+    }
+
+        ul.list
+        {
+            overflow-y: auto;
+            overflow-x: hidden;
+            white-space: nowrap;
+        }
+
+    li.item
+    {
+        display: flex;
+        align-items: center;
+        min-height: 28px;
+        cursor: default;
+        white-space: pre-wrap;
+    }
+
+    div.header,
+    li.item
+    {
+        padding: 0px 6px 0px 6px;
+    }
+
+    &.multi li:has(span.checkbox)
+    {
+        flex: 0 0 30px;
+    }
+
+    &.multi li span.checkbox
+    {
+        display: inline-block;
+        position: relative;
+        left: 0px;
+        margin-right: 5px;
+        width: 15px;
+        height: 15px;
+        line-height: 15px;
+        border-style: solid;
+        font-family: 'UI';
+        font-size: 8px;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+        &.multi li span.checkbox::after
+        {
+            content: '';
+        }
+
+    &.multi li.selected span.checkbox::after
+    {
+        content: '\e90b';
+    }
+
+    div.header
+    {
+        line-height: 28px;
+        padding: 0px 6px 0px 6px;
+        border-bottom-style: solid;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+
+        /* rows and columns */
+        div.header > ul,
+        li.item > ul
+        {
+            display: flex;
+            width: 100%;
+            gap: 1rem;
+        }
+
+            div.header > ul > li,
+            li.item > ul > li
+            {
+                flex: 1 1 0%;
+                min-width: 0;
+                min-height: 28px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+    li.item b.match
+    {
+        font-weight: normal;
+        text-decoration: underline;
+    }
+
+
+    /* sizer */
+    > .sizer
+    {
+        display: none;
+    }
+
+    /* preloader and noresult li */
+    li.preloader,
+    li.no-result
+    {
+        list-style: none;
+        height: 28px;
+        line-height: 28px;
+        padding: 0px 6px 0px 6px;
+    }
+
+    &.multi li.item.select-all,
+    &.multi li.item.select-all:hover,
+    &.multi li.item.select-all:focus,
+    li.preloader,
+    li.no-result
+    {
+        color: inherit;
+    }
+
+    /* bottom focus */
+    &:not(.disabled).focus .button.theme:not(.split).expand,
+    &:not(.disabled).focus .button.theme.split.expand div.command
+    {
+        box-shadow: inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2);
+        transition: all 0.5s ease-in-out;
+    }
+}

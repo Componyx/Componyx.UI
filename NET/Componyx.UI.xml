@@ -1,0 +1,1186 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Componyx.UI</name>
+    </assembly>
+    <members>
+        <member name="T:Componyx.UI.AppSkinAuthentication.ADAuthentication">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.ADAuthentication.DomainName">
+            <summary>
+            The Active Directory domain (Defaults to running application user domain).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.ADAuthentication.MaxLoginAttempts">
+            <summary>
+            Maximum allowed login attempts (defaults to 10).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.ADAuthentication.LoginAttemptExpirationTime">
+            <summary>
+            Login attempt expiration time in minutes (defaults to 5).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.ADAuthentication.LoginAttemptsExceededMessage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.ADAuthentication.CookieExpirationMonths">
+            <summary>
+            Gets or sets a value indicating when a persistent login cookie expires. Defaults to 1 month.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.AppSkinAuthentication.ADAuthentication.ClearLoginAttempts(System.String)">
+            <summary>
+            Clears the login attempts for the specified user.
+            </summary>
+            <param name="username"></param>
+        </member>
+        <member name="M:Componyx.UI.AppSkinAuthentication.ADAuthentication.Authenticate(Componyx.UI.AppSkinAuthentication.Request)">
+            <summary>
+            Authenticates the user against Active Directory.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Componyx.UI.AppSkinAuthentication.AuthenticationHandler">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.AppSkinAuthentication.AuthenticationHandler.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:Componyx.UI.AppSkinAuthentication.AuthenticationHandler.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Handles the request.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Componyx.UI.AppSkinAuthentication.Request">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.Request.HttpContext">
+            <summary>
+            Gets the Http context.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.Request.Username">
+            <summary>
+            Gets the username.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.Request.Password">
+            <summary>
+            Gets the password.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.Request.Persistent">
+            <summary>
+            Gets a value indicating if the login is persistent.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.Request.Logout">
+            <summary>
+            Gets a value indicating if the request is a logout action.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.AppSkinAuthentication.Request.#ctor(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+            <param name="httpRequest"></param>
+        </member>
+        <member name="M:Componyx.UI.AppSkinAuthentication.Request.#ctor">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.AppSkinAuthentication.Response">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.Response.Authenticated">
+            <summary>
+            Gets or sets a value indicating if the user is authenticated.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.Response.Message">
+            <summary>
+            Gets or sets the custom authentication message.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinAuthentication.Response.MaxLoginAttemptsExceeded">
+            <summary>
+            Gets or sets a value indicating if the maximum login attempts have been exceeded.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.AppSkinError">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinError.IsError">
+            <summary>
+            Gets or sets the Error Message.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinError.Message">
+            <summary>
+            Gets or sets the Error Message.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinError.StackTrace">
+            <summary>
+            Gets or sets the stack trace.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinError.Timestamp">
+            <summary>
+            Gets or sets the timestamp.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinError.Id">
+            <summary>
+            Gets or sets the logged identifier of the error.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.AppSkinError.#ctor(System.Exception,System.Nullable{System.Int32})">
+            <summary>
+            Creates and initializes a new instance.
+            </summary>
+            <param name="ex"></param>
+            <param name="logId"></param>
+        </member>
+        <member name="M:Componyx.UI.AppSkinError.ToJSON">
+            <summary>
+            Serializes the error to a JSON string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Componyx.UI.AppSkinSearchHandler">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.AppSkinSearchHandler.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Componyx.UI.AppSkinSearchOptions)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:Componyx.UI.AppSkinSearchHandler.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Handles the request.
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Componyx.UI.AppSkinSearchOptions.KeywordFilePath">
+            <summary>
+            Gets or sets the file path of the keyword file.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.AppSkinSearchOptions.Contains">
+            <summary>
+            Gets or sets a value indicating if a search action is executed with either contains (true) or starts with (false).
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.Bindary.Client">
+            <summary>
+            This type is used to store information of a connected client.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Client.Id">
+            <summary>
+            Gets or sets the unique client id.
+            To be able to uniquely identify clients, a unique client id must be send with each request. 
+            The Bindary server uses sessionid's by default if no id is provided with the first client request.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Client.IPv4Address">
+            <summary>
+            Gets the ip v4 address of the remote client.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Client.IPv6Address">
+            <summary>
+            Gets the ip v6 address of the remote client.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Client.Socket">
+            <summary>
+            Gets the WebSocket associated with the remote client.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Client.IsWebSocket">
+            <summary>
+            Gets or sets a value indicating if the client is connected through a WebSocket.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Client.IsNew">
+            <summary>
+            Gets a value indicating if this is the first request of the client.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Client.LastActivity">
+            <summary>
+            Gets a time stamp value indicating the client's last activity.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Client.XhrResponseMessage">
+            <summary>
+            Gets the response message for the current XHR request.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Client.XhrResponseMessageQueue">
+            <summary>
+            Gets the response message queue.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Client.SendException">
+            <summary>
+            Gets or sets the send Exception.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Client.#ctor">
+            <summary>
+            Initializes a new instance of the BindaryClient class.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.ClientActivityMonitor.Start(System.Int32,System.Int32,System.Func{Componyx.UI.Bindary.Client,System.Boolean})">
+            <summary>
+            Starts the client activity monitor.
+            </summary>
+            <param name="removeInactiveClientsInterval">The interval in seconds between each cleanup action where inactive clients are removed from the active client list.</param>
+            <param name="inactiveClientTimeout">The amount of time in seconds before a client is considered to be inactive.</param>
+            <param name="inactiveClientCallback">A callback method which is invoked before an inactive client is removed from the active client list. The remove action can be cancelled by returning false from the callback method.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.ClientActivityMonitor.Stop">
+            <summary>
+            Stops the client activity monitor.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.ClientActivityMonitor.RemoveInactiveClients">
+            <summary>
+            Removes clients that are inactive for a specified time period.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.Bindary.DataRequest">
+            <summary>
+            This type is used to represent the client request data.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.ClientId">
+            <summary>
+            Gets the client id that was send with the request.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.XhrRequestId">
+            <summary>
+            Gets the xhr request id that was generated for this request.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.RouteIndex">
+            <summary>
+            Gets the client route index.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.RoutePath">
+            <summary>
+            Gets the client route path.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.ServerMethod">
+            <summary>
+            Gets the method to invoke on the server.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.CallbackId">
+            <summary>
+            Gets the identifier of the callback method to invoke on the client.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.Message">
+            <summary>
+            Gets the client data request message.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.InitialLoad">
+            <summary>
+            Gets a value indicating if we are dealing with the initial data load.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.Data">
+            <summary>
+            Gets the data query.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.DataDictionary">
+            <summary>
+            Gets the custom request data query as dictionary when ClientDataRequestToDictionaryy on the DataServer is set to true.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRequest.DeserializationException">
+            <summary>
+            Gets the exception if an exception occurred while deserializing the data within the data request as dictionary.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataRequest.#ctor">
+            <summary>
+            Creates a new instance of the class.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.Bindary.DataResponse">
+            <summary>
+            This type is used to represent the client response data.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataResponse.ClientId">
+            <summary>
+            Gets or sets the client id that was sent with the original request.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataResponse.CallbackId">
+            <summary>
+            Gets or sets the identifier of the callback method to invoke on the client.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataResponse.IsError">
+            <summary>
+            Gets or sets a value indicating that an error occurred.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataResponse.RouteIndex">
+            <summary>
+            Gets or sets the client route index. If the route index is set, the routeData on the client is updated only when the active client route index matches with the data response.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataResponse.RoutePath">
+            <summary>
+            Gets the client route path. If the route path is set, the viewData on the client is updated only when the active client route path matches with the data response.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataResponse.#ctor">
+            <summary>
+            /// Initializes a new instance of the Data Response class.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataResponse.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Data Response class.
+            </summary>
+            <param name="callbackId">The client-side callback identifier which was specified in the data-request.</param>
+            <param name="clientId">A custom generated client identifier not stored in a Session.</param>
+        </member>
+        <member name="T:Componyx.UI.Bindary.DataResponse`1">
+            <summary>
+            This type is used to represent the client response data.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataResponse`1.Data">
+            <summary>
+            Gets or sets the custom data within the response data.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataResponse`1.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Data Response class.
+            </summary>
+            <param name="callbackId">The client-side callback identifier which was specified in the data-request.</param>
+            <param name="clientId">A custom generated client identifier not stored in a Session.</param>
+        </member>
+        <member name="T:Componyx.UI.Bindary.DataResponse`2">
+            <summary>
+            This type is used to represent the client response data.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataResponse`2.Data">
+            <summary>
+            Gets or sets the custom data within the response data.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataResponse`2.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Data Response class.
+            </summary>
+            <param name="callbackId">The client-side callback identifier which was specified in the data-request.</param>
+            <param name="clientId">A custom generated client identifier not stored in a Session.</param>
+        </member>
+        <member name="T:Componyx.UI.Bindary.DataResponse`3">
+            <summary>
+            This type is used to represent the client response data.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataResponse`3.Data">
+            <summary>
+            Gets or sets the custom data within the response data.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataResponse`3.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Data Response class.
+            </summary>
+            <param name="callbackId">The client-side callback identifier which was specified in the data-request.</param>
+            <param name="clientId">A custom generated client identifier not stored in a Session.</param>
+        </member>
+        <member name="T:Componyx.UI.Bindary.DataContainer`1">
+            <summary>
+            This type is used to represent the client response data container.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataContainer`1.AppData">
+            <summary>
+            Gets or sets the AppData.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataContainer`1.AppDataRules">
+            <summary>
+            Gets or sets the AppData update rules.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.Bindary.DataContainer`2">
+            <summary>
+            This type is used to represent the client response data container.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataContainer`2.ViewData">
+            <summary>
+            Gets or sets the ViewData.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataContainer`2.ViewDataRules">
+            <summary>
+            Gets or sets the ViewData rules.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.Bindary.DataContainer`3">
+            <summary>
+            This type is used to represent the client response data container.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataContainer`3.RouteData">
+            <summary>
+            Gets or sets the RouteData.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataContainer`3.RouteDataRules">
+            <summary>
+            Gets or sets the RouteData update rules.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.Bindary.DataRules">
+            <summary>
+            This type is used to set update rules for the client data.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.RouteIndex">
+            <summary>
+            Gets or sets the route index for updating route data on a different route than the currently active route.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.RoutePath">
+            <summary>
+            Gets or sets the route path for updating view data on a different view than the currently active view.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.Path">
+            <summary>
+            Gets or sets the hierarchical path on the target object where the source object will be added/updated.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.UpdateKey">
+            <summary>
+            Gets or sets the key used to match and update items on the target array. The array item is updated when the value on both source and target of specified key matches.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.AddIndex">
+            <summary>
+            Gets or sets the position within the array where the items must be added. Do not specify the index (Null/Undefined) when items must be added at the end of the array.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.RemoveIndex">
+            <summary>
+            Gets or sets the position within the array where the items must be removed. Do not specify the index (Null/Undefined) when items must be removed at the end of the array.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.RemoveCount">
+            <summary>
+            Gets or sets the number of items to remove from the target array.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.IgnoreNullValues">
+            <summary>
+            Gets or sets a value indicating if null values in the response data will be ignored.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.Update">
+            <summary>
+            Gets or sets a value indicating if server data overwrittes (false) or updates (true) data on the client.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.Recreate">
+            <summary>
+            Gets or sets a value indicating if the HTML element must be recreated when there is already an element for the relevant index/key.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.DataRules.OmitKeys">
+            <summary>
+            Gets or sets a collection of keys to omit on the target client object.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.Bindary.DataUpdateManager">
+            <summary>
+            This type is used to manage data events by registering update event actions and subscribing clients to these update events.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.AddUpdateAction(System.String,System.Func{Componyx.UI.Bindary.Client,System.Object,System.Object,System.Threading.Tasks.Task},System.String)">
+            <summary>
+            Adds an update action for the specified update id.
+            </summary>
+            <param name="updateId">The identifier of the update event.</param>
+            <param name="action">The action to call when the update event fires.</param>
+            <param name="groupId">The group to which the update belongs.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.Subscriptions(System.String,System.String)">
+            <summary>
+            Returns the subscribed clients for the specified update event.
+            </summary>
+            <param name="updateId">The identifier of the update event.</param>
+            <param name="groupId">The group to which the update belongs.</param>
+            <returns>List of clients.</returns>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.Subscribe(System.String,Componyx.UI.Bindary.Client,System.String,System.Object)">
+            <summary>
+            Subscribes a client for an update event.
+            </summary>
+            <param name="updateId">The identifier of the update event.</param>
+            <param name="client">The client.</param>
+            <param name="groupId">The group to which the update belongs.</param>
+            <param name="args">Arguments to bind to the subscription.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.ClearSubscriptions">
+            <summary>
+            Removes all client subscriptions.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.Unsubscribe(System.String,System.String,System.Boolean)">
+            <summary>
+            Removes all client subscriptions for the specified update event.
+            </summary>
+            <param name="updateId">The identifier of the update event.</param>
+            <param name="groupId">The group to which the update belongs.</param>
+            <param name="startsWithSearch">A value indicating if subscriptions which start with the specified update identifier are removed.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.Unsubscribe(Componyx.UI.Bindary.Client,System.String)">
+            <summary>
+            Removes all subscriptions of the specified client.
+            </summary>
+            <param name="client">The client.</param>
+            <param name="groupId">The group for which the client subscriptions must be removed.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.Unsubscribe(System.String,Componyx.UI.Bindary.Client,System.String,System.Boolean)">
+            <summary>
+            Removes the client subscription for the specified update event.
+            </summary>
+            <param name="updateId">The identifier of the update event.</param>
+            <param name="client">The client.</param>
+            <param name="groupId">The group to which the update belongs.</param>
+            <param name="startsWithSearch">A value indicating if subscriptions of the specified client which start with the specified update identifier are removed.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.HasSubscription(System.String,Componyx.UI.Bindary.Client,System.String)">
+            <summary>
+            Checks if the client is subscribed to the specified update event.
+            </summary>
+            <param name="updateId">The identifier of the update event.</param>
+            <param name="client">The client.</param>
+            <param name="groupId">The group to which the update belongs.</param>
+            <returns>A boolean value indicating if the client is subscribed to the specified update event.</returns>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.GetSubscription(System.String,Componyx.UI.Bindary.Client,System.String)">
+            <summary>
+            Returns the client subscription for the specified update event.
+            </summary>
+            <param name="updateId">The identifier of the update event.</param>
+            <param name="client">The client.</param>
+            <param name="groupId">The group to which the update belongs.</param>
+            <returns>The subscription for the specified update event and client.</returns>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.Update(System.String,System.Object)">
+            <summary>
+            Invokes all update event actions for all subscribers.
+            </summary>
+            <param name="groupId">The group to which the update belongs.</param>
+            <param name="args">An object to pass as second argument to the action method.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.Update(System.String,System.String,System.Object)">
+            <summary>
+            Invokes the specified update event actions for all subscribers.
+            </summary>
+            <param name="updateId">The identifier of the update event.</param>
+            <param name="groupId">The group to which the update belongs.</param>
+            <param name="args">An object to pass as second argument to the action method.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.Update(Componyx.UI.Bindary.Client,System.String,System.Object)">
+            <summary>
+            Calls all update event actions for the specified subscriber.
+            </summary>
+            <param name="client">The client.</param>
+            <param name="groupId">The group to which the update belongs.</param>
+            <param name="args">An object to pass as second argument to the action method.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.DataUpdateManager.Update(System.String,Componyx.UI.Bindary.Client,System.String,System.Object)">
+            <summary>
+            Invokes the specified update event for the specified subscriber. 
+            </summary>
+            <param name="updateId">The identifier of the update event.</param>
+            <param name="client">The client.</param>
+            <param name="groupId">The group to which the update belongs.</param>
+            <param name="args">An object to pass as second argument to the action method.</param>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Server.Clients">
+            <summary>
+            Gets the connected clients.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Server.Session">
+            <summary>
+            Gets the current Session State.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Server.ClientDataRequestToDictionary">
+            <summary>
+            Gets or sets a value indicating if the client data request string should be deserialized to a dictionary. Defaults to true.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Server.DataRequestJsonSerializerSettings">
+            <summary>
+            Gets or sets the Json serializer settings for deserializing the client data request object.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Server.UseSessionIdForClients">
+            <summary>
+            Gets or sets a value indicating if the Session Id is used to uniquely identify Clients. A WebSocket connection is closed with code 1011 (internal server error) when the Session object is null.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Server.IgnoreQueuedXhrMessages">
+            <summary>
+            Gets or sets a value indicating if the XHR response will contain a single message (true) or will include all queued messages (false).
+            By default all queued messages are sent. Only the last message from a message queue will be sent when this setting is set to true.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Server.WebSocketBufferSize">
+            <summary>
+            Gets or sets the WebSocket buffer size in bytes. By default the buffer size is set to 8192 bytes (8KB).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.Bindary.Server.WebSocketMaxMessageSize">
+            <summary>
+            Gets or sets the WebSocket maximum message receive size in bytes. Defaults to 4194304 bytes (4MB).
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.ClientList">
+            <summary>
+            Gets the connected clients as list.
+            </summary>
+            <returns>A list with connected clients.</returns>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Initializes the Server class.
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.MessageReceivedAsync(Componyx.UI.Bindary.DataRequest,Componyx.UI.Bindary.Client)">
+            <summary>
+            Handles the websocket or xhr received message event for text messages.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.MessageReceived(System.String)">
+            <summary>
+            Handles the websocket or xhr received message event for binary messages.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.MessageReceived(System.Byte[])">
+            <summary>
+            Handles the websocket or xhr received message event for binary messages.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Open">
+            <summary>
+            This abstract method is invoked when a Request through either a WebSocket or XHR connection is made.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.ClientLoaded(System.String,Componyx.UI.Bindary.DataRequest,Componyx.UI.Bindary.Client)">
+             <summary>
+             This abstract method is invoked when a client is loaded.
+             </summary>
+            <param name="message">The incoming message.</param>
+            <param name="request">The incoming message deserialized as DataRequest.</param>
+            <param name="client">The loaded client.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.AcceptWebSocketRequest">
+            <summary>
+            This abstract method is invoked when the WebSocket request is accepted. 
+            In this fase the Session State object is no longer available on the current HttpContext, however it is cached in the Session property of this class.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Message(System.String)">
+            <summary>
+            This abstract method is invoked when a text message is received from the Client.
+            </summary>
+            <param name="message">The incoming message.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Message(System.Byte[])">
+            <summary>
+            This abstract method is invoked when a byte message is received from the Client.
+            </summary>
+            <param name="message">The incoming message.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Message(Componyx.UI.Bindary.DataRequest)">
+            <summary>
+            This abstract method is invoked when a DataRequest message is received from the Client.
+            </summary>
+            <param name="request">The incoming message deserialized as DataRequest.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Error(System.Exception,Componyx.UI.Bindary.DataRequest,Componyx.UI.Bindary.Client)">
+            <summary>
+            Handles possible exceptions that occure inside the custom implementation while processing the request.
+            Sending the error message to the client is usually possible.
+            For a custom implementation this Method should be overridden in the derived class.
+            </summary>
+            <param name="ex"></param>
+            <param name="request"></param>
+            <param name="client"></param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.ServerError(System.Exception)">
+            <summary>
+            Handles possible exceptions that occure outside the custom implementation while processing the request.
+            Sending the error message to the client is not possible.
+            For a custom implementation this Method should be overridden in the derived class.
+            </summary>
+            <param name="ex"></param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Close(System.Net.WebSockets.WebSocket,System.Net.WebSockets.WebSocketCloseStatus,System.String)">
+            <summary>
+            Closes the WebSocket connection.
+            </summary>
+            <param name="status"></param>
+            <param name="statusDescription"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.BroadCast(System.String)">
+            <summary>
+            Broadcasts the message to all connected clients. 
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.BroadCast``3(Componyx.UI.Bindary.DataResponse{``0,``1,``2})">
+            <summary>
+            Broadcasts the message to all connected clients. 
+            </summary>
+            <param name="response">The data response.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.BroadCast(System.Byte[],System.Net.WebSockets.WebSocketMessageType)">
+            <summary>
+            Broadcasts the message to all connected clients. 
+            </summary>
+            <param name="message">The data message to send.</param>
+            <param name="type">The message type.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Send(System.Collections.Generic.IEnumerable{Componyx.UI.Bindary.Client},Componyx.UI.Bindary.DataResponse)">
+            <summary>
+            Sends the data response to the specified clients.
+            </summary>
+            <param name="clients">The clients to which the data will be send.</param>
+            <param name="response">The data response.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Send(Componyx.UI.Bindary.Client,Componyx.UI.Bindary.DataResponse,System.String)">
+            <summary>
+            Sends the data response to the specified client.
+            </summary>
+            <param name="client">The client to which the data will be send</param>
+            <param name="response">The data response.</param>
+            <param name="xhrRequestId">The identifier of the current XHR request (when applicable) to send the message as response to the current request. Without this identifier the message is stored in the queue to be returned at the first opportunity.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Send(System.Collections.Generic.List{Componyx.UI.Bindary.Client},System.String)">
+            <summary>
+            Sends the message to the specified clients.
+            </summary>
+            <param name="clients">The clients to which the data will be sent.</param>
+            <param name="message">The data message to send.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Send(System.Collections.Generic.IEnumerable{Componyx.UI.Bindary.Client},System.Byte[],System.Net.WebSockets.WebSocketMessageType)">
+            <summary>
+            Sends the message to the specified clients.
+            </summary>
+            <param name="clients">The clients to which the data will be sent.</param>
+            <param name="message">The data message to send.</param>
+            <param name="type">The message type.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Send(Componyx.UI.Bindary.Client,System.String,System.String)">
+            <summary>
+            Sends the message to the specified client.
+            </summary>
+            <param name="client">The client to which the data will be sent.</param>
+            <param name="message">The data message to send.</param>
+            <param name="xhrRequestId">The identifier of the current XHR request (when applicable) to send the message as response to the current request. Without this identifier the message is stored in the queue to be returned at the first opportunity.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.Send(Componyx.UI.Bindary.Client,System.Byte[],System.Net.WebSockets.WebSocketMessageType)">
+            <summary>
+            Sends the message to the specified client through a websocket connection (no xhr support).
+            </summary>
+            <param name="client">The client to which the data will be sent.</param>
+            <param name="message">The data message to send.</param>
+            <param name="type">The message type.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.RemoveClient(Componyx.UI.Bindary.Client)">
+            <summary>
+            Removes the specified client from the active client list and unsubscribes the client from the data update manager.
+            </summary>
+            <param name="client">The client object.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.RemoveClient(System.String)">
+            <summary>
+            Removes the client with the specified client id from the active client list and unsubscribes the client from the data update manager.
+            </summary>
+            <param name="clientId">The unique client identifier.</param>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.InvokeMethodAsync(Componyx.UI.Bindary.DataRequest,Componyx.UI.Bindary.Client)">
+            <summary>
+            Invokes the specifed method.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Bindary.Server.LoadClient(System.String,Microsoft.AspNetCore.Http.HttpContext,System.String,System.Net.WebSockets.WebSocket)">
+            <summary>
+            Load client from specified data query.
+            </summary>
+            <param name="message"></param>
+            <param name="context"></param>
+            <param name="clientId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Componyx.UI.TagHelpers.RegisterTagHelper.ResourceHandler">
+            <summary>
+            Gets or sets the path of the UI resource handler (defaults to src).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.TagHelpers.RegisterTagHelper.EnableOnDemand">
+            <summary>
+             Gets or sets a value indicating if on demand loading of components is enabled (true by default). If disabled, the complete UI component set will be registered at once. 
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.TagHelpers.RegisterTagHelper.IncludeVersion">
+            <summary>
+            Gets or sets a value indicating if the assembly version is appended to the resource path.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.TagHelpers.RegisterTagHelper.EnableBaseJS">
+            <summary>
+            Gets or sets a value indicating if the Development Library and the UI Base JavaScript files are registered on the page (true by default). Only applicable when on demand is enabled.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.TagHelpers.RegisterTagHelper.EnableBaseCSS">
+            <summary>
+            Gets or sets a value indicating if the base UI CSS files are registered on the page (true by default). Only applicable when on demand is enabled.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.TagHelpers.RegisterTagHelper.EnableBindaryJS">
+            <summary>
+            Gets or sets a value indicating if the Bindary JavaScript file is registered on the page (true by default). Only applicable when on demand is enabled.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.TagHelpers.RegisterTagHelper.EnableBindaryResponsiveJS">
+            <summary>
+            Gets or sets a value indicating if the Bindary Responsive JavaScript file is registered on the page (true by default). Only applicable when on demand is enabled.
+            </summary>
+        </member>
+        <member name="F:Componyx.UI.ResourceHandler._components">
+            <summary>
+            The component types for which resources are loaded through this resource handler.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.ResourceHandler.AddComponent(System.String,System.Type)">
+            <summary>
+            Adds the component name and type for which to load resources through this resource handler.
+            </summary>
+            <param name="name">The component name.</param>
+            <param name="type">The component type.</param>
+        </member>
+        <member name="M:Componyx.UI.ResourceHandler.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:Componyx.UI.ResourceHandler.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Handles the request.
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Componyx.UI.Utility">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.Utility.GetEmbeddedResourceContent(System.String,System.Reflection.Assembly)">
+            <summary>Retrieves the content from the embedded resource as string.</summary>
+            <param name="embeddedResource">The resource name including the namespace from which to retrieve the content</param>
+            <param name="assembly">The assembly containing the resource file.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:Componyx.UI.Utility.GetEmbeddedResourceBytes(System.String,System.Reflection.Assembly)">
+            <summary>Retrieves the content from the embedded resource as byte array.</summary>
+            <param name="embeddedResource">The resource name including the namespace from which to retrieve the content</param>
+            <param name="assembly">The assembly containing the resource file.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:Componyx.UI.Utility.GetWebRootUrl(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Gets the web root url.
+            </summary>
+            <param name="context">The current active http context.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Componyx.UI.Utility.GetClientIPv4(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Gets the IPv4 address of the remote client.
+            </summary>
+            <param name="context">The current active http context.</param>
+            <returns>IPv4 address.</returns>
+        </member>
+        <member name="M:Componyx.UI.Utility.GetClientIPv6(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Gets the IPv6 address of the remote client.
+            </summary>
+            <param name="context">The current active http context.</param>
+            <returns>IPv6 address.</returns>
+        </member>
+        <member name="M:Componyx.UI.Utility.GetResourceNames(System.Type)">
+            <summary>
+            Get resource names for specified type.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Componyx.UI.Utility.ParseDate(System.String,System.String)">
+            <summary>
+            Creates a new date object by parsing the value with the specified date format.
+            </summary>
+            <param name="value"></param>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Componyx.UI.ValidationHandler">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.ValidationHandler.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:Componyx.UI.ValidationHandler.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Processes the web request.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Componyx.UI.ValidationHandler.PropertyValidationResult(Componyx.UI.ValidatorEventArgs)">
+            <summary>
+            Handles the property validation result.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="T:Componyx.UI.ValidatorEventArgs">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.ValidatorField">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorField.ClientFieldName">
+            <summary>
+            Defines the form input field name.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorField.ModelProperty">
+            <summary>
+            Defines the model property name.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorField.feedbackID">
+            <summary>
+            Defines the field feedback container if it cannot be identified with the fieldFeedbackCssClass.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.FieldName">
+            <summary>
+            Gets or sets the field name to which the rule applies.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.Type">
+            <summary>
+            Gets or sets the validation type of the rule.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.FeedbackId">
+            <summary>
+            Gets or sets the identifier of the element used by the Validator to display validation result feedback.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.AutoValidate">
+            <summary>
+            Gets or sets A value indicating if the field is validated when the field value changes.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.Live">
+            <summary>
+            Gets or sets a value indicating if the field validation is done while typing.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.Msg">
+            <summary>
+            Gets or sets the message to display if validation fails.
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.Min">
+            <summary>
+            Gets or sets the minimum value. (LENGTH and RANGE type validation).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.Max">
+            <summary>
+            Gets or sets the maximum value. (LENGTH and RANGE type validation).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.Pattern">
+            <summary>
+            Gets or sets the Regular expression pattern (REGEX type validation).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.Field">
+            <summary>
+            Gets or sets the element or element id (COMPARE type validation).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.DataType">
+            <summary>
+            Gets or sets the data type (DATATYPE type validation).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.OnValidation">
+            <summary>
+            Gets or sets a function invoked when the field is validated (CUSTOM type validation).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.OnBeforeValidation">
+            <summary>
+            Gets or sets a function invoked before the field is validated (AJAX type validation).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.OnAfterValidation">
+            <summary>
+            Gets or sets a function invoked after the field is validated (AJAX type validation).
+            </summary>
+        </member>
+        <member name="P:Componyx.UI.ValidatorRule.Data">
+            <summary>
+            Gets or sets the data query for the AJAX type validation.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.ValidatorSettings">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="T:Componyx.UI.ValidatorUtility">
+            <summary>
+            This class has no specific description yet.
+            </summary>
+        </member>
+        <member name="M:Componyx.UI.ValidatorUtility.Validate(Componyx.UI.ValidatorSettings,System.Object)">
+            <summary>
+            Launches the validation process with the specified settings. 
+            </summary>
+            <param name="settings">Validation settings.</param>
+            <param name="validationObject">Object to validate instead of settings.validationFields.</param>
+            <returns>True if valid, otherwise False.</returns>
+        </member>
+        <member name="M:Componyx.UI.ValidatorUtility.ValidateAction(System.Object,System.Object)">
+            <summary>
+            Executes the validation process with the specified settings.
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:Componyx.UI.ValidatorUtility.ValidateModel(System.Type,System.Object,Componyx.UI.ValidatorSettings,System.String)">
+            <summary>
+            Validates all properties denoted with a validation attribute.
+            </summary>
+            <param name="modelType"></param>
+            <param name="model"></param>
+            <param name="settings"></param>
+            <param name="parentName"></param>
+        </member>
+        <member name="M:Componyx.UI.ValidatorUtility.ValidateProperty(System.Type,System.Object,Componyx.UI.ValidatorSettings,Componyx.UI.ValidatorSettings.ValidationField)">
+            <summary>
+            Validates a single property no matter where the property is within the class hierarchy.
+            </summary>
+            <param name="modelType"></param>
+            <param name="model"></param>
+            <param name="settings"></param>
+            <param name="field"></param>
+        </member>
+        <member name="M:Componyx.UI.ValidatorUtility.GetModelType(System.String,System.String)">
+            <summary>
+            Retrieves the model type from the given assembly and type string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Componyx.UI.ValidatorUtility.IsNumericType(System.Type)">
+            <summary>
+            Checks if the type is numeric
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Componyx.UI.ValidatorUtility.IsSupportedRangeType(System.ComponentModel.DataAnnotations.RangeAttribute)">
+            <summary>
+            Checks if the range operand type is supported.
+            </summary>
+            <param name="attr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Componyx.UI.ValidatorUtility.IsPrimitiveType(System.Type)">
+            <summary>
+            Checks if the specified type is primitive.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Componyx.UI.ValidatorUtility.ParseDate(System.String,System.String)">
+            <summary>
+            Creates a new date object by parsing the value with the specified date format.
+            </summary>
+            <param name="value"></param>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

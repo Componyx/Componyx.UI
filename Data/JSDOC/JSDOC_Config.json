@@ -1,0 +1,65 @@
+{
+  "plugins": [ "plugins/markdown" ],
+  "recurse": true,
+  "recurseDepth": 50,
+  "source": {
+	"recurse": true,
+    "include": [
+	"Resources/Base/Script/Library.js",
+	"Resources/Base/Script/Base.js",
+	"Resources/Base/Script/Bindary.js",
+	"Resources/Base/Script/Bindary/Template.js",
+	"Resources/Base/Script/ResponsiveTemplates.js",
+	"Resources/Base/Script/UIResourcePath.js",
+	"Resources/AppSkin",
+	"Resources/BookmarkSpy",
+	"Resources/Box",
+	"Resources/Button",
+	"Resources/Carousel",
+	"Resources/ComboBox",
+	"Resources/ColorButton",
+	"Resources/ColorPicker",
+	"Resources/DataPager",
+	"Resources/DatePicker",
+	"Resources/Dialog",
+	"Resources/Editor/Script/Editor.js",
+	"Resources/Editor/Script/Editor", 
+	"Resources/FileUpload",	
+	"Resources/Form/Script/Form.js",
+	"Resources/Form/Script/Form/Types.js",
+	"Resources/FormField",
+	"Resources/Grid",
+	"Resources/MaskedTextBox",
+	"Resources/Menu",
+	"Resources/NumericBox",
+	"Resources/PanelBar",  
+	"Resources/PieChart",  
+	"Resources/Slider",
+	"Resources/TabStrip",
+	"Resources/TimePicker",
+	"Resources/TooltipManager",
+	"Resources/Validator"
+    ],
+    "includePattern": ".+\\.js$",
+    "excludePattern": "(UI\\.js$|\\.min\\.js$|Resources\\/Base\\/Script\\/Bindary\\/|Resources\\/Form\\/Script\\/Editor\\/|Resources\\/Base\\/Script\\/Form\\/)"
+  },
+  "sourceType": "module",
+    "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": [ "jsdoc", "closure" ]
+  },
+  "opts": {
+    "template": "Data/JSDOC/Template/default",
+	"destination": "C:\\JSDOC_OUTPUT"
+  },
+  "templates": {
+    "default": {
+      "outputSourceFiles": false,
+      "layoutFile": "Data/JSDOC/Template/default/tmpl/layout.tmpl",
+      "staticFiles": { "include": ["Data/JSDOC/Template/default/static"] }
+    },
+    "cleverLinks": true,
+    "monospaceLinks": false,
+	"linkPath": "api/js"
+  }
+}

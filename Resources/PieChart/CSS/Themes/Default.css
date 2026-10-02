@@ -1,0 +1,9 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.pie-chart.theme.theme-default
+{
+    & .segment-label
+    {
+        color: var(--cui-tooltip-text-color);
+        background-color: var(--cui-tooltip-bg-color);
+    }
+}

@@ -1,0 +1,52 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.tab-strip.theme
+{
+    position: relative;
+}
+
+.tab-strip.theme > div.strip 
+{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    border-top-style: solid;
+    z-index: 0;
+}
+
+.tab-strip.theme.bottom > div.strip
+{
+    top: 0px;
+    bottom: auto;
+}
+
+.tab-strip.theme > .button.theme:not(:last-child)
+{
+    position: relative;
+    margin-right: 5px;
+}
+
+.tab-strip.theme:not(.bottom) > .button.theme:not(.split),
+.tab-strip.theme:not(.bottom) > .button.theme.split > div.command, 
+.tab-strip.theme:not(.bottom) > .button.theme.split > div.expand
+{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-color: transparent;
+}
+
+.tab-strip.theme.bottom > .button.theme:not(.split),
+.tab-strip.theme.bottom > .button.theme.split > div.command, 
+.tab-strip.theme.bottom > .button.theme.split > div.expand
+{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top-color: transparent;
+}
+
+.tab-strip.theme > .button.theme.selected,
+.tab-strip.theme > .button.theme.split > div.command.selected
+{
+    z-index: 1;
+    padding-bottom: 1px;
+}

@@ -1,0 +1,241 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+html.theme.theme-default
+{
+    background-color: var(--cui-app-skin-bg-color);
+}
+
+.app-skin.theme.theme-default
+{
+    > header
+    {
+        color: var(--cui-app-skin-header-text-color);
+        background: var(--cui-app-skin-header-bg-color);
+    }
+
+    .button.theme span[class*="ico-menu"]
+    {
+        background-color: var(--cui-app-skin-header-text-color);
+    }
+    /* search-box */
+    div.search
+    {
+        color: var(--cui-color-on-surface);
+    }
+    /* topbar & search-result */
+    .topbar,
+    .search-result
+    {
+        color: var(--cui-color-on-surface-overlay);
+        background: var(--cui-color-surface-overlay);
+    }
+
+    .search-result
+    {
+        background: rgb(from var(--cui-color-surface-overlay) r g b / 0.80);
+    }
+
+    > footer
+    {
+        color: var(--cui-app-skin-footer-text-color);
+        background: var(--cui-app-skin-footer-bg-color);
+    }
+
+    &.portal-menu div.body,
+    &.login div.body,
+    .box.side-menu
+    {
+        background: var(--cui-app-skin-menu-bg-color);
+    }
+
+    &.portal-menu,
+    &.side-menu .box.side-menu,
+    &.login
+    {
+        color: var(--cui-app-skin-menu-text-color);
+    }
+        /* side-menu transparent underline/overline text-colors */
+        &.side-menu .box.side-menu .button.theme.theme-default[class*=" line-"]:not(.disabled).lucent
+        {
+            &:hover,
+            > div:hover
+            {
+                color: var(--cui-app-skin-menu-lucent-hover-text-color);
+            }
+
+            &.selected,
+            > div.selected
+            {
+                color: var(--cui-app-skin-menu-lucent-selected-text-color);
+            }
+
+            &:not(.split).sel-child:not(:hover),
+            &.split.sel-child > div:not(:hover)
+            {
+                color: var(--cui-app-skin-menu-lucent-selected-child-text-color);
+            }
+        }
+
+
+    > header .menu .item-group:not(.root),
+    > .menu.theme.portal .item-group:not(.root)
+    {
+        color: var(--cui-color-on-surface);
+    }
+    /* portal buttons */
+    div.menu.portal.theme .item-group.root > nav > * > .button.theme.lucent:not(.pressed):not(:hover):not(.disabled):not(.selected):not(.expanded)
+    {
+        &.shade-1
+        {
+            color: var(--cui-app-skin-portal-theme1-text-color);
+            background: var(--cui-app-skin-portal-theme1-bg-color);
+        }
+
+        &.shade-2
+        {
+            color: var(--cui-app-skin-portal-theme2-text-color);
+            background: var(--cui-app-skin-portal-theme2-bg-color);
+        }
+
+        &.shade-3
+        {
+            color: var(--cui-app-skin-portal-theme3-text-color);
+            background: var(--cui-app-skin-portal-theme3-bg-color);
+        }
+
+        &.shade-4
+        {
+            color: var(--cui-app-skin-portal-theme4-text-color);
+            background: var(--cui-app-skin-portal-theme4-bg-color);
+        }
+    }
+    /* portal/side-menu/search-result opacity */
+    div.menu.portal.theme .item-group.root > nav > * > .button.theme.theme-default.lucent:not(.disabled),
+    &.side-menu .box.side-menu .button.theme.theme-default.lucent:not(.disabled),
+    > .search-result > nav > a
+    {
+        opacity: var(--cui-app-skin-menu-opacity);
+    }
+
+        div.menu.portal.theme .item-group.root > nav > * > .button.theme.theme-default.lucent:not(.disabled):hover,
+        div.menu.portal.theme .item-group.root > nav > * > .button.theme.theme-default.lucent:not(.disabled).pressed,
+        div.menu.portal.theme .item-group.root > nav > * > .button.theme.theme-default.lucent:not(.disabled).selected,
+        &.side-menu .box.side-menu .button.theme.theme-default[class*=" line-"]:not(.disabled).lucent:hover,
+        &.side-menu .box.side-menu .button.theme.theme-default[class*=" line-"]:not(.disabled).lucent.selected,
+        &.side-menu .box.side-menu .button.theme.theme-default[class*=" line-"]:not(.disabled).lucent.sel-child,
+        > .search-result > nav > a:hover
+        {
+            opacity: 1;
+        }
+    /* login-screen */
+    div.login-screen
+    {
+        color: var(--cui-app-skin-login-text-color);
+
+        input, textarea, select
+        {
+            color: var(--cui-app-skin-login-text-color);
+        }
+
+        i[class*='ico-']
+        {
+            opacity: 0.5;
+        }
+
+        div.message
+        {
+            color: var(--cui-app-skin-login-message);
+        }
+    }
+    /* preloader */
+    .box.preloader div.modal
+    {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .box.preloader div.content
+    {
+        background-color: var(--cui-preloader-bg-color);
+        color: var(--cui-preloader-text-color);
+    }
+
+        .box.preloader div.content i.spinner
+        {
+            border-color: var(--cui-preloader-text-color);
+        }
+    /* page content */
+    h1
+    {
+        color: var(--cui-app-skin-page-header-text-color);
+        background: var(--cui-app-skin-page-header-bg-color);
+    }
+    /* toolbar */
+    .toolbar
+    {
+        background-color: var(--cui-color-surface);
+    }
+    /* section */
+    section
+    {
+        border-radius: 0;
+        background: var(--cui-color-surface);
+        box-shadow: 0 8px 4px -4px var(--cui-box-shadow-color);
+    }
+    /* Let nested themes keep their own section styles */
+    .theme.theme-default section
+    {
+        border-radius: unset; /* or whatever the nested theme wants */
+        background: unset;
+        box-shadow: unset;
+    }
+    /* color themes */
+    .color-theme-1
+    {
+        border-style: solid;
+        border-width: 1px;
+        color: var(--cui-app-skin-color-theme1-text-color);
+        background: var(--cui-app-skin-color-theme1-bg-color);
+    }
+
+    .color-theme-2
+    {
+        border: 1px solid transparent;
+        color: var(--cui-app-skin-color-theme2-text-color);
+        background: var(--cui-app-skin-color-theme2-bg-color);
+    }
+
+    .color-theme-3
+    {
+        border: 1px solid transparent;
+        color: var(--cui-app-skin-color-theme3-text-color);
+        background: var(--cui-app-skin-color-theme3-bg-color);
+    }
+
+    .color-theme-4
+    {
+        border: 1px solid transparent;
+        color: var(--cui-app-skin-color-theme4-text-color);
+        background: var(--cui-app-skin-color-theme4-bg-color);
+    }
+
+    .box.side-menu::-webkit-scrollbar-thumb
+    {
+        background: var(--cui-app-skin-menu-text-color);
+    }
+
+    .box.side-menu
+    {
+        scrollbar-color: var(--cui-app-skin-menu-text-color) transparent;
+    }
+
+    .topbar::after
+    {
+        position: absolute;
+        z-index: 4;
+        content: '';
+        left: 0;
+        right: 0;
+        top: 48px;
+        height: 10px;
+        background: linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,0) 100%);
+    }
+}

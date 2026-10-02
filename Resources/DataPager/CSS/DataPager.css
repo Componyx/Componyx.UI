@@ -1,0 +1,72 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.data-pager.theme
+{
+    container-type: inline-size;
+
+    > div,
+    .page-holder
+    {
+        display: inline-block;
+    }
+
+    > div
+    {
+        padding-left: 4px;
+        line-height: 28px;
+        vertical-align: top;
+
+        > .button.theme,
+        > div.page-holder > .button.theme,
+        > .numeric-box.theme
+        {
+            margin-right: 4px !important;
+        }
+    }
+
+    .button.theme.content-left,
+    .button.theme.content-center,
+    .button.theme.content-right
+    {
+        padding-left: 3px;
+        padding-right: 3px;
+        min-width: 22px;
+    }
+
+    .button.theme.first span.icon,
+    .button.theme.last span.icon,
+    .button.theme.prev span.icon,
+    .button.theme.next span.icon,
+    .button.theme.prev-group span.icon,
+    .button.theme.next-group span.icon
+    {
+        font-family: 'UI';
+    }
+
+        .button.theme.prev span.icon::after
+        {
+            content: var(--cui-ico-arrow-l);
+        }
+
+        .button.theme.next span.icon::after
+        {
+            content: var(--cui-ico-arrow-r);
+        }
+
+        .button.theme.first span.icon::after
+        {
+            content: var(--cui-ico-first);
+        }
+
+        .button.theme.last span.icon::after
+        {
+            content: var(--cui-ico-last);
+        }
+}
+
+@container (max-width: 479px)
+{
+    .data-pager.theme .page-holder
+    {
+        display: none;
+    }
+}

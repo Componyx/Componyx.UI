@@ -1,0 +1,26 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.date-picker.theme.theme-default .dialog.theme table th,
+.date-picker.theme.theme-default .dialog.theme table td.week-number,
+.date-picker.theme.theme-default .dialog.theme .box.dialog-box div.content div.footer
+{
+    color: var(--cui-base-text-color);
+    background: var(--cui-base-bg-color);
+}
+
+.date-picker.theme.theme-default tr:not(.disabled):not(.selected):hover > td
+{
+    color: var(--cui-item-hover-text-color);
+    background: var(--cui-item-hover-bg-color);
+}
+
+.date-picker.theme.theme-default tr.selected:not(.select-all) > td
+{
+    color: var(--cui-item-selected-text-color);
+    background: var(--cui-item-selected-bg-color);
+}
+
+.date-picker.theme.theme-default tr.selected:not(.select-all):hover > td
+{
+    color: var(--cui-item-selected-hover-text-color);
+    background: var(--cui-item-selected-hover-bg-color);
+}

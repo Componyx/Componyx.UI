@@ -1,0 +1,328 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.menu.theme
+{
+    &,
+    .box,
+    nav
+    {
+        min-width: 0; /* required for header-overflow check otherwise if flexbox is used nav won't shrink */
+    }
+
+    span
+    {
+        display: inline-block;
+    }
+
+    .box
+    {
+        display: block;
+    }
+
+    /* item group */
+    .item-group
+    {
+        &:not(.visible-root)
+        {
+            position: fixed;
+        }
+
+        &:not(.visible-root):not(.static)
+        {
+            overflow-y: auto;
+            border-style: solid;
+
+            > nav::before
+            {
+                content: '';
+                position: absolute;
+                top: 0px;
+                bottom: 0px;
+                left: 0px;
+                width: 30px;
+                border-radius: inherit;
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+        }
+
+        /* navigation */
+        &.root.horizontal nav.content
+        {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        &:not(.static) nav.content
+        {
+            overflow: hidden;
+            min-width: 200px;
+            margin: 1px;
+            padding: 2px;
+            position: relative;
+        }
+
+        /* navigation static item-group */
+        &.static:not(.visible-root)
+        {
+            padding-top: 4px;
+            padding-bottom: 4px;
+            margin-left: 1rem;
+        }
+
+        &.root.horizontal > nav > .button.theme
+        {
+            display: inline-flex;
+        }
+
+        /* button content holder */
+        .button.theme
+        {
+            .content-holder
+            {
+                padding-left: 32px;
+                padding-right: 32px;
+                white-space: nowrap;
+            }
+
+            span.icon ~ .content-holder
+            {
+                padding-left: 10px;
+            }
+
+            &:not(.split):not(.childless) .content-holder
+            {
+                padding-right: 45px;
+            }
+        }
+    }
+
+    /* category display */
+    &.cat:not(.horizontal)
+    {
+        width: 100%;
+        overflow-x: hidden;
+
+        > .cat-container
+        {
+            width: 200%; /* reserve space for 2 item groups */
+
+            > .item-group
+            {
+                width: 50%; /* each visible item group takes half the space */
+                float: left;
+            }
+
+            .item-group.show-animation
+            {
+                animation: horizontal-category-display .1s ease;
+            }
+
+            .item-group.hide-animation
+            {
+                animation: horizontal-category-display .1s ease;
+                animation-direction: reverse;
+            }
+        }
+    }
+
+    /* horizontal root category */
+    &.cat.horizontal
+    {
+        height: 30px;
+        overflow-y: hidden;
+
+        > .cat-container
+        {
+            height: 200%; /* reserve space for 2 item groups */
+            display: inline-block; /* fixes height percentage problem on child elements  */
+
+            > .item-group
+            {
+                height: 50%; /* each visible item group takes half the space */
+            }
+
+            .item-group.show-animation
+            {
+                animation: vertical-category-display .1s ease;
+            }
+
+            .item-group.hide-animation
+            {
+                animation: vertical-category-display .1s ease;
+                animation-direction: reverse;
+            }
+        }
+    }
+
+    /* buttons */
+    .button.theme
+    {
+        display: flex;
+        text-align: left;
+        align-items: center;
+
+        &.split > div.command
+        {
+            flex: 1;
+        }
+
+        /* category navigator */
+        &.cat-nav
+        {
+            height: 28px;
+
+            span.icon
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &::before
+                {
+                    content: '';
+                    display: inline-block;
+                    border-style: solid;
+                    border-width: 2px 2px 0px 0px;
+                    width: 6px;
+                    height: 6px;
+                }
+
+                /* left */
+                &::before
+                {
+                    margin: 0;
+                    margin-left: 4px;
+                    transform: rotate(-135deg);
+                }
+            }
+        }
+
+        &:not(.split),
+        &.split > div.command
+        {
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+
+        /* unselectable item */
+        &.childless.no-action
+        {
+            background: none !important;
+            cursor: default;
+            pointer-events: none;
+
+            > .content-holder
+            {
+                pointer-events: auto;
+            }
+        }
+
+        &.split div.command
+        {
+            display: inline-flex;
+        }
+
+        /* icons */
+        &.check.selected:not(:hover),
+        &.radio.selected:not(:hover),
+        &.check.selected[class*='line-']:not(:hover)::after,
+        &.radio.selected[class*='line-']:not(:hover)::after
+        {
+            background: none !important;
+            color: inherit !important;
+            border-radius: 0px;
+        }
+
+        /* check/radio icon */
+        &.check.selected span.icon::before
+        {
+            content: '\e90b';
+        }
+
+        &.radio.selected span.icon::before
+        {
+            content: '\e90c';
+        }
+
+        /* arrow icon */
+        &.childless span.expand-icon,
+        &.split div.command span.expand-icon
+        {
+            display: none;
+        }
+
+        span.expand-icon
+        {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 7px;
+            width: 8px;
+            height: 6px;
+            background-color: transparent;
+            display: inline-block;
+        }
+
+        &:not(.split).static.lucent.expanded[class*=' line-']:not(.selected):not(:hover):not(:focus)::after,
+        &.split.static.lucent.expanded[class*=' line-']:not(.selected) > div:not(:hover):not(:focus)::after
+        {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        &:not(.split).static.lucent.expanded:not([class*=' line-']):not(:hover):not(.selected),
+        &.split.static.lucent.expanded:not([class*=' line-']):not(:hover) > div:not(.selected),
+        &.split.static.lucent.expanded:not([class*=' line-']):not(:hover) > div:not(.selected) + div
+        {
+            background: transparent;
+            color: inherit;
+            border-radius: 0;
+        }
+    }
+
+    &.horizontal .item-group.root .button.theme.cat-nav span.icon
+    {
+    }
+
+    /* up */
+    &.horizontal .item-group.root .button.theme.cat-nav span.icon::before
+    {
+        margin: 0;
+        margin-top: 4px;
+        transform: rotate(-45deg);
+    }
+
+    > .box.visible-root,
+    .box.static
+    {
+        background: none;
+        box-shadow: none;
+    }
+}
+
+@keyframes horizontal-category-display
+{
+    0%
+    {
+        margin-left: -50%;
+    }
+
+    100%
+    {
+        margin-left: 0%;
+    }
+}
+
+@keyframes vertical-category-display
+{
+    0%
+    {
+        margin-top: -50%;
+    }
+
+    100%
+    {
+        margin-top: 0%;
+    }
+}

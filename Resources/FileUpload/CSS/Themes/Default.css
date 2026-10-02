@@ -1,0 +1,17 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.file-upload.theme.theme-default div.progress > b
+{
+    background: var(--cui-button-bg-color);
+}
+
+.file-upload.theme.theme-default li.success div.name,
+.file-upload.theme.theme-default li.success div.state
+{
+    color: var(--positive-color);
+}
+
+.file-upload.theme.theme-default li.error div.name,
+.file-upload.theme.theme-default li.error div.state
+{
+    color: var(--negative-color);
+}

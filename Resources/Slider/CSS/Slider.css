@@ -1,0 +1,348 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+/* Animation */
+.slider.theme > div.content > div.track > div.range,
+.slider.theme > div.content > span.handle
+{
+    transition: none;
+}
+
+.slider.theme.animation > div.content > div.track > div.range
+{
+    transition: all 0.2s;
+}
+
+
+.slider.theme.animation:not(.vertical) > div.content > span.handle
+{
+    transition: left 0.2s;
+}
+
+.slider.theme.animation.vertical > div.content > span.handle
+{
+    transition: top 0.2s;
+}
+
+
+.slider.theme
+{
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+}
+
+    .slider.theme .button.theme
+    {
+        vertical-align: middle;
+        width: 16px;
+    }
+
+        .slider.theme .button.theme span.expand-icon
+        {
+            margin-left: 0px;
+        }
+
+    .slider.theme > div.content
+    {
+        position: relative;
+        width: auto;
+    }
+
+        .slider.theme:not(.fixed-track-size) > div.content
+        {
+            flex-grow: 1;
+        }
+
+        .slider.theme > div.content > div.track
+        {
+            position: relative;
+            border-radius: 0px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+            .slider.theme > div.content > div.track > div.range
+            {
+                border-radius: 0px;
+            }
+
+        .slider.theme > div.content > span.handle
+        {
+            position: absolute;
+            z-index: 1;
+            width: 24px;
+            height: 24px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: transparent;
+            border-radius: 100%;
+            outline: none;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .slider.theme > div.content > ul.ticks
+        {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+            .slider.theme > div.content > ul.ticks > li.tick
+            {
+                background: none;
+                color: inherit;
+                line-height: normal;
+            }
+
+                .slider.theme > div.content > ul.ticks > li.tick > b
+                {
+                    font-weight: normal;
+                }
+
+    /* horizontal */
+    .slider.theme:not(.vertical):not(.fixed-track-size)
+    {
+        min-width: 300px;
+        width: 100%;
+    }
+
+    .slider.theme:not(.vertical) > div.content
+    {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+        .slider.theme:not(.vertical) > div.content > ul.ticks
+        {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            height: 30px;
+        }
+
+            .slider.theme:not(.vertical) > div.content > ul.ticks > li.tick
+            {
+                position: relative;
+                height: 25px;
+                width: 1px;
+                padding-bottom: 5px;
+            }
+
+                .slider.theme:not(.vertical) > div.content > ul.ticks > li.tick::before
+                {
+                    display: inline-block;
+                    position: absolute;
+                    content: '';
+                    bottom: 0px;
+                    width: 1px;
+                }
+
+    /* tick heights  */
+    .slider.theme:not(.vertical):not(.minor):not(.major) > div.content > ul.ticks > li.tick::before
+    {
+        height: 40%;
+    }
+
+    .slider.theme:not(.vertical).major:not(.minor) > div.content > ul.ticks > li.tick::before
+    {
+        height: 20%;
+    }
+
+    .slider.theme:not(.vertical).minor > div.content > ul.ticks > li.tick::before
+    {
+        height: 10%;
+    }
+
+    .slider.theme:not(.vertical).minor > div.content > ul.ticks > li.tick.minor::before
+    {
+        height: 20%;
+    }
+
+    .slider.theme:not(.vertical).major > div.content > ul.ticks > li.tick.major::before
+    {
+        height: 40%;
+    }
+
+
+    /* tick value */
+    .slider.theme:not(.vertical) > div.content > ul.ticks > li.tick > b
+    {
+        display: inline-block;
+        position: absolute;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+
+    .slider.theme:not(.vertical) > div.content > div.track
+    {
+        height: 5px;
+    }
+
+    .slider.theme:not(.vertical) > div.content > ul.ticks.after
+    {
+        position: relative;
+        padding-bottom: 0px;
+        padding-top: 15px;
+        height: 15px;
+        margin-top: 8px;
+        margin-bottom: 0px;
+    }
+
+        .slider.theme:not(.vertical) > div.content > ul.ticks.after > li.tick::before
+        {
+            bottom: auto;
+            top: -15px;
+        }
+
+    .slider.theme:not(.vertical) > div.content > div.track > div.range
+    {
+        height: 100%;
+    }
+
+    .slider.theme:not(.vertical).reversed > div.content > div.track > div.range
+    {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+    }
+
+    .slider.theme:not(.vertical) > div.content > span.handle
+    {
+        top: 50%;
+    }
+
+
+
+    /* vertical */
+    .slider.theme.vertical:not(.fixed-track-size)
+    {
+        min-height: 300px;
+        height: 100%;
+    }
+
+    .slider.theme.vertical
+    {
+        align-items: flex-start;
+        flex-direction: column;
+        width: fit-content;
+    }
+
+        .slider.theme.vertical .button.theme
+        {
+            display: flex;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .slider.theme.vertical.reversed > div.content > div.track > div.range
+        {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+        }
+
+        .slider.theme.vertical > div.content
+        {
+            position: relative;
+            display: inline-flex;
+            width: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+            .slider.theme.vertical > div.content > ul.ticks
+            {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                margin-right: 8px;
+                width: 30px;
+            }
+
+
+                .slider.theme.vertical > div.content > ul.ticks > li.tick
+                {
+                    position: relative;
+                    width: 25px;
+                    height: 1px;
+                    padding-right: 5px;
+                }
+
+                    .slider.theme.vertical > div.content > ul.ticks > li.tick::before
+                    {
+                        display: inline-block;
+                        position: absolute;
+                        content: '';
+                        right: 0px;
+                        height: 1px;
+                    }
+
+        /* tick widths  */
+        .slider.theme.vertical:not(.minor):not(.major) > div.content > ul.ticks > li.tick::before
+        {
+            width: 40%;
+        }
+
+        .slider.theme.vertical.major:not(.minor) > div.content > ul.ticks > li.tick::before
+        {
+            width: 20%;
+        }
+
+        .slider.theme.vertical.minor > div.content > ul.ticks > li.tick::before
+        {
+            width: 10%;
+        }
+
+        .slider.theme.vertical.minor > div.content > ul.ticks > li.tick.minor::before
+        {
+            width: 20%;
+        }
+
+        .slider.theme.vertical.major > div.content > ul.ticks > li.tick.major::before
+        {
+            width: 40%;
+        }
+
+        /* tick value */
+        .slider.theme.vertical > div.content > ul.ticks > li.tick > b
+        {
+            display: inline-block;
+            position: absolute;
+            transform: translateY(-50%);
+            right: 15px;
+            text-align: right;
+        }
+
+        .slider.theme.vertical > div.content > div.track
+        {
+            width: 5px;
+            flex-grow: 1;
+        }
+
+        .slider.theme.vertical > div.content > ul.ticks.after
+        {
+            margin-right: 0px;
+            margin-left: 8px;
+        }
+
+            .slider.theme.vertical > div.content > ul.ticks.after > li.tick::before
+            {
+                left: 0px;
+            }
+
+            .slider.theme.vertical > div.content > ul.ticks.after > li.tick > b
+            {
+                display: inline-block;
+                position: absolute;
+                transform: translateY(-50%);
+                left: 15px;
+                text-align: left;
+            }
+
+        .slider.theme.vertical > div.content > span.handle
+        {
+            left: 50%;
+        }

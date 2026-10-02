@@ -1,0 +1,99 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.form-field.theme.theme-default input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(:disabled):focus,
+.form-field.theme.theme-default textarea:not(:disabled):focus,
+.form-field.theme.theme-default select:not(:disabled):focus
+{
+    box-shadow: inset 0px -2px 0px 0px var(--cui-button-selected-bg-color);
+}
+
+/* checkbox and radiobutton */
+.form-field.theme.theme-default > input + b
+{
+    background-color: var(--cui-button-bg-color);
+}
+
+.form-field.theme.theme-default > input[type="checkbox"]:disabled ~ b::before,
+.form-field.theme.theme-default > input[type="radio"]:disabled ~ b::before,
+.form-field.theme.theme-default.lucent > input[type="radio"] ~ b::before,
+.form-field.theme.theme-default.lucent > input[type="checkbox"] ~ b::before
+{
+    border-color: var(--cui-button-basic-text-color);
+}
+
+.form-field.theme.theme-default > input[type="radio"]:checked ~ b::before
+{
+    background-color: var(--cui-button-text-color);
+}
+
+.form-field.theme.theme-default.lucent > input ~ b
+{
+    background-color: var(--cui-color-surface);
+}
+
+.form-field.theme.theme-default:not(.lucent):hover:not(.switch) > input:not(:disabled) ~ b
+{
+    background-color: var(--cui-button-hover-bg-color);
+}
+
+    .form-field.theme.theme-default:not(.lucent):hover:not(.switch) > input:not(:disabled) ~ b::before
+    {
+        border-color: var(--cui-button-hover-text-color);
+    }
+
+.form-field.theme.theme-default > input:focus:not(:disabled) ~ b
+{
+    box-shadow: inset 0 -12px 0px -8px var(--cui-focus-box-shadow-color);
+}
+
+.form-field.theme.theme-default:not(.lucent) > input[type="checkbox"]:checked:not(:disabled) ~ b::before,
+.form-field.theme.theme-default:not(.lucent) > input[type="radio"]:checked:not(:disabled) ~ b::before
+{
+    border-color: var(--cui-button-text-color);
+}
+
+/* switch */
+.form-field.theme.switch > input ~ b
+{
+    background-color: var(--cui-button-basic-hover-bg-color);
+}
+
+.form-field.theme.theme-default.switch > input:checked ~ b
+{
+    background-color: var(--cui-button-bg-color);
+}
+
+    .form-field.theme.theme-default.switch > input:checked ~ b::before
+    {
+        color: var(--cui-button-bg-color);
+    }
+
+.form-field.theme.theme-default.switch > input ~ b::before
+{
+    background-color: var(--cui-knob-color);
+}
+
+/* readonly */
+.form-field.theme.theme-default input[readonly],
+.form-field.theme.theme-default textarea[readonly],
+.form-field.theme.theme-default select[readonly],
+.form-field.theme.theme-default .readonly
+{
+    background-color: var(--cui-readonly-bg-color);
+    cursor: default;
+}
+
+/* disabled */
+.form-field.theme.theme-default input:disabled,
+.form-field.theme.theme-default textarea:disabled,
+.form-field.theme.theme-default select:disabled,
+.form-field.theme.theme-default > input:disabled ~ b,
+.form-field.theme.theme-default.switch > input:disabled ~ b::before
+{
+    background-color: var(--cui-disabled-bg-color);
+    color: var(--cui-disabled-text-color);
+}
+
+.form-field.theme.theme-default.required label::before
+{
+    color: var(--cui-negative-text-color);
+}

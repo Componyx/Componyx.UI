@@ -1,0 +1,39 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.color-button.theme
+{
+    display: inline-block;
+    line-height: normal;
+}
+
+.color-button.theme .button.theme
+{
+    padding: 4px;
+    min-width: 0;
+    width: auto;
+    height: auto;
+    line-height: 0;
+}
+
+.color-button.theme .button.theme div.color-box
+{
+    position: relative;
+    width: 16px;
+    height: 16px;  
+    border-style: none;
+     
+    background: linear-gradient(45deg, rgba(0,0,0,0.0980392) 25%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.0980392) 75%, rgba(0,0,0,0.0980392) 0), 
+    linear-gradient(45deg, rgba(0,0,0,0.0980392) 25%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.0980392) 75%, rgba(0,0,0,0.0980392) 0), rgb(255, 255, 255);
+  
+    background-position: 0 0, 5px 5px;
+    background-size: 10px 10px;
+}
+
+.color-button.theme .button.theme div.color-box > div
+{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    border-style: solid;
+}

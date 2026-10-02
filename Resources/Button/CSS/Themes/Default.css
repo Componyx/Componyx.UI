@@ -1,0 +1,200 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+/* split button separation border color */
+.button.theme.theme-default.split:not(.border):not(.disabled) > div.command,
+.button.theme.theme-default.split:not(.border)[class*=" line-"]:not(.disabled) > div.command.selected,
+.button.theme.theme-default.split:not(.border)[class*=" line-"]:not(.disabled).expanded > div.command
+{
+    border-right-color: var(--cui-button-border-color);
+}
+
+/* underline/overline text-colors */
+.button.theme.theme-default[class*=" line-"]:not(.disabled).lucent:hover,
+.button.theme.theme-default[class*=" line-"]:not(.disabled).lucent > div:hover
+{
+    color: var(--cui-button-lucent-hover-text-color);
+}
+
+.button.theme.theme-default[class*=" line-"]:not(.disabled).lucent.selected,
+.button.theme.theme-default[class*=" line-"]:not(.disabled).lucent > div.selected
+{
+    color: var(--cui-button-lucent-selected-text-color);
+}
+
+/* underline/overline bg */
+.button.theme.theme-default:not(.split)[class*=" line-"]:not(.disabled)::after,
+.button.theme.theme-default.split[class*=" line-"]:not(.disabled) > div::after
+{
+    background: var(--cui-button-hover-bg-color);
+}
+
+/* default basic */
+.button.theme.theme-default.basic:not(.split):not(.lucent):not(.disabled),
+.button.theme.theme-default.basic.split:not(.lucent):not(.disabled) > div
+{
+    background: var(--cui-button-basic-bg-color);
+    color: var(--cui-button-basic-text-color);
+}
+
+/* default primary */
+.button.theme.theme-default.pri:not(.split):not(.lucent):not(.disabled),
+.button.theme.theme-default.pri.split:not(.lucent):not(.disabled) > div
+{
+    background: var(--cui-button-bg-color);
+    color: var(--cui-button-text-color);
+}
+
+/* (split) button BASIC hover and expanded style (expand-button gets hover style when command-button is selected) */
+.button.theme.theme-default.basic.split:not(.touch):not([class*=" line-"]):not(.disabled):hover > div,
+.button.theme.theme-default.basic.split.expanded:not(.touch):not([class*=" line-"]):not(.disabled) > div:hover,
+.button.theme.theme-default.basic.split.expanded:not([class*=" line-"]):not(.disabled) > div,
+.button.theme.theme-default.basic.split:not([class*=" line-"]):not(.disabled) > div.command.selected + div.expand,
+.button.theme.theme-default.basic:not(.split):not([class*=" line-"]):not(.disabled).expanded
+{
+    background: var(--cui-button-basic-split-hover-bg-color);
+    color: var(--cui-button-basic-hover-text-color);
+    border-color: transparent;
+}
+
+/* BASIC selected/expanded */
+.button.theme.theme-default.basic:not(.split):not(.touch):not([class*=" line-"]):not(.disabled).selected,
+.button.theme.theme-default.basic.split:not([class*=" line-"]):not(.touch):not(.disabled) > div.selected,
+.button.theme.theme-default.basic:not([class*=" line-"]):not(.disabled).expanded > div.expand
+{
+    background: var(--cui-button-basic-selected-bg-color);
+}
+
+/* BASIC hover */
+.button.theme.theme-default.basic:not(.split):not(.touch):not([class*=" line-"]):not(.disabled):hover,
+.button.theme.theme-default.basic.split:not([class*=" line-"]):not(.touch):not(.disabled) > div:hover,
+.button.theme.theme-default.basic.split.expanded:not([class*=" line-"]):not(.touch):not(.disabled) > div:hover
+{
+    background: var(--cui-button-basic-hover-bg-color);
+}
+
+/* BASIC click */
+.button.theme.theme-default.basic:not(.split):not(.touch):not(.disabled):not(.lucent):not([class*=" line-"]).pressed:hover,
+.button.theme.theme-default.basic:not(.split):not(.touch):not(.disabled).lucent:not([class*=" line-"]).pressed:hover,
+.button.theme.theme-default.basic:not(.split):not(.touch):not(.disabled).expanded:not([class*=" line-"]).pressed:hover,
+.button.theme.theme-default.basic:not(.split):not(.touch):not(.disabled).selected:not([class*=" line-"]).pressed:hover,
+.button.theme.theme-default.basic.split:not(.touch):not(.disabled):not([class*=" line-"]) > div.pressed:hover,
+.button.theme.theme-default.basic.split:not(.touch):not(.disabled):not([class*=" line-"]) > div.selected.pressed:hover
+{
+    background: var(--cui-button-basic-pressed-bg-color);
+}
+
+/* BASIC border color */
+.button.theme.theme-default.basic.split.border:not(.touch):not([class*=" line-"]):not(.disabled):hover > div,
+.button.theme.theme-default.basic.split.border.expanded:not(.touch):not([class*=" line-"]):not(.disabled) > div:hover,
+.button.theme.theme-default.basic.split.border.expanded:not([class*=" line-"]):not(.disabled) > div,
+.button.theme.theme-default.basic.split.border:not([class*=" line-"]):not(.disabled) > div.command.selected + div.expand,
+.button.theme.theme-default.basic:not(.split).border:not([class*=" line-"]):not(.disabled).expanded
+{
+    border-color: var(--cui-button-border-color);
+}
+
+
+/* (split) button hover and expanded style (expand-button gets hover style when command-button is selected) */
+.button.theme.theme-default.pri.split:not(.touch):not([class*=" line-"]):not(.disabled):hover > div,
+.button.theme.theme-default.pri.split.expanded:not([class*=" line-"]):not(.disabled) > div,
+.button.theme.theme-default.pri.split:not([class*=" line-"]):not(.disabled) > div.command.selected + div.expand,
+.button.theme.theme-default.pri:not(.split):not([class*=" line-"]):not(.disabled).expanded
+{
+    background: var(--cui-button-split-hover-bg-color);
+    color: var(--cui-button-hover-text-color);
+    border-color: transparent;
+}
+/* underline/overline hover bg color */
+.button.theme.theme-default.split[class*=" line-"]:not(.touch):not(.disabled) > div::after,
+.button.theme.theme-default.split[class*=" line-"]:not(.touch):not(.disabled):hover > div::after,
+.button.theme.theme-default.split[class*=" line-"].expanded:not(.disabled) > div.command::after,
+.button.theme.theme-default.split[class*=" line-"]:not(.disabled) > div.command.selected + div.expand::after,
+.button.theme.theme-default:not(.split)[class*=" line-"]:not(.disabled).expanded::after
+{
+    background: var(--cui-button-split-hover-bg-color);
+}
+
+/* Primary or underline/overline hover */
+.button.theme.theme-default.pri:not(.split):not(.touch):not([class*=" line-"]):not(.disabled):hover,
+.button.theme.theme-default.pri.split:not([class*=" line-"]):not(.touch):not(.disabled) > div:hover,
+.button.theme.theme-default:not(.split)[class*=" line-"]:not(.touch):not(.disabled):hover::after,
+.button.theme.theme-default.split[class*=" line-"]:not(.touch):not(.disabled) > div:hover::after
+{
+    background: var(--cui-button-hover-bg-color);
+    color: var(--cui-button-hover-text-color);
+    border-color: transparent;
+}
+
+/* Primary click */
+.button.theme.theme-default.pri:not(.split):not(.touch):not(.disabled):not(.lucent):not([class*=" line-"]).pressed:hover,
+.button.theme.theme-default.pri:not(.split):not(.touch):not(.disabled).lucent:not([class*=" line-"]).pressed:hover,
+.button.theme.theme-default.pri:not(.split):not(.touch):not(.disabled).expanded:not([class*=" line-"]).pressed:hover,
+.button.theme.theme-default.pri:not(.split):not(.touch):not(.disabled).selected:not([class*=" line-"]).pressed:hover,
+.button.theme.theme-default.pri.split:not(.touch):not(.disabled):not([class*=" line-"]) > div.pressed:hover,
+.button.theme.theme-default.pri.split:not(.touch):not(.disabled):not([class*=" line-"]) > div.selected.pressed:hover
+{
+    background: var(--cui-button-pressed-bg-color);
+}
+
+/* selected (same style for expanded expand-button) */
+.button.theme.theme-default.pri:not(.split):not([class*=" line-"]):not(.disabled).selected,
+.button.theme.theme-default.pri.split:not([class*=" line-"]):not(.disabled) > div.command.selected,
+.button.theme.theme-default.pri.split:not([class*=" line-"]):not(.disabled).expanded > div.expand,
+.button.theme.theme-default:not(.split)[class*=" line-"]:not(.disabled).selected::after,
+.button.theme.theme-default.split[class*=" line-"]:not(.disabled) > div.command.selected::after,
+.button.theme.theme-default.split[class*=" line-"]:not(.disabled).expanded > div.expand::after
+{
+    background: var(--cui-button-selected-bg-color);
+    color: var(--cui-button-selected-text-color);
+    border-color: transparent;
+}
+
+/* selected hover */
+.button.theme.theme-default.pri:not(.split).selected:not(.touch):not([class*=" line-"]):not(.disabled):hover,
+.button.theme.theme-default.pri.split:not([class*=" line-"]):not(.disabled):not(.touch) > div.command.selected:hover,
+.button.theme.theme-default.pri.split.expanded:not([class*=" line-"]):not(.disabled):not(.touch) > div.expand:hover,
+.button.theme.theme-default:not(.split)[class*=" line-"]:not(.disabled).selected:not(.touch):hover::after,
+.button.theme.theme-default.split[class*=" line-"]:not(.disabled):not(.touch) > div.command.selected:hover::after,
+.button.theme.theme-default.split[class*=" line-"]:not(.disabled).expanded:not(.touch) > div.expand:hover::after
+{
+    background: var(--cui-button-selected-hover-bg-color);
+    color: var(--cui-button-selected-hover-text-color);
+    border-color: transparent;
+}
+
+/* underline/overline hover-out selected/expanded transition bg */
+.button.theme.theme-default:not(.split)[class*=" line-"]:not(.disabled).selected:not(.touch)::after,
+.button.theme.theme-default.split[class*=" line-"]:not(.disabled):not(.touch) > div.command.selected::after,
+.button.theme.theme-default.split[class*=" line-"]:not(.disabled).expanded:not(.touch) > div.expand::after
+{
+    background: var(--cui-button-selected-hover-bg-color);
+}
+
+
+
+/* disabled */
+.button.theme.theme-default:not(.split).disabled,
+.button.theme.theme-default:not(.split).disabled::after,
+.button.theme.theme-default.split.disabled > div,
+.button.theme.theme-default.split.disabled > div::after
+{
+    background: var(--cui-disabled-bg-color);
+    color: var(--cui-disabled-text-color);
+}
+
+    /* disabled transparent */
+    .button.theme.theme-default:not(.split).disabled.lucent,
+    .button.theme.theme-default.split.disabled.lucent > div,
+    .button.theme.theme-default:not(.split).disabled.lucent:hover,
+    .button.theme.theme-default.split.disabled.lucent > div:hover,
+    .button.theme.theme-default:not(.split).disabled.lucent.pressed,
+    .button.theme.theme-default.split.disabled.lucent > div.pressed
+    {
+        background: none;
+    }
+
+
+/* focus styles */
+.button.theme.theme-default:focus-visible
+{
+    outline-color: var(--cui-focus-outline-color);
+}

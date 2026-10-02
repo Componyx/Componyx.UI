@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11408.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F50BB128-CD29-4545-8D57-77579F4887F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{DD4350E0-0574-4412-9DED-49C6A644B048}"
+	ProjectSection(SolutionItems) = preProject
+		Data\Utils\AssemblyInfoUtil.exe = Data\Utils\AssemblyInfoUtil.exe
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JSDOC", "JSDOC", "{7F782E37-9384-4582-86B5-63D100E31859}"
+	ProjectSection(SolutionItems) = preProject
+		Data\JSDOC\JSDOC_Config.json = Data\JSDOC\JSDOC_Config.json
+		Data\JSDOC\JSDOC_Custom.css = Data\JSDOC\JSDOC_Custom.css
+		Data\JSDOC\README.md = Data\JSDOC\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template", "Template", "{DB1B199E-5DC9-445C-9E9C-DDFA9483A24C}"
+	ProjectSection(SolutionItems) = preProject
+		Data\JSDOC\Template\custom.rar = Data\JSDOC\Template\custom.rar
+		Data\JSDOC\Template\default.rar = Data\JSDOC\Template\default.rar
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Componyx.UI", "NET\Componyx.UI.csproj", "{8E376950-BB1F-4BE2-8C3A-E1660FDAE19E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{A78E6CC1-FFF9-4110-9F6E-459E67ED9F39}"
+	ProjectSection(SolutionItems) = preProject
+		Build\build.config.json = Build\build.config.json
+		Build\build.esm.js = Build\build.esm.js
+		Build\build.js = Build\build.js
+		Build\package-lock.json = Build\package-lock.json
+		Build\package.json = Build\package.json
+		Build\package.template.json = Build\package.template.json
+		Build\rollup.config.js = Build\rollup.config.js
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E376950-BB1F-4BE2-8C3A-E1660FDAE19E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E376950-BB1F-4BE2-8C3A-E1660FDAE19E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E376950-BB1F-4BE2-8C3A-E1660FDAE19E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E376950-BB1F-4BE2-8C3A-E1660FDAE19E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DD4350E0-0574-4412-9DED-49C6A644B048} = {F50BB128-CD29-4545-8D57-77579F4887F6}
+		{7F782E37-9384-4582-86B5-63D100E31859} = {F50BB128-CD29-4545-8D57-77579F4887F6}
+		{DB1B199E-5DC9-445C-9E9C-DDFA9483A24C} = {7F782E37-9384-4582-86B5-63D100E31859}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A094FE46-6117-4EFD-A216-E61F8DBB23D8}
+	EndGlobalSection
+EndGlobal

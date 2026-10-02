@@ -1,0 +1,16 @@
+h4
+{
+    padding: 8px;
+    background-color: #454d4f;
+    color: #fff;
+}
+
+thead tr
+{
+    background-color: #f6f6f6;
+}
+
+th
+{
+    border-right: none;
+}

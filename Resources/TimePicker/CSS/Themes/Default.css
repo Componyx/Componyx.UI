@@ -1,0 +1,30 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.time-picker.theme.theme-default .clock
+{
+    background: var(--cui-base-bg-color); /* base BG color */
+}
+
+    .time-picker.theme.theme-default .clock .clock-hand,
+    .time-picker.theme.theme-default .clock .clock-hand::before,
+    .time-picker.theme.theme-default .clock .clock-hand::after
+    {
+        background: var(--cui-base-dark-bg-color); /* base darker BG color */
+    }
+
+        .time-picker.theme.theme-default .clock .clock-hand.selected,
+        .time-picker.theme.theme-default .clock .clock-hand.selected::before,
+        .time-picker.theme.theme-default .clock .clock-hand.selected::after
+        {
+            background: var(--cui-button-bg-color); /* primary BG color */
+        }
+
+            .time-picker.theme.theme-default .clock .clock-item.selected,
+            .time-picker.theme.theme-default .clock .clock-hand.selected > *
+            {
+                color: var(--cui-button-text-color);
+            }
+
+        .time-picker.theme.theme-default .clock .clock-hand:focus::after
+        {
+            box-shadow: inset 0 -12px 0px -8px var(--cui-focus-box-shadow-color);
+        }

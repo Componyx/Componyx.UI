@@ -1,0 +1,1042 @@
+[
+  {
+    "name": "Currency",
+    "values": [
+	  {
+        "name": "Currency",
+        "value": "¤"
+      },
+      {
+        "name": "Dollar Sign",
+        "value": "$"
+      },
+      {
+        "name": "Euro Sign",
+        "value": "€"
+      },
+      {
+        "name": "Pound Sign",
+        "value": "£"
+      },
+      {
+        "name": "Yen Sign",
+        "value": "¥"
+      },
+      {
+        "name": "Cent Sign",
+        "value": "¢"
+      },
+      {
+        "name": "Ruble Sign",
+        "value": "₽"
+      },
+      {
+        "name": "Rupee Sign",
+        "value": "₹"
+      },
+      {
+        "name": "Turkish Lira Sign",
+        "value": "₺"
+      },
+      {
+        "name": "Bitcoin Sign",
+        "value": "₿"
+      },
+      {
+        "name": "Dong Sign",
+        "value": "₫"
+      },
+      {
+        "name": "Franc Sign",
+        "value": "₣"
+      },
+      {
+        "name": "Peseta Sign",
+        "value": "₧"
+      },
+      {
+        "name": "Lira Sign",
+        "value": "₤"
+      },
+      {
+        "name": "Mill Sign",
+        "value": "₥"
+      },
+      {
+        "name": "Naira Sign",
+        "value": "₦"
+      },
+      {
+        "name": "Pesos Sign",
+        "value": "₱"
+      },
+      {
+        "name": "Sheqel Sign",
+        "value": "₪"
+      },
+      {
+        "name": "Tugrik Sign",
+        "value": "₮"
+      },
+      {
+        "name": "Manat Sign",
+        "value": "₼"
+      },
+      {
+        "name": "Hryvnia Sign",
+        "value": "₴"
+      },
+      {
+        "name": "Lari Sign",
+        "value": "₾"
+      },
+      {
+        "name": "Bitcoin Cash Sign",
+        "value": "ƀ"
+      },
+      {
+        "name": "Tenge Sign",
+        "value": "₸"
+      },
+      {
+        "name": "Ghana Cedi Sign",
+        "value": "₵"
+      },
+      {
+        "name": "Florin Sign",
+        "value": "ƒ"
+      },
+      {
+        "name": "Nakfa Sign",
+        "value": "₦"
+      },
+      {
+        "name": "Boliviano Sign",
+        "value": "₼"
+      },
+      {
+        "name": "Cedi Sign",
+        "value": "₵"
+      },
+      {
+        "name": "Colon Sign",
+        "value": "₡"
+      },
+      {
+        "name": "Cordoba Sign",
+        "value": "₡"
+      },
+      {
+        "name": "Cruzeiro Sign",
+        "value": "₢"
+      },
+      {
+        "name": "Cruzeiro do Sul Sign",
+        "value": "₢"
+      },
+      {
+        "name": "Cuzco Sol Sign",
+        "value": "₢"
+      },
+      {
+        "name": "Daler Sign",
+        "value": "ƒ"
+      },
+      {
+        "name": "Denar Sign",
+        "value": "₯"
+      },
+      {
+        "name": "Denarius Sign",
+        "value": "₯"
+      },
+      {
+        "name": "Dong Sign",
+        "value": "₫"
+      },
+      {
+        "name": "Drachma Sign",
+        "value": "₯"
+      },
+      {
+        "name": "Kip Sign",
+        "value": "₭"
+      },
+      {
+        "name": "Livre Tournois Sign",
+        "value": "₶"
+      },
+      {
+        "name": "Luigino Sign",
+        "value": "₶"
+      },
+      {
+        "name": "Mark Sign",
+        "value": "ℳ"
+      },
+      {
+        "name": "Meca Sign",
+        "value": "₥"
+      },
+      {
+        "name": "Mill Sign",
+        "value": "₥"
+      },
+      {
+        "name": "Mill Points Sign",
+        "value": "₥"
+      },
+      {
+        "name": "Mills Sign",
+        "value": "₥"
+      },
+      {
+        "name": "Millstones Sign",
+        "value": "₥"
+      }
+    ]
+  },
+  {
+    "name": "Text",
+    "values": [
+      {
+        "name": "Copyright",
+        "value": "©"
+      },
+      {
+        "name": "Registered",
+        "value": "®"
+      },
+      {
+        "name": "Trademark",
+        "value": "™"
+      },
+      {
+        "name": "Section",
+        "value": "§"
+      },
+      {
+        "name": "Paragraph",
+        "value": "¶"
+      },
+      {
+        "name": "Ellipsis",
+        "value": "…"
+      },
+      {
+        "name": "Bullet",
+        "value": "•"
+      },
+      {
+        "name": "Em Dash",
+        "value": "—"
+      },
+      {
+        "name": "En Dash",
+        "value": "–"
+      },
+      {
+        "name": "Degree Celsius",
+        "value": "℃"
+      },
+      {
+        "name": "Degree Fahrenheit",
+        "value": "℉"
+      },
+      {
+        "name": "Single Low-9 Quotation Mark",
+        "value": "‚"
+      },
+      {
+        "name": "Double Low-9 Quotation Mark",
+        "value": "„"
+      },
+      {
+        "name": "Single High-Reversed-9 Quotation Mark",
+        "value": "‛"
+      },
+      {
+        "name": "Double High-Reversed-9 Quotation Mark",
+        "value": "‟"
+      },
+      {
+        "name": "Single Left-Pointing Angle Quotation Mark",
+        "value": "‹"
+      },
+      {
+        "name": "Single Right-Pointing Angle Quotation Mark",
+        "value": "›"
+      },
+      {
+        "name": "Double Left-Pointing Angle Quotation Mark",
+        "value": "«"
+      },
+      {
+        "name": "Double Right-Pointing Angle Quotation Mark",
+        "value": "»"
+      }
+    ]
+  },
+  {
+    "name": "Mathematical",
+    "values": [
+      {
+        "name": "PLUS SIGN",
+        "value": "+"
+      },
+      {
+        "name": "MINUS SIGN",
+        "value": "-"
+      },
+      {
+        "name": "MULTIPLICATION SIGN",
+        "value": "×"
+      },
+      {
+        "name": "DIVISION SIGN",
+        "value": "÷"
+      },
+      {
+        "name": "EQUALS SIGN",
+        "value": "="
+      },
+      {
+        "name": "NOT EQUAL TO",
+        "value": "≠"
+      },
+      {
+        "name": "APPROXIMATELY EQUAL TO",
+        "value": "≈"
+      },
+      {
+        "name": "LESS-THAN SIGN",
+        "value": "<"
+      },
+      {
+        "name": "GREATER-THAN SIGN",
+        "value": ">"
+      },
+      {
+        "name": "LESS-THAN OR EQUAL TO",
+        "value": "≤"
+      },
+      {
+        "name": "GREATER-THAN OR EQUAL TO",
+        "value": "≥"
+      },
+      {
+        "name": "PLUS-MINUS SIGN",
+        "value": "±"
+      },
+      {
+        "name": "MINUS-PLUS SIGN",
+        "value": "∓"
+      },
+      {
+        "name": "MULTIPLICATION CROSS",
+        "value": "✕"
+      },
+      {
+        "name": "MULTIPLICATION DOT",
+        "value": "⋅"
+      },
+      {
+        "name": "SQUARE ROOT",
+        "value": "√"
+      },
+      {
+        "name": "ONE-HALF",
+        "value": "½"
+      },
+      {
+        "name": "ONE-QUARTER",
+        "value": "¼"
+      },
+      {
+        "name": "THREE-QUARTER",
+        "value": "¾"
+      },
+      {
+        "name": "INFINITY",
+        "value": "∞"
+      },
+      {
+        "name": "DEGREE",
+        "value": "°"
+      },
+      {
+        "name": "ANGLE",
+        "value": "∠"
+      },
+      {
+        "name": "PERCENT",
+        "value": "%"
+      },
+      {
+        "name": "PER MILLE",
+        "value": "‰"
+      },
+      {
+        "name": "Per Ten Thousand",
+        "value": "‱"
+      },
+      {
+        "name": "Prime",
+        "value": "′"
+      },
+      {
+        "name": "Double Prime",
+        "value": "″"
+      },
+      {
+        "name": "Triple Prime",
+        "value": "‴"
+      },
+      {
+        "name": "FACTORIAL",
+        "value": "!"
+      },
+      {
+        "name": "DOT OPERATOR",
+        "value": "⋅"
+      },
+      {
+        "name": "MATRIX",
+        "value": "["
+      },
+      {
+        "name": "INTEGRAL",
+        "value": "∫"
+      },
+      {
+        "name": "PARTIAL DIFFERENTIAL",
+        "value": "∂"
+      },
+      {
+        "name": "NABLA",
+        "value": "∇"
+      },
+      {
+        "name": "DIVIDES",
+        "value": "∣"
+      },
+      {
+        "name": "PARALLEL TO",
+        "value": "∥"
+      },
+      {
+        "name": "FOR ALL",
+        "value": "∀"
+      },
+      {
+        "name": "THERE EXISTS",
+        "value": "∃"
+      },
+      {
+        "name": "ELEMENT OF",
+        "value": "∈"
+      },
+      {
+        "name": "NOT AN ELEMENT OF",
+        "value": "∉"
+      },
+      {
+        "name": "EMPTY SET",
+        "value": "∅"
+      },
+      {
+        "name": "SUBSET OF",
+        "value": "⊂"
+      },
+      {
+        "name": "SUPERSET OF",
+        "value": "⊃"
+      },
+      {
+        "name": "UNION",
+        "value": "∪"
+      },
+      {
+        "name": "INTERSECTION",
+        "value": "∩"
+      },
+      {
+        "name": "PROPORTIONAL TO",
+        "value": "∝"
+      },
+      {
+        "name": "THEREFORE",
+        "value": "∴"
+      },
+      {
+        "name": "BECAUSE",
+        "value": "∵"
+      },
+      {
+        "name": "ALMOST EQUAL TO",
+        "value": "≈"
+      },
+      {
+        "name": "RIGHT ARROW",
+        "value": "→"
+      },
+      {
+        "name": "LEFT ARROW",
+        "value": "←"
+      },
+      {
+        "name": "UP ARROW",
+        "value": "↑"
+      },
+      {
+        "name": "DOWN ARROW",
+        "value": "↓"
+      }
+    ]
+  },
+  {
+  "name": "Greek Alphabet",
+  "values":  [
+	{"name": "OMEGA", "value": "Ω"},
+	{"name": "PI", "value": "π"},
+	{"name": "BETA", "value": "β"},
+	{"name": "ALPHA", "value": "α"},
+	{"name": "GAMMA", "value": "γ"},
+	{"name": "DELTA", "value": "δ"},
+	{"name": "EPSILON", "value": "ε"},
+	{"name": "THETA", "value": "θ"},
+	{"name": "LAMBDA", "value": "λ"},
+	{"name": "SIGMA", "value": "σ"},
+	{"name": "UPSILON", "value": "υ"},
+	{"name": "PHI", "value": "φ"},
+	{"name": "ETA", "value": "η"},
+	{"name": "MU", "value": "μ"},
+	{"name": "TAU", "value": "τ"},
+	{"name": "XI", "value": "ξ"},
+	{"name": "CHI", "value": "χ"},
+	{"name": "RHO", "value": "ρ"},
+	{"name": "PSI", "value": "ψ"},
+	{"name": "THETA SYMBOL", "value": "ϑ"},
+	{"name": "DELTA SYMBOL", "value": "ϝ"},
+	{"name": "KAPPA", "value": "κ"},
+	{"name": "OMEGA SYMBOL", "value": "Ω"},
+	{"name": "PI SYMBOL", "value": "π"} ]
+  },
+  {
+    "name": "Extended Latin",
+    "values": [
+      {
+        "name": "LATIN CAPITAL LETTER A WITH MACRON",
+        "value": "Ā"
+      },
+      {
+        "name": "LATIN SMALL LETTER A WITH MACRON",
+        "value": "ā"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER A WITH BREVE",
+        "value": "Ă"
+      },
+      {
+        "name": "LATIN SMALL LETTER A WITH BREVE",
+        "value": "ă"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER A WITH OGONEK",
+        "value": "Ą"
+      },
+      {
+        "name": "LATIN SMALL LETTER A WITH OGONEK",
+        "value": "ą"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER C WITH ACUTE",
+        "value": "Ć"
+      },
+      {
+        "name": "LATIN SMALL LETTER C WITH ACUTE",
+        "value": "ć"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER C WITH CIRCUMFLEX",
+        "value": "Ĉ"
+      },
+      {
+        "name": "LATIN SMALL LETTER C WITH CIRCUMFLEX",
+        "value": "ĉ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER C WITH DOT ABOVE",
+        "value": "Ċ"
+      },
+      {
+        "name": "LATIN SMALL LETTER C WITH DOT ABOVE",
+        "value": "ċ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER C WITH CARON",
+        "value": "Č"
+      },
+      {
+        "name": "LATIN SMALL LETTER C WITH CARON",
+        "value": "č"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER D WITH CARON",
+        "value": "Ď"
+      },
+      {
+        "name": "LATIN SMALL LETTER D WITH CARON",
+        "value": "ď"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER D WITH STROKE",
+        "value": "Đ"
+      },
+      {
+        "name": "LATIN SMALL LETTER D WITH STROKE",
+        "value": "đ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER E WITH MACRON",
+        "value": "Ē"
+      },
+      {
+        "name": "LATIN SMALL LETTER E WITH MACRON",
+        "value": "ē"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER E WITH BREVE",
+        "value": "Ĕ"
+      },
+      {
+        "name": "LATIN SMALL LETTER E WITH BREVE",
+        "value": "ĕ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER E WITH DOT ABOVE",
+        "value": "Ė"
+      },
+      {
+        "name": "LATIN SMALL LETTER E WITH DOT ABOVE",
+        "value": "ė"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER E WITH OGONEK",
+        "value": "Ę"
+      },
+      {
+        "name": "LATIN SMALL LETTER E WITH OGONEK",
+        "value": "ę"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER E WITH CARON",
+        "value": "Ě"
+      },
+      {
+        "name": "LATIN SMALL LETTER E WITH CARON",
+        "value": "ě"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER G WITH CIRCUMFLEX",
+        "value": "Ĝ"
+      },
+      {
+        "name": "LATIN SMALL LETTER G WITH CIRCUMFLEX",
+        "value": "ĝ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER G WITH BREVE",
+        "value": "Ğ"
+      },
+      {
+        "name": "LATIN SMALL LETTER G WITH BREVE",
+        "value": "ğ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER G WITH DOT ABOVE",
+        "value": "Ġ"
+      },
+      {
+        "name": "LATIN SMALL LETTER G WITH DOT ABOVE",
+        "value": "ġ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER G WITH CEDILLA",
+        "value": "Ģ"
+      },
+      {
+        "name": "LATIN SMALL LETTER G WITH CEDILLA",
+        "value": "ģ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER H WITH CIRCUMFLEX",
+        "value": "Ĥ"
+      },
+      {
+        "name": "LATIN SMALL LETTER H WITH CIRCUMFLEX",
+        "value": "ĥ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER H WITH STROKE",
+        "value": "Ħ"
+      },
+      {
+        "name": "LATIN SMALL LETTER H WITH STROKE",
+        "value": "ħ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER I WITH TILDE",
+        "value": "Ĩ"
+      },
+      {
+        "name": "LATIN SMALL LETTER I WITH TILDE",
+        "value": "ĩ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER I WITH MACRON",
+        "value": "Ī"
+      },
+      {
+        "name": "LATIN SMALL LETTER I WITH MACRON",
+        "value": "ī"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER I WITH BREVE",
+        "value": "Ĭ"
+      },
+      {
+        "name": "LATIN SMALL LETTER I WITH BREVE",
+        "value": "ĭ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER I WITH OGONEK",
+        "value": "Į"
+      },
+      {
+        "name": "LATIN SMALL LETTER I WITH OGONEK",
+        "value": "į"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER DOTLESS I",
+        "value": "İ"
+      },
+      {
+        "name": "LATIN SMALL LETTER DOTLESS I",
+        "value": "ı"
+      },
+      {
+        "name": "LATIN CAPITAL LIGATURE IJ",
+        "value": "Ĳ"
+      },
+      {
+        "name": "LATIN SMALL LIGATURE IJ",
+        "value": "ĳ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER J WITH CIRCUMFLEX",
+        "value": "Ĵ"
+      },
+      {
+        "name": "LATIN SMALL LETTER J WITH CIRCUMFLEX",
+        "value": "ĵ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER K WITH CEDILLA",
+        "value": "Ķ"
+      },
+      {
+        "name": "LATIN SMALL LETTER K WITH CEDILLA",
+        "value": "ķ"
+      },
+      {
+        "name": "LATIN SMALL LETTER KRA",
+        "value": "ĸ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER L WITH ACUTE",
+        "value": "Ĺ"
+      },
+      {
+        "name": "LATIN SMALL LETTER L WITH ACUTE",
+        "value": "ĺ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER L WITH CEDILLA",
+        "value": "Ļ"
+      },
+      {
+        "name": "LATIN SMALL LETTER L WITH CEDILLA",
+        "value": "ļ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER L WITH CARON",
+        "value": "Ľ"
+      },
+      {
+        "name": "LATIN SMALL LETTER L WITH CARON",
+        "value": "ľ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER L WITH MIDDLE DOT",
+        "value": "Ŀ"
+      },
+      {
+        "name": "LATIN SMALL LETTER L WITH MIDDLE DOT",
+        "value": "ŀ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER L WITH STROKE",
+        "value": "Ł"
+      },
+      {
+        "name": "LATIN SMALL LETTER L WITH STROKE",
+        "value": "ł"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER N WITH ACUTE",
+        "value": "Ń"
+      },
+      {
+        "name": "LATIN SMALL LETTER N WITH ACUTE",
+        "value": "ń"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER N WITH CEDILLA",
+        "value": "Ņ"
+      },
+      {
+        "name": "LATIN SMALL LETTER N WITH CEDILLA",
+        "value": "ņ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER N WITH CARON",
+        "value": "Ň"
+      },
+      {
+        "name": "LATIN SMALL LETTER N WITH CARON",
+        "value": "ň"
+      },
+      {
+        "name": "LATIN SMALL LETTER N PRECEDED BY APOSTROPHE",
+        "value": "ŉ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER ENG",
+        "value": "Ŋ"
+      },
+      {
+        "name": "LATIN SMALL LETTER ENG",
+        "value": "ŋ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER O WITH MACRON",
+        "value": "Ō"
+      },
+      {
+        "name": "LATIN SMALL LETTER O WITH MACRON",
+        "value": "ō"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER O WITH BREVE",
+        "value": "Ŏ"
+      },
+      {
+        "name": "LATIN SMALL LETTER O WITH BREVE",
+        "value": "ŏ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER O WITH DOUBLE ACUTE",
+        "value": "Ő"
+      },
+      {
+        "name": "LATIN SMALL LETTER O WITH DOUBLE ACUTE",
+        "value": "ő"
+      },
+      {
+        "name": "LATIN CAPITAL LIGATURE OE",
+        "value": "Œ"
+      },
+      {
+        "name": "LATIN SMALL LIGATURE OE",
+        "value": "œ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER R WITH ACUTE",
+        "value": "Ŕ"
+      },
+      {
+        "name": "LATIN SMALL LETTER R WITH ACUTE",
+        "value": "ŕ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER R WITH CEDILLA",
+        "value": "Ŗ"
+      },
+      {
+        "name": "LATIN SMALL LETTER R WITH CEDILLA",
+        "value": "ŗ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER R WITH CARON",
+        "value": "Ř"
+      },
+      {
+        "name": "LATIN SMALL LETTER R WITH CARON",
+        "value": "ř"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER S WITH ACUTE",
+        "value": "Ś"
+      },
+      {
+        "name": "LATIN SMALL LETTER S WITH ACUTE",
+        "value": "ś"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER S WITH CIRCUMFLEX",
+        "value": "Ŝ"
+      },
+      {
+        "name": "LATIN SMALL LETTER S WITH CIRCUMFLEX",
+        "value": "ŝ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER S WITH CEDILLA",
+        "value": "Ş"
+      },
+      {
+        "name": "LATIN SMALL LETTER S WITH CEDILLA",
+        "value": "ş"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER S WITH CARON",
+        "value": "Š"
+      },
+      {
+        "name": "LATIN SMALL LETTER S WITH CARON",
+        "value": "š"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER T WITH CEDILLA",
+        "value": "Ţ"
+      },
+      {
+        "name": "LATIN SMALL LETTER T WITH CEDILLA",
+        "value": "ţ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER T WITH CARON",
+        "value": "Ť"
+      },
+      {
+        "name": "LATIN SMALL LETTER T WITH CARON",
+        "value": "ť"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER T WITH STROKE",
+        "value": "Ŧ"
+      },
+      {
+        "name": "LATIN SMALL LETTER T WITH STROKE",
+        "value": "ŧ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER U WITH TILDE",
+        "value": "Ũ"
+      },
+      {
+        "name": "LATIN SMALL LETTER U WITH TILDE",
+        "value": "ũ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER U WITH MACRON",
+        "value": "Ū"
+      },
+      {
+        "name": "LATIN SMALL LETTER U WITH MACRON",
+        "value": "ū"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER U WITH BREVE",
+        "value": "Ŭ"
+      },
+      {
+        "name": "LATIN SMALL LETTER U WITH BREVE",
+        "value": "ŭ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER U WITH RING ABOVE",
+        "value": "Ů"
+      },
+      {
+        "name": "LATIN SMALL LETTER U WITH RING ABOVE",
+        "value": "ů"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER U WITH DOUBLE ACUTE",
+        "value": "Ű"
+      },
+      {
+        "name": "LATIN SMALL LETTER U WITH DOUBLE ACUTE",
+        "value": "ű"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER U WITH OGONEK",
+        "value": "Ų"
+      },
+      {
+        "name": "LATIN SMALL LETTER U WITH OGONEK",
+        "value": "ų"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER W WITH CIRCUMFLEX",
+        "value": "Ŵ"
+      },
+      {
+        "name": "LATIN SMALL LETTER W WITH CIRCUMFLEX",
+        "value": "ŵ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER Y WITH CIRCUMFLEX",
+        "value": "Ŷ"
+      },
+      {
+        "name": "LATIN SMALL LETTER Y WITH CIRCUMFLEX",
+        "value": "ŷ"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER Y WITH DIAERESIS",
+        "value": "Ÿ"
+      },
+      {
+        "name": "LATIN SMALL LETTER Z WITH ACUTE",
+        "value": "Ź"
+      },
+      {
+        "name": "LATIN SMALL LETTER Z WITH ACUTE",
+        "value": "ź"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER Z WITH DOT ABOVE",
+        "value": "Ż"
+      },
+      {
+        "name": "LATIN SMALL LETTER Z WITH DOT ABOVE",
+        "value": "ż"
+      },
+      {
+        "name": "LATIN CAPITAL LETTER Z WITH CARON",
+        "value": "Ž"
+      },
+      {
+        "name": "LATIN SMALL LETTER Z WITH CARON",
+        "value": "ž"
+      },
+      {
+        "name": "LATIN SMALL LETTER LONG S",
+        "value": "ſ"
+      }
+    ]
+  }
+]

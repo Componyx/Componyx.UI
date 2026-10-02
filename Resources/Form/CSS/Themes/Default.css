@@ -1,0 +1,216 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.form.build-mode.theme.theme-default > header,
+.form.preview-mode.theme.theme-default > header
+{
+    background: var(--cui-tooltip-bg-color);
+    color: var(--cui-tooltip-text-color);
+}
+
+    .form.build-mode.theme.theme-default > header h1,
+    .form.preview-mode.theme.theme-default > header h1
+    {
+        color: var(--cui-tooltip-text-color);
+    }
+
+.form.theme.theme-default .drag-handle b,
+.form.theme.theme-default .drag-handle b::before,
+.form.theme.theme-default .drag-handle b::after
+{
+    background-color: var(--cui-border-color);
+}
+
+.form.theme.theme-default .build-block
+{
+    background-color: var(--cui-item-odd-bg-color);
+}
+
+.form.theme.theme-default .form-pane fieldset.bannered > legend
+{
+    background: var(--cui-header-bg-color);
+    color: var(--cui-header-text-color);
+}
+
+.form.theme.theme-default .form-pane fieldset.droppable
+{
+    box-shadow: inset 0px 0px 15px 0px var(--cui-box-shadow-color);
+    border-color: var(--cui-border-color);
+}
+
+.form.theme.theme-default .droppable:not(.drag-ghost)::before
+{
+    background: var(--cui-header-bg-color);
+}
+
+.form.theme.theme-default .droppable:not(.drag-ghost)::after
+{
+    color: var(--cui-color-surface);
+    background: var(--cui-header-bg-color);
+}
+
+.form.build-mode.theme.theme-default > .form-pane .form-field
+{
+    border-color: var(--cui-border-color);
+}
+
+.form.build-mode.theme.theme-default .form-pane fieldset.selected,
+.form.build-mode.theme.theme-default .form-pane fieldset > .field-pane > .form-field.dragging,
+.form.build-mode.theme.theme-default .form-pane fieldset.dragging,
+.form.build-mode.theme.theme-default .build-block.dragging
+{
+    border-color: var(--cui-button-bg-color);
+}
+
+.form.build-mode.theme.theme-default .form-pane fieldset > .field-pane > .form-field.selected
+{
+    border-color: var(--cui-button-hover-bg-color);
+}
+
+.form.build-mode.theme.theme-default .form-pane fieldset > .field-pane > .form-field:hover,
+.form.build-mode.theme.theme-default .form-pane fieldset > .field-pane > .form-field:focus,
+.form.build-mode.theme.theme-default .form-pane fieldset > .field-pane > .form-field:focus-within
+{
+    border-color: var(--cui-button-selected-hover-bg-color);
+    box-shadow: 0 2px 6px var(--cui-box-shadow-color);
+}
+
+.form.build-mode.theme.theme-default .form-pane legend > input:focus,
+.form.build-mode.theme.theme-default .form-pane .form-field > label > input:focus
+{
+    border-color: var(--cui-item-selected-bg-color);
+}
+
+.form.build-mode.theme.theme-default .form-pane .form-field:hover,
+.form.build-mode.theme.theme-default .form-pane .form-field:focus-within
+{
+    border-color: var(--cui-button-bg-color);
+}
+
+.form.theme.theme-default .drag-ghost.field-set
+{
+    background-color: var(--cui-item-odd-bg-color);
+    border-color: var(--cui-button-bg-color);
+}
+
+.form.theme.theme-default .form-pane .droppable:not(.drag-ghost).drop-denied
+{
+    opacity: 0.6;
+    border-color: var(--cui-negative-text-color);
+}
+
+.form.theme.theme-default .field-options .option-item:nth-of-type(odd),
+.form.theme .allowed-list ul > li:nth-child(odd),
+.form.theme.theme-default .panel-bar > .rules-panel > .content .rule-groups > .rule-group > div.rules:not(:empty)
+{
+    background-color: var(--cui-item-odd-bg-color);
+}
+
+.form.theme.theme-default .field-options .option-item:hover,
+.form.theme.theme-default .drag-ghost.option-item-ghost
+{
+    background-color: var(--cui-item-hover-bg-color);
+    color: var(--cui-item-hover-text-color);
+}
+
+/* spacer divider */
+.form.theme.theme-default .form-pane .form-field .spacer.divider::after
+{
+    background-color: var(--cui-border-color);
+}
+
+.form.build-mode.theme.theme-default .tab-strip > .button.section-add
+{
+    background-color: var(--cui-base-bg-color);
+}
+
+/* save status */
+.form.theme.theme-default .save-status .spinner
+{
+    border-color: var(--cui-tooltip-text-color);
+    border-right-color: transparent;
+}
+
+.form.theme.theme-default .save-status.success .spinner
+{
+    border-color: var(--cui-positive-text-color);
+    border-right-color: var(--cui-positive-text-color);
+    background: var(--cui-positive-text-color);
+}
+
+.form.theme.theme-default .save-status.failed .spinner
+{
+    border-color: var(--cui-negative-text-color);
+    border-right-color: var(--cui-negative-text-color);
+    background: var(--cui-negative-text-color);
+}
+/* success checkmark */
+.form.theme.theme-default .save-status.success .spinner::before
+{
+    border-color: var(--cui-tooltip-text-color);
+}
+
+/* failed cross */
+.form.theme.theme-default .save-status.failed .spinner::before,
+.form.theme.theme-default .save-status.failed .spinner::after
+{
+    background: var(--cui-tooltip-text-color);
+}
+
+/* step indicator */
+.form.theme.theme-default .step-indicator .step::before,
+.form.theme.theme-default .step-indicator .step::after
+{
+    background: var(--cui-button-bg-color);
+    color: var(--cui-button-text-color);
+}
+
+.form.theme.theme-default .step-indicator .step.step-active::before
+{
+    animation-name: color-animation;
+    animation-duration: 1s;
+}
+
+/* all steps after the active step are not highlighted */
+.form.theme.theme-default .step-indicator .step.step-active ~ .step::before,
+.form.theme.theme-default .step-indicator .step.step-active ~ .step::after
+{
+    background: var(--cui-button-basic-bg-color);
+    color: var(--cui-button-basic-text-color);
+}
+
+/* form-field indicator icons */
+.form.build-mode.theme.theme-default .form-field .field-indicators .icon
+{
+    color: var(--cui-negative-text-color);
+}
+
+/* navigator panel */
+.form.theme.theme-default .panel-bar > .navigator-panel > .content > div:has(input)
+{
+    background-color: var(--cui-color-surface);
+}
+
+@keyframes color-animation
+{
+    from
+    {
+        background: var(--cui-button-basic-bg-color);
+        color: var(--cui-button-basic-text-color);
+    }
+
+    to
+    {
+        background: var(--cui-button-bg-color);
+        color: var(--cui-button-text-color);
+    }
+}
+
+
+/* fallback overlay on small screens */
+@media (max-width: 600px)
+{
+    .form.theme .save-status
+    {
+        background: rgb(from var(--cui-tooltip-bg-color) r g b / 0.6);
+        color: var(--cui-tooltip-text-color);
+    }
+}

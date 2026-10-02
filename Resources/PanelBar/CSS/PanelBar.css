@@ -1,0 +1,123 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+@property --scrollbar-opacity
+{
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+
+.panel-bar.theme
+{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0; /* Allow children to shrink */
+}
+
+    .panel-bar.theme > .panel
+    {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        height: 0px;
+        min-height: 40px; /* allow to shrink */
+        max-height: 40px; /* don't allow it to go beyond min-height */
+        transition: max-height 0.5s ease-in-out, background 0.5s ease-in-out; /* animate the max-height, not height, to avoid recalculations every anim. frame */
+    }
+
+        .panel-bar.theme > .panel.expanded
+        {
+            height: 100%; /* actual height when expanded */
+            max-height: 100%; /* upper bound, we animate this */
+        }
+
+
+        /* Fixed header for each panel */
+        .panel-bar.theme > .panel > header
+        {
+            display: flex;
+            position: relative;
+            flex: 0 0 auto; /* Do not grow or shrink */
+            padding-left: 10px;
+            padding-right: 10px;
+            border-bottom-style: solid;
+            height: 40px;
+            line-height: 40px;
+            box-sizing: border-box;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.5s ease;
+        }
+
+            .panel-bar.theme > .panel > header > .icon
+            {
+                width: 32px;
+                height: 32px;
+                font-style: normal;
+            }
+
+            .panel-bar.theme > .panel > header > .title
+            {
+                flex-grow: 1; /* Take available space */
+                margin-right: 20px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                min-width: 0; /* Critical inside flex containers */
+            }
+
+            /* expand/collapse arrow for the header */
+            .panel-bar.theme > .panel > header::after
+            {
+                content: "";
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 0;
+                height: 0;
+                border-left: 6px solid transparent; /* Invisible border */
+                border-right: 6px solid transparent; /* Invisible border */
+                border-top-width: 6px;
+                border-bottom-width: 0px;
+                border-style: solid;
+                transition: all .5s ease-in-out;
+            }
+
+        .panel-bar.theme > .panel.expanded > header::after
+        {
+            transform: translateY(-50%) rotate(180deg); /* Rotate 180 degrees to point up */
+        }
+
+        /* Scrollable content area that shrinks when needed */
+        .panel-bar.theme > .panel > .content
+        {
+            flex: 1 1 auto; /* Takes up remaining space */
+            min-height: 0; /* Allow shrinking even if inner content is large */
+            overflow-y: scroll;
+            padding: 0px;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            transition: --scrollbar-opacity 0.2s 0.5s;
+            scrollbar-color: rgba(0, 0, 0, var(--scrollbar-opacity)) transparent;
+        }
+
+        .panel-bar.theme > .panel.expanded > .content
+        {
+            --scrollbar-opacity: 0.3;
+        }
+
+        .panel-bar.theme > .panel > .content::-webkit-scrollbar,
+        .panel-bar.theme > .panel > .content::-webkit-scrollbar-thumb,
+        .panel-bar.theme > .panel > .content::-webkit-scrollbar-button
+        {
+            background: transparent;
+        }
+
+        .panel-bar.theme > .panel.expanded > .content::-webkit-scrollbar-thumb,
+        .panel-bar.theme > .panel.expanded > .content::-webkit-scrollbar-button
+        {
+            background: rgba(0, 0, 0, var(--scrollbar-opacity));
+        }

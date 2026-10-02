@@ -1,0 +1,255 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+:root
+{
+    /* =========================
+       BASE THEME TOKENS
+       ========================= */
+
+    --cui-color-surface: rgb(255 255 255);
+    --cui-color-surface-overlay: rgb(39 53 55);
+    --cui-color-neutral: rgb(245 245 245);
+    --cui-color-primary: rgb(16,163,189);
+    --cui-color-accent: rgb(208 55 98);
+    /* ON COLORS (usually text) */
+    --cui-color-on-surface: rgb(72 72 72);
+    --cui-color-on-surface-overlay: rgb(255 255 255);
+    --cui-color-on-primary: rgb(255 255 255);
+    --cui-color-on-accent: rgb(255 255 255);
+    /* =========================
+       GLOBAL
+       ========================= */
+
+    --cui-placeholder-color: #a3a3a3;
+    --cui-knob-color: var(--cui-color-surface);
+    --cui-input-bg-color: color-mix(in srgb, var(--cui-color-surface) 94%, white 6%);
+    --cui-border-radius: 4px;
+    --cui-border-color: rgba(0,0,0,0.15);
+    --cui-focus-outline-color: rgba(0, 0, 0, 0.25);
+    --cui-header-bg-color: var(--cui-color-primary);
+    --cui-header-text-color: var(--cui-color-on-primary);
+    --cui-base-text-color: inherit;
+    --cui-base-bg-color: var(--cui-color-neutral);
+    --cui-base-dark-bg-color: color-mix(in srgb, var(--cui-color-neutral) 92%, black 8%);
+    --cui-box-shadow-color: rgb(0 0 0 / 0.10);
+    --cui-positive-text-color: var(--cui-color-primary);
+    --cui-negative-text-color: var(--cui-color-accent);
+    --cui-positive-bg-color: rgb(from var(--cui-color-primary) r g b / 0.1);
+    --cui-negative-bg-color: rgb(from var(--cui-color-accent) r g b / 0.1);
+    --cui-selected-bg-color: rgb(from var(--cui-color-primary) r g b / 0.2);
+    --cui-item-odd-bg-color: color-mix(in srgb, var(--cui-color-neutral) 50%, white 50%);
+    --cui-item-hover-text-color: inherit;
+    --cui-item-hover-bg-color: color-mix(in srgb, var(--cui-color-neutral) 96%, black 4%);
+    --cui-item-selected-text-color: var(--cui-color-on-accent);
+    --cui-item-selected-bg-color: var(--cui-color-accent);
+    --cui-item-selected-hover-text-color: var(--cui-color-on-accent);
+    --cui-item-selected-hover-bg-color: rgb(from var(--cui-color-accent) r g b / 0.7);
+    --cui-disabled-bg-color: color-mix(in srgb, var(--cui-color-neutral) 92%, black);
+    --cui-disabled-text-color: color-mix(in srgb, var(--cui-color-on-surface) 55%, white);
+    --cui-readonly-bg-color: color-mix(in srgb, var(--cui-color-neutral) 98%, black);
+    /* =========================
+       BUTTONS
+       ========================= */
+
+    --cui-button-border-color: rgb(0 0 0 / 0.2);
+    --cui-button-lucent-hover-text-color: var(--cui-color-accent);
+    --cui-button-lucent-selected-text-color: var(--cui-color-accent);
+    --cui-button-basic-bg-color: var(--cui-color-neutral);
+    --cui-button-basic-text-color: inherit;
+    --cui-button-basic-split-hover-bg-color: color-mix(in srgb, var(--cui-color-neutral) 98%, black 2%);
+    --cui-button-basic-hover-bg-color: color-mix(in srgb, var(--cui-color-neutral) 94%, black 6%);
+    --cui-button-basic-hover-text-color: inherit;
+    --cui-button-basic-selected-bg-color: color-mix(in srgb, var(--cui-color-neutral) 90%, black 10%);
+    --cui-button-basic-pressed-bg-color: color-mix(in srgb, var(--cui-color-neutral) 94%, black 6%);
+    --cui-button-split-hover-bg-color: rgb(from var(--cui-color-accent) r g b / 0.7);
+    --cui-button-bg-color: var(--cui-color-primary);
+    --cui-button-text-color: var(--cui-color-on-primary);
+    --cui-button-hover-bg-color: var(--cui-color-accent);
+    --cui-button-hover-text-color: var(--cui-color-on-accent);
+    --cui-button-selected-bg-color: var(--cui-color-accent);
+    --cui-button-selected-text-color: var(--cui-color-on-accent);
+    --cui-button-selected-hover-bg-color: rgb(from var(--cui-color-accent) r g b / 0.7);
+    --cui-button-selected-hover-text-color: var(--cui-color-on-accent);
+    --cui-button-pressed-bg-color: var(--cui-color-accent);
+    /* =========================
+       TOOLTIP
+       ========================= */
+
+    --cui-tooltip-bg-color: var(--cui-color-surface-overlay);
+    --cui-tooltip-border-color: var(--cui-border-color);
+    --cui-tooltip-text-color: var(--cui-color-on-surface-overlay);
+    /* =========================
+       SLIDER
+       ========================= */
+
+    --cui-slider-handle-bg-color: var(--cui-knob-color);
+    --cui-slider-handle-box-shadow-color: rgb(0 0 0 / 0.4);
+    --cui-slider-handle-focus-box-shadow-color: rgb(0 0 0 / 0.6);
+    --cui-slider-track-bg-color: rgb(from var(--cui-color-primary) r g b / 0.25);
+    --cui-slider-range-bg-color: var(--cui-color-primary);
+    --cui-slider-tick-mark-color: rgb(from var(--cui-color-on-surface) r g b / 0.25);
+    --cui-slider-tick-mark-selected-color: rgb(from var(--cui-color-on-surface) r g b / 0.45);
+    /* =========================
+       APP SKIN
+       ========================= */
+
+    --cui-app-skin-bg-color: var(--cui-color-neutral);
+    --cui-app-skin-header-text-color: var(--cui-color-on-primary);
+    --cui-app-skin-header-bg-color: linear-gradient( to bottom, rgb(from var(--cui-color-primary) r g b / 0.65), var(--cui-color-primary) );
+    --cui-app-skin-footer-text-color: var(--cui-color-on-primary);
+    --cui-app-skin-footer-bg-color: linear-gradient( to bottom, var(--cui-color-primary), rgb(from var(--cui-color-primary) r g b / 0.65) );
+    --cui-app-skin-menu-text-color: var(--cui-color-on-surface-overlay);
+    --cui-app-skin-menu-bg-color: rgb(from var(--cui-color-surface-overlay) r g b / 0.80);
+    --cui-app-skin-menu-lucent-hover-text-color: var(--cui-color-on-surface-overlay);
+    --cui-app-skin-menu-lucent-selected-text-color: var(--cui-color-on-surface-overlay);
+    --cui-app-skin-menu-lucent-selected-child-text-color: var(--cui-color-on-surface-overlay);
+    --cui-app-skin-menu-opacity: 0.9;
+    --cui-app-skin-login-text-color: inherit;
+    --cui-app-skin-login-message: var(--cui-color-accent);
+    --cui-preloader-bg-color: var(--cui-color-accent);
+    --cui-preloader-text-color: var(--cui-color-on-accent);
+    --cui-app-skin-page-header-bg-color: transparent;
+    --cui-app-skin-page-header-text-color: var(--cui-color-primary);
+    /* PORTALS */
+    --cui-app-skin-portal-theme1-text-color: var(--cui-color-primary);
+    --cui-app-skin-portal-theme1-bg-color: rgb(from var(--cui-color-surface) r g b / 0.05);
+    --cui-app-skin-portal-theme2-text-color: inherit;
+    --cui-app-skin-portal-theme2-bg-color: rgb(from var(--cui-color-surface) r g b / 0.1);
+    --cui-app-skin-portal-theme3-text-color: inherit;
+    --cui-app-skin-portal-theme3-bg-color: rgb(from var(--cui-color-surface) r g b / 0.1);
+    --cui-app-skin-portal-theme4-text-color: inherit;
+    --cui-app-skin-portal-theme4-bg-color: rgb(from var(--cui-color-surface) r g b / 0.1);
+    /* THEMES */
+    --cui-app-skin-color-theme1-bg-color: var(--cui-color-surface);
+    --cui-app-skin-color-theme1-text-color: inherit;
+    --cui-app-skin-color-theme2-bg-color: var(--cui-color-surface-overlay);
+    --cui-app-skin-color-theme2-text-color: var(--cui-color-on-surface-overlay);
+    --cui-app-skin-color-theme3-bg-color: var(--cui-color-primary);
+    --cui-app-skin-color-theme3-text-color: var(--cui-color-on-primary);
+    --cui-app-skin-color-theme4-bg-color: var(--cui-color-accent);
+    --cui-app-skin-color-theme4-text-color: var(--cui-color-on-accent);
+}
+
+.button.theme.theme-default,
+.theme.theme-default span.checkbox,
+.form-field.theme.theme-default > b,
+.theme.theme-default input,
+.theme.theme-default textarea
+{
+    border-radius: var(--cui-border-radius);
+}
+
+.theme.theme-default
+{
+    border-color: var(--cui-border-color);
+
+    *
+    {
+        border-color: var(--cui-border-color);
+    }
+
+        *::placeholder
+        {
+            color: var(--cui-placeholder-color) !important;
+        }
+
+    div.header
+    {
+        color: var(--cui-header-text-color);
+        background: var(--cui-header-bg-color);
+    }
+    /* checkbox */
+    span.checkbox
+    {
+        background: var(--cui-color-surface);
+        color: var(--cui-color-on-surface);
+        border-color: var(--cui-border-color);
+    }
+
+    .footer,
+    .data-pager.theme.theme-default
+    {
+        color: var(--cui-base-text-color);
+        background: var(--cui-base-bg-color);
+    }
+
+    .box
+    {
+        background: var(--cui-color-surface);
+        box-shadow: 0px 0px 10px 0px var(--cui-box-shadow-color);
+    }
+
+    &.valid *,
+    &.positive
+    {
+        color: var(--cui-positive-text-color);
+    }
+
+    .valid:not(:focus),
+    .valid *,
+    .positive,
+    .positive *
+    {
+        color: var(--cui-positive-text-color);
+    }
+
+    &.invalid *,
+    &.negative
+    {
+        color: var(--cui-negative-text-color);
+    }
+
+    .invalid:not(:focus),
+    .invalid *,
+    .negative,
+    .negative *
+    {
+        color: var(--cui-negative-text-color);
+    }
+
+    input,
+    textarea,
+    select
+    {
+        background-color: var(--cui-input-bg-color);
+        color: var(--cui-color-on-surface);
+        border: 1px solid var(--cui-border-color);
+    }
+
+        input.invalid,
+        select.invalid,
+        textarea.invalid
+        {
+            background-color: var(--cui-negative-bg-color);
+        }
+    /* list item */
+    tr > td
+    {
+        background: var(--cui-color-surface);
+    }
+
+    li.item.odd,
+    tr.odd > td
+    {
+        background: var(--cui-item-odd-bg-color);
+    }
+
+    li.item:not(.disabled):not(.selected):hover,
+    li.item:not(.disabled):not(.selected).focus
+    {
+        color: var(--cui-item-hover-text-color);
+        background: var(--cui-item-hover-bg-color);
+    }
+
+    li.selected:not(.select-all)
+    {
+        color: var(--cui-item-selected-text-color);
+        background: var(--cui-item-selected-bg-color);
+    }
+
+        li.selected:not(.select-all):hover,
+        li.selected:not(.select-all):focus
+        {
+            color: var(--cui-item-selected-hover-text-color);
+            background: var(--cui-item-selected-hover-bg-color);
+        }
+}

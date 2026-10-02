@@ -1,0 +1,28 @@
+/*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
+.masked-textbox.theme.mask-hint
+{
+    position: relative;
+    display: inline-flex;
+    margin-bottom: 25px; /* reserve space for hint */
+}
+
+    .masked-textbox.theme.mask-hint::after
+    {
+        content: attr(data-hint);
+        z-index: 1;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        font-size: 12px;
+        white-space: nowrap;
+        pointer-events: none;
+        padding-left: 4px;
+        padding-right: 4px;
+        transition: opacity 0.2s;
+        opacity: 0;
+    }
+
+    .masked-textbox.theme.mask-hint:focus-within::after
+    {
+        opacity: 1;
+    }

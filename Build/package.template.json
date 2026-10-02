@@ -1,0 +1,22 @@
+{
+  "name": "componyx-ui",
+  "version": "1.0.0",
+  "description": "Standards-based UI components and reactive data-binding for the web. No build step, zero dependencies.",
+  "homepage": "https://componyx.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Componyx/Componyx.UI"
+  },
+  "keywords": [
+    "ui",
+    "components",
+    "web-components",
+    "framework",
+    "componyx",
+    "no-build",
+    "vanilla-js",
+    "dotnet"
+  ],
+  "author": "E.H. Daanen",
+  "license": "BUSL-1.1"
+}

@@ -1,0 +1,519 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "cui-form",
+      "description": "Componyx UI Form component."
+    },
+    {
+      "name": "cui-masked-text-box",
+      "description": "Componyx UI MaskedTextBox component."
+    },
+    {
+      "name": "cui-panel-bar",
+      "description": "Componyx UI PanelBar component."
+    }
+  ],
+  "globalAttributes": [
+    {
+      "name": "data-bindary-context",
+      "description": "This attribute sets the data-context (object scope) for the element and its child-elements through the data-key."
+    },
+    {
+      "name": "b-context",
+      "description": "Alias for data-bindary-context."
+    },
+    {
+      "name": "data-bindary-value",
+      "description": "This attribute sets the inner text value of the element through the data-key."
+    },
+    {
+      "name": "b-value",
+      "description": "Alias for data-bindary-value."
+    },
+    {
+      "name": "data-bindary-html",
+      "description": "This attribute sets the inner HTML value of the element through the data-key. By default the HTML data is sanitized unless specified as trusted data. Use trust:data-key for own (not user defined) HTML data-sources or enable $bindary.trustHTML to trust all data provided through data-bindary-html."
+    },
+    {
+      "name": "b-html",
+      "description": "Alias for data-bindary-html."
+    },
+    {
+      "name": "data-bindary-bind",
+      "description": "This attribute enables two-way data-binding for input elements (input, textarea, select) through the data-key. Two-way data binding means that, apart from the element's value being updated when the data changes (either automatically or by manual registering), the data is updated as well when the element value changes."
+    },
+    {
+      "name": "b-bind",
+      "description": "Alias for data-bindary-bind."
+    },
+    {
+      "name": "data-bindary-live",
+      "description": "This attribute enables live binding per element. Use \"false\" to disable live binding, \"true\" or empty to enable and use the global delay ($bindary.liveBindDelay), or a number (as string) to enable and set a custom delay in ms. Active on the element and its child elements."
+    },
+    {
+      "name": "b-live",
+      "description": "Alias for data-bindary-live."
+    },
+    {
+      "name": "data-bindary-type",
+      "description": "This attribute can be used in conjunction with the bind attribute to define the data-type of the corresponding data value. The attribute is only required when the data value is not of type string. The supported data-types are boolean, number and date."
+    },
+    {
+      "name": "b-type",
+      "description": "Alias for data-bindary-type."
+    },
+    {
+      "name": "data-bindary-attributes",
+      "description": "This attribute sets element attributes that require data-binding. Wrap the data-key inside curly brackets when custom text in the HTML attribute is desired."
+    },
+    {
+      "name": "b-attributes",
+      "description": "Alias for data-bindary-attributes."
+    },
+    {
+      "name": "data-bindary-has-value",
+      "description": "This attribute without value defines that the element is rendered when the current data context is NOT empty, null or undefined. A data-key value can be specified when a different value than the current context should determine if the element will be rendered."
+    },
+    {
+      "name": "b-has-value",
+      "description": "Alias for data-bindary-has-value."
+    },
+    {
+      "name": "data-bindary-repeat",
+      "description": "This attribute enables collection data-binding through the data-key."
+    },
+    {
+      "name": "b-repeat",
+      "description": "Alias for data-bindary-repeat."
+    },
+    {
+      "name": "data-bindary-repeat-item-id",
+      "description": "This attribute can be used in conjunction with the repeat attribute. The data-key value specifies which item property of the bound collection serves as the item-template identifier."
+    },
+    {
+      "name": "b-repeat-item-id",
+      "description": "Alias for data-bindary-repeat-item-id."
+    },
+    {
+      "name": "data-bindary-item-id",
+      "description": "This attribute sets the value for matching the item property specified through repeat-item-id. The element will be rendered when the property value of the collection item matches the attribute value."
+    },
+    {
+      "name": "b-item-id",
+      "description": "Alias for data-bindary-item-id."
+    },
+    {
+      "name": "data-bindary-filter",
+      "description": "This attribute can be used in conjunction with the repeat attribute to bind a (controller) function to filter the collection before rendering."
+    },
+    {
+      "name": "b-filter",
+      "description": "Alias for data-bindary-filter."
+    },
+    {
+      "name": "data-bindary-view-formatter",
+      "description": "This attribute can be used in conjunction with the value or html attribute to bind a (controller) function to format the data value when the element is rendered."
+    },
+    {
+      "name": "b-view-formatter",
+      "description": "Alias for data-bindary-view-formatter."
+    },
+    {
+      "name": "data-bindary-data-formatter",
+      "description": "This attribute can be used in conjunction with the bind attribute to bind a (controller) function to format the input value when data binding occurs."
+    },
+    {
+      "name": "b-data-formatter",
+      "description": "Alias for data-bindary-data-formatter."
+    },
+    {
+      "name": "data-bindary-includable",
+      "description": "This attribute marks an element as includable template-item (no attribute value required)."
+    },
+    {
+      "name": "b-includable",
+      "description": "Alias for data-bindary-includable."
+    },
+    {
+      "name": "data-bindary-include",
+      "description": "This attribute includes the contents of an element or file. Use '#element-id' or 'data.key' (dynamic element-id value) to reference an element marked with the includable attribute by id. To reference a file use 'file:path'."
+    },
+    {
+      "name": "b-include",
+      "description": "Alias for data-bindary-include."
+    },
+    {
+      "name": "data-bindary-component",
+      "description": "This attribute can be used in conjunction with the include attribute (file:path) and marks the included file content as component. The attribute value must contain the name of the component. The file must include JavaScript code to register the Bindary component, through $bindary.addComponent(), providing the component name (matching the component attribute value) and an initiator function."
+    },
+    {
+      "name": "b-component",
+      "description": "Alias for data-bindary-component."
+    },
+    {
+      "name": "data-bindary-observe",
+      "description": "This attribute can be used in conjunction with the component attribute. The data-key value specifies which item property of the component's context will be automatically observed for data changes, triggering view updates when changes occur."
+    },
+    {
+      "name": "b-observe",
+      "description": "Alias for data-bindary-observe."
+    },
+    {
+      "name": "data-bindary-load",
+      "description": "This attribute can be used in conjunction with the include attribute (file:path) for binding a (controller) function to invoke when the file contents have been loaded."
+    },
+    {
+      "name": "b-load",
+      "description": "Alias for data-bindary-load."
+    },
+    {
+      "name": "data-bindary-pre-render",
+      "description": "This attribute can be used to bind a (controller) function to invoke before the element is rendered. The element is not rendered if the method returns false."
+    },
+    {
+      "name": "b-pre-render",
+      "description": "Alias for data-bindary-pre-render."
+    },
+    {
+      "name": "data-bindary-if",
+      "description": "This attribute can be used to bind a (controller) function to execute a conditional if statement. The element is not rendered if the method returns false."
+    },
+    {
+      "name": "b-if",
+      "description": "Alias for data-bindary-if."
+    },
+    {
+      "name": "data-bindary-else-if",
+      "description": "This attribute can be used to bind a (controller) function to execute a conditional else if statement. The element is not rendered if the method returns false."
+    },
+    {
+      "name": "b-else-if",
+      "description": "Alias for data-bindary-else-if."
+    },
+    {
+      "name": "data-bindary-else",
+      "description": "This attribute determines that the element is rendered when the conditional if or else-if statements returned false."
+    },
+    {
+      "name": "b-else",
+      "description": "Alias for data-bindary-else."
+    },
+    {
+      "name": "data-bindary-post-render",
+      "description": "This attribute can be used to bind a (controller) function to invoke after the element is rendered. The element is not visible if the method returns false."
+    },
+    {
+      "name": "b-post-render",
+      "description": "Alias for data-bindary-post-render."
+    },
+    {
+      "name": "data-bindary-on",
+      "description": "This attribute can be used to bind a (controller) function to any HTML event."
+    },
+    {
+      "name": "b-on",
+      "description": "Alias for data-bindary-on."
+    },
+    {
+      "name": "data-bindary-update-id",
+      "description": "This attribute sets a unique identifier to use when registering data changes for a specific element."
+    },
+    {
+      "name": "b-update-id",
+      "description": "Alias for data-bindary-update-id."
+    },
+    {
+      "name": "data-bindary-keep",
+      "description": "This attribute can be used to define if the data-bindary- attributes are removed (no value) or remain (value \"true\") on the element after it has been discovered by the framework. Active on the element and its child elements."
+    },
+    {
+      "name": "b-keep",
+      "description": "Alias for data-bindary-keep."
+    },
+    {
+      "name": "data-bindary-view",
+      "description": "This valueless attribute marks an HTML element as root container for requested views."
+    },
+    {
+      "name": "b-view",
+      "description": "Alias for data-bindary-view."
+    },
+    {
+      "name": "data-bindary-ignore",
+      "description": "This valueless attribute marks an HTML element and its child elements with data-bindary attributes to be ignored. This can be used to activate templates at a desired moment and for such purpose the intended 'include' attribute is not desired."
+    },
+    {
+      "name": "b-ignore",
+      "description": "Alias for data-bindary-ignore."
+    },
+
+    // --- data-ui-* attributes, with matching ui-* shorthand aliases ---
+    {
+      "name": "data-ui-template",
+      "description": "Denotes an element as UI data template with the attribute value as template identifier (e.g. 'Header'). A component can have static templates, like a Header or Footer, and/or dynamic (item) templates."
+    },
+    {
+      "name": "ui-template",
+      "description": "Alias for data-ui-template."
+    },
+    {
+      "name": "data-ui-cloneable",
+      "description": "Denotes a UI data template as cloneable (true) or non-cloneable (false). A cloneable template is for multiple use and a non-cloneable template is for single use, e.g. a template containing an element with a unique identifier."
+    },
+    {
+      "name": "ui-cloneable",
+      "description": "Alias for data-ui-cloneable."
+    },
+    {
+      "name": "data-ui-interpolate",
+      "description": "Defines if a search and replace action on the inner HTML of the template will be performed to set the corresponding value for a interpolatation tag (e.g. {value})."
+    },
+    {
+      "name": "ui-interpolate",
+      "description": "Alias for data-ui-interpolate."
+    },
+    {
+      "name": "data-ui-contentfrom",
+      "description": "Sets the id of the HTML element whose content to use."
+    },
+    {
+      "name": "ui-contentfrom",
+      "description": "Alias for data-ui-contentfrom."
+    },
+    {
+      "name": "data-ui-type",
+      "description": "The full name of the component type to render, e.g. Componyx.UI.Button."
+    },
+    {
+      "name": "ui-type",
+      "description": "Alias for data-ui-type."
+    },
+    {
+      "name": "data-ui-action",
+      "description": "Defines if the component is rendered only (render) or rendered and displayed (show)."
+    },
+    {
+      "name": "ui-action",
+      "description": "Alias for data-ui-action."
+    },
+    {
+      "name": "data-ui-settings",
+      "description": "Initializes the component with the settings specified via the JSON formatted attribute value."
+    },
+    {
+      "name": "ui-settings",
+      "description": "Alias for data-ui-settings."
+    },
+    {
+      "name": "data-ui-group",
+      "description": "Denotes an element as UI component group with the attribute value as group identifier."
+    },
+    {
+      "name": "ui-group",
+      "description": "Alias for data-ui-group."
+    },
+
+    // --- data-ui-validator-* attributes, with matching ui-validator-* shorthand aliases ---
+    {
+      "name": "data-ui-validator-id",
+      "description": "The identifier of the Validator component on which the rule is added."
+    },
+    {
+      "name": "ui-validator-id",
+      "description": "Alias for data-ui-validator-id."
+    },
+    {
+      "name": "data-ui-validator-feedbackid",
+      "description": "The identifier of the element used by the Validator to display validation result feedback."
+    },
+    {
+      "name": "ui-validator-feedbackid",
+      "description": "Alias for data-ui-validator-feedbackid."
+    },
+    {
+      "name": "data-ui-validator-autovalidate",
+      "description": "A value ('true' or 'false') indicating if the field is validated when the field value changes."
+    },
+    {
+      "name": "ui-validator-autovalidate",
+      "description": "Alias for data-ui-validator-autovalidate."
+    },
+    {
+      "name": "data-ui-validator-live",
+      "description": "A value ('true' or 'false') indicating if the field validation is done while typing."
+    },
+    {
+      "name": "ui-validator-live",
+      "description": "Alias for data-ui-validator-live."
+    },
+    {
+      "name": "data-ui-validator-getValue",
+      "description": "A custom method to get the field value."
+    },
+    {
+      "name": "ui-validator-getValue",
+      "description": "Alias for data-ui-validator-getValue."
+    },
+    {
+      "name": "data-ui-validator-required-msg",
+      "description": "Denotes an element as required validation field with the attribute value as message to display if validation fails."
+    },
+    {
+      "name": "ui-validator-required-msg",
+      "description": "Alias for data-ui-validator-required-msg."
+    },
+    {
+      "name": "data-ui-validator-required-when",
+      "description": "The method name that returns a boolean value to determines whether the field is required (true) or not (false)."
+    },
+    {
+      "name": "ui-validator-required-when",
+      "description": "Alias for data-ui-validator-required-when."
+    },
+    {
+      "name": "data-ui-validator-datatype-msg",
+      "description": "Denotes an element as datatype validation field with the attribute value as message to display if validation fails."
+    },
+    {
+      "name": "ui-validator-datatype-msg",
+      "description": "Alias for data-ui-validator-datatype-msg."
+    },
+    {
+      "name": "data-ui-validator-datatype-datatype",
+      "description": "The data-type to which the field value must comply."
+    },
+    {
+      "name": "ui-validator-datatype-datatype",
+      "description": "Alias for data-ui-validator-datatype-datatype."
+    },
+    {
+      "name": "data-ui-validator-length-msg",
+      "description": "Denotes an element as length validation field with the attribute value as message to display if validation fails."
+    },
+    {
+      "name": "ui-validator-length-msg",
+      "description": "Alias for data-ui-validator-length-msg."
+    },
+    {
+      "name": "data-ui-validator-length-min",
+      "description": "The minimum length to which the field value must comply."
+    },
+    {
+      "name": "ui-validator-length-min",
+      "description": "Alias for data-ui-validator-length-min."
+    },
+    {
+      "name": "data-ui-validator-length-max",
+      "description": "The maximum length to which the field value must comply."
+    },
+    {
+      "name": "ui-validator-length-max",
+      "description": "Alias for data-ui-validator-length-max."
+    },
+    {
+      "name": "data-ui-validator-range-msg",
+      "description": "Denotes an element as range validation field with the attribute value as message to display if validation fails."
+    },
+    {
+      "name": "ui-validator-range-msg",
+      "description": "Alias for data-ui-validator-range-msg."
+    },
+    {
+      "name": "data-ui-validator-range-min",
+      "description": "The minimum value to which the field value must comply."
+    },
+    {
+      "name": "ui-validator-range-min",
+      "description": "Alias for data-ui-validator-range-min."
+    },
+    {
+      "name": "data-ui-validator-range-max",
+      "description": "The maximum value to which the field value must comply."
+    },
+    {
+      "name": "ui-validator-range-max",
+      "description": "Alias for data-ui-validator-range-max."
+    },
+    {
+      "name": "data-ui-validator-regex-msg",
+      "description": "Denotes an element as regex validation field with the attribute value as message to display if validation fails."
+    },
+    {
+      "name": "ui-validator-regex-msg",
+      "description": "Alias for data-ui-validator-regex-msg."
+    },
+    {
+      "name": "data-ui-validator-regex-pattern",
+      "description": "The pattern to which the field value must comply."
+    },
+    {
+      "name": "ui-validator-regex-pattern",
+      "description": "Alias for data-ui-validator-regex-pattern."
+    },
+    {
+      "name": "data-ui-validator-compare-msg",
+      "description": "Denotes an element as compare validation field with the attribute value as message to display if validation fails."
+    },
+    {
+      "name": "ui-validator-compare-msg",
+      "description": "Alias for data-ui-validator-compare-msg."
+    },
+    {
+      "name": "data-ui-validator-compare-fields",
+      "description": "The comparison field(s) with which the field value will be compared."
+    },
+    {
+      "name": "ui-validator-compare-fields",
+      "description": "Alias for data-ui-validator-compare-fields."
+    },
+    {
+      "name": "data-ui-validator-compare-operators",
+      "description": "The comparison operator(s) for the comparison field validation."
+    },
+    {
+      "name": "ui-validator-compare-operators",
+      "description": "Alias for data-ui-validator-compare-operators."
+    },
+    {
+      "name": "data-ui-validator-custom-msg",
+      "description": "Denotes an element as custom validation field with the attribute value as message to display if validation fails."
+    },
+    {
+      "name": "ui-validator-custom-msg",
+      "description": "Alias for data-ui-validator-custom-msg."
+    },
+    {
+      "name": "data-ui-validator-custom-onValidation",
+      "description": "The event handler to invoke when the field is validated."
+    },
+    {
+      "name": "ui-validator-custom-onValidation",
+      "description": "Alias for data-ui-validator-custom-onValidation."
+    },
+    {
+      "name": "data-ui-validator-ajax-msg",
+      "description": "Denotes an element as ajax validation field with the attribute value as message to display if validation fails."
+    },
+    {
+      "name": "ui-validator-ajax-msg",
+      "description": "Alias for data-ui-validator-ajax-msg."
+    },
+    {
+      "name": "data-ui-validator-ajax-onBeforeValidation",
+      "description": "The event handler to invoke before the field is validated on the server."
+    },
+    {
+      "name": "ui-validator-ajax-onBeforeValidation",
+      "description": "Alias for data-ui-validator-ajax-onBeforeValidation."
+    },
+    {
+      "name": "data-ui-validator-ajax-onAfterValidation",
+      "description": "The event handler to invoke after the field is validated on the server."
+    },
+    {
+      "name": "ui-validator-ajax-onAfterValidation",
+      "description": "Alias for data-ui-validator-ajax-onAfterValidation."
+    }
+  ]
+}
