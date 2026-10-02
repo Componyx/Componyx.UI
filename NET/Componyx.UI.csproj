@@ -1052,12 +1052,6 @@
     <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Validator\Script\Validator.min.js">
       <Link>Validator\Resources\Script\Validator.min.js</Link>
     </EmbeddedResource>
-    <Content Include="..\Resources\Base\Script\UI.js">
-      <Link>Base\Resources\Script\UI.js</Link>
-    </Content>
-    <Content Include="..\Resources\Base\Script\UI.min.js">
-      <Link>Base\Resources\Script\UI.min.js</Link>
-    </Content>
     <Content Include="..\Resources\Base\Script\UIResourcePath.js">
       <Link>Base\Resources\Script\UIResourcePath.js</Link>
     </Content>

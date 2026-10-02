@@ -8,6 +8,7 @@
      * @typedef {Object} CSSVariables
      * @memberof componyx.UI.PieChart
      * @property {string} ["--donut-inner-stop"]                                    - This CSS value is based on the donutInnerRatio setting.
+     * @property {string} ["--chart-size"]                                          - The rendered chart size in pixels (half-pie only), used to align the legend with the semicircle.
      */
 
     /**
@@ -200,6 +201,19 @@
         }
 
         /**
+         * Executes post render tasks.
+        * @private
+        */
+        async postRender()
+        {
+            if (this.renderState != $base.static.RenderState.RENDERING) // extra safety to never execute a postRender when the component state is incorrect
+                return;
+
+            super.postRender();
+            this.#positionSegmentLabels();
+        }
+
+        /**
         * Destroys the component.
         * @param {Boolean} keepEvents A value indicating if component events should be kept.
         * @param {Boolean} removeElement=true A value indicating if the corresponding HTML Element should be removed.
@@ -262,10 +276,12 @@
             if (this.showLegend)
                 this.#createLegend();
 
-            this.style.height = '';
+            this.style.removeProperty('--chart-size');
 
             if (this.isHalf)
-                this.style.height = (this.#size / 2) + 'px';
+            {
+                this.style.setProperty('--chart-size', `${this.#size}px`); // used by the CSS to align the legend with the semicircle
+            }
         }
 
         #createTooltipManager(container, id, cloneId)
@@ -388,8 +404,10 @@
                 labelRadius = isInnerLabel
                     ? innerChartRadius + (outerChartRadius - innerChartRadius) * labelOffset // ratio (0-1) of the ring width
                     : outerChartRadius + labelOffset, // pixels from the outer edge
-                centerX = this.#chart.offsetLeft + outerChartRadius, // the chart does not necessarily start at the component's origin
-                centerY = this.#chart.offsetTop + outerChartRadius;
+                chartRect = this.#chart.getBoundingClientRect(), // rendered position of the chart, including any CSS transforms
+                hostRect = this.getBoundingClientRect(),
+                centerX = chartRect.left - hostRect.left + outerChartRadius,
+                centerY = chartRect.top - hostRect.top + outerChartRadius;
 
             label.element.style.left = `${centerX + (labelRadius * Math.cos(label.midAngleRad))}px`;
             label.element.style.top = `${centerY + (labelRadius * Math.sin(label.midAngleRad))}px`;
@@ -409,7 +427,9 @@
                 this.#positionSegmentLabels();
 
                 if (this.isHalf)
-                    this.style.height = (size / 2) + 'px';
+                {
+                    this.style.setProperty('--chart-size', `${size}px`);
+                }
             });
 
             this.#resizeObserver.observe(this.#chart);
@@ -784,7 +804,7 @@
 
 
     // Preserve HTMLElement prototype and extend it with $base.methods
-    Object.assign(PieChart.prototype, Object.fromEntries(Object.entries($base.methods).filter(([key]) => !['render', 'destroy', 'getCssClass'].includes(key))));
+    Object.assign(PieChart.prototype, Object.fromEntries(Object.entries($base.methods).filter(([key]) => !['render', 'postRender', 'destroy', 'getCssClass'].includes(key))));
 
     // Restore the constructor reference
     PieChart.prototype.constructor = PieChart;

@@ -658,6 +658,7 @@
 
                 button.className += ' ' + (_instance.cssClassIconAlign || _classOption.ICON) + '-' + getAlignment(_instance.iconAlign, _alignOption.LEFT);
                 spanIcon.className = _instance.cssClassIcon || _classOption.ICON;
+                spanIcon.classList.add(_classOption.ICON); // always include the base icon class
 
                 if (_instance.iconURL)
                     spanIcon.style.backgroundImage = 'url(' + _instance.iconURL + ')';

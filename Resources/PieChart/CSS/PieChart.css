@@ -62,14 +62,6 @@
         }
     }
 
-    &.half-pie
-    {
-        & .chart
-        {
-            transform: translateY(25%); /* translateY % is relative to .chart's own height (default 300px), so 25% = 75px = half the visible semicircle */
-        }
-    }
-
     & .legend
     {
         display: flex;
@@ -89,6 +81,15 @@
                 width: 12px;
                 height: 12px;
             }
+        }
+    }
+
+
+    &.half-pie
+    {
+        .chart
+        {
+             margin-bottom: calc(var(--chart-size) / 2 * -1); /* only the semicircle takes up layout space */
         }
     }
 }

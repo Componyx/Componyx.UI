@@ -91,17 +91,17 @@
         justify-content: center;
     }
 
-    .button.theme.content-center.split > div.command
-    {
-        justify-content: center;
-    }
-
-        .button.theme span
+        .button.theme.content-center.split > div.command
         {
-            display: inline-block;
-            margin-top: auto;
-            margin-bottom: auto;
+            justify-content: center;
         }
+
+    .button.theme span
+    {
+        display: inline-block;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
 
     /* split button */
     .button.theme.split
@@ -185,6 +185,9 @@
         font-size: 16px;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* expand icon */
@@ -274,7 +277,6 @@
     .button.theme.pressed,
     .button.theme.split > div.pressed
     {
-        
     }
 
     /* ripple */
@@ -291,18 +293,18 @@
         pointer-events: none;
     }
 
-    .button.theme:not(.split) > .ripple-mask > span.ripple,
-    .button.theme.split > div > .ripple-mask > span.ripple
-    {
-        display: inline-block;
-        position: absolute;
-        transform: scale(0) translate(-50%, -50%);
-        background: rgba(255, 255, 255, 0.3);
-        width: 200%;
-        height: 300%;
-        border-radius: 100%;
-        animation: rippleAnimation .5s ease-out;
-    }
+        .button.theme:not(.split) > .ripple-mask > span.ripple,
+        .button.theme.split > div > .ripple-mask > span.ripple
+        {
+            display: inline-block;
+            position: absolute;
+            transform: scale(0) translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.3);
+            width: 200%;
+            height: 300%;
+            border-radius: 100%;
+            animation: rippleAnimation .5s ease-out;
+        }
 
     .button.theme:not(.split).lucent > .ripple-mask > span.ripple,
     .button.theme:not(.split).basic > .ripple-mask > span.ripple,
@@ -358,6 +360,7 @@
     width: 2px;
     transition: height .2s linear, opacity .2s linear;
 }
+
 .button.theme:not(.split)[class*='line-back']::after,
 .button.theme.split[class*='line-back'] > div::after
 {
@@ -447,12 +450,12 @@
 
 
 
-    .button.theme:not(.split)[class*='line-under']::after,
-    .button.theme.split[class*='line-under'] > div::after
-    {
-        top: auto;
-        bottom: -1px;
-    }
+.button.theme:not(.split)[class*='line-under']::after,
+.button.theme.split[class*='line-under'] > div::after
+{
+    top: auto;
+    bottom: -1px;
+}
 
 /* CHROME fix for border glitch on hover */
 .button.theme.split:not(.border):hover > div.command
