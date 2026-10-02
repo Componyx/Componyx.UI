@@ -673,6 +673,11 @@ input[type=password]::-ms-clear
         line-height: 35px !important;
         font-size: 0px;
         display: inline-block;
+
+        > span.icon
+        {
+            min-height: 0;
+        }
     }
 
     & > header .menu > .item-group.root > nav > .button.theme .content-holder,
