@@ -12,14 +12,18 @@
     </Reference>
   </ItemGroup>
 
-  <!-- Copy the type definitions into the project for JavaScript IntelliSense (opt out with ComponyxUICopyTypes=false) -->
+  <!-- Copy the type definitions and the VS Code custom data file into the project for editor IntelliSense (opt out with ComponyxUICopyTypes=false) -->
   <ItemGroup>
     <_ComponyxUITypes Include="$(MSBuildThisFileDirectory)..\types\**\*.d.ts" />
+    <_ComponyxUIEditorData Include="$(MSBuildThisFileDirectory)..\editor\componyx.html-data.json" />
   </ItemGroup>
 
   <Target Name="ComponyxUICopyTypes" BeforeTargets="Build" Condition="'$(ComponyxUICopyTypes)' != 'false'">
     <Copy SourceFiles="@(_ComponyxUITypes)"
           DestinationFiles="@(_ComponyxUITypes->'$(MSBuildProjectDirectory)\TypeDefinitions\Componyx.UI\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(_ComponyxUIEditorData)"
+          DestinationFolder="$(MSBuildProjectDirectory)\TypeDefinitions\Componyx.UI"
           SkipUnchangedFiles="true" />
   </Target>
 

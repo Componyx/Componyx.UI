@@ -105,15 +105,13 @@ Setup for NPM and NuGet projects is described at [componyx.com](https://componyx
 
 ## Editor support
 
-Componyx ships a VS Code custom data file for IntelliSense on `ui-*`, `data-ui-*`, `b-*`, and `data-bindary-*` attributes.
+Componyx ships a VS Code custom data file for IntelliSense on `ui-*`, `data-ui-*`, `b-*` and `data-bindary-*` attributes. When using the NuGet package, it is copied to `TypeDefinitions/Componyx.UI` on build. Add this to your project's `.vscode/settings.json`:
 
-Add this to your project's `.vscode/settings.json`:
-
-\`\`\`json
+```json
 {
-  "html.customData": ["./node_modules/componyx-ui/componyx.html-data.json"]
+  "html.customData": ["./TypeDefinitions/Componyx.UI/componyx.html-data.json"]
 }
-\`\`\`
+```
 
 Restart VS Code (or reload the window) for it to take effect.
 

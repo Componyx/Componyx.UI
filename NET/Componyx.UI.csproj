@@ -51,6 +51,7 @@
     <None Include="..\Logo-small.png" Pack="true" PackagePath="\" />
     <None Include="..\build\Componyx.UI.targets" Pack="true" PackagePath="build\;buildTransitive\" />
     <None Update="..\TypeDefinitions\**\*.d.ts" Pack="true" PackagePath="types\" />
+    <None Include="..\componyx.html-data.json" Pack="true" PackagePath="editor\" />
 
     <None Include="bin\Debug\$(TargetFramework)\Componyx.UI.dll" Pack="true" PackagePath="debug\$(TargetFramework)\" />
     <None Include="bin\Debug\$(TargetFramework)\Componyx.UI.xml" Pack="true" PackagePath="debug\$(TargetFramework)\" />
