@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{A78E6CC1
 		Build\build.config.json = Build\build.config.json
 		Build\build.esm.js = Build\build.esm.js
 		Build\build.js = Build\build.js
+		Build\Componyx.UI.targets = Build\Componyx.UI.targets
 		Build\package-lock.json = Build\package-lock.json
 		Build\package.json = Build\package.json
 		Build\package.template.json = Build\package.template.json

@@ -4,26 +4,58 @@
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>Componyx.UI</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
-    <ItemGroup>
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-    
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\Componyx.UI.xml</DocumentationFile>
     <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 
-<ItemGroup>
-  <None Include="..\TypeDefinitions\**\*.ts">
-    <Link>TypeDefinitions\%(RecursiveDir)%(Filename)%(Extension)</Link>
-  </None>
-</ItemGroup>
+  <ItemGroup>
+    <None Include="..\TypeDefinitions\**\*.ts">
+      <Link>TypeDefinitions\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
+  </ItemGroup>
+
+  <!-- Package metadata -->
+  <PropertyGroup>
+    <PackageId>Componyx.UI</PackageId>
+    <Title>Componyx.UI</Title>
+    <Version>1.0.0</Version>
+    <Authors>E.H. Daanen</Authors>
+    <Company>Componyx</Company>
+    <Description>Standards-based, dependency-free UI components for the web, with built-in .NET integration.</Description>
+    <PackageTags>ui;components;web-components;javascript;aspnetcore;forms</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>(c) E.H. Daanen (Componyx)</Copyright>
+    <PackageProjectUrl>https://componyx.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Componyx/Componyx.UI</RepositoryUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>Logo-small.png</PackageIcon>
+    <!-- The Debug and Release DLLs are packed manually below; build\Componyx.UI.targets picks one -->
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+  </PropertyGroup>
+
+  <!-- Your existing items go here -->
 
   <ItemGroup>
     <None Include="..\README.md" Pack="true" PackagePath="\" />
     <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\Logo-small.png" Pack="true" PackagePath="\" />
+    <None Include="..\build\Componyx.UI.targets" Pack="true" PackagePath="build\;buildTransitive\" />
+    <None Update="..\TypeDefinitions\**\*.d.ts" Pack="true" PackagePath="types\" />
+
+    <None Include="bin\Debug\$(TargetFramework)\Componyx.UI.dll" Pack="true" PackagePath="debug\$(TargetFramework)\" />
+    <None Include="bin\Debug\$(TargetFramework)\Componyx.UI.xml" Pack="true" PackagePath="debug\$(TargetFramework)\" />
+    <None Include="bin\Release\$(TargetFramework)\Componyx.UI.dll" Pack="true" PackagePath="release\$(TargetFramework)\" />
+    <None Include="bin\Release\$(TargetFramework)\Componyx.UI.xml" Pack="true" PackagePath="release\$(TargetFramework)\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -70,66 +102,66 @@
     <None Remove="..\Resources\Base\Resources\Script\NavigationManager.min.js" />
     <None Remove="..\Resources\Base\Resources\Script\Sanitizer.js" />
     <None Remove="..\Resources\Base\Resources\Script\Sanitizer.min.js" />
-    
+
     <None Remove="..\Resources\Base\Resources\Script\UI.js" />
-    <None Remove="..\Resources\Base\Resources\Script\UI.min.js" />  
-    
+    <None Remove="..\Resources\Base\Resources\Script\UI.min.js" />
+
     <None Remove="..\Resources\BookmarkSpy\Resources\Script\BookmarkSpy.js" />
     <None Remove="..\Resources\BookmarkSpy\Resources\Script\BookmarkSpy.min.js" />
-    
+
     <None Remove="..\Resources\Box\Resources\CSS\Box.css" />
     <None Remove="..\Resources\Box\Resources\CSS\Box.min.css" />
     <None Remove="..\Resources\Box\Resources\Script\Box.js" />
     <None Remove="..\Resources\Box\Resources\Script\Box.min.js" />
-    
+
     <None Remove="..\Resources\Button\Resources\CSS\Button.css" />
     <None Remove="..\Resources\Button\Resources\CSS\Button.min.css" />
     <None Remove="..\Resources\Button\Resources\CSS\Themes\Default.css" />
     <None Remove="..\Resources\Button\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\Button\Resources\Script\Button.js" />
     <None Remove="..\Resources\Button\Resources\Script\Button.min.js" />
-    
+
     <None Remove="..\Resources\Carousel\Resources\CSS\Carousel.css" />
     <None Remove="..\Resources\Carousel\Resources\CSS\Carousel.min.css" />
     <None Remove="..\Resources\Carousel\Resources\Script\Carousel.js" />
     <None Remove="..\Resources\Carousel\Resources\Script\Carousel.min.js" />
-    
+
     <None Remove="..\Resources\ColorButton\Resources\CSS\ColorButton.css" />
     <None Remove="..\Resources\ColorButton\Resources\CSS\ColorButton.min.css" />
     <None Remove="..\Resources\ColorButton\Resources\Script\ColorButton.js" />
     <None Remove="..\Resources\ColorButton\Resources\Script\ColorButton.min.js" />
-    
+
     <None Remove="..\Resources\ColorPicker\Resources\CSS\ColorPicker.css" />
     <None Remove="..\Resources\ColorPicker\Resources\CSS\ColorPicker.min.css" />
     <None Remove="..\Resources\ColorPicker\Resources\Script\ColorPicker.js" />
     <None Remove="..\Resources\ColorPicker\Resources\Script\ColorPicker.min.js" />
-    
+
     <None Remove="..\Resources\ComboBox\Resources\CSS\ComboBox.css" />
     <None Remove="..\Resources\ComboBox\Resources\CSS\ComboBox.min.css" />
     <None Remove="..\Resources\ComboBox\Resources\CSS\Themes\Default.css" />
     <None Remove="..\Resources\ComboBox\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\ComboBox\Resources\Script\ComboBox.js" />
     <None Remove="..\Resources\ComboBox\Resources\Script\ComboBox.min.js" />
-    
+
     <None Remove="..\Resources\DataPager\Resources\CSS\DataPager.css" />
     <None Remove="..\Resources\DataPager\Resources\CSS\DataPager.min.css" />
     <None Remove="..\Resources\DataPager\Resources\Script\DataPager.js" />
     <None Remove="..\Resources\DataPager\Resources\Script\DataPager.min.js" />
-    
+
     <None Remove="..\Resources\DatePicker\Resources\CSS\DatePicker.css" />
     <None Remove="..\Resources\DatePicker\Resources\CSS\DatePicker.min.css" />
     <None Remove="..\Resources\DatePicker\Resources\CSS\Themes\Default.css" />
     <None Remove="..\Resources\DatePicker\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\DatePicker\Resources\Script\DatePicker.js" />
     <None Remove="..\Resources\DatePicker\Resources\Script\DatePicker.min.js" />
-    
+
     <None Remove="..\Resources\Dialog\Resources\CSS\Dialog.css" />
     <None Remove="..\Resources\Dialog\Resources\CSS\Dialog.min.css" />
     <None Remove="..\Resources\Dialog\Resources\CSS\Themes\Default.css" />
     <None Remove="..\Resources\Dialog\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\Dialog\Resources\Script\Dialog.js" />
     <None Remove="..\Resources\Dialog\Resources\Script\Dialog.min.js" />
-    
+
     <None Remove="..\Resources\Editor\Resources\CSS\Editor.css" />
     <None Remove="..\Resources\Editor\Resources\CSS\Editor.min.css" />
     <None Remove="..\Resources\Editor\Resources\CSS\Themes\Default.css" />
@@ -186,7 +218,7 @@
     <None Remove="..\Resources\FileUpload\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\FileUpload\Resources\Script\FileUpload.js" />
     <None Remove="..\Resources\FileUpload\Resources\Script\FileUpload.min.js" />
-    
+
     <None Remove="..\Resources\FormField\Resources\CSS\FormField.css" />
     <None Remove="..\Resources\FormField\Resources\CSS\FormField.min.css" />
     <None Remove="..\Resources\FormField\Resources\CSS\Themes\Default.css" />
@@ -235,14 +267,14 @@
     <None Remove="..\Resources\Grid\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\Grid\Resources\Script\Grid.js" />
     <None Remove="..\Resources\Grid\Resources\Script\Grid.min.js" />
-    
+
     <None Remove="..\Resources\MaskedTextBox\Resources\CSS\MaskedTextBox.css" />
     <None Remove="..\Resources\MaskedTextBox\Resources\CSS\MaskedTextBox.min.css" />
     <None Remove="..\Resources\MaskedTextBox\Resources\CSS\Themes\Default.css" />
     <None Remove="..\Resources\MaskedTextBox\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\MaskedTextBox\Resources\Script\MaskedTextBox.js" />
     <None Remove="..\Resources\MaskedTextBox\Resources\Script\MaskedTextBox.min.js" />
-    
+
     <None Remove="..\Resources\Menu\Resources\CSS\Menu.css" />
     <None Remove="..\Resources\Menu\Resources\CSS\Menu.min.css" />
     <None Remove="..\Resources\Menu\Resources\CSS\Themes\Default.css" />
@@ -260,42 +292,42 @@
     <None Remove="..\Resources\PanelBar\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\PanelBar\Resources\Script\PanelBar.js" />
     <None Remove="..\Resources\PanelBar\Resources\Script\PanelBar.min.js" />
-    
+
     <None Remove="..\Resources\PieChart\Resources\CSS\PieChart.css" />
     <None Remove="..\Resources\PieChart\Resources\CSS\PieChart.min.css" />
     <None Remove="..\Resources\PieChart\Resources\CSS\Themes\Default.css" />
     <None Remove="..\Resources\PieChart\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\PieChart\Resources\Script\PieChart.js" />
     <None Remove="..\Resources\PieChart\Resources\Script\PieChart.min.js" />
-        
+
     <None Remove="..\Resources\Slider\Resources\CSS\Slider.css" />
     <None Remove="..\Resources\Slider\Resources\CSS\Slider.min.css" />
     <None Remove="..\Resources\Slider\Resources\CSS\Themes\Default.css" />
     <None Remove="..\Resources\Slider\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\Slider\Resources\Script\Slider.js" />
     <None Remove="..\Resources\Slider\Resources\Script\Slider.min.js" />
-    
+
     <None Remove="..\Resources\TabStrip\Resources\CSS\TabStrip.css" />
     <None Remove="..\Resources\TabStrip\Resources\CSS\TabStrip.min.css" />
     <None Remove="..\Resources\TabStrip\Resources\CSS\Themes\Default.css" />
     <None Remove="..\Resources\TabStrip\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\TabStrip\Resources\Script\TabStrip.js" />
     <None Remove="..\Resources\TabStrip\Resources\Script\TabStrip.min.js" />
-    
+
     <None Remove="..\Resources\TimePicker\Resources\CSS\Themes\Default.css" />
     <None Remove="..\Resources\TimePicker\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\TimePicker\Resources\CSS\TimePicker.css" />
     <None Remove="..\Resources\TimePicker\Resources\CSS\TimePicker.min.css" />
     <None Remove="..\Resources\TimePicker\Resources\Script\TimePicker.js" />
     <None Remove="..\Resources\TimePicker\Resources\Script\TimePicker.min.js" />
-    
+
     <None Remove="..\Resources\TooltipManager\Resources\CSS\Themes\Default.css" />
     <None Remove="..\Resources\TooltipManager\Resources\CSS\Themes\Default.min.css" />
     <None Remove="..\Resources\TooltipManager\Resources\CSS\TooltipManager.css" />
     <None Remove="..\Resources\TooltipManager\Resources\CSS\TooltipManager.min.css" />
     <None Remove="..\Resources\TooltipManager\Resources\Script\TooltipManager.js" />
     <None Remove="..\Resources\TooltipManager\Resources\Script\TooltipManager.min.js" />
-   
+
     <None Remove="..\Resources\Validator\Resources\CSS\Validator.css" />
     <None Remove="..\Resources\Validator\Resources\CSS\Validator.min.css" />
     <None Remove="..\Resources\Validator\Resources\Script\Validator.js" />
@@ -435,7 +467,7 @@
     <EmbeddedResource Include="..\Resources\Base\Font\ComponentIcons.woff">
       <Link>Base\Resources\Font\ComponentIcons.woff</Link>
     </EmbeddedResource>
-    
+
     <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" Include="..\Resources\BookmarkSpy\Script\BookmarkSpy.js">
       <Link>BookmarkSpy\Resources\Script\BookmarkSpy.js</Link>
     </EmbeddedResource>
@@ -1052,11 +1084,11 @@
     <EmbeddedResource Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Include="..\Resources\Validator\Script\Validator.min.js">
       <Link>Validator\Resources\Script\Validator.min.js</Link>
     </EmbeddedResource>
-    <Content Include="..\Resources\Base\Script\UIResourcePath.js">
+    <None Include="..\Resources\Base\Script\UIResourcePath.js">
       <Link>Base\Resources\Script\UIResourcePath.js</Link>
-    </Content>
+    </None>
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Componyx.Common" Version="1.0.3" />
   </ItemGroup>
@@ -1069,5 +1101,5 @@
     <Exec Command="IF EXIST &quot;$(ProjectDir)\..\Data\Utils\AssemblyInfoUtil.exe&quot; &quot;$(ProjectDir)\..\Data\Utils\AssemblyInfoUtil.exe&quot; -inc:4 &quot;$(ProjectDir)\Properties\AssemblyInfo.cs&quot;" />
   </Target>
 
- 
+
 </Project>

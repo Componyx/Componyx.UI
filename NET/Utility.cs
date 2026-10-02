@@ -83,7 +83,7 @@ namespace Componyx.UI
             {
                 return Array.FindAll(Dns.GetHostEntry(context.Connection.RemoteIpAddress).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
@@ -100,7 +100,7 @@ namespace Componyx.UI
             {
                 return Array.FindAll(Dns.GetHostEntry(context.Connection.RemoteIpAddress).AddressList, a => a.AddressFamily == AddressFamily.InterNetworkV6).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }

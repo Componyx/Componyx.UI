@@ -97,6 +97,7 @@ For installation instructions, examples, component documentation and API referen
 ## TypeScript definitions (optional)
 
 Componyx.UI ships TypeScript definition files for editor IntelliSense and type checking in plain JavaScript projects. They are for tooling only; the components themselves are 100% JavaScript and nothing changes at runtime.
+When using the NuGet package, the definitions are copied to TypeDefinitions/Componyx.UI on build; add that folder to the include of your tsconfig.json or jsconfig.json.
 
 Setup for NPM and NuGet projects is described at [componyx.com](https://componyx.com).
 

@@ -1,0 +1,26 @@
+<Project>
+
+  <!-- Debug configuration gets the readable scripts and CSS, every other configuration gets the minified ones -->
+  <PropertyGroup>
+    <_ComponyxUIFlavor Condition="'$(Configuration)' == 'Debug'">debug</_ComponyxUIFlavor>
+    <_ComponyxUIFlavor Condition="'$(_ComponyxUIFlavor)' == ''">release</_ComponyxUIFlavor>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Componyx.UI">
+      <HintPath>$(MSBuildThisFileDirectory)..\$(_ComponyxUIFlavor)\net10.0\Componyx.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Copy the type definitions into the project for JavaScript IntelliSense (opt out with ComponyxUICopyTypes=false) -->
+  <ItemGroup>
+    <_ComponyxUITypes Include="$(MSBuildThisFileDirectory)..\types\**\*.d.ts" />
+  </ItemGroup>
+
+  <Target Name="ComponyxUICopyTypes" BeforeTargets="Build" Condition="'$(ComponyxUICopyTypes)' != 'false'">
+    <Copy SourceFiles="@(_ComponyxUITypes)"
+          DestinationFiles="@(_ComponyxUITypes->'$(MSBuildProjectDirectory)\TypeDefinitions\Componyx.UI\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>
