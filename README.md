@@ -175,4 +175,4 @@ Componyx.UI is free to use in production, for personal and commercial projects a
 
 What you may not do is resell, rebrand, or distribute Componyx.UI as your own product, library, or framework. A product whose main purpose is letting others build general-purpose forms, such as an online form builder or survey tool, is licensed separately.
 
-See [LICENSE.md](https://github.com/Componyx/Componyx.UI/blob/main/LICENSE.md) for the full terms. Not sure whether your use is covered? [Contact us](https://componyx.com/contact/license).
+See ['LICENSE'](LICENSE) for the full terms. Not sure whether your use is covered? [Contact us](https://componyx.com/contact/license).
