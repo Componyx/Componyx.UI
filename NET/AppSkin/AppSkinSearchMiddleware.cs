@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Web;
 using System.IO;
 using System.Linq;
 using Componyx.Common;
@@ -11,7 +9,6 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Reflection;
-using static Componyx.UI.Extensions;
 
 namespace Componyx.UI
 {
@@ -100,11 +97,10 @@ namespace Componyx.UI
             var routeTitles = cache.RouteTitles;
 
             context.Response.ContentType = "application/json";
-            context.Response.GetTypedHeaders().CacheControl =
-                new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
-                {
-                    NoCache = true
-                };
+            context.Response.GetTypedHeaders().CacheControl = new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+            {
+                NoCache = true
+            };
 
             var request = context.Request;
             string json;
@@ -115,7 +111,9 @@ namespace Componyx.UI
             }
 
             var settings = Json.Utility.Deserialize<SearchSettings>(json);
-            var terms = settings.Terms.Split(' ');
+
+            // skip empty terms (double spaces), an empty term would match every key
+            var terms = (settings?.Terms ?? string.Empty).Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
             // Route: number of distinct search terms that matched it. A route matching more of the query's words ranks higher than one matching only one.
             var routeScores = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
@@ -126,14 +124,13 @@ namespace Componyx.UI
 
                 if (!_contains)
                 {
-                    // FIX: use keys + correct bounds
-                    BinarySearch(keywordIndex, keys, term, termResult, 0, keys.Count - 1);
+                    PrefixSearch(keywordIndex, keys, term, termResult);
                 }
                 else
                 {
-                    foreach (var key in keywordIndex.Keys)
+                    foreach (var key in keys)
                     {
-                        if (key.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0)
+                        if (key.Contains(term, StringComparison.OrdinalIgnoreCase))
                             termResult.AddRange(keywordIndex[key]);
                     }
                 }
@@ -147,54 +144,37 @@ namespace Componyx.UI
                 }
             }
 
-            var result = routeScores
-                .OrderByDescending(kv => kv.Value)
+            var result = routeScores.OrderByDescending(kv => kv.Value)
                 .Select(kv => new SearchResult
                 {
                     Route = kv.Key,
                     Title = routeTitles.TryGetValue(kv.Key, out var title) ? title : kv.Key
-                })
-                .ToList();
+                }).ToList();
 
             await context.Response.WriteAsync(Json.Utility.Serialize(result));
         }
 
-        private void BinarySearch(CaseInsensitiveSortedDictionary<List<string>> keywordIndex, List<string> keys, string term, List<string> termResult, int min, int max)
+        /// <summary>
+        /// Adds the routes of all keys that start with the term.
+        /// </summary>
+        private static void PrefixSearch(CaseInsensitiveSortedDictionary<List<string>> keywordIndex, List<string> keys, string term, List<string> termResult)
         {
-            var pos = min + (int)Math.Ceiling((double)(max - min) / 2);
+            int low = 0, high = keys.Count;
 
-            var key = keys[pos];
-            var value = keywordIndex[key];
-            var found = true;
-            var index = pos;
-
-            if (key.StartsWith(term, StringComparison.OrdinalIgnoreCase))
+            // binary search for the first key that is not smaller than the term (ignoring case)
+            while (low < high)
             {
-                termResult.AddRange(value);
+                var mid = low + (high - low) / 2;
 
-                // look for further matching words
-                while (found)
-                {
-                    if (++index < keys.Count &&
-                        keys[index].StartsWith(term, StringComparison.OrdinalIgnoreCase))
-                    {
-                        termResult.AddRange(keywordIndex[keys[index]]);
-                    }
-                    else
-                    {
-                        found = false;
-                    }
-                }
+                if (StringComparer.OrdinalIgnoreCase.Compare(term, keys[mid]) > 0)
+                    low = mid + 1;
+                else
+                    high = mid;
             }
 
-            var c = string.Compare(term, key);
-
-            if (c == -1 && (pos - min) > 1)
-                BinarySearch(keywordIndex, keys, term, termResult, min, pos);
-            else if (c == 1 && (max - pos) > 1)
-                BinarySearch(keywordIndex, keys, term, termResult, pos, max);
-            else
-                return; // ready
+            // all keys starting with the term follow directly from there
+            for (var index = low; index < keys.Count && keys[index].StartsWith(term, StringComparison.OrdinalIgnoreCase); index++)
+                termResult.AddRange(keywordIndex[keys[index]]);
         }
 
         /// <summary>
@@ -217,7 +197,7 @@ namespace Componyx.UI
                 var result = new KeywordIndexCache
                 {
                     Index = data.Keywords,
-                    Keys = data.Keywords.Keys.ToList(),
+                    Keys = data.Keywords.Keys.OrderBy(k => k, StringComparer.OrdinalIgnoreCase).ToList(), // sorted ignoring case, the same way PrefixSearch compares
                     RouteTitles = data.Routes
                 };
 
