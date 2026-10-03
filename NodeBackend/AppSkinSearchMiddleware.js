@@ -24,7 +24,9 @@ export function createAppSkinSearchMiddleware(options)
             const body = await readRequestBody(req);
             const json = body.replace(/\\/g, '\\\\');
             const settings = JSON.parse(json);
-            const terms = settings.terms.split(' ');
+
+            // skip empty terms (double spaces), an empty term would match every key
+            const terms = (settings.terms || '').split(' ').filter(term => term);
 
             // Route -> number of distinct search terms that matched it. A
             // route matching more of the query's words ranks higher than one
@@ -37,17 +39,17 @@ export function createAppSkinSearchMiddleware(options)
 
                 if (!contains)
                 {
-                    termResult = binarySearch(keywordIndex, keys, term, 0, keys.length - 1);
+                    termResult = prefixSearch(keywordIndex, keys, term);
                 }
                 else
                 {
                     termResult = [];
                     const termLower = term.toLowerCase();
 
-                    for (const key of keywordIndex.keys())
+                    for (const key of keys)
                     {
-                        if (key.toLowerCase().indexOf(termLower) > -1)
-                            termResult = termResult.concat(keywordIndex.get(key));
+                        if (key.toLowerCase().includes(termLower))
+                            termResult.push(...keywordIndex.get(key));
                     }
                 }
 
@@ -90,45 +92,32 @@ function readRequestBody(req)
     });
 }
 
-function binarySearch(keywordIndex, keys, term, min, max)
+/**
+ * Returns the routes of all keys that start with the term.
+ */
+function prefixSearch(keywordIndex, keys, term)
 {
-    const pos = min + Math.ceil((max - min) / 2);
+    const termLower = term.toLowerCase();
+    let low = 0, high = keys.length;
 
-    const key = keys[pos];
-    const value = keywordIndex.get(key);
-    const termResult = [];
-
-    if (key.toLowerCase().startsWith(term.toLowerCase()))
+    // binary search for the first key that is not smaller than the term (ignoring case)
+    while (low < high)
     {
-        termResult.push(...value);
+        const mid = low + Math.floor((high - low) / 2);
 
-        // look for further matching words
-        let index = pos;
-        let found = true;
-
-        while (found)
-        {
-            index++;
-
-            if (index < keys.length && keys[index].toLowerCase().startsWith(term.toLowerCase()))
-            {
-                termResult.push(...keywordIndex.get(keys[index]));
-            }
-            else
-            {
-                found = false;
-            }
-        }
+        if (termLower > keys[mid].toLowerCase())
+            low = mid + 1;
+        else
+            high = mid;
     }
 
-    const c = term.toLowerCase() < key.toLowerCase() ? -1 : (term.toLowerCase() > key.toLowerCase() ? 1 : 0);
+    // all keys starting with the term follow directly from there
+    const termResult = [];
 
-    if (c === -1 && (pos - min) > 1)
-        return termResult.concat(binarySearch(keywordIndex, keys, term, min, pos));
-    else if (c === 1 && (max - pos) > 1)
-        return termResult.concat(binarySearch(keywordIndex, keys, term, pos, max));
-    else
-        return termResult; // ready
+    for (let i = low; i < keys.length && keys[i].toLowerCase().startsWith(termLower); i++)
+        termResult.push(...keywordIndex.get(keys[i]));
+
+    return termResult;
 }
 
 /**
@@ -143,6 +132,7 @@ function getKeywordIndex(keywordFilePath)
     const json = gunzipSync(compressed).toString('utf8');
     const data = JSON.parse(json);
 
+    // sorted ignoring case, the same way prefixSearch compares
     const keys = Object.keys(data.keywords).sort((a, b) =>
     {
         const al = a.toLowerCase(), bl = b.toLowerCase();
