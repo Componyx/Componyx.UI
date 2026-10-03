@@ -4,6 +4,7 @@
   "backupDir": "backup",
   "esmOutputPath": "../ESM",
   "bundledOutputPath": "../ESM",
+  "csprojPath": "../NET/Componyx.UI.csproj",
   "isMinify": true,
   "buildESM": true,
   "typeDefinitionsPath": "../TypeDefinitions",

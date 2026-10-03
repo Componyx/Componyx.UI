@@ -690,6 +690,13 @@ componyx.UI.base = {};
     */
     componyx.UI.themeName = null;
 
+    /**
+    * Gets or sets a value indicating if component resources (CSS and scripts) are loaded on demand. Disable when all resources are already included, e.g. with the bundled ui.js and ui.css.
+    * @type {Boolean}
+    * @memberof componyx.UI
+    */
+    componyx.UI.onDemandResourceLoading = true;
+
     /** 
      * Gets or sets the custom tag prefix for UI components. Defaults to 'cui-'.
      * @type {String}
@@ -2432,7 +2439,7 @@ componyx.UI.base = {};
                 theme = instance.theme,
                 resources = resourceHandler ? resourceHandler.call(instance) : [],
                 componentName = resources[0],
-                script = (resources[1] || []).filter((name) => !$UI[name]), // copy, never mutate the caller's array
+                script = $UI.onDemandResourceLoading ? (resources[1] || []).filter((name) => !$UI[name]) : [], // copy, never mutate the caller's array
                 css = [];
 
             let scriptsLoaded = 0,
@@ -2458,7 +2465,7 @@ componyx.UI.base = {};
                     instance.render(); // finished including script and css, return to the component's render method
             };
 
-            if (theme > $base.static.ThemeOption.NONE)
+            if ($UI.onDemandResourceLoading && theme > $base.static.ThemeOption.NONE)
             {
                 let src = $UI.getCssResourcePath(componentName);
 

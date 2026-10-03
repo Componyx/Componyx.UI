@@ -366,3 +366,4 @@ FodyWeavers.xsd
 ESM/
 build/node_modules/
 build/backup/
+*.tgz

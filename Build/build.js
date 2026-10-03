@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { buildESM, getModuleFolderForFile } = require('./build.esm.js');
+const { buildESM, getModuleFolderForFile, rewriteResourceUrls } = require('./build.esm.js');
 const esbuild = require('esbuild');
 const rollup = require('./node_modules/rollup');
 const rollup_config = require('./rollup.config.js');
@@ -48,7 +48,7 @@ const esmOutputPath = path.resolve(resourcesPath, build_config.esmOutputPath || 
 // produce, both flag states share the same unminified pass, --minify just adds the second one.
 const buildMinifiedBundle = process.argv.includes('--minify') ? true : build_config.isMinify;
 
-// Where the classic single-file bundle (UI.js/UI.min.js + ui.css/.min.css) gets
+// Where the classic single-file bundle (ui.js/ui.min.js + ui.css/ui.min.css) gets
 // written. Defaults to the ESM output folder itself, since that's the "script only publishing
 // folder" - nothing in the .NET embedded-resource / lazy-load path reads these bundled files,
 // only npm/script-tag consumers of the published package do. Add to build.config.json to
@@ -61,7 +61,7 @@ fs.mkdirSync(bundledOutputPath, { recursive: true });
 // buildMinifiedBundle is set (see main() below). Delete both variants of both bundle types
 // up front regardless, so a stale minified file from a PREVIOUS --minify run never lingers
 // and gets mistaken for current output on a run that didn't ask for it.
-['UI.js', 'UI.min.js', 'ui.css', 'ui.min.css'].forEach(name =>
+['ui.js', 'ui.min.js', 'ui.css', 'ui.min.css'].forEach(name =>
 {
     const filePath = path.join(bundledOutputPath, name);
 
@@ -80,7 +80,7 @@ if (fs.existsSync(backupDir))
 fs.mkdirSync(backupDir);
 
 
-// Collect files AFTER deletion so UI.js/UI.min.js are not included
+// Collect files AFTER deletion so ui.js/ui.min.js are not included
 const jsFiles = getAllFiles(resourcesPath, '.js', excludeFiles);
 const cssFiles = getAllFiles(resourcesPath, '.css', excludeFiles);
 
@@ -141,6 +141,10 @@ async function main()
         // now that the originals are back.
         await Promise.all(jsFiles.map(minifyJS));
     }
+
+    // the bundled css is written after buildESM(), so rewrite its resource urls now
+    if (build_config.buildESM)
+        rewriteResourceUrls(esmOutputPath);
 }
 
 
@@ -148,7 +152,7 @@ main().catch(error => console.error('Error during build:', error));
 
 async function bundleJS(minify)
 {
-    const outputFile = path.join(bundledOutputPath, minify ? 'UI.min.js' : 'UI.js');
+    const outputFile = path.join(bundledOutputPath, minify ? 'ui.min.js' : 'ui.js');
 
     try
     {
@@ -180,8 +184,10 @@ async function bundleJS(minify)
         // Every imported component file already carries its own header (Rollup preserves
         // comments when concatenating, it doesn't strip them), so the raw bundled output has
         // one copy per component - strip all of them and add back exactly one, at the top.
+        // The bundle already contains every script, and ui.css every style, so components must
+        // not load their resources on demand.
         const bundledContent = fs.readFileSync(outputFile, 'utf8');
-        fs.writeFileSync(outputFile, normalizeLineEndings(ensureSingleHeader(bundledContent)), 'utf8');
+        fs.writeFileSync(outputFile, normalizeLineEndings(ensureSingleHeader(bundledContent) + '\ncomponyx.UI.onDemandResourceLoading = false;\n'), 'utf8');
 
         console.log(`Successfully bundled JS into: ${outputFile}`);
     }
@@ -493,15 +499,20 @@ function createEntryFile(minify)
         }
     });
 
+    // When bundling the .min.js files, compare names as if they were the source .js files,
+    // so scriptOrder and moduleFolders (which list source names) still apply.
+    const sourceName = file => path.basename(file).replace(/\.min\.js$/i, '.js');
+    const sourcePath = file => file.replace(/\.min\.js$/i, '.js');
+
     // Separate module files and module entry files
     const moduleFiles = [];
     const moduleEntries = {};
 
     filteredFiles.forEach(file =>
     {
-        const fileNameNoExt = path.basename(file, path.extname(file));
+        const fileNameNoExt = path.basename(sourcePath(file), '.js');
 
-        const moduleFolder = getModuleFolderForFile(file, moduleFolders);
+        const moduleFolder = getModuleFolderForFile(sourcePath(file), moduleFolders);
         const isModuleEntry = (moduleFolder && fileNameNoExt === moduleFolder);
 
         if (isModuleEntry)
@@ -517,8 +528,8 @@ function createEntryFile(minify)
     // Sort files to ensure base scripts come first
     const sortedFiles = filteredFiles.sort((a, b) =>
     {
-        const indexA = scriptOrder.indexOf(path.basename(a));
-        const indexB = scriptOrder.indexOf(path.basename(b));
+        const indexA = scriptOrder.indexOf(sourceName(a));
+        const indexB = scriptOrder.indexOf(sourceName(b));
         return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
     });
 
@@ -528,7 +539,7 @@ function createEntryFile(minify)
     // Add ordered base scripts first
     scriptOrder.forEach(base =>
     {
-        const baseFile = sortedFiles.find(file => path.basename(file) === base);
+        const baseFile = sortedFiles.find(file => sourceName(file) === base);
         if (baseFile)
         {
             entryContent.push(baseFile);
@@ -538,7 +549,7 @@ function createEntryFile(minify)
     // Process modules in the correct order
     Object.keys(moduleFolders).forEach(moduleName =>
     {
-        const moduleScripts = moduleFiles.filter(file => getModuleFolderForFile(file, moduleFolders) === moduleName);
+        const moduleScripts = moduleFiles.filter(file => getModuleFolderForFile(sourcePath(file), moduleFolders) === moduleName);
 
         // Ensure we follow the correct order
         const orderedModules = [];
@@ -546,7 +557,7 @@ function createEntryFile(minify)
 
         (moduleFolders[moduleName] || []).forEach(orderedFile =>
         {
-            const matchingFile = moduleScripts.find(file => path.basename(file).toLowerCase() === orderedFile.toLowerCase());
+            const matchingFile = moduleScripts.find(file => sourceName(file).toLowerCase() === orderedFile.toLowerCase());
             if (matchingFile)
             {
                 orderedModules.push(matchingFile);

@@ -1,5 +1,5 @@
 {
-  "name": "componyx-ui",
+  "name": "@componyx/ui",
   "version": "1.0.0",
   "description": "Standards-based UI components and reactive data-binding for the web. No build step, zero dependencies.",
   "homepage": "https://componyx.com",
@@ -9,7 +9,9 @@
   },
   "keywords": [
     "ui",
+    "bindary",
     "components",
+    "data-binding",
     "web-components",
     "framework",
     "componyx",
@@ -17,6 +19,12 @@
     "vanilla-js",
     "dotnet"
   ],
+  "bugs": {
+    "url": "https://github.com/Componyx/Componyx.UI/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "E.H. Daanen",
   "license": "BUSL-1.1"
 }

@@ -21,8 +21,8 @@ declare namespace componyx
     namespace UI 
     {
         /**
-            * <p>When specified, the version is appended to the URL for locating UI CSS &amp; Script resources.</p>
-            */
+         * <p>When specified, the version is appended to the URL for locating UI CSS &amp; Script resources.</p>
+         */
         var version: string | null;
 
         /**
@@ -61,6 +61,10 @@ declare namespace componyx
          * <p>The CSS theme name which is set on the component's root element. Can be overridden when defined on a component-group or component.</p>
          */
         var themeName: string;
+        /**
+         * <p>Gets or sets a value indicating if component resources (CSS and scripts) are loaded on demand. Disable when all resources are already included, e.g. with the bundled ui.js and ui.css.</p>
+        */
+        var onDemandResourceLoading: boolean;
         /**
          * <p>A value indicating if the UI is busy rendering components.</p>
          */

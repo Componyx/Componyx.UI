@@ -17,6 +17,73 @@ function ensureSingleHeader(content, copyrightHeader)
     return copyrightHeader + '\n' + stripHeader(content, copyrightHeader).replace(/^\s+/, '');
 }
 
+// Copies the files in each component's Font and Data folders, keeping them with their component:
+// <Resources>/Editor/Font/Editor.woff becomes <esm>/Editor/Font/Editor.woff
+function copyComponentAssets(resourcesPath, esmDir)
+{
+    const assetFolders = ['Font', 'Data'];
+    const assets = listFiles(resourcesPath, f => !f.startsWith(esmDir) && assetFolders.includes(path.basename(path.dirname(f))));
+
+    assets.forEach(f =>
+    {
+        const target = path.join(esmDir, path.relative(resourcesPath, f));
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.copyFileSync(f, target);
+    });
+
+    console.log(`  - ${assets.length} font and data file(s) copied`);
+}
+
+// Replaces the .NET WebResource urls in every css file in the ESM folder with a path relative
+// to that css file, following the same folder mapping as the rest of the ESM output:
+//   Componyx.UI.Editor.Resources.Font.Editor.woff     -> Editor/Font/Editor.woff
+//   Componyx.UI.Base.Resources.CSS.ComponentIcons.css -> Base/ComponentIcons.css (CSS folder dropped)
+function rewriteResourceUrls(esmDir)
+{
+    const webResourceRegex = /<%=\s*WebResource\("Componyx\.UI\.([^."]+)\.Resources\.([^"]+)"\)\s*%>/g;
+
+    listFiles(esmDir, f => f.endsWith('.css')).forEach(cssFile =>
+    {
+        const css = fs.readFileSync(cssFile, 'utf8');
+        const updated = css.replace(webResourceRegex, (match, component, resourcePath) =>
+        {
+            const target = path.join(esmDir, component, ...resourceNameToFolders(resourcePath));
+            return path.relative(path.dirname(cssFile), target).replace(/\\/g, '/');
+        });
+
+        if (updated.includes('WebResource('))
+            console.warn(`[esm] unresolved WebResource reference left in: ${path.relative(esmDir, cssFile)}`);
+
+        if (updated !== css)
+            fs.writeFileSync(cssFile, updated, 'utf8');
+    });
+}
+
+// Turns the dotted part after "Resources." into folders plus file name:
+// "Font.Editor.woff" -> ['Font', 'Editor.woff'], "CSS.Themes.Default.css" -> ['Themes', 'Default.css']
+function resourceNameToFolders(resourcePath)
+{
+    const fileName = resourcePath.match(/[^.]+(?:\.min)?\.[a-z0-9]+$/i)[0];
+    const folders = resourcePath.slice(0, -fileName.length).split('.').filter(f => f);
+
+    if (folders[0] === 'CSS')
+        folders.shift(); // css files sit directly in the component folder in the ESM output
+
+    return [...folders, fileName];
+}
+
+// The csproj <Version> is the single source of truth for both NuGet and npm.
+function readCsprojVersion(csprojPath)
+{
+    const csproj = fs.readFileSync(csprojPath, 'utf8');
+    const match = csproj.match(/<Version>\s*([^<\s]+)\s*<\/Version>/);
+
+    if (!match)
+        throw new Error(`[esm] no <Version> found in ${csprojPath}`);
+
+    return match[1];
+}
+
 async function buildESM(build_config, resourcesPath, jsFiles, cssFiles, packageJsonPath)
 {
     const resolvedPackageJsonPath = packageJsonPath || path.resolve(__dirname, 'package.json');
@@ -25,6 +92,11 @@ async function buildESM(build_config, resourcesPath, jsFiles, cssFiles, packageJ
         throw new Error(`[esm] package.json not found at: ${resolvedPackageJsonPath} - place one alongside build.js/build.config.json, or pass an explicit path.`);
 
     const existingPackageJson = JSON.parse(fs.readFileSync(resolvedPackageJsonPath, 'utf8'));
+
+    if (build_config.csprojPath)
+        existingPackageJson.version = readCsprojVersion(path.resolve(__dirname, build_config.csprojPath));
+    else
+        console.warn('[esm] build_config.csprojPath not set, using the version from package.json');
 
     const scriptOrder = build_config.scriptOrder;
     const moduleFolders = build_config.moduleFolders;
@@ -42,18 +114,16 @@ async function buildESM(build_config, resourcesPath, jsFiles, cssFiles, packageJ
     removeDirWithRetry(esmDir);
     fs.mkdirSync(esmSourceDir, { recursive: true });
 
-    // Copy the .d.ts files into <esm>/types
+    // Copy the .d.ts files into <esm>/types, the package always ships with types
     const typesSource = path.resolve(__dirname, build_config.typeDefinitionsPath || '../TypeDefinitions');
 
-    if (fs.existsSync(typesSource))
-    {
-        fs.cpSync(typesSource, path.join(esmDir, 'types'), {
-            recursive: true,
-            filter: src => fs.statSync(src).isDirectory() || src.endsWith('.d.ts')
-        });
-    }
-    else
-        console.warn(`[esm] type definitions folder not found, package will have no types: ${typesSource}`);
+    if (!fs.existsSync(typesSource))
+        throw new Error(`[esm] type definitions folder not found: ${typesSource}`);
+
+    fs.cpSync(typesSource, path.join(esmDir, 'types'), {
+        recursive: true,
+        filter: src => fs.statSync(src).isDirectory() || src.endsWith('.d.ts')
+    });
 
     // Copy configured package files into the ESM output.
     copyConfiguredFilesToEsm(build_config.copyToEsm, esmDir);
@@ -166,6 +236,20 @@ function removeDirWithRetry(dir, attempts = 5, delayMs = 200)
             Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, delayMs);
         }
     }
+}
+
+// Lists all files below a folder that match the filter.
+function listFiles(dir, filter)
+{
+    return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry =>
+    {
+        const full = path.join(dir, entry.name);
+
+        if (entry.isDirectory())
+            return listFiles(full, filter);
+
+        return filter(full) ? [full] : [];
+    });
 }
 
 // Recursively lists all .d.ts files in a folder, except index.d.ts
@@ -392,11 +476,15 @@ async function buildESMInner(resourcesPath, jsFiles, cssFiles, existingPackageJs
     // at all - one copy, straight from source to destination. ----
     nonMinCssFiles.forEach(file =>
     {
-        const targetRelative = computeEsmCssTargetRelative(file, resourcesPath, moduleFolders);
+        const targetRelative = computeEsmCssTargetRelative(file, resourcesPath);
         const outPath = path.join(esmDir, targetRelative + '.css');
         fs.mkdirSync(path.dirname(outPath), { recursive: true });
         fs.copyFileSync(file, outPath);
     });
+
+    // ---- fonts and data files next to their component, then point the css resource urls at them ----
+    copyComponentAssets(resourcesPath, esmDir);
+    rewriteResourceUrls(esmDir);
 
     // ---- generate index.js re-exporting every top-level component ----
     const indexContent = rootLevelExports
@@ -408,20 +496,15 @@ async function buildESMInner(resourcesPath, jsFiles, cssFiles, existingPackageJs
     // ---- generate types/index.d.ts: references to all .d.ts files + one export per component ----
     const typesDir = path.join(esmDir, 'types');
 
-    if (fs.existsSync(typesDir))
-    {
-        const referenceLines = listDtsFiles(typesDir)
-            .map(f => path.relative(typesDir, f).replace(/\\/g, '/'))
-            .sort()
-            .map(f => `/// <reference path="./${f}" />`);
+    const referenceLines = listDtsFiles(typesDir)
+        .map(f => path.relative(typesDir, f).replace(/\\/g, '/'))
+        .sort()
+        .map(f => `/// <reference path="./${f}" />`);
 
-        const typeExportLines = rootLevelExports
-            .map(e => `export import ${e.name} = componyx.${e.path};`);
+    const typeExportLines = rootLevelExports
+        .map(e => `export import ${e.name} = componyx.${e.path};`);
 
-        fs.writeFileSync(path.join(typesDir, 'index.d.ts'), [...referenceLines, '', ...typeExportLines].join('\n') + '\n', 'utf8');
-    }
-
-    const hasTypes = fs.existsSync(path.join(typesDir, 'index.d.ts'));
+    fs.writeFileSync(path.join(typesDir, 'index.d.ts'), [...referenceLines, '', ...typeExportLines].join('\n') + '\n', 'utf8');
 
     // ---- generate package.json: preserve everything existing, only add/overwrite the
     //      fields that actually need to be computed. Deliberately no "sideEffects" field -
@@ -429,17 +512,19 @@ async function buildESMInner(resourcesPath, jsFiles, cssFiles, existingPackageJs
     const packageJson = {
         ...existingPackageJson,
         type: 'module',
-        main: './UI.min.js',
+        main: './ui.min.js',
         module: './index.js',
-        ...(hasTypes ? { types: './types/index.d.ts' } : {}),
+        types: './types/index.d.ts',
         exports: {
             '.': {
-                ...(hasTypes ? { types: './types/index.d.ts' } : {}),
+                types: './types/index.d.ts',
                 import: './index.js',
-                default: './UI.min.js'
+                default: './ui.min.js'
             },
+            './*.js': './*.js',
+            './*.css': './*.css',
             './*': './*.js',
-            './*.css': './*.css'
+            './package.json': './package.json'
         }
     };
 
@@ -448,7 +533,6 @@ async function buildESMInner(resourcesPath, jsFiles, cssFiles, existingPackageJs
     console.log(`ESM build complete: ${esmDir}`);
     console.log(`  - ${rootLevelExports.length} components exported via index.js`);
     console.log(`  - package.json generated (name: ${packageJson.name}, version: ${packageJson.version})`);
-    console.log(`  - types: ${hasTypes ? 'included' : 'not included'}`);
 
     if (filesWithNoDetectedDependencies.length)
         console.log(`  - ${filesWithNoDetectedDependencies.length} entry file(s) had no sibling dependencies detected (expected for most simple components, worth a spot-check for complex ones): ${filesWithNoDetectedDependencies.join(', ')}`);
@@ -492,29 +576,15 @@ function computeEsmTargetRelative(file, moduleFolders, scriptOrder)
     return `${fileName}/${fileName}`;
 }
 
-function computeEsmCssTargetRelative(file, resourcesPath, moduleFolders)
+// <Component>/CSS/<path> becomes <Component>/<path>, so themes always end up in
+// <Component>/Themes, e.g. Editor/CSS/Themes/Default.css -> Editor/Themes/Default.css
+function computeEsmCssTargetRelative(file, resourcesPath)
 {
-    const relative = path.relative(resourcesPath, file);
-    const parts = relative.split(path.sep);
-    const componentFolder = parts[0];
-    const fileName = path.basename(file, '.css');
-
+    const parts = path.relative(resourcesPath, file).split(path.sep);
     const cssIndex = parts.indexOf('CSS');
     const afterCss = cssIndex >= 0 ? parts.slice(cssIndex + 1) : parts.slice(1);
 
-    if (componentFolder === 'Base')
-        return ['Base', ...afterCss].join('/').replace(/\.css$/, '');
-
-    const isModuleFolder = moduleFolders && Object.prototype.hasOwnProperty.call(moduleFolders, componentFolder);
-    const isModuleEntryCss = fileName === componentFolder;
-
-    if (afterCss.length === 1 && isModuleEntryCss)
-        return `${componentFolder}/${fileName}`;
-
-    if (isModuleFolder && !isModuleEntryCss)
-        return [componentFolder, 'Modules', ...afterCss].join('/').replace(/\.css$/, '');
-
-    return [componentFolder, ...afterCss].join('/').replace(/\.css$/, '');
+    return [parts[0], ...afterCss].join('/').replace(/\.css$/, '');
 }
 
 function toRelativeImportPath(fromTarget, toTarget)
@@ -528,4 +598,4 @@ function toRelativeImportPath(fromTarget, toTarget)
     return rel + '.js';
 }
 
-module.exports = { buildESM, getModuleFolderForFile };
+module.exports = { buildESM, getModuleFolderForFile, rewriteResourceUrls };
