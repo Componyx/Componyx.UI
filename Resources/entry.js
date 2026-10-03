@@ -42,7 +42,7 @@ import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/Build
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/ComponentFactory.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/ComponentPanel.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/ConfigPanelManager.min.js";
-import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/Databinder.min.js";
+import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/DataBinder.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/DataObserver.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/OptionsPanel.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/Renderer.min.js";
