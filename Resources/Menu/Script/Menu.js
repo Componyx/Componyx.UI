@@ -1378,7 +1378,7 @@
 
                     _pointerEnterEvent = true;
                     expand(item.id);
-                }.bind(_instance, item));
+                }.bind(_instance, item, true));
             }
         }
 
@@ -1417,13 +1417,13 @@
             expand(itemId, true);
         }
 
-        function expand(itemId, instant)
+        function expand(itemId, instant, pointerEnter)
         {
             var itemPath = (itemId != 'root') ? loadItem(itemId) : null,
                 item = (itemId == 'root') ? getItem(itemId) : itemPath.item,
                 parentItemId = (itemPath && itemPath.hasParent()) ? itemPath.parent().item.id : 'root',
                 box = getItemBox(itemId),
-                expandDelay = (instant || item.__static) ? 0 : ($lib.isEmpty(item.expandDelay)) ? _instance.expandDelay : item.expandDelay;
+                expandDelay = (!pointerEnter || instant || item.__static) ? 0 : ($lib.isEmpty(item.expandDelay)) ? _instance.expandDelay : item.expandDelay;
 
             if (!_allowExpand || item.disabled || itemId == _queuedExpandItemId || (itemId != 'root' && _expandStates[parentItemId] >= _expandStateOption.COLLAPSING))
                 return;

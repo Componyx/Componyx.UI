@@ -6,6 +6,21 @@
     border-radius: var(--cui-border-radius);
 }
 
+    .grid.theme > div.content > table > tbody > tr > td > .drag-handle
+    {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-right: 6px;
+        vertical-align: middle;
+        touch-action: none;
+        user-select: none;
+        cursor: grab;
+        background-repeat: no-repeat;
+        background-size: 6px 6px;
+        background-position: 6px 6px, 14px 6px, 6px 14px, 14px 14px;
+    }
+
     .grid.theme > div.header
     {
         border-radius: 0px;
@@ -107,10 +122,10 @@
         cursor: default;
     }
 
-    .grid.theme > div.header > div > table > tbody > tr > th > div > span.column-sorting
-    {
-        cursor: pointer;
-    }
+        .grid.theme > div.header > div > table > tbody > tr > th > div > span.column-sorting
+        {
+            cursor: pointer;
+        }
 
     /* sort order arrow */
     .grid.theme > div.header > div > table > tbody > tr > th.asc > div > span:first-child::before,
@@ -274,19 +289,19 @@
             min-width: 0;
         }
 
-    /* filter button icon */
-    .grid.theme > div.header > div > table.filter > tbody > tr > td .button.theme.filter span.icon::after
-    {
-        font-family: 'UI';
-        content: '\e902';
-    }
+        /* filter button icon */
+        .grid.theme > div.header > div > table.filter > tbody > tr > td .button.theme.filter span.icon::after
+        {
+            font-family: 'UI';
+            content: '\e902';
+        }
 
-    .grid.theme > div.header > div > table.filter div.box,
-    .grid.theme > div.header > div > table.filter .box.dialog-box,
-    .grid.theme > .menu.filter.theme .box
-    {
-        z-index: 3;
-    }
+        .grid.theme > div.header > div > table.filter div.box,
+        .grid.theme > div.header > div > table.filter .box.dialog-box,
+        .grid.theme > .menu.filter.theme .box
+        {
+            z-index: 3;
+        }
 
     .grid.theme > div.content > table
     {

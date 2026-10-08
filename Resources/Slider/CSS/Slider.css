@@ -34,12 +34,14 @@
     {
         vertical-align: middle;
         width: 16px;
-    }
 
-        .slider.theme .button.theme span.expand-icon
+        span.expand-icon
         {
             margin-left: 0px;
+            min-width: 0;
+            min-height: 0;
         }
+    }
 
     .slider.theme > div.content
     {
@@ -47,56 +49,56 @@
         width: auto;
     }
 
-        .slider.theme:not(.fixed-track-size) > div.content
-        {
-            flex-grow: 1;
-        }
+    .slider.theme:not(.fixed-track-size) > div.content
+    {
+        flex-grow: 1;
+    }
 
-        .slider.theme > div.content > div.track
+    .slider.theme > div.content > div.track
+    {
+        position: relative;
+        border-radius: 0px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+        .slider.theme > div.content > div.track > div.range
         {
-            position: relative;
             border-radius: 0px;
-            box-sizing: border-box;
-            overflow: hidden;
         }
 
-            .slider.theme > div.content > div.track > div.range
-            {
-                border-radius: 0px;
-            }
+    .slider.theme > div.content > span.handle
+    {
+        position: absolute;
+        z-index: 1;
+        width: 24px;
+        height: 24px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: transparent;
+        border-radius: 100%;
+        outline: none;
+        transform: translateX(-50%) translateY(-50%);
+    }
 
-        .slider.theme > div.content > span.handle
+    .slider.theme > div.content > ul.ticks
+    {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+    }
+
+        .slider.theme > div.content > ul.ticks > li.tick
         {
-            position: absolute;
-            z-index: 1;
-            width: 24px;
-            height: 24px;
-            border-width: 1px;
-            border-style: solid;
-            border-color: transparent;
-            border-radius: 100%;
-            outline: none;
-            transform: translateX(-50%) translateY(-50%);
+            background: none;
+            color: inherit;
+            line-height: normal;
         }
 
-        .slider.theme > div.content > ul.ticks
-        {
-            margin: 0px;
-            padding: 0px;
-            list-style: none;
-        }
-
-            .slider.theme > div.content > ul.ticks > li.tick
+            .slider.theme > div.content > ul.ticks > li.tick > b
             {
-                background: none;
-                color: inherit;
-                line-height: normal;
+                font-weight: normal;
             }
-
-                .slider.theme > div.content > ul.ticks > li.tick > b
-                {
-                    font-weight: normal;
-                }
 
     /* horizontal */
     .slider.theme:not(.vertical):not(.fixed-track-size)

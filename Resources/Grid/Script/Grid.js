@@ -80,6 +80,7 @@
                 DRAGGABLE: 'draggable',
                 SELECTABLE: 'selectable',
                 DRAG: 'drag',
+                DRAG_HANDLE: 'drag-handle',
                 SCROLLABLE_X: 'scrollable-x',
                 SCROLLABLE_Y: 'scrollable-y',
                 TEXTBOX: 'textbox',
@@ -1907,6 +1908,12 @@
             tbody.parentNode.replaceChild(document.createElement('tbody'), tbody);
             _hasGroups = false;
             _treeGroup = {};
+
+            $lib.each(_itemDraggables, (d) =>
+            {
+                d.disable();
+            });
+
             _itemDraggables = [];
 
             for (var index = 0; index < _instance.itemList.length; ++index)
@@ -1931,7 +1938,8 @@
                 cssClassGroupItem = _instance.cssClassGroupItem || _classOption.GROUP_ITEM,
                 cssClassGroupExpandIcon = _instance.cssClassExpandIcon || _classOption.EXPAND_ICON,
                 itemIndent = item.groupIndent || _instance.groupIndent, fixed,
-                tr = getItemRow(item.id);
+                tr = getItemRow(item.id),
+                dragHandleIndex = (_instance.draggableItems && item.draggable) ? getDragHandleColumnIndex() : -1;
 
             // cache item
             _lastItem = item;
@@ -2005,8 +2013,9 @@
                 }
                 else
                 {
-                    if ((item.isGroup || !$lib.isEmpty(item.parentId))
-                        && (index == 0 || (index == 1 && _instance.columns[0].checkBox))) // first text column only
+                    let isFirstTextColumn = (index == 0 || (index == 1 && _instance.columns[0].checkBox));
+
+                    if ((item.isGroup || !$lib.isEmpty(item.parentId)) && isFirstTextColumn)
                     {
                         divGroupItem = cell.appendChild(document.createElement('div'));
                         divGroupItem.className = cssClassGroupItem;
@@ -2053,7 +2062,12 @@
                         _instance.applyTemplate(divGroupItem, 'Column_' + column.id, item);
                     }
                     else
+                    {
                         _instance.applyTemplate(cell, 'Column_' + column.id, item);
+                    }
+
+                    if (index === dragHandleIndex)
+                        cell.insertBefore(createDragHandle(), cell.firstChild);
                 }
             }
 
@@ -2115,7 +2129,7 @@
                             includeTags: 'tr',
                             exclude: $lib('disabled', table, 'tr'),
                             toggleClickSelect: (_instance.selectSettings.toggleClickSelect == false) ? false : true,
-                            selectMode: (_instance.draggableItems || (_instance.autoTouchConfig && $lib.touch)) ? 2 : '',
+                            selectMode: (_instance.draggableItems) ? 2 : '',
                             onSelect: onSelect
                         }, _instance.selectSettings));
 
@@ -2146,20 +2160,31 @@
                 el.setAttribute("style", "touch-action: none");
             }
 
-            _itemDraggables.push($lib.draggable(el, $base.static.initDragSettings({
-                dragGhost: createDragGhost(tr.parentNode, 'tr'),
-                autoGhostSize: false,
-                minDragY: 1,
-                dragX: false,
-                dropAcceptMode: 2,
-                droppableClass: _instance.itemDragSettings.droppableClass || _classOption.DROPPABLE,
-                dropZones: (!item.isGroup && $lib.isEmpty(item.parentId) && _itemDropZones) ? _itemDropZones : getItemDropZones(item),
-                onDragStart: itemDragStart,
-                onDragEnd: itemDragEnd,
-                onDroppable: function (args) { $lib.defer(itemDroppable.bind(_instance, args)); },
-                onDroppableLeave: itemDroppableLeave,
-                onDrop: itemDrop
-            }, _instance.itemDragSettings)));
+            let handleClass = (_instance.cssClassDragHandle || _classOption.DRAG_HANDLE).split(' ')[0],
+                draggable = $lib.draggable(el, $base.static.initDragSettings({
+                    dragGhost: createDragGhost(tr.parentNode, 'tr'),
+                    autoGhostSize: false,
+                    minDragY: 1,
+                    dragX: false,
+                    dropAcceptMode: 2,
+                    droppableClass: _instance.itemDragSettings.droppableClass || _classOption.DROPPABLE,
+                    dropZones: (!item.isGroup && $lib.isEmpty(item.parentId) && _itemDropZones) ? _itemDropZones : getItemDropZones(item),
+                    onDragStart: itemDragStart,
+                    onDragEnd: itemDragEnd,
+                    onDroppable: function (args) { $lib.defer(itemDroppable.bind(_instance, args)); },
+                    onDroppableLeave: itemDroppableLeave,
+                    onDrop: itemDrop
+                }, _instance.itemDragSettings));
+
+            tr.addEventListener('pointerdown', function (e)
+            {
+                if (e.target.closest('.' + handleClass))
+                    draggable.enable();
+                else
+                    draggable.disable();
+            }, true);
+
+            _itemDraggables.push(draggable);
         }
 
         function createDragGhost(container, nodeName)
@@ -2634,8 +2659,13 @@
 
             if (!_loading && tr)
             {
-                // change column order
+                // change column order (rows and colgroup)
                 changeColumnOrder(tr, sourceIndex, targetIndex);
+            }
+            else
+            {
+                // rows are (re)drawn in the new order on load, but the content colgroup persists
+                changeOrder($lib(null, _divContent.firstChild, 'colgroup', true), sourceIndex, targetIndex);
             }
 
             // remove column at source index
@@ -2645,6 +2675,7 @@
                 --targetIndex;
 
             _instance.columns.splice(targetIndex, 0, column); // add column to target index
+            moveDragHandles();
             _instance.events.onColumnOrderChange.fire(_instance, { sourceIndex: sourceIndex, targetIndex: targetIndex });
         }
 
@@ -2744,6 +2775,52 @@
                 parent.appendChild(childNodes[sourceIndex]);
             else
                 parent.insertBefore(childNodes[sourceIndex], childNodes[targetIndex]);
+        }
+
+        function createDragHandle()
+        {
+            var handle = document.createElement('span');
+            handle.className = _instance.cssClassDragHandle || _classOption.DRAG_HANDLE;
+            handle.setAttribute('aria-hidden', 'true');
+            return handle;
+        }
+
+        function getDragHandleColumnIndex()
+        {
+            return _instance.columns.findIndex((column) => !column.checkBox && column.visible !== false);
+        }
+
+        function getDragHandleSelector()
+        {
+            return '.' + (_instance.cssClassDragHandle || _classOption.DRAG_HANDLE).trim().split(/\s+/).join('.');
+        }
+
+        function moveDragHandles()
+        {
+            if (!_instance.draggableItems || !_divContent)
+                return;
+
+            var columnIndex = getDragHandleColumnIndex();
+
+            if (columnIndex < 0)
+                return;
+
+            var cellIndex = getCellIndex(columnIndex);
+
+            $lib.children($lib(null, _divContent.firstChild, 'tbody', true)).forEach(function (tr)
+            {
+                moveDragHandle(tr, cellIndex);
+            });
+        }
+
+        function moveDragHandle(tr, cellIndex)
+        {
+            let selector = getDragHandleSelector(),
+                handle = tr.querySelector(':scope > td > ' + selector), // only a handle directly in this row's cells
+                cell = tr.children[cellIndex];
+
+            if (handle && cell && handle.parentNode !== cell)
+                cell.insertBefore(handle, cell.firstChild);
         }
 
         function itemDragStart(args)
@@ -3202,28 +3279,33 @@
 
         function setColumnDisplay(columnId, visible)
         {
-            var column = _instance.columns[getIndex(_instance.columns, columnId)],
+            let column = _instance.columns[getIndex(_instance.columns, columnId)],
                 cellIndex = getCellIndex(getIndex(_instance.columns, columnId)),
                 cssClassHiddenColumn = _instance.cssClassHiddenColumn || _classOption.HIDDEN_COLUMN,
-                method = (visible) ? $lib.removeClass : $lib.addClass,
+                toggleCssClass = (visible) ? $lib.removeClass : $lib.addClass,
                 headerTable = _divHeader.firstChild, filterTable, contentTable = _divContent.firstChild,
-                rows = $lib.children($lib(null, contentTable, 'tr', true).parentNode);
+                rows = $lib.children($lib(null, contentTable, 'tr', true).parentNode),
+                handleColumnIndex = (_instance.draggableItems) ? getDragHandleColumnIndex() : -1,
+                handleCellIndex = getCellIndex(handleColumnIndex);
 
             column.visible = visible;
-            method($lib.children($lib(null, headerTable, 'th', true).parentNode)[cellIndex], cssClassHiddenColumn);
-            method($lib.children($lib(null, headerTable, 'col', true).parentNode)[cellIndex], cssClassHiddenColumn);
-            method($lib.children($lib(null, contentTable, 'col', true).parentNode)[cellIndex], cssClassHiddenColumn);
+            toggleCssClass($lib.children($lib(null, headerTable, 'th', true).parentNode)[cellIndex], cssClassHiddenColumn);
+            toggleCssClass($lib.children($lib(null, headerTable, 'col', true).parentNode)[cellIndex], cssClassHiddenColumn);
+            toggleCssClass($lib.children($lib(null, contentTable, 'col', true).parentNode)[cellIndex], cssClassHiddenColumn);
 
             if (_instance.enableFilterRow)
             {
                 filterTable = _divFilter.firstChild,
-                    method($lib.children($lib(null, filterTable, 'th', true).parentNode)[cellIndex], cssClassHiddenColumn);
-                method($lib.children($lib(null, filterTable, 'col', true).parentNode)[cellIndex], cssClassHiddenColumn);
+                    toggleCssClass($lib.children($lib(null, filterTable, 'th', true).parentNode)[cellIndex], cssClassHiddenColumn);
+                toggleCssClass($lib.children($lib(null, filterTable, 'col', true).parentNode)[cellIndex], cssClassHiddenColumn);
             }
 
-            for (var index = 0; index < rows.length; ++index)
+            for (let index = 0; index < rows.length; ++index)
             {
-                method($lib.children(rows[index])[cellIndex], cssClassHiddenColumn);
+                toggleCssClass($lib.children(rows[index])[cellIndex], cssClassHiddenColumn);
+
+                if (handleColumnIndex > -1)
+                    moveDragHandle(rows[index], handleCellIndex);
             };
         }
 
@@ -3350,7 +3432,7 @@
 
         function dispose()
         {
-            $.each(_timerIds, function (v) { clearTimeout(v); });
+            $lib.each(_timerIds, function (v) { clearTimeout(v); });
             clearTimeout(_scrollTimerId);
             clearTimeout(_fixedColumnUpdateTimerId);
 
@@ -3362,12 +3444,18 @@
 
             $lib.each(_documentHandler, function (handlerId)
             {
-                $lib.off(document, 'pointerup', handlerId);
+                $lib.off(document, 'click', handlerId);
             });
 
             if (_fixedColumnStyleSheet && _fixedColumnStyleSheet.cssRules.length <= 1)
                 $lib.remove(_fixedColumnStyleSheet.ownerNode);
 
+            $lib.each(_itemDraggables, (d) =>
+            {
+                d.disable();
+            });
+
+            _itemDraggables = [];
             _timerIds = [];
             _documentHandler = [];
             _selectedItems = {};
