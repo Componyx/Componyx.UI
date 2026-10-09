@@ -384,13 +384,27 @@ componyx.UI.editor_modules.Format = class Format
     }
 
     /**
-     * Gets the text node with spaces
+     * Gets the nearest text node containing whitespace, starting from the range marker.
+     * @param {HTMLElement} markerEl The range marker element.
+     * @param {Node} rootNode The root (block) node the search stays within.
+     * @param {boolean} previous True to search backwards (before the marker), false to search forwards.
+     * @returns {Text} The text node containing whitespace, or the last text node found before a line break or the end of the root node.
      */
-    getTextNodeWithSpace(node, rootNode, previous)
+    getTextNodeWithSpace(markerEl, rootNode, previous)
     {
         let next;
 
-        node = this.editor.nodeManager.getFirstTextNode(node, rootNode, previous, true);
+        let node = this.editor.nodeManager.getFirstTextNode(markerEl, rootNode, previous, true);
+
+        if (!node) // e.g. createRangeMarker removed the zero-width text after the marker
+        {
+            node = this.editor.getDoc().createTextNode('');
+
+            if (previous)
+                markerEl.before(node);
+            else
+                markerEl.after(node);
+        }
 
         while (!node.textContent.match(/[\s]/gm))
         {
