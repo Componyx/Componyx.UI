@@ -1,52 +1,77 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
-.grid.theme.theme-default > div.header > div:first-child,
-.grid.theme.theme-default > div.header > div:first-child > table th.fixed-column
+.grid.theme.theme-default
 {
-    background: var(--cui-header-bg-color);
-}
+    > div.header
+    {
+        > div:first-child
+        {
+            background: var(--cui-header-bg-color);
 
-.grid.theme.theme-default > div.header > div:has(> table.filter)
-{
-    color: var(--cui-color-on-surface);
-}
+            > table th.fixed-column
+            {
+                background: var(--cui-header-bg-color);
+            }
+        }
 
-.grid.theme.theme-default > div.header > div > table.filter > tbody > tr > td
-{
-    background: var(--cui-base-bg-color);
-}
+        > div:has(> table.filter)
+        {
+            color: var(--cui-color-on-surface);
+        }
 
-.grid.theme.theme-default > div.header > div > table > tbody > tr > th.droppable > div::before,
-.grid.theme.theme-default > div.header > div > table > tbody > tr > th.droppable > div::after
-{
-    background: var(--cui-header-text-color);
-}
+        > div > table.filter > tbody > tr > td
+        {
+            background: var(--cui-base-bg-color);
+        }
 
-.grid.theme.theme-default table tr td.expand,
-.grid.theme.theme-default table tr:hover td.expand
-{
-    background: var(--cui-base-bg-color);
-    color: var(--cui-base-text-color);
-}
+        > div > table > tbody > tr > th.droppable > div
+        {
+            &::before,
+            &::after
+            {
+                background: var(--cui-header-text-color);
+            }
+        }
+    }
 
-.grid.theme.theme-default tr:not(.disabled):not(.selected):hover > td
-{
-    color: var(--cui-item-hover-text-color);
-    background: var(--cui-item-hover-bg-color);
-}
+    & table tr
+    {
+        & td.expand,
+        &:hover td.expand
+        {
+            background: var(--cui-base-bg-color);
+            color: var(--cui-base-text-color);
+        }
+    }
 
-.grid.theme.theme-default tr.selected:not(.select-all) > td
-{
-    color: var(--cui-item-selected-text-color);
-    background: var(--cui-item-selected-bg-color);
-}
+    & tr
+    {
+        &:not(.disabled):not(.selected):hover > td
+        {
+            color: var(--cui-item-hover-text-color);
+            background: var(--cui-item-hover-bg-color);
+        }
 
-.grid.theme.theme-default tr.selected:not(.select-all):hover > td
-{
-    color: var(--cui-item-selected-hover-text-color);
-    background: var(--cui-item-selected-hover-bg-color);
-}
+        &.selected:not(.select-all)
+        {
+            > td
+            {
+                color: var(--cui-item-selected-text-color);
+                background: var(--cui-item-selected-bg-color);
+            }
 
-.grid.theme.theme-default > div.content > table > tbody > tr > td > .drag-handle 
-{
-    background-image: radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px), radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px), radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px), radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px);
+            &:hover > td
+            {
+                color: var(--cui-item-selected-hover-text-color);
+                background: var(--cui-item-selected-hover-bg-color);
+            }
+        }
+    }
+
+    > div.content > table > tbody > tr > td > .drag-handle
+    {
+        background-image: radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px), 
+                          radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px), 
+                          radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px), 
+                          radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px);
+    }
 }

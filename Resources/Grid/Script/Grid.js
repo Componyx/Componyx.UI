@@ -33,7 +33,7 @@
             _fixedColumnStyleSheet, _lastScrollLeft = 0, _scrollTimerId, _fixedColumnUpdateTimerId,
             _pager, _depthLevels, _loading, _ajax = [], _divHeader, _divFilter, _divContent, _tooltipManager, _scrollbarSize, _selectable, _hidden,
             _divNoResult, _divPreloader, _lastItem, _expandedItemId, _itemDropZones,
-            _tableData = { header: null, filter: null, content: null, columnIndex: null, columnStartWidth: null, totalWidth: null, columnDistribution: null },
+            _tableData = { header: null, filter: null, content: null, columnIndex: null, columnStartWidth: null, totalWidth: null, columnDistribution: null, columnLimits: null },
             _treeGroup, _cancelSelect, _forceSelect = false, _hasGroups,
             _displayRows = function (itemId, display)
             {
@@ -67,8 +67,11 @@
                     else
                         tr.style.display = display; // set as specified
 
+                    if (tr.style.display == 'none' && items[index].expanded)
+                        collapseItem(items[index].id); // the detail row has no id and isn't part of the group, so it must be closed explicitly
+
                     if (items[index].isGroup && tr.style.display == 'none') // always collapse children when parent is collapsed
-                        displayRows(items[index].id, 'none');
+                        _displayRows(items[index].id, 'none');
                 }
             },
             _classOption =
@@ -245,10 +248,10 @@
         this.itemTemplateId = null;
 
         /**
-         * Gets or sets the indent value of an item-group in pixels (defaults to 10).
+         * Gets or sets the indent value of an item-group in pixels (defaults to 16).
          * @type {Number}
          */
-        this.groupIndent = 10;
+        this.groupIndent = 16;
 
         /**
          * Gets or sets the amount of fixed columns at the left side of the grid which remain visible while scrolling horizontally.
@@ -1098,7 +1101,9 @@
 
         function setupPager(ajaxResult, pageIndex)
         {
-            if (_pager && ajaxResult && ajaxResult.totalItemCount && ajaxResult.totalItemCount > ajaxResult.itemList.length)
+            let itemCount = _instance.itemList.filter(function (item) { return !item.isGroup; }).length; // group header rows don't count as items
+
+            if (_pager && ajaxResult && ajaxResult.totalItemCount && ajaxResult.totalItemCount > itemCount)
             {
                 _pager.itemCount = ajaxResult.totalItemCount;
 
@@ -2152,16 +2157,9 @@
 
         function initDraggable(item, tr)
         {
-            var el = tr;
-
-            if ($lib.touch && _instance.autoTouchConfig)
-            {
-                el = tr.firstElementChild;
-                el.setAttribute("style", "touch-action: none");
-            }
-
-            let handleClass = (_instance.cssClassDragHandle || _classOption.DRAG_HANDLE).split(' ')[0],
-                draggable = $lib.draggable(el, $base.static.initDragSettings({
+            let dragHandle = tr.querySelector(':scope > td > ' + getDragHandleSelector()), 
+                draggable = $lib.draggable(tr, $base.static.initDragSettings({
+                    dragHandle,
                     dragGhost: createDragGhost(tr.parentNode, 'tr'),
                     autoGhostSize: false,
                     minDragY: 1,
@@ -2175,14 +2173,6 @@
                     onDroppableLeave: itemDroppableLeave,
                     onDrop: itemDrop
                 }, _instance.itemDragSettings));
-
-            tr.addEventListener('pointerdown', function (e)
-            {
-                if (e.target.closest('.' + handleClass))
-                    draggable.enable();
-                else
-                    draggable.disable();
-            }, true);
 
             _itemDraggables.push(draggable);
         }
@@ -2692,8 +2682,9 @@
 
         function headerResize(args)
         {
-            var index = _tableData.columnIndex,
-                width = args.element.style.width, change, remainder = 0;
+            let index = _tableData.columnIndex,
+                width = $lib.unit(clampWidth(parseFloat(args.element.style.width), _tableData.columnLimits)),
+                change, remainder = 0;
 
             updateColumnWidth(index, width);
 
@@ -2703,15 +2694,11 @@
 
                 $lib.each(_tableData.columnDistribution, function (colData)
                 {
-                    width = (colData.width + change) + remainder;
+                    let targetWidth = colData.width + change + remainder,
+                        appliedWidth = clampWidth(targetWidth, colData.limits);
 
-                    if (width >= 0)
-                        updateColumnWidth(colData.index, $lib.unit(width));
-                    else
-                    {
-                        updateColumnWidth(colData.index, '0px');
-                        remainder = width;
-                    }
+                    updateColumnWidth(colData.index, $lib.unit(appliedWidth));
+                    remainder = targetWidth - appliedWidth;
                 });
             }
             else if (!_instance.preserveTotalWidth)
@@ -3340,6 +3327,28 @@
             return $lib($lib.format('#{0}_h_{1}', _instance.id, columnId));
         }
 
+        function getColWidthLimits(index)
+        {
+            var limits = { min: 0, max: Infinity };
+
+            $lib.each([_tableData.header, _tableData.filter, _tableData.content], function (cols)
+            {
+                if (cols)
+                {
+                    var style = getComputedStyle(cols[index]);
+
+                    limits.min = Math.max(limits.min, parseFloat(style.minWidth) || 0);
+                    limits.max = Math.min(limits.max, parseFloat(style.maxWidth) || Infinity);
+                }
+            });
+
+            return limits;
+        }
+
+        function clampWidth(width, limits)
+        {
+            return Math.min(Math.max(width, limits.min), limits.max);
+        }
 
         function storeTableData(args)
         {
@@ -3358,6 +3367,7 @@
             if (_instance.enableFilterRow)
                 _tableData.filter = (headerTables[1]) ? getTableCols(headerTables[1]).slice(expandIndex) : null;
 
+            _tableData.columnLimits = getColWidthLimits(_tableData.columnIndex);
             _tableData.totalWidth = _instance.element.offsetWidth - sizeDev.width; // get total width
             _tableData.columnStartWidth = args.startWidth; // resize column start width
 
@@ -3374,8 +3384,8 @@
 
                 columnWidths[index] = offsetWidth;
 
-                if (_instance.preserveTotalWidth && col != column && col.resizable != false && !col.checkBox)
-                    _tableData.columnDistribution.push({ index: index, width: offsetWidth });
+                if (_instance.preserveTotalWidth && col != column && col.resizable != false && !col.checkBox && col.visible !== false)
+                    _tableData.columnDistribution.push({ index: index, width: offsetWidth, limits: getColWidthLimits(index) });
             });
 
             $lib.each(columnWidths, function (width, index)

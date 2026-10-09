@@ -118,7 +118,7 @@ declare namespace componyx
              */
             itemTemplateId: string | null;
             /**
-             * <p>Gets or sets the indent value of an item-group in pixels (defaults to 10).</p>
+             * <p>Gets or sets the indent value of an item-group in pixels (defaults to 16).</p>
              */
             groupIndent: number;
             /**

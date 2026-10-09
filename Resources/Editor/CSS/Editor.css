@@ -549,6 +549,7 @@ html:has(.editor.theme.fullscreen)
         {
             display: flex;
             flex-wrap: wrap;
+            align-items: flex-start;
             margin-left: 8px;
             margin-right: 8px;
         }
