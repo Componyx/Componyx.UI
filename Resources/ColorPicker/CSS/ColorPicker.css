@@ -1,6 +1,9 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 .color-picker.theme
 {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1rem;
     line-height: 0px;
 }
 
