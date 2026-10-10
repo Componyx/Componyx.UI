@@ -34,6 +34,7 @@
             _pager, _depthLevels, _loading, _ajax = [], _divHeader, _divFilter, _divContent, _tooltipManager, _scrollbarSize, _selectable, _hidden,
             _divNoResult, _divPreloader, _lastItem, _expandedItemId, _itemDropZones,
             _tableData = { header: null, filter: null, content: null, columnIndex: null, columnStartWidth: null, totalWidth: null, columnDistribution: null, columnLimits: null },
+            _contentObserver = null, _detectTimerId = null,
             _treeGroup, _cancelSelect, _forceSelect = false, _hasGroups,
             _displayRows = function (itemId, display)
             {
@@ -1877,6 +1878,10 @@
                 if (!$lib.isEmpty(column.width))
                     col.style.width = $lib.unit(column.width);
             }
+
+            // recalculate height and scrollbars when rows change (group/detail expand, renderItem, removeItem)
+            _contentObserver = new ResizeObserver(detectViewportSize);
+            _contentObserver.observe(table);
         }
 
         function createDataPager()
@@ -2072,7 +2077,7 @@
                     }
 
                     if (index === dragHandleIndex)
-                        cell.insertBefore(createDragHandle(), cell.firstChild);
+                        insertDragHandle(cell, createDragHandle());
                 }
             }
 
@@ -2094,6 +2099,37 @@
                 _timerIds.push(setTimeout(function () { initDraggable(item, tr) }.bind(_instance, item, tr), 0));
 
             _instance.events.onPostRenderItem.fire(_instance, eventArgs(item, tr, null));
+        }
+
+        function insertDragHandle(cell, handle)
+        {
+            let groupItem = cell.querySelector(':scope > ' + toSelector(_instance.cssClassGroupItem || _classOption.GROUP_ITEM)),
+                target = groupItem || cell,
+                expandIcon = groupItem && groupItem.querySelector(':scope > ' + toSelector(_instance.cssClassExpandIcon || _classOption.EXPAND_ICON));
+
+            target.insertBefore(handle, (expandIcon) ? expandIcon.nextSibling : target.firstChild); // group head: expand icon first, then the handle
+        }
+
+        function toSelector(cssClass)
+        {
+            return '.' + cssClass.trim().split(/\s+/).join('.');
+        }
+
+        function findDragHandle(tr)
+        {
+            let selector = getDragHandleSelector();
+
+            return tr.querySelector(`:scope > td > ${selector}, :scope > td > ${getGroupItemSelector()} > ${selector}`);
+        }
+
+        function getDragHandleSelector()
+        {
+            return toSelector(_instance.cssClassDragHandle || _classOption.DRAG_HANDLE);
+        }
+
+        function getGroupItemSelector()
+        {
+            return toSelector(_instance.cssClassGroupItem || _classOption.GROUP_ITEM);
         }
 
         function bindItemEvents(tr, spanExpand, groupExpandEl, item)
@@ -2157,24 +2193,38 @@
 
         function initDraggable(item, tr)
         {
-            let dragHandle = tr.querySelector(':scope > td > ' + getDragHandleSelector()), 
-                draggable = $lib.draggable(tr, $base.static.initDragSettings({
-                    dragHandle,
-                    dragGhost: createDragGhost(tr.parentNode, 'tr'),
-                    autoGhostSize: false,
-                    minDragY: 1,
-                    dragX: false,
-                    dropAcceptMode: 2,
-                    droppableClass: _instance.itemDragSettings.droppableClass || _classOption.DROPPABLE,
-                    dropZones: (!item.isGroup && $lib.isEmpty(item.parentId) && _itemDropZones) ? _itemDropZones : getItemDropZones(item),
-                    onDragStart: itemDragStart,
-                    onDragEnd: itemDragEnd,
-                    onDroppable: function (args) { $lib.defer(itemDroppable.bind(_instance, args)); },
-                    onDroppableLeave: itemDroppableLeave,
-                    onDrop: itemDrop
-                }, _instance.itemDragSettings));
+            let dragHandle = findDragHandle(tr);
 
-            _itemDraggables.push(draggable);
+            if (!dragHandle)
+                return;
+
+            let settings = $base.static.initDragSettings({
+                dragHandle,
+                dragGhost: createDragGhost(tr.parentNode, 'tr'),
+                autoGhostSize: false,
+                minDragY: 1,
+                dragX: false,
+                scrollY: true,
+                dropAcceptMode: 2,
+                droppableClass: _instance.itemDragSettings.droppableClass || _classOption.DROPPABLE,
+                dropZones: (!item.isGroup && $lib.isEmpty(item.parentId) && _itemDropZones) ? _itemDropZones : getItemDropZones(item),
+                onDragStart: itemDragStart,
+                onDragEnd: itemDragEnd,
+                onDroppable: function (args) { $lib.defer(itemDroppable.bind(_instance, args)); },
+                onDroppableLeave: itemDroppableLeave,
+                onDrop: itemDrop
+            }, _instance.itemDragSettings);
+
+            // pick the scroll container per drag, when the layout is final (registered before the draggable, so it runs before the draggable's own pointerdown)
+            if (!_instance.itemDragSettings.boundaryZone)
+                $lib.on(dragHandle, 'pointerdown', function () { settings.boundaryZone = getItemScrollContainer(); });
+
+            _itemDraggables.push($lib.draggable(tr, settings));
+        }
+
+        function getItemScrollContainer()
+        {
+            return (!$lib.isEmpty(_instance.contentHeight) || _instance.useViewportHeight) ? _divContent : document.documentElement;  // the content div is the scroll container when the grid limits its height, otherwise the page scrolls
         }
 
         function createDragGhost(container, nodeName)
@@ -2187,20 +2237,21 @@
 
         function detectViewportSize()
         {
-            _timerIds.push(setTimeout(detect, 0));
+            clearTimeout(_detectTimerId);
+            _detectTimerId = setTimeout(detect, 0);
         }
 
         function detect()
         {
             if (_instance.useViewportHeight)
             {
-                var winSize = $lib.getWindowSize();
-
                 _divContent.style.height = 'auto';
-                var pos = $lib.getPos(_divContent),
+
+                let winSize = $lib.getWindowSize(),
+                    pos = $lib.getPos(_divContent),
                     availableHeight = (winSize.height - pos.top) - (_instance.viewportBottomOffset || 0);
 
-                if ((pos.top + pos.height) > availableHeight)
+                if (availableHeight > 0 && pos.height > availableHeight)
                     _divContent.style.height = $lib.unit(availableHeight);
             }
 
@@ -2214,7 +2265,7 @@
 
             $lib.removeClass(_instance.element, _classOption.SCROLLABLE_X);
 
-            // because of a rounding bug within IE the inner width is used instead of the scrollWidth
+            // compare the table size instead of scrollWidth, which is rounded and can report a 1px overflow with fractional sizes
             if ('hidden visible'.indexOf(overflow) > -1 || _divContent.firstChild.offsetWidth <= _divContent.clientWidth)
                 return;
 
@@ -2234,7 +2285,7 @@
             if (_divFilter)
                 _divFilter.style.paddingRight = '';
 
-            // because of a rounding bug within IE the inner height is used instead of the scrollHeight
+            // compare the table size instead of scrollWidth, which is rounded and can report a 1px overflow with fractional sizes
             if ('hidden visible'.indexOf(overflow) > -1 || (_divContent.firstChild.offsetHeight <= _divContent.clientHeight && overflow != 'scroll'))
                 return;
 
@@ -2777,11 +2828,6 @@
             return _instance.columns.findIndex((column) => !column.checkBox && column.visible !== false);
         }
 
-        function getDragHandleSelector()
-        {
-            return '.' + (_instance.cssClassDragHandle || _classOption.DRAG_HANDLE).trim().split(/\s+/).join('.');
-        }
-
         function moveDragHandles()
         {
             if (!_instance.draggableItems || !_divContent)
@@ -2802,12 +2848,11 @@
 
         function moveDragHandle(tr, cellIndex)
         {
-            let selector = getDragHandleSelector(),
-                handle = tr.querySelector(':scope > td > ' + selector), // only a handle directly in this row's cells
+            let handle = findDragHandle(tr),
                 cell = tr.children[cellIndex];
 
-            if (handle && cell && handle.parentNode !== cell)
-                cell.insertBefore(handle, cell.firstChild);
+            if (handle && cell && handle.closest('td') !== cell)
+                insertDragHandle(cell, handle);
         }
 
         function itemDragStart(args)
@@ -3445,6 +3490,7 @@
             $lib.each(_timerIds, function (v) { clearTimeout(v); });
             clearTimeout(_scrollTimerId);
             clearTimeout(_fixedColumnUpdateTimerId);
+            clearTimeout(_detectTimerId);
 
             $lib.off(window, 'resize', detectViewportSize);
             $lib.off(document, 'pointerup', enableDrag);
@@ -3456,6 +3502,12 @@
             {
                 $lib.off(document, 'click', handlerId);
             });
+
+            if (_contentObserver)
+            {
+                _contentObserver.disconnect();
+                _contentObserver = null;
+            }
 
             if (_fixedColumnStyleSheet && _fixedColumnStyleSheet.cssRules.length <= 1)
                 $lib.remove(_fixedColumnStyleSheet.ownerNode);

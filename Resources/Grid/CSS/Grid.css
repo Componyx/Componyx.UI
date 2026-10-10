@@ -298,12 +298,14 @@
                     padding-right: 3px;
                     word-break: break-word;
 
-                    > .drag-handle
+                    > .drag-handle,
+                    > div.group-item > .drag-handle
                     {
                         display: inline-block;
+                        flex-shrink: 0;
                         width: 24px;
                         height: 24px;
-                        margin-right: 6px;
+                        margin-right: 0.5rem;
                         vertical-align: middle;
                         touch-action: none;
                         user-select: none;
@@ -311,6 +313,15 @@
                         background-repeat: no-repeat;
                         background-size: 6px 6px;
                         background-position: 6px 6px, 14px 6px, 6px 14px, 14px 14px;
+                        background-image: radial-gradient(circle, currentColor 2px, transparent 2.5px),
+                            radial-gradient(circle, currentColor 2px, transparent 2.5px),
+                            radial-gradient(circle, currentColor 2px, transparent 2.5px),
+                            radial-gradient(circle, currentColor 2px, transparent 2.5px);
+                    }
+
+                    &.group-head > div.group-item > .drag-handle
+                    {
+                        margin-right: 0; /* the flex gap already spaces it */
                     }
 
                     > *

@@ -67,11 +67,12 @@
         }
     }
 
-    > div.content > table > tbody > tr > td > .drag-handle
+    > div.content > table > tbody > tr > td
     {
-        background-image: radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px), 
-                          radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px), 
-                          radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px), 
-                          radial-gradient(circle, var(--cui-border-color) 2px, transparent 2.5px);
+        > .drag-handle,
+        > div.group-item > .drag-handle
+        {
+            color: var(--cui-border-color);
+        }
     }
 }
