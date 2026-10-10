@@ -3,7 +3,6 @@
 {
     display: inline-flex;
     max-width: 100%;
-
     /* box */
 
     .box
@@ -16,8 +15,6 @@
     {
         margin-left: 0px;
     }
-
-
     /* button */
     .button.theme.split
     {
@@ -66,8 +63,6 @@
         color: inherit !important;
         border-color: inherit !important;
     }
-
-
     /* input */
     .button.theme.expand input
     {
@@ -117,29 +112,50 @@
         width: auto;
     }
 
-    &.tagging .button.theme.expand input
+    &.tagging
     {
-        margin-right: 0px;
-        width: auto;
-        max-width: 100%;
-    }
-
-    &.tagging .button.theme.expand .button.theme.tag
-    {
-        position: relative;
-        font-size: 0.85rem;
-        line-height: initial;
-        border-radius: 16px;
-        margin: 2px;
-        line-height: 23px;
-        border: 0px;
-    }
-
-        &.tagging .button.theme.expand .button.theme.tag > span.icon::after
+        .button.theme.expand input
         {
-            content: '\e90a';
+            margin-right: 0px;
+            width: auto;
+            max-width: 100%;
         }
 
+        .button.theme.expand .button.theme.tag
+        {
+            position: relative;
+            font-size: 0.85rem;
+            line-height: initial;
+            border-radius: 16px;
+            margin: 2px;
+            line-height: 23px;
+            border: 0px;
+            height: auto;
+
+            > span.icon::after
+            {
+                content: '\e90a';
+            }
+        }
+
+        > .button.expand > .content-holder
+        {
+            position: relative;
+            padding-right: 48px; /* room for the clear button and expand icon */
+
+            > .expand-icon
+            {
+                position: absolute;
+                right: 0;
+            }
+
+            > div:last-child
+            {
+                position: absolute;
+                right: 24px;
+            }
+        }
+    }
     /* expand icon */
     .button.theme.expand .content-holder > span.expand-icon
     {
@@ -151,21 +167,21 @@
         top: auto;
         transform: none;
     }
-
     /* clear button */
+    .button.theme.expand .button.theme.clear
+    {
+        border-style: none; /* don't push height of expand button */
+    }
+
     &.disabled .button.theme.expand .button.theme.clear
     {
         visibility: hidden;
     }
-
-
     /* clear icon */
     .button.theme.clear > span.icon::after
     {
         content: '\e90a';
     }
-
-
     /* dataPager */
     .data-pager.theme
     {
@@ -191,8 +207,6 @@
         {
             width: 18px;
         }
-
-
     /* list */
 
     ul.list li.item i.icon
@@ -293,8 +307,6 @@
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
     }
-
-
         /* rows and columns */
         div.header > ul,
         li.item > ul
@@ -320,14 +332,11 @@
         font-weight: normal;
         text-decoration: underline;
     }
-
-
     /* sizer */
     > .sizer
     {
         display: none;
     }
-
     /* preloader and noresult li */
     li.preloader,
     li.no-result
@@ -346,7 +355,6 @@
     {
         color: inherit;
     }
-
     /* bottom focus */
     &:not(.disabled).focus .button.theme:not(.split).expand,
     &:not(.disabled).focus .button.theme.split.expand div.command
