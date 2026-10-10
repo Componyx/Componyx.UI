@@ -12,8 +12,8 @@ Componyx.UI is a modular framework for building web interfaces with plain JavaSc
 
 ## What's included
 
-* **[Components](https://componyx.com/components)** — 25+ ready-to-use UI components: buttons, forms, menus, grids, dialogs and more, built in plain JavaScript with zero external runtime dependencies.
-* **[Bindary](https://componyx.com/bindary)** — a reactive data-binding layer that keeps your UI in sync with your data, without adopting a new templating language. Use it alongside the components, or on its own.
+* **[Components](https://componyx.com/components/introduction)** — 25+ ready-to-use UI components: buttons, forms, menus, grids, dialogs and more, built in plain JavaScript with zero external runtime dependencies.
+* **[Bindary](https://componyx.com/bindary/introduction)** — a reactive data-binding layer that keeps your UI in sync with your data, without adopting a new templating language. Use it alongside the components, or on its own.
 
 ---
 
