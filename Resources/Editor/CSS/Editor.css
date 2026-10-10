@@ -460,28 +460,37 @@ html:has(.editor.theme.fullscreen)
     }
 
     &.fullscreen-header,
-    &.fullscreen-caret
-    {
-        position: fixed;
-        left: 0px;
-        top: unset;
-        bottom: 0px;
-        right: 0px;
-        border: 0px;
-        z-index: 10;
-        margin: 0;
-    }
-
     &.fullscreen-footer
     {
         position: fixed;
         left: 0px;
         top: 0px;
-        bottom: unset;
+        bottom: 0px;
         right: 0px;
+        height: auto;
+        max-height: none;
         border: 0px;
-        z-index: 10;
+        z-index: 9;
         margin: 0;
+    }
+    /* standalone editor in fullscreen (only the standalone container has both classes): the content fills the space between toolbar and footer */
+    &.fullscreen.fullscreen-header,
+    &.fullscreen.fullscreen-footer
+    {
+        display: flex;
+        flex-direction: column;
+
+        > .toolbar,
+        > .footer
+        {
+            flex-shrink: 0;
+        }
+
+        > .editor-content,
+        > .source-view
+        {
+            flex: 1;
+        }
     }
 
     &.hidden
@@ -1245,15 +1254,11 @@ html:has(.editor.theme.fullscreen)
         align-items: center;
     }
 
-    &.fullscreen .box.box-toolbar
+    .box.toolbar-box
     {
-        width: 100% !important;
+        max-width: 100%;
     }
 
-    .box.box-toolbar .content
-    {
-        padding: 0;
-    }
     /* Symbol Pickers */
     .box.symbol-picker
     {

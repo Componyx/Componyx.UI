@@ -287,7 +287,19 @@ componyx.UI.editor_modules.EventManager = class EventManager
 
     documentPointerUp(e)
     {
+        const editor = this.editor,
+            target = e.target,
+            popupOpen = this.editor.toolbar.hasOpenBoxes();
+
         this.editor.toolbar.hideBoxes(e);
+
+        // clicked outside the editor and outside every editable element: hide the toolbar box,
+        // unless this click only closed an open popup (one layer per click)
+        if (!popupOpen && !editor.element.contains(target) && !editor.getActiveEditor(target))
+        {
+            editor.allowToolbarBoxHide = true;
+            editor.setToolbarBoxDisplay(false);
+        }
     }
 
     documentKeyUp(e)

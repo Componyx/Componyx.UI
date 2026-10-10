@@ -15,7 +15,7 @@
   <PropertyGroup>
     <PackageId>Componyx.UI</PackageId>
     <Title>Componyx.UI</Title>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <Authors>E.H. Daanen</Authors>
     <Company>Componyx</Company>
     <Description>Standards-based, dependency-free UI components for the web, with built-in .NET integration.</Description>

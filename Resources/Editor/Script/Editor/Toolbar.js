@@ -216,6 +216,21 @@ componyx.UI.editor_modules.Toolbar = class Toolbar
         });
     }
 
+    /** Returns true if any box belonging to this editor, other than the toolbar box itself, is showing. */
+    hasOpenBoxes()
+    {
+        const editorEl = this.editor.element,
+            toolbarBox = this.#toolbarBox;
+
+        return Object.values($UI.store).some(c =>
+            c instanceof componyx.UI.Box &&
+            c !== toolbarBox &&
+            c.showing &&
+            c.element?.isConnected &&
+            !c.element.closest('.tooltip-manager') &&
+            (editorEl.contains(c.element) || (c.expander?.nodeType === 1 && editorEl.contains(c.expander))));
+    }
+
     /**
      * Hides all open overlay boxes (color swatch, symbol pickers, more box)
      * that should close when the user interacts elsewhere.

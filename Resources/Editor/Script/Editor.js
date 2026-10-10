@@ -3096,9 +3096,10 @@
 
             if (!_instance.sourceViewInDialog)
             {
-                let source = $lib.element(_instance.element);
+                let source = $lib.element();
                 source.className = _instance.getCssClass(_instance.classOption.SOURCE_VIEW);
                 source.style.display = 'none';
+                _editor.after(source); // place it directly after the content, so it takes the content's spot in both toolbar positions
                 _sourceElement.set(_editableElement, source);
             }
         }
@@ -3726,34 +3727,42 @@
                 cssClass = _instance.getCssClass(_instance.classOption.FULLSCREEN),
                 cssClassFullscreen = cssClass + '-' + _toolbarDisplayOption.getName(toolbarDisplay),
                 el = (hasEditables()) ? _editableElement : _instance.element,
-                expandButton = $UI.store[getId('expand')];
+                expandButton = $UI.store[getId('expand')],
+                toolbarBox = $UI.store[getId('Toolbar')];
 
             if (expandButton.selected)
             {
                 _instance.layoutState.addActiveMode('expand', _instance.toggleExpandedView);
                 $lib.addClass(_instance.element, cssClass);
                 $lib.addClass(el, cssClassFullscreen);
-                $lib.on(window, 'resize', updateHeight);
-                updateHeight();
+
+                if (hasEditables())
+                {
+                    if (toolbarBox)
+                        toolbarBox.stretchToExpander = true;
+
+                    $lib.on(window, 'resize', updateHeight);
+                    updateHeight();
+                }
             }
             else
             {
                 $lib.removeClass(_instance.element, cssClass);
                 $lib.removeClass(el, cssClassFullscreen);
-                _editor.style.height = '';
 
-                if (_instance.editorHeight)
-                    _editor.style.height = $lib.unit(_instance.editorHeight);
-
-                if (!_instance.sourceViewInDialog)
+                if (hasEditables())
                 {
-                    let sourceEl = _sourceElement.get(_editableElement);
-                    sourceEl.style.height = _editor.style.height;
+                    if (toolbarBox)
+                        toolbarBox.stretchToExpander = false;
+
+                    el.style.height = '';
+                    el.style.top = '';
+                    $lib.off(window, 'resize', updateHeight);
                 }
 
-                $lib.off(window, 'resize', updateHeight);
                 _instance.layoutState.removeActiveMode('expand');
             }
+
             setToolbarBoxDisplay(_instance.toolbar.toolbarBoxShowing);
         }
 
@@ -3893,7 +3902,7 @@
             _instance.format.toggleLayoutNode(settings);
         }
 
-        /** Updates editor height. 
+        /** Updates the inline editor height in fullscreen mode. 
          * @ignore
          */
         function updateHeight()
@@ -3902,17 +3911,23 @@
             _resizeTimerId = setTimeout(function ()
             {
                 deactivateDocument();
-                let footerHeight = (_footerEl) ? _footerEl.offsetHeight : 0,
-                    height = $lib.getWindowSize().height - (_toolbar.offsetHeight + footerHeight);
 
-                _editor.style.height = $lib.unit(height);
+                // let the CSS top/bottom define the fullscreen box before measuring
+                _editableElement.style.height = '';
+                _editableElement.style.top = '';
 
-                if (!_instance.sourceViewInDialog)
-                {
-                    let sourceEl = _sourceElement.get(_editableElement);
-                    sourceEl.style.height = _editor.style.height;
-                }
+                let rect = _editableElement.getBoundingClientRect(),
+                    toolbarBox = $UI.store[getId('Toolbar')],
+                    toolbarHeight = Math.ceil((toolbarBox.element).getBoundingClientRect().height);
 
+                // toolbar at the top: the editable element starts below the toolbar box
+                if (getToolbarDisplay(_editableElement) != _toolbarDisplayOption.FOOTER)
+                    _editableElement.style.top = $lib.unit(rect.top + toolbarHeight);
+
+                _editableElement.style.height = $lib.unit(rect.height - toolbarHeight);
+
+                // reposition and restretch the toolbar box to the resized editable element
+                toolbarBox.update();
             }, 0);
         }
 
@@ -3990,6 +4005,9 @@
             _instance.layoutState.dispose();
             _instance.tooltipMenu.dispose();
             _instance.history.dispose();
+
+            $lib.off(window, 'resize', updateHeight);
+            clearTimeout(_resizeTimerId);
 
             _sortedCommands = [];
             _sourceElement = new Map();

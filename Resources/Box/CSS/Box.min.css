@@ -1,2 +1,2 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
-.box.theme{position:relative;display:inline-block}.box.theme>div.layout{position:absolute;inset:0;border-style:solid}.box.theme>div.layout>div.main{position:absolute;inset:0}.box.theme>div.modal{opacity:.3}.box.theme>.content{position:relative;padding:8px}
+.box.theme{position:relative;display:inline-block;>div.modal{opacity:.3}>.content{position:relative}}

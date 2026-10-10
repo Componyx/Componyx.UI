@@ -3,34 +3,14 @@
 {
     position: relative;
     display: inline-block;
-}
 
-.box.theme > div.layout
-{
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-    border-style: solid;
-}
-
-.box.theme > div.layout > div.main
-{  
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-}
-
-    .box.theme > div.modal
+    > div.modal
     {
         opacity: 0.3;
     }
 
-.box.theme > .content
-{
-    position: relative;
-    padding: 8px;
+    > .content
+    {
+        position: relative;
+    }
 }

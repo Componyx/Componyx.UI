@@ -41,6 +41,8 @@
             _alignXOption = componyx.UI.Box.AlignXOption,
             _alignYOption = componyx.UI.Box.AlignYOption,
             _animationTypeOption = componyx.UI.Box.AnimationTypeOption,
+            _expanderObserver = null,
+            _observedExpander = null,
             _classOption =
             {
                 CONTENT: 'content',
@@ -670,6 +672,8 @@
             _instance.showing = false;
             _animation = null;
             _pointerCoordinates = null;
+            unobserveExpander();
+
             $base.methods.hide.call(_instance, false);
             _instance.events.onHideComplete.fire(_instance);
         }
@@ -943,6 +947,38 @@
             stretch();
             setStyle();
             position();
+            observeExpander();
+        }
+
+        function observeExpander()
+        {
+            let expander = ((_instance.stretchToExpander || _instance.autoPosition == _autoPositionOption.EXPAND) && _instance.expander?.nodeType === 1) ? _instance.expander : null;
+
+            if (expander === _observedExpander) // observe() fires an initial callback, so only (re)observe when the expander changes
+                return;
+
+            unobserveExpander();
+
+            if (expander)
+            {
+                _expanderObserver = _expanderObserver || new ResizeObserver(expanderResized);
+                _expanderObserver.observe(expander);
+                _observedExpander = expander;
+            }
+        }
+
+        function expanderResized()
+        {
+            if (_instance.showing && !_animation)
+                activate();
+        }
+
+        function unobserveExpander()
+        {
+            if (_expanderObserver)
+                _expanderObserver.disconnect();
+
+            _observedExpander = null;
         }
 
         function stretch()
@@ -1587,6 +1623,7 @@
 
             clearTimers();
             removeOutsideClickHandler();
+            unobserveExpander();
 
             if (_draggable)
                 _draggable.disable();
