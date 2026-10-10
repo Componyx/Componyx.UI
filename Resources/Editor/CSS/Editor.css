@@ -1093,7 +1093,6 @@ html:has(.editor.theme.fullscreen)
                 margin-right: 20px;
                 word-break: break-all;
                 cursor: auto;
-                background: white;
                 padding-left: 4px;
                 padding-right: 4px;
                 border-style: solid;
