@@ -775,7 +775,7 @@
         * @param {Number|String} [settings.max] The maximum value. (LENGTH and RANGE type validation).
         * @param {RegExp} settings.pattern The Regular expression pattern. (REGEX type validation).
         * @param {HTMLElement[]|String[]} settings.fields  The HTML element(s), element name(s) or values to compare against.
-        * @param {String[]} settings.operators The operator(s) to use for comparison: < 'LessThan', <= 'LessThanOrEqualTo', > 'GreaterThan', >= 'GreaterThanOrEqualTo', or == 'EqualTo' (default). Can be a single entry (applied to all fields) or an array aligned with `fields`.
+        * @param {String[]} settings.operators The operator(s) to use for comparison: < 'LessThan', <= 'LessThanOrEqualTo', > 'GreaterThan', >= 'GreaterThanOrEqualTo', != 'NotEqualTo' or == 'EqualTo' (default). Can be a single entry (applied to all fields) or an array aligned with `fields`.
         * @param {componyx.UI.Validator.DataTypeOption} settings.dataType The data-type to which the field value must comply. (DATATYPE type validation).
         * @param {Boolean} settings.alwaysCheck A value indicating if the validation rule should always be checked even if the field validation has already failed (only applies to type CUSTOM).
         * @param {OnValidation} settings.onValidation A function(sender, args) invoked when the field is validated. (CUSTOM type validation).
@@ -1099,6 +1099,36 @@
         {
             validateField(getFieldByName(fieldName));
             return _fields[fieldName].isValid;
+        }
+
+        /**
+        * Applies server-side validation errors to the fields and displays them as feedback. Each entry per field is either an error message (string) or a rule type (componyx.UI.Validator.TypeOption), in which case the client configured message of that rule is shown.
+        * Fields without a matching input element are skipped.
+        * @param {Object.<String, Array<String|Number>|String|Number>} errors Field names as keys, error messages or rule types as values.
+        */
+        this.setFieldErrors = function (errors)
+        {
+            $lib.each(errors, function (msgs, fieldName)
+            {
+                const fieldEl = getFieldByName(fieldName);
+
+                if (!fieldEl)
+                    return;
+
+                if (!_fields || !_fields[fieldName])
+                    _instance.addRule(fieldName, {}); // registers the field and its change binding, no rule type
+
+                const fieldData = _fields[fieldName],
+                    list = Array.isArray(msgs) ? msgs : [msgs],
+                    texts = list.map(m => (typeof m === 'number') ? (fieldData[m]?.msg || _instance.invalidFieldMessage) : m); // if a number is passed, it is a rule type, so we get the configured message for that rule type
+
+                fieldData.isValid = false;
+                fieldData.lastValue = null;
+                clearFieldFeedback(fieldName);
+                addFieldFeedback(fieldEl, _feedbackStatus.INVALID, fieldData.feedbackId, true, texts);
+            });
+
+            _instance.events.onInvalid.fire(_instance);
         }
 
         /** 
@@ -1853,7 +1883,7 @@
                     data.validationFields[0].fieldName = name;
 
                 if ($lib.isEmpty(data.validationFields[0].value))
-                    data.validationFields[0].value = value;
+                    data.validationFields[0].value = normalizeValue(value, _fields[name][_typeOption.DATATYPE]?.dataType); // invariant format for the server
             }
 
             _validatingTimerId = setTimeout(function () { addFieldFeedback(fieldEl, _feedbackStatus.VALIDATING, _fields[name].feedbackId, false); }, _instance.validatingFieldMessageDelay);
@@ -1869,6 +1899,37 @@
                         validateAjaxFieldComplete(fieldEl, name, value, settings, summarise, ajaxArgs, true);
                     }
                 });
+        }
+
+        /**
+        * Converts a formatted field value to the invariant format used by the server: numbers without group separators and with '.' as decimal separator, dates as yyyy-mm-dd.
+        * @param {String} value The field value as entered.
+        * @param {componyx.UI.Validator.DataTypeOption|null} dataType The data type of the field.
+        * @returns {String} The normalized value.
+        * @private
+        */
+        function normalizeValue(value, dataType)
+        {
+            if ($lib.isEmpty(value))
+                return value;
+
+            if (dataType === _dataTypeOption.INTEGER || dataType === _dataTypeOption.FLOAT)
+            {
+                if (_instance.groupSeparator)
+                    value = value.split(_instance.groupSeparator).join('');
+
+                return value.replace(_instance.decimalSeparator, '.');
+            }
+
+            if (dataType === _dataTypeOption.DATETIME)
+            {
+                const d = $lib.parseDate(value, _instance.dateFormat.toLowerCase());
+
+                if (d)
+                    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+            }
+
+            return value;
         }
 
         function addMsg(settings, msg, valid)

@@ -507,6 +507,13 @@ declare namespace componyx
              * @param keepEvents - <p>A value indicating if the events must be kept.</p>
              * @param [removeElement = true] - <p>A value indicating if the element must be removed.</p>
              */
+            /**
+             * <p>Applies server-side validation errors to the fields and displays them as feedback. Each entry per field is either an error message (string) or a rule type (componyx.UI.Validator.TypeOption), in which case the client configured message of that rule is shown.</p>
+             * <p>Fields without a matching input element are skipped.</p>
+             * @param errors <p>Field names as keys, error messages or rule types as values.</p>
+             */
+            setFieldErrors(errors: { [fieldName: string]: Array<string | number> | string | number }): void;
+
             destroy(keepEvents: boolean, removeElement?: boolean): void;
             /**
              * <p>The validator does not render HTML output, so it has no hide behavior of its own; this is always <code>null</code>.</p>
