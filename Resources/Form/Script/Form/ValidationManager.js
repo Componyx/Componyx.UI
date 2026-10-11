@@ -109,7 +109,7 @@ componyx.UI.form_modules.ValidationManager = class ValidationManager
         if (!s)
             return hasRules;
 
-        if (s.minRange || s.maxRange)
+        if (!$lib.isEmpty(s.minRange) || !$lib.isEmpty(s.maxRange))
         {
             hasRules = this.#add(field, this.TypeOption.RANGE, "range", { min: s.minRange, max: s.maxRange });
         }
@@ -117,7 +117,7 @@ componyx.UI.form_modules.ValidationManager = class ValidationManager
         {
             hasRules = this.#add(field, this.TypeOption.LENGTH, "length", { min: s.minLength, max: s.maxLength });
         }
-        if (s.dataType)
+        if (!$lib.isEmpty(s.dataType))
         {
             const dataTypeKey = Object.keys(dataTypeOption).find(k => dataTypeOption[k] == s.dataType).toLowerCase();
             hasRules = this.#add(field, this.TypeOption.DATATYPE, dataTypeKey, { dataType: parseInt(s.dataType, 10) });

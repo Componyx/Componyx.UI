@@ -1819,6 +1819,7 @@
                     case '<=': valid = value <= compareValue; break;
                     case '>=': valid = value >= compareValue; break;
                     case '>': valid = value > compareValue; break;
+                    case '!=': valid = value != compareValue; break;
                     default: valid = value == compareValue;
                 }
 

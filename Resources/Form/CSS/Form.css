@@ -566,11 +566,6 @@
 
             & > fieldset.repeatable
             {
-                &:first-of-type
-                {
-                    padding-top: 30px;
-                }
-
                 &:last-of-type
                 {
                     padding-bottom: calc(30px + 1rem);
@@ -612,14 +607,11 @@
             {
                 & .button.repeat-add
                 {
-                    position: absolute;
-                    bottom: 1rem;
                 }
 
                 & .button.repeat-remove
                 {
-                    position: absolute;
-                    top: 0;
+                    left: 1rem;
                 }
             }
 

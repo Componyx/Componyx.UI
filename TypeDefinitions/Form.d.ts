@@ -2881,9 +2881,10 @@ declare namespace componyx
              * <p>Adds a new field set after the specified field into the fieldSets data.</p>
              * @param fieldSet - <p>The field set after which the new field will be added.</p>
              * @param clone - <p>A value indicating if the field set should be cloned.</p>
+             * @param parent - <p>The parent field set in which the new field set will be added. If not provided, the parent of the specified field set will be used.</p>
              * @returns <p>The added field set.</p>
              */
-            addFieldSet(fieldSet: componyx.UI.Form.FieldSet, clone: boolean): componyx.UI.Form.FieldSet;
+            addFieldSet(fieldSet: componyx.UI.Form.FieldSet, clone: boolean, parent?: componyx.UI.Form.FieldSet): componyx.UI.Form.FieldSet;
             /**
              * <p>Removes the specified field set from the fieldSets data and adjusts the line break if necessary.</p>
              * @param fieldSet - <p>The field set to be removed.</p>

@@ -3212,6 +3212,8 @@
         {
             if (this.isBuildMode()) return;
 
+            this.#ensureBindingKeys(fieldSet); // clones copy the bindingKey, so all repeats use the same value keys
+
             const repeatGroupId = fieldSet.id,
                 parent = fieldSet.parent,
                 siblings = parent?.fieldSets || this.fieldSets,
@@ -3221,7 +3223,7 @@
                     ...fieldSet,
                     repeatGroupId,
                     id: lastFieldSet.id, // ensures new one is inserted after last repeated instance
-                }, true);
+                }, true, parent);
 
             this.repeatedFieldSets.push(newFieldSet);
             newFieldSet.element.classList.add(this.getCssClass(this.classOption.REPEATABLE));
@@ -3264,6 +3266,28 @@
             }
         }
 
+        /**
+         * Ensures every field in the field set (including nested field sets) has a bindingKey,
+         * so repeated clones, which get a generated name, store their values under the original key.
+         * @param {componyx.UI.Form.FieldSet} fieldSet The field set to update.
+         * @private
+         */
+        #ensureBindingKeys(fieldSet)
+        {
+            fieldSet.fields?.forEach(field =>
+            {
+                if (!field.bindingKey)
+                    field.bindingKey = field.name;
+            });
+
+            fieldSet.fieldSets?.forEach(fs => this.#ensureBindingKeys(fs));
+        }
+        /**
+         * Updates the placement of a button in the DOM by destroying it, reassigning its container element, and re-rendering it.
+         * @param {componyx.UI.Button} button
+         * @param {HTMLElement} element
+         * @private
+         */
         #updateButtonPlacement(button, element)
         {
             button.destroy();
@@ -3312,7 +3336,7 @@
                 this.#updateButtonPlacement(removeButton, lastGroupFieldSet.element)
             }
             else
-                remove.destroy();
+                removeButton.destroy();
 
             // Re-enable Add button if we’re below max repeats again
             if (orgFieldSet && orgFieldSet.maxRepeats && remainingGroup.length < orgFieldSet.maxRepeats)
@@ -3322,13 +3346,14 @@
         /**
          * Adds a new field set after the specified field into the fieldSets data.
          * @param {componyx.UI.Form.FieldSet} fieldSet - The field set after which the new field will be added.
-          * @param {boolean} clone - A value indicating if the field set should be cloned.
-          * @returns {componyx.UI.Form.FieldSet} The added field set.
+         * @param {boolean} clone - A value indicating if the field set should be cloned.
+         * @param {componyx.UI.Form.FieldSet} parent - The parent field set in which the new field set will be added. If not provided, the parent of the specified field set will be used.
+         * @returns {componyx.UI.Form.FieldSet} The added field set.
          */
-        addFieldSet(fieldSet, clone)
+        addFieldSet(fieldSet, clone, parent = fieldSet.parent)
         {
             let defaultLabel = this.labels.newItemPrefix + this.labels.fieldSet,
-                parentFieldSet = fieldSet.parent,
+                parentFieldSet = parent,
                 siblings = parentFieldSet?.fieldSets || this.fieldSets,
                 index = siblings.findIndex(fs => fs.id === fieldSet.id),
                 nextFieldSet = (index >= 0 && index < siblings.length - 1)

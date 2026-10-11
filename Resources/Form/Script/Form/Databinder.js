@@ -231,15 +231,20 @@ componyx.UI.form_modules.DataBinder = class DataBinder
         if (!key && parent?.type === 'Field')
             key = parent.bindingKey || parent.name;
 
-        if (parent?.type === 'FieldSet' && parent?.repeatable)
+        let repeatSet = parent; // find the nearest repeatable field set, also through layout field sets and fields (for options)
+
+        while (repeatSet && !(repeatSet.type === 'FieldSet' && repeatSet.repeatable))
+            repeatSet = repeatSet.parent;
+
+        if (repeatSet)
         {
-            const fieldSets = parent.parent.fieldSets,
-                originalFieldSet = parent.repeatGroupId ? fieldSets.find(f => f.id === parent.repeatGroupId) : parent,
+            const fieldSets = repeatSet.parent.fieldSets,
+                originalFieldSet = repeatSet.repeatGroupId ? fieldSets.find(f => f.id === repeatSet.repeatGroupId) : repeatSet,
                 groupName = originalFieldSet.id;
 
             // Collect all fieldsets that belong to this repeat group (original + clones)
             const groupFieldSets = fieldSets.filter(fs => fs.id === originalFieldSet.id || fs.repeatGroupId === originalFieldSet.id),
-                repeatGroupIndex = groupFieldSets.findIndex((f) => f.id === parent.id),
+                repeatGroupIndex = groupFieldSets.findIndex((f) => f.id === repeatSet.id),
                 index = repeatGroupIndex >= 0 ? repeatGroupIndex : 0;
 
             return `${groupName}[${index}].${key}`;
