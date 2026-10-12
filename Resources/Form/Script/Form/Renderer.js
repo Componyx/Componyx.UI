@@ -586,10 +586,7 @@ componyx.UI.form_modules.Renderer = class Renderer
             labelDisplay = componyx.UI.FormField.LabelDisplayOption;
 
         if (!this.form.isViewMode())
-        {
             formField.setRequired(field.required || false);
-            this.form.validationManager.updateRequiredRule(field);
-        }
 
         this.#ensureLineBreaks(field.parent);
         this.#updateLabel(field);
@@ -650,6 +647,12 @@ componyx.UI.form_modules.Renderer = class Renderer
                     if (this.form.renderState !== $base.static.RenderState.RENDERED)
                         this.form.classList.add('hidden');
                 }
+            }
+
+            if (!this.form.isBuildMode())
+            {
+                this.form.validationManager.validator.removeRules(field.name);
+                this.form.validationManager.addFieldRules(field);
             }
         }
 
@@ -1526,7 +1529,7 @@ componyx.UI.form_modules.Renderer = class Renderer
 
             if (!field.lineBreak && (index === 0 || width >= 100 || rowWidth >= 100 || rowWidth + width > 100)) // force line break
                 this.form.addLineBreak(field);
-                
+
             rowWidth = field.lineBreak ? width : rowWidth + width;
         });
     }

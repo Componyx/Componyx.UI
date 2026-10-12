@@ -3312,6 +3312,7 @@
                 removeButtonId = this.getId(orgFieldSet, 'remove_repeat'),
                 removeButton = $UI.store[removeButtonId];
 
+            this.validationManager.removeRules([fieldSet]);
             this.removeFieldSet(fieldSet); // Remove the fieldset from DOM and internal data              
 
             const index = this.repeatedFieldSets.findIndex(fs => fs.id === fieldSet.id);
