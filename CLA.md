@@ -72,10 +72,12 @@ implied.
 
 ## 8. How to sign
 
-For most contributions, signing happens automatically: the CLA bot will comment on
-your first pull request with a link to accept this Agreement. Accepting the bot's
-prompt constitutes your electronic signature and applies to that Contribution and all
-future Contributions you submit, unless you notify the Maintainer otherwise.
+Signing happens within your first pull request: the CLA bot will post a comment
+asking you to sign this Agreement. You sign by replying to that pull request with
+the exact comment "I have read the CLA Document and I hereby sign the CLA". Posting
+that comment from your GitHub account constitutes your electronic signature and
+applies to that Contribution and all future Contributions you submit, unless you
+notify the Maintainer otherwise.
 
 ## 9. Governing law
 
