@@ -10,38 +10,24 @@ namespace Componyx.UI
 {
     /// <summary>
     /// Validates submitted values against a Form definition (the Form component's JSON), using each field's required flag and validation settings.
-    /// Works directly on the JSON, so no C# classes for the Form types are needed.
+    /// Works directly on the JSON, so no C# classes for the Form types are needed. Failed rules are reported as Validator rule types
+    /// (componyx.UI.Validator.TypeOption), so the client shows its own (localized) message for each rule.
     /// </summary>
     public static class FormValidator
     {
-        /// <summary>
-        /// Gets or sets the message used when a compare rule fails. {0} is the field label, {1} the label of the compared field.
-        /// </summary>
-        public static string CompareMessage { get; set; } = "The {0} field does not match the comparison with {1}.";
-
-        /// <summary>
-        /// Gets or sets the message used when a pattern rule fails. {0} is the field label.
-        /// </summary>
-        public static string PatternMessage { get; set; } = "The {0} field has an invalid format.";
-
-        /// <summary>
-        /// Gets or sets the message used when a repeatable field set has more items than allowed. {0} is the field set label, {1} the maximum.
-        /// </summary>
-        public static string MaxRepeatsMessage { get; set; } = "{0} allows at most {1} items.";
-
         /// <summary>
         /// Validates the submitted form values against the form definition.
         /// </summary>
         /// <param name="definitionJson">The form definition JSON (as stored by the Form component).</param>
         /// <param name="valuesJson">The submitted form values JSON (the Form's values model: field binding keys, repeatable field sets as arrays keyed by the set's id).</param>
         /// <param name="isActive">Determines whether a field (JSON node) is validated (default: visible and not disabled).</param>
-        /// <returns>The error messages per value path (e.g. "email" or "fs_kids[1].childName"); empty when all values are valid.</returns>
-        public static Dictionary<string, List<string>> Validate(string definitionJson, string valuesJson, Func<JsonNode, bool> isActive = null)
+        /// <returns>The failed rule types per value path (e.g. "email" or "fs_kids[1].childName"); empty when all values are valid.</returns>
+        public static Dictionary<string, List<int>> Validate(string definitionJson, string valuesJson, Func<JsonNode, bool> isActive = null)
         {
             JsonNode root = JsonNode.Parse(definitionJson);
             JsonObject values = string.IsNullOrWhiteSpace(valuesJson) ? new JsonObject() : JsonNode.Parse(valuesJson).AsObject();
             var entries = new List<Entry>();
-            var errors = new Dictionary<string, List<string>>();
+            var errors = new Dictionary<string, List<int>>();
 
             if (isActive == null)
                 isActive = field => Bool(field, "visible", true) && !Bool(field, "disabled");
@@ -59,10 +45,10 @@ namespace Componyx.UI
                 if (!isActive(entry.Field))
                     continue;
 
-                List<string> fieldErrors = ValidateField(entry, entries);
+                List<int> failedRules = ValidateField(entry, entries);
 
-                if (fieldErrors.Count > 0)
-                    errors[entry.Path] = fieldErrors;
+                if (failedRules.Count > 0)
+                    errors[entry.Path] = failedRules;
             }
 
             return errors;
@@ -72,7 +58,7 @@ namespace Componyx.UI
         /// Collects all fields with the values scope they read from, mirroring the client: fields inside a repeatable field set
         /// read from that set's array item (keyed by the set's id), all other fields read from the root values.
         /// </summary>
-        private static void Collect(JsonNode node, JsonNode parent, JsonObject root, JsonNode scope, string prefix, List<Entry> entries, Dictionary<string, List<string>> errors)
+        private static void Collect(JsonNode node, JsonNode parent, JsonObject root, JsonNode scope, string prefix, List<Entry> entries, Dictionary<string, List<int>> errors)
         {
             if (node == null || Str(node, "repeatGroupId") != null) // clones of a repeated set are covered by the original's value array
                 return;
@@ -99,8 +85,8 @@ namespace Componyx.UI
                 if (items == null)
                     items = new JsonArray();
 
-                if (maxRepeats > 0 && items.Count > maxRepeats)
-                    errors[id] = new List<string> { string.Format(MaxRepeatsMessage, Label(node), maxRepeats) };
+                if (maxRepeats > 0 && items.Count > maxRepeats) // the client prevents this, so only a tampered request gets here
+                    errors[id] = new List<int> { RuleRange };
 
                 int count = Math.Max(items.Count, 1); // validate at least one item, like the rendered original
 
@@ -125,32 +111,52 @@ namespace Componyx.UI
                 Collect(child, node, root, root, string.Empty, entries, errors);
         }
 
-        private static List<string> ValidateField(Entry entry, List<Entry> entries)
+        private static List<int> ValidateField(Entry entry, List<Entry> entries)
         {
             JsonNode field = entry.Field;
             JsonNode settings = field["validationSettings"];
-            string label = Label(field);
             int? dataType = Int(settings, "dataType");
-            object value = entry.Value;
-            var required = new List<ValidationAttribute>();
+            var failed = new List<int>();
+            string text = entry.Value as string;
 
-            if (Bool(field, "required"))
-                required.Add(new RequiredAttribute());
+            if (entry.Value == null || (text != null && text.Length == 0))
+            {
+                if (Bool(field, "required"))
+                    failed.Add(RuleRequired);
 
-            if (value is IEnumerable && !(value is string)) // multi-value field: only required applies
-                return ModelValidator.ValidateValue(value, typeof(object), label, required);
+                return failed;
+            }
+
+            if (text == null) // multi-value field (list): only required applies
+                return failed;
 
             Type valueType = GetValueType(dataType);
-            List<string> errors = ModelValidator.ValidateValue(value, valueType, label, required.Concat(GetAttributes(settings, dataType, valueType)));
-            string text = value as string;
 
-            if (errors.Count > 0 || string.IsNullOrEmpty(text))
-                return errors;
+            if (!ModelValidator.TryConvert(text, valueType, out object typedValue))
+            {
+                failed.Add(RuleDataType);
+                return failed;
+            }
+
+            if ((dataType == DataTypeEmail && !new EmailAddressAttribute().IsValid(text)) || (dataType == DataTypeUrl && !new UrlAttribute().IsValid(text)))
+                failed.Add(RuleDataType);
+
+            int minLength = Int(settings, "minLength") ?? 0, maxLength = Int(settings, "maxLength") ?? 0; // 0 means not set, like the client
+
+            if (valueType == typeof(string) && (minLength > 0 || maxLength > 0)
+                && !new StringLengthAttribute(maxLength > 0 ? maxLength : int.MaxValue) { MinimumLength = minLength }.IsValid(text))
+                failed.Add(RuleLength);
+
+            double? minRange = Dbl(settings, "minRange"), maxRange = Dbl(settings, "maxRange");
+
+            if ((valueType == typeof(long?) || valueType == typeof(decimal?)) && (minRange != null || maxRange != null)
+                && !new RangeAttribute(minRange ?? double.MinValue, maxRange ?? double.MaxValue).IsValid(typedValue))
+                failed.Add(RuleRange);
 
             string pattern = Str(settings, "pattern");
 
             if (valueType == typeof(string) && !string.IsNullOrEmpty(pattern) && !IsMatch(text, pattern))
-                errors.Add(string.Format(PatternMessage, label));
+                failed.Add(RuleRegEx);
 
             string compareFieldId = Str(settings, "compareFieldId");
 
@@ -158,11 +164,11 @@ namespace Componyx.UI
             {
                 Entry other = FindCompareEntry(entry, entries, compareFieldId);
 
-                if (other != null && !Compare(value, other.Value, valueType, Str(settings, "compareOperator")))
-                    errors.Add(string.Format(CompareMessage, label, Label(other.Field)));
+                if (other != null && !Compare(text, other.Value, valueType, Str(settings, "compareOperator")))
+                    failed.Add(RuleCompare);
             }
 
-            return errors;
+            return failed;
         }
 
         /// <summary>
@@ -191,36 +197,6 @@ namespace Componyx.UI
         {
             int index = path.LastIndexOf(']');
             return (index >= 0) ? path.Substring(0, index + 1) : string.Empty;
-        }
-
-        private static List<ValidationAttribute> GetAttributes(JsonNode settings, int? dataType, Type valueType)
-        {
-            var attributes = new List<ValidationAttribute>();
-            int minLength = Int(settings, "minLength") ?? 0, maxLength = Int(settings, "maxLength") ?? 0; // 0 means not set, like the client
-            double? minRange = Dbl(settings, "minRange"), maxRange = Dbl(settings, "maxRange");
-
-            if (valueType == typeof(string) && (minLength > 0 || maxLength > 0))
-                attributes.Add(new StringLengthAttribute(maxLength > 0 ? maxLength : int.MaxValue) { MinimumLength = minLength });
-
-            if ((valueType == typeof(long?) || valueType == typeof(decimal?)) && (minRange != null || maxRange != null))
-            {
-                var range = new RangeAttribute(minRange ?? double.MinValue, maxRange ?? double.MaxValue);
-
-                if (minRange == null)
-                    range.ErrorMessage = "The field {0} must be at most {2}.";
-                else if (maxRange == null)
-                    range.ErrorMessage = "The field {0} must be at least {1}.";
-
-                attributes.Add(range);
-            }
-
-            if (dataType == DataTypeEmail)
-                attributes.Add(new EmailAddressAttribute());
-
-            if (dataType == DataTypeUrl)
-                attributes.Add(new UrlAttribute());
-
-            return attributes;
         }
 
         private static Type GetValueType(int? dataType)
@@ -314,12 +290,6 @@ namespace Componyx.UI
             return children.Where(child => child != null);
         }
 
-        private static string Label(JsonNode field)
-        {
-            string label = Str(field, "label");
-            return string.IsNullOrEmpty(label) ? Str(field, "name") : label;
-        }
-
         private static string Str(JsonNode node, string key)
         {
             JsonValue value = (node != null) ? node[key] as JsonValue : null;
@@ -344,7 +314,11 @@ namespace Componyx.UI
             return (value != null && value.TryGetValue(out double result)) ? result : null;
         }
 
+        // componyx.UI.Validator.DataTypeOption
         private const int DataTypeInteger = 0, DataTypeFloat = 1, DataTypeDateTime = 2, DataTypeEmail = 3, DataTypeUrl = 4;
+
+        // componyx.UI.Validator.TypeOption
+        private const int RuleRequired = 0, RuleDataType = 1, RuleLength = 2, RuleRange = 3, RuleRegEx = 4, RuleCompare = 5;
 
         /// <summary>
         /// A field from the definition, with its parent node, its submitted value and its value path.
