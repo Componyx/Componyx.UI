@@ -24,18 +24,13 @@ namespace Componyx.UI
         /// <returns>The failed rule types per value path (e.g. "email" or "fs_kids[1].childName"); empty when all values are valid.</returns>
         public static Dictionary<string, List<int>> Validate(string definitionJson, string valuesJson, Func<JsonNode, bool> isActive = null)
         {
-            JsonNode root = JsonNode.Parse(definitionJson);
+            JsonArray rootSets = JsonNode.Parse(definitionJson).AsArray(); // the root sections or field sets; throws when the definition is not an array
             JsonObject values = string.IsNullOrWhiteSpace(valuesJson) ? new JsonObject() : JsonNode.Parse(valuesJson).AsObject();
             var entries = new List<Entry>();
             var errors = new Dictionary<string, List<int>>();
 
             if (isActive == null)
                 isActive = field => Bool(field, "visible", true) && !Bool(field, "disabled");
-
-            JsonArray rootSets = root as JsonArray;
-
-            if (rootSets == null)
-                rootSets = new JsonArray(root.DeepClone());
 
             foreach (JsonNode node in rootSets)
                 Collect(node, null, values, values, string.Empty, entries, errors);
@@ -45,7 +40,9 @@ namespace Componyx.UI
                 if (!isActive(entry.Field))
                     continue;
 
-                List<int> failedRules = ValidateField(entry, entries);
+                string compareFieldId = Str(entry.Field["validationSettings"], "compareFieldId");
+                Entry compareEntry = (compareFieldId != null) ? FindCompareEntry(entry, entries, compareFieldId) : null;
+                List<int> failedRules = ValidateField(entry, compareEntry);
 
                 if (failedRules.Count > 0)
                     errors[entry.Path] = failedRules;
@@ -90,14 +87,14 @@ namespace Componyx.UI
 
                 int count = Math.Max(items.Count, 1); // validate at least one item, like the rendered original
 
-                for (int i = 0; i < count; i++)
+                for (int index = 0; index < count; index++)
                 {
-                    JsonNode item = (i < items.Count) ? items[i] : null;
+                    JsonNode item = (index < items.Count) ? items[index] : null;
 
                     foreach (JsonNode field in Children(node, "fields"))
-                        Collect(field, node, root, item, id + "[" + i + "].", entries, errors);
+                        Collect(field, node, root, item, id + "[" + index + "].", entries, errors);
 
-                    if (i == 0)
+                    if (index == 0)
                     {
                         foreach (JsonNode set in Children(node, "fieldSets"))
                             Collect(set, node, root, root, string.Empty, entries, errors);
@@ -111,7 +108,7 @@ namespace Componyx.UI
                 Collect(child, node, root, root, string.Empty, entries, errors);
         }
 
-        private static List<int> ValidateField(Entry entry, List<Entry> entries)
+        private static List<int> ValidateField(Entry entry, Entry compareEntry)
         {
             JsonNode field = entry.Field;
             JsonNode settings = field["validationSettings"];
@@ -158,15 +155,8 @@ namespace Componyx.UI
             if (valueType == typeof(string) && !string.IsNullOrEmpty(pattern) && !IsMatch(text, pattern))
                 failed.Add(RuleRegEx);
 
-            string compareFieldId = Str(settings, "compareFieldId");
-
-            if (compareFieldId != null)
-            {
-                Entry other = FindCompareEntry(entry, entries, compareFieldId);
-
-                if (other != null && !Compare(text, other.Value, valueType, Str(settings, "compareOperator")))
-                    failed.Add(RuleCompare);
-            }
+            if (compareEntry != null && !Compare(text, compareEntry.Value, valueType, Str(settings, "compareOperator")))
+                failed.Add(RuleCompare);
 
             return failed;
         }
