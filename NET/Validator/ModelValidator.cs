@@ -16,19 +16,15 @@ namespace Componyx.UI
     public static class ModelValidator
     {
         /// <summary>
-        /// Gets or sets the message used when a value cannot be converted to the property type. {0} is replaced with the display name.
-        /// </summary>
-        public static string InvalidValueMessage { get; set; } = "The {0} field has an invalid value.";
-
-        /// <summary>
         /// Validates a single value against the validation attributes of a model property.
         /// String values are converted to the property type using the invariant culture (e.g. 1234.5 and 2026-10-11).
         /// </summary>
         /// <typeparam name="T">The model type.</typeparam>
         /// <param name="propertyPath">The property name or path, e.g. "Name", "Address.Street" or "Children[0].Name".</param>
         /// <param name="value">The value to validate, as an invariant string or an already typed value.</param>
-        /// <returns>The error messages; empty when the value is valid.</returns>
-        public static List<string> ValidateProperty<T>(string propertyPath, object value)
+        /// <param name="invalidValueMessage">The message added when the value cannot be converted to the property type (optional).</param>
+        /// <returns>The validation result with the messages of the failed attributes.</returns>
+        public static ValueValidationResult ValidateProperty<T>(string propertyPath, object value, string invalidValueMessage = null)
         {
             PropertyInfo prop = FindProperty(typeof(T), propertyPath);
 
@@ -38,7 +34,7 @@ namespace Componyx.UI
             string displayName = prop.GetCustomAttribute<DisplayAttribute>()?.GetName() ?? prop.Name;
             object instance = RuntimeHelpers.GetUninitializedObject(prop.ReflectedType);
 
-            return ValidateValue(value, prop.PropertyType, displayName, prop.GetCustomAttributes<ValidationAttribute>(true), instance);
+            return ValidateValue(value, prop.PropertyType, displayName, prop.GetCustomAttributes<ValidationAttribute>(true), invalidValueMessage, instance);
         }
 
         /// <summary>
@@ -47,31 +43,39 @@ namespace Componyx.UI
         /// </summary>
         /// <param name="value">The value to validate, as an invariant string or an already typed value.</param>
         /// <param name="valueType">The type the value represents (e.g. typeof(int)).</param>
-        /// <param name="displayName">The name used in error messages.</param>
+        /// <param name="displayName">The name used in the default messages of the attributes.</param>
         /// <param name="attributes">The validation attributes to apply.</param>
+        /// <param name="invalidValueMessage">The message added when the value cannot be converted to the value type (optional).</param>
         /// <param name="instance">The object passed to the validation context (optional).</param>
-        /// <returns>The error messages; empty when the value is valid.</returns>
-        public static List<string> ValidateValue(object value, Type valueType, string displayName, IEnumerable<ValidationAttribute> attributes, object instance = null)
+        /// <returns>The validation result with the messages of the failed attributes.</returns>
+        public static ValueValidationResult ValidateValue(object value, Type valueType, string displayName, IEnumerable<ValidationAttribute> attributes, string invalidValueMessage = null, object instance = null)
         {
-            var errors = new List<string>();
+            var result = new ValueValidationResult();
 
             if (!TryConvert(value, valueType, out object typedValue))
             {
-                errors.Add(string.Format(InvalidValueMessage, displayName));
-                return errors;
+                result.IsValid = false;
+
+                if (!string.IsNullOrEmpty(invalidValueMessage))
+                    result.Msg.Add(invalidValueMessage);
+
+                return result;
             }
 
             var context = new ValidationContext(instance ?? new object()) { DisplayName = displayName };
 
             foreach (ValidationAttribute attr in attributes)
             {
-                ValidationResult result = attr.GetValidationResult(typedValue, context);
+                ValidationResult attrResult = attr.GetValidationResult(typedValue, context);
 
-                if (result != null)
-                    errors.Add(result.ErrorMessage);
+                if (attrResult != null)
+                {
+                    result.IsValid = false;
+                    result.Msg.Add(attrResult.ErrorMessage);
+                }
             }
 
-            return errors;
+            return result;
         }
 
         /// <summary>
@@ -191,5 +195,21 @@ namespace Componyx.UI
                 return false;
             }
         }
+    }
+
+    /// <summary>
+    /// The result of validating a single value with the ModelValidator.
+    /// </summary>
+    public class ValueValidationResult
+    {
+        /// <summary>
+        /// Gets or sets a value indicating whether the value is valid.
+        /// </summary>
+        public bool IsValid { get; set; } = true;
+
+        /// <summary>
+        /// Gets the messages of the failed validation attributes (empty when no message is available).
+        /// </summary>
+        public List<string> Msg { get; } = new List<string>();
     }
 }
