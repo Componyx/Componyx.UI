@@ -30,12 +30,12 @@ offering the Project (or portions of it) under separate commercial terms.
 
 ## 3. Grant of Patent License
 
-You grant the Maintainer, and recipients of software distributed by the Maintainer, a
-perpetual, worldwide, non-exclusive, royalty-free, irrevocable patent license to make,
-have made, use, offer to sell, sell, import, and otherwise transfer your Contribution,
-where such license applies only to patent claims licensable by you that are necessarily
-infringed by your Contribution alone, or by combination of your Contribution with the
-Project to which it was submitted.
+You grant the Maintainer, its successors and assigns, and recipients of software
+distributed by the Maintainer, a perpetual, worldwide, non-exclusive, royalty-free,
+irrevocable patent license to make, have made, use, offer to sell, sell, import, and
+otherwise transfer your Contribution, where such license applies only to patent claims
+licensable by you that are necessarily infringed by your Contribution alone, or by
+combination of your Contribution with the Project to which it was submitted.
 
 ## 4. You retain ownership
 
@@ -76,8 +76,8 @@ Signing happens within your first pull request: the CLA bot will post a comment
 asking you to sign this Agreement. You sign by replying to that pull request with
 the exact comment "I have read the CLA Document and I hereby sign the CLA". Posting
 that comment from your GitHub account constitutes your electronic signature and
-applies to that Contribution and all future Contributions you submit, unless you
-notify the Maintainer otherwise.
+applies to that Contribution and all past and future Contributions you submit, unless
+you notify the Maintainer otherwise.
 
 ## 9. Governing law
 
