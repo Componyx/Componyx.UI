@@ -672,12 +672,12 @@ componyx.UI.editor_modules.Table = class Table
 
     #cut(e)
     {
-        const { cell, table } = this.#context();
+        const { cell, table } = this.#context(true);
 
         if (!table)
             return;
 
-        const data = this.#serializeSelection();
+        const data = this.#serializeSelection(table);
         if (!data)
             return;
 
@@ -690,7 +690,8 @@ componyx.UI.editor_modules.Table = class Table
 
     #copy(e)
     {
-        const data = this.#serializeSelection();
+        const { table } = this.#context(true);
+        const data = this.#serializeSelection(table);
         if (!data)
             return;
 
@@ -701,7 +702,7 @@ componyx.UI.editor_modules.Table = class Table
 
     #paste(e)
     {
-        const { cell, table } = this.#context();
+        const { cell, table } = this.#context(true);
         if (!cell || !table)
             return;
 
@@ -819,7 +820,7 @@ componyx.UI.editor_modules.Table = class Table
     {
         this.#handleCaretOutsideCell(e);
 
-        const { cell } = this.#context();
+        const { cell } = this.#context(true);
 
         if (!cell || !this.editor.getEditorElement().contains(cell))
             return;
@@ -852,7 +853,7 @@ componyx.UI.editor_modules.Table = class Table
 
     #selectionChange(e)
     {
-        const { cell, table } = this.#context();
+        const { cell, table } = this.#context(true);
 
         if (!cell)
             return;
@@ -1611,7 +1612,8 @@ componyx.UI.editor_modules.Table = class Table
      */
     async #writeToClipboard()
     {
-        const data = this.#serializeSelection();
+        const { table } = this.#context();
+        const data = this.#serializeSelection(table);
         if (!data)
             return;
 
@@ -1628,9 +1630,8 @@ componyx.UI.editor_modules.Table = class Table
      * @ignore
      * @returns {Object} The html and text data.
      */
-    #serializeSelection()
+    #serializeSelection(table)
     {
-        const { table } = this.#context();
         if (!table || this.#selectedCells.size === 0)
             return null;
 
@@ -2018,7 +2019,7 @@ componyx.UI.editor_modules.Table = class Table
 
     // ── Helpers ──────────────────────────────────────────────────────────────
 
-    #context()
+    #context(selectionOnly = false)
     {
         const selection = this.editor.selectionRange,
             range = selection.getRange(),
@@ -2026,7 +2027,13 @@ componyx.UI.editor_modules.Table = class Table
             rootNodes = selection.getRootNodesInRange(range, nodes),
             rootNode = rootNodes[0];
 
-        let cell = rootNode?.closest('td,th') || this.#contextCell || this.#firstSelectedCell();
+        let cell = rootNode?.closest('td,th');
+
+        if (cell && !this.editor.getEditorElement().contains(cell)) // a cell outside this editor
+            cell = null;
+
+        if (!cell && !selectionOnly)
+            cell = this.#contextCell || this.#firstSelectedCell();
 
         if (!cell?.isConnected)
             cell = null;

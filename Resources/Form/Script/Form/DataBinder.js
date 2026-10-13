@@ -8,7 +8,7 @@ componyx.UI.form_modules.DataBinder = class DataBinder
     #settingName;
     #checkSetting;
     #postDataBind;
-    #valueHandlers = [];
+    #valueHandlers = new Map(); // component id -> bindary value handler id
     #modelBinderTimerId = null;
     #pendingFieldSets = new Map();
 
@@ -32,7 +32,7 @@ componyx.UI.form_modules.DataBinder = class DataBinder
 
     get valueHandlers()
     {
-        return this.#valueHandlers;
+        return Array.from(this.#valueHandlers.values());
     }
 
     destroy(removeElement)
@@ -51,7 +51,7 @@ componyx.UI.form_modules.DataBinder = class DataBinder
         {
             $bindary.unregisterValueHandler(id);
         });
-        this.#valueHandlers = [];
+        this.#valueHandlers.clear();
     }
 
     checkSetting(item, el)
@@ -167,8 +167,8 @@ componyx.UI.form_modules.DataBinder = class DataBinder
             if (current === undefined)
             {
                 const value = (field.inputType === this.InputTypeOption.RADIO || (field.inputType === this.InputTypeOption.COMBOBOX && !isMultiSelectComboBox))
-                        ? selectedForField[0]
-                        : (selectedForField.length ? selectedForField : []);
+                    ? selectedForField[0]
+                    : (selectedForField.length ? selectedForField : []);
 
                 this.setModelValue(field, value);
             }
@@ -417,14 +417,25 @@ componyx.UI.form_modules.DataBinder = class DataBinder
                             }
                             else if (field.inputType === this.InputTypeOption.EDITOR)
                             {
-                                const editor = $UI.store[this.form.getId(field, 'input')],
-                                    element = editor.getEditorElement(),
-                                    matcher = (item) => { return (element === item.element); }, // could get support for multiple editable-elements bound to one editor, but for now we won't support this
-                                    getValue = (element) => { return editor.getContent(); },
-                                    setValue = (element, value) => { return editor.setContent(value); };
+                                const editorId = this.form.getId(field, 'input'),
+                                    element = $UI.store[editorId].getEditorElement(),
+                                    existingId = this.#valueHandlers.get(editorId),
+                                    matcher = (item) => { return item.element === $UI.store[editorId]?.getEditorElement(); }, // resolved at match time, so a replaced editor element still matches
+                                    getValue = (el) => { return $UI.store[editorId].getContent(); },
+                                    setValue = (el, value) =>
+                                    {
+                                        const editor = $UI.store[editorId];
+
+                                        if (editor.getContent() !== value) // only replace on a real change, so the editor state (like table wrappers) is kept
+                                            editor.setContent(value);
+                                    };
 
                                 this.#setBindingAttr(element, bindingKey);
-                                this.#valueHandlers.push($bindary.registerValueHandler(matcher, getValue, setValue));
+
+                                if (existingId !== undefined)
+                                    $bindary.unregisterValueHandler(existingId); // replace the handler registered on an earlier bind
+
+                                this.#valueHandlers.set(editorId, $bindary.registerValueHandler(matcher, getValue, setValue));
                             }
                             else if (field.inputType === this.InputTypeOption.SLIDER)
                             {
@@ -503,7 +514,7 @@ componyx.UI.form_modules.DataBinder = class DataBinder
             let rootItem = $bindary.updateTemplateItem(this.form, true, true); // update form template item with deep and clear
 
             if (initForm) // after fields are bound and view is updated, run form init once if provided
-                $bindary.onPostRender.once(initForm); 
+                $bindary.onPostRender.once(initForm);
 
             $bindary.updateView(true, false, (formAsRoot) ? [rootItem] : null);
             this.form.dataObserver.restoreActiveState(); // if state was captured in undo/redo action then this will restore cursor pos on correct element
@@ -523,7 +534,8 @@ componyx.UI.form_modules.DataBinder = class DataBinder
 
     #registerValueHandler(element, componentId, getValueFn)
     {
-        const id = element.id;
+        const id = element.id,
+            existingId = this.#valueHandlers.get(componentId);
         let matcher;
 
         if ($lib.isEmpty(id))
@@ -531,7 +543,10 @@ componyx.UI.form_modules.DataBinder = class DataBinder
         else
             matcher = (item) => item.element.id === id;
 
-        this.#valueHandlers.push($bindary.registerValueHandler(matcher, () => getValueFn(componentId)));
+        if (existingId !== undefined)
+            $bindary.unregisterValueHandler(existingId); // replace the handler registered on an earlier bind
+
+        this.#valueHandlers.set(componentId, $bindary.registerValueHandler(matcher, () => getValueFn(componentId)));
     }
 
     #traversePath = (obj, path, createMissing = false) =>

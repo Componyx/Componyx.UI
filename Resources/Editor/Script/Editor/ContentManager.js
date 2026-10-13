@@ -34,7 +34,6 @@ componyx.UI.editor_modules.ContentManager = class ContentManager
         this.editor.resizer.clear(true); // clear resizer to avoid including resizer elements in the source
         content.innerHTML = editableElement.innerHTML;
         this.cleanSource(content);
-        this.editor.table.clearAll(content, true);
 
         return content.innerHTML;
     }
@@ -408,7 +407,7 @@ componyx.UI.editor_modules.ContentManager = class ContentManager
             this.clearZeroWidth(contentEl);
 
         this.clearEmptyParagraph(contentEl);
-        this.editor.table.clearAll(contentEl);
+        this.editor.table.clearAll(contentEl, !!source);
         this.editor.paragraphButtons.destroy(contentEl);
 
         if (!source)
