@@ -1111,12 +1111,20 @@ componyx.UI.form_modules.Renderer = class Renderer
                     getValue = (element) =>
                     {
                         return this.#contentEditor.getValue(element);
+                    },
+                    setValue = (element, value) =>
+                    {
+                        if (this.#contentEditor.getValue(element) === value)
+                            return;
+
+                        const editableElement = this.#contentEditor.editableElements.find(item => item.id === element.id);
+                        this.#contentEditor.setValue(value, editableElement);
                     };
 
                 if (this.#valueHandlers[contentFieldEl.id])
                     $bindary.unregisterValueHandler(this.#valueHandlers[contentFieldEl.id]);
 
-                this.#valueHandlers[contentFieldEl.id] = $bindary.registerValueHandler(matcher, getValue);
+                this.#valueHandlers[contentFieldEl.id] = $bindary.registerValueHandler(matcher, getValue, setValue);
                 this.form.dataBinder.updateView(true);
 
                 if (callback)
@@ -1157,7 +1165,7 @@ componyx.UI.form_modules.Renderer = class Renderer
 
         this.#updateContentFieldSettings(field);
 
-        if (!this.form.isViewMode())
+        if (this.form.isBuildMode())
             contentFieldEl.contentEditable = true;
 
         return contentFieldEl;
