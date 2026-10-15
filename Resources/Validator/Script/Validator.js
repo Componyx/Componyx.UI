@@ -82,6 +82,7 @@
             _query = 'input,textarea,select,[contenteditable=true]',
             _nativeInputDataTypes = ['email', 'url', 'tel', 'number', 'date', 'time', 'range'],
             _container = null,
+            _generalErrorsElement,
             _create = Object.create,
             _attrBase =
             {
@@ -547,6 +548,17 @@
         }
 
         /** 
+        * Defines the template for an error that does not belong to a field (a general error) in the summary container. The template supports the below listed interpolations. Default value: {icon}{message}
+        * - {icon} This value will be replaced validation state icon.
+        * - {message} This value will be replaced with the validation message.
+        * @param {HTMLElement|HTMLElement[]|DocumentFragment|String} content The content of the template
+        */
+        this.setInvalidGeneralSummaryTemplate = function (content)
+        {
+            _instance.addTemplate('InvalidGeneralSummary', content);
+        }
+
+        /** 
         * Defines the template for an invalid field in the popup. The template supports the below listed interpolations. Default value: {icon}{fieldName}: {tooltipTrigger}{multiple}[ 1-{messageCount} ]{/multiple}{/tooltipTrigger} {message}
         * - {message} This value will be replaced with the validation message.
         * @param {HTMLElement|HTMLElement[]|DocumentFragment|String} content The content of the template
@@ -614,6 +626,9 @@
 
                     if (!_instance.hasTemplate('InvalidFieldSummary'))
                         _instance.addTemplate('InvalidFieldSummary', '{icon}{fieldName}: {tooltipTrigger}{multiple}[ 1-{messageCount} ]{/multiple}{/tooltipTrigger} {message}', true);
+
+                    if (!_instance.hasTemplate('InvalidGeneralSummary'))
+                        _instance.addTemplate('InvalidGeneralSummary', '{icon}{message}', true);
 
                     if (!_instance.hasTemplate('InvalidFieldPopup'))
                         _instance.addTemplate('InvalidFieldPopup', '{message}', true);
@@ -973,7 +988,7 @@
             if (!_fields)
                 return;
 
-            if (!fieldName.constructor || fieldName.constructor.toString().indexOf('Array') == -1)
+            if (!Array.isArray(fieldName))
                 fieldName = [fieldName];
 
             $lib.each(fieldName, function (name)
@@ -1063,6 +1078,9 @@
         */
         this.clearFeedback = function (container, keepForRemovedField)
         {
+            if (!container)
+                clearGeneralErrors();
+
             $lib.each(_fields, function (field, name)
             {
                 if (container && field.element && (document.contains(field.element) || keepForRemovedField) && !container.contains(field.element))
@@ -1108,8 +1126,22 @@
         */
         this.setFieldErrors = function (errors)
         {
+            _instance.clearFeedback();
+
             $lib.each(errors, function (msgs, fieldName)
             {
+                if (fieldName === '') // errors without a field are shown in the summary container, if configured
+                {
+                    const summaryContainer = (_instance.summaryContainerId) ? $lib('#' + _instance.summaryContainerId) : null;
+
+                    if (summaryContainer)
+                        setGeneralErrors(summaryContainer, Array.isArray(msgs) ? msgs : [msgs]);
+                    else
+                        console.warn('Validator.setFieldErrors: errors without a dedicated field are only shown when summaryContainerId is set.', msgs);
+
+                    return;
+                }
+
                 const fieldEl = getFieldByName(fieldName);
 
                 if (!fieldEl)
@@ -1127,8 +1159,6 @@
                 clearFieldFeedback(fieldName);
                 addFieldFeedback(fieldEl, _feedbackStatus.INVALID, fieldData.feedbackId, true, texts);
             });
-
-            _instance.events.onInvalid.fire(_instance);
         }
 
         /** 
@@ -1273,6 +1303,9 @@
 
         function validate(container, filledOnly, e)
         {
+            if (!container)
+                clearGeneralErrors();
+
             const shouldValidate = (el) =>
             {
                 if (!isVisible(el))
@@ -1972,8 +2005,11 @@
                 fieldData.lastMsg = msg;
                 fieldData.isValid = ajaxArgs.data.isValid;
 
-                if (!ajaxArgs.data.isValid && (!msg.constructor || msg.constructor.toString().indexOf('Array') == -1))
+                if (!ajaxArgs.data.isValid && !Array.isArray(msg))
                     msg = [msg];
+
+                if (Array.isArray(msg)) // rule types from the server: show the client's own message for that rule
+                    msg = msg.map(m => (typeof m === 'number') ? (fieldData[m]?.msg || settings.msg) : m);
 
                 if (settings.onAfterValidation)
                     getMethod(settings.onAfterValidation)(_instance, { field: field, fieldName: fieldName, fieldValue: fieldValue });
@@ -2040,6 +2076,29 @@
                 return val;
 
             return (val.length != 2) ? '0' + val : val;
+        }
+
+        function setGeneralErrors(summaryContainer, msgs)
+        {
+            const invalidCssClass = _instance.cssClassInvalid || _classOption.INVALID,
+                icon = $lib.format('<span class="{0}"></span>', _instance.cssClassIcon || _classOption.ICON),
+                summaryClass = (_instance.cssClassSummary || _classOption.SUMMARY).split(' ')[0],
+                firstSummaryList = Array.from(summaryContainer.children).find(el => el.nodeName === 'UL' && el.classList.contains(summaryClass));
+
+            _generalErrorsElement = document.createElement('ul');
+            addValidatorClass(_generalErrorsElement);
+            $lib.addClass(_generalErrorsElement, _instance.cssClassSummary || _classOption.SUMMARY);
+            summaryContainer.insertBefore(_generalErrorsElement, firstSummaryList || null); // above the field errors, below the container's own content
+
+            msgs.forEach(msg => createItem(_generalErrorsElement, invalidCssClass, 'InvalidGeneralSummary', { icon: icon, message: msg }));
+        }
+
+        function clearGeneralErrors()
+        {
+            if (_generalErrorsElement)
+                _generalErrorsElement.remove();
+
+            _generalErrorsElement = null;
         }
 
         function addFieldFeedback(fieldEl, status, feedbackId, summarise, msg)

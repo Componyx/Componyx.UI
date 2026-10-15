@@ -10,19 +10,18 @@ namespace Componyx.UI
 {
     /// <summary>
     /// Validates submitted values against a Form definition (the Form component's JSON), using each field's required flag and validation settings.
-    /// Works directly on the JSON, so no C# classes for the Form types are needed. Failed rules are reported as Validator rule types
-    /// (componyx.UI.Validator.TypeOption), so the client shows its own (localized) message for each rule.
+    /// Failed rules are reported as Validator rule types (componyx.UI.Validator.TypeOption), so the client shows its own (localized) message for each rule.
     /// </summary>
     public static class FormValidator
     {
         /// <summary>
         /// Validates the submitted form values against the form definition.
         /// </summary>
-        /// <param name="definitionJson">The form definition JSON (as stored by the Form component).</param>
-        /// <param name="valuesJson">The submitted form values JSON (the Form's values model: field binding keys, repeatable field sets as arrays keyed by the set's id).</param>
+        /// <param name="definitionJson">The form definition JSON.</param>
+        /// <param name="valuesJson">The submitted form values JSON. Fields are stored by name or binding key. A repeatable field set is stored as an object key, where the key is the field set id and the value is the array of repeated values.</param>
         /// <param name="isActive">Determines whether a field (JSON node) is validated (default: visible and not disabled).</param>
-        /// <returns>The failed rule types per value path (e.g. "email" or "fs_kids[1].childName"); empty when all values are valid.</returns>
-        public static Dictionary<string, List<int>> Validate(string definitionJson, string valuesJson, Func<JsonNode, bool> isActive = null)
+        /// <returns>The validation result with the failed rule types per value path.</returns>
+        public static FormValidationResult Validate(string definitionJson, string valuesJson, Func<JsonNode, bool> isActive = null)
         {
             JsonArray rootSets = JsonNode.Parse(definitionJson).AsArray(); // the root sections or field sets; throws when the definition is not an array
             JsonObject values = string.IsNullOrWhiteSpace(valuesJson) ? new JsonObject() : JsonNode.Parse(valuesJson).AsObject();
@@ -33,7 +32,7 @@ namespace Componyx.UI
                 isActive = field => Bool(field, "visible", true) && !Bool(field, "disabled");
 
             foreach (JsonNode node in rootSets)
-                Collect(node, null, values, values, string.Empty, entries, errors);
+                CollectFields(node, null, values, values, string.Empty, entries, errors);
 
             foreach (Entry entry in entries)
             {
@@ -48,14 +47,14 @@ namespace Componyx.UI
                     errors[entry.Path] = failedRules;
             }
 
-            return errors;
+            return new FormValidationResult(errors);
         }
 
         /// <summary>
         /// Collects all fields with the values scope they read from, mirroring the client: fields inside a repeatable field set
         /// read from that set's array item (keyed by the set's id), all other fields read from the root values.
         /// </summary>
-        private static void Collect(JsonNode node, JsonNode parent, JsonObject root, JsonNode scope, string prefix, List<Entry> entries, Dictionary<string, List<int>> errors)
+        private static void CollectFields(JsonNode node, JsonNode parent, JsonObject root, JsonNode scope, string prefix, List<Entry> entries, Dictionary<string, List<int>> errors)
         {
             if (node == null || Str(node, "repeatGroupId") != null) // clones of a repeated set are covered by the original's value array
                 return;
@@ -92,12 +91,12 @@ namespace Componyx.UI
                     JsonNode item = (index < items.Count) ? items[index] : null;
 
                     foreach (JsonNode field in Children(node, "fields"))
-                        Collect(field, node, root, item, id + "[" + index + "].", entries, errors);
+                        CollectFields(field, node, root, item, id + "[" + index + "].", entries, errors);
 
                     if (index == 0)
                     {
                         foreach (JsonNode set in Children(node, "fieldSets"))
-                            Collect(set, node, root, root, string.Empty, entries, errors);
+                            CollectFields(set, node, root, root, string.Empty, entries, errors);
                     }
                 }
 
@@ -105,7 +104,7 @@ namespace Componyx.UI
             }
 
             foreach (JsonNode child in Children(node, "fieldSets").Concat(Children(node, "fields")))
-                Collect(child, node, root, root, string.Empty, entries, errors);
+                CollectFields(child, node, root, root, string.Empty, entries, errors);
         }
 
         private static List<int> ValidateField(Entry entry, Entry compareEntry)

@@ -24,7 +24,7 @@ namespace Componyx.UI
         /// <param name="value">The value to validate, as an invariant string or an already typed value.</param>
         /// <param name="invalidValueMessage">The message added when the value cannot be converted to the property type (optional).</param>
         /// <returns>The validation result with the messages of the failed attributes.</returns>
-        public static ValueValidationResult ValidateProperty<T>(string propertyPath, object value, string invalidValueMessage = null)
+        public static FieldValidationResult ValidateProperty<T>(string propertyPath, object value, string invalidValueMessage = null)
         {
             PropertyInfo prop = FindProperty(typeof(T), propertyPath);
 
@@ -48,9 +48,9 @@ namespace Componyx.UI
         /// <param name="invalidValueMessage">The message added when the value cannot be converted to the value type (optional).</param>
         /// <param name="instance">The object passed to the validation context (optional).</param>
         /// <returns>The validation result with the messages of the failed attributes.</returns>
-        public static ValueValidationResult ValidateValue(object value, Type valueType, string displayName, IEnumerable<ValidationAttribute> attributes, string invalidValueMessage = null, object instance = null)
+        public static FieldValidationResult ValidateValue(object value, Type valueType, string displayName, IEnumerable<ValidationAttribute> attributes, string invalidValueMessage = null, object instance = null)
         {
-            var result = new ValueValidationResult();
+            var result = new FieldValidationResult();
 
             if (!TryConvert(value, valueType, out object typedValue))
             {
@@ -82,15 +82,15 @@ namespace Componyx.UI
         /// Validates a complete object, including nested models and collections of models declared in the same assembly.
         /// </summary>
         /// <param name="model">The object to validate.</param>
-        /// <returns>The error messages per property path (e.g. "Address.Street"); empty when the object is valid. Key "" holds object-level errors.</returns>
-        public static Dictionary<string, List<string>> ValidateObject(object model)
+        /// <returns>The validation result with the messages per property path (e.g. "Address.Street").</returns>
+        public static ObjectValidationResult ValidateObject(object model)
         {
             ArgumentNullException.ThrowIfNull(model);
 
             var errors = new Dictionary<string, List<string>>();
             ValidateObject(model, string.Empty, model.GetType().Assembly, errors);
 
-            return errors;
+            return new ObjectValidationResult(errors);
         }
 
         private static void ValidateObject(object model, string prefix, Assembly modelAssembly, Dictionary<string, List<string>> errors)
@@ -102,7 +102,7 @@ namespace Componyx.UI
             {
                 foreach (string member in result.MemberNames.DefaultIfEmpty(string.Empty))
                 {
-                    string key = (member.Length > 0) ? prefix + member : prefix.TrimEnd('.');
+                    string key = (member.Length > 0) ? prefix + member : string.Empty; // errors without a matching property are shown in the validator summary
 
                     if (!errors.TryGetValue(key, out List<string> list))
                         errors[key] = list = new List<string>();
@@ -125,18 +125,18 @@ namespace Componyx.UI
 
                     foreach (object item in items)
                     {
-                        if (IsModel(item, modelAssembly))
+                        if (InAssembly(item, modelAssembly))
                             ValidateObject(item, $"{prefix}{prop.Name}[{index}].", modelAssembly, errors);
 
                         index++;
                     }
                 }
-                else if (IsModel(value, modelAssembly))
+                else if (InAssembly(value, modelAssembly))
                     ValidateObject(value, $"{prefix}{prop.Name}.", modelAssembly, errors);
             }
         }
 
-        private static bool IsModel(object value, Assembly modelAssembly)
+        private static bool InAssembly(object value, Assembly modelAssembly)
         {
             return value != null && value.GetType().Assembly == modelAssembly;
         }
@@ -195,21 +195,5 @@ namespace Componyx.UI
                 return false;
             }
         }
-    }
-
-    /// <summary>
-    /// The result of validating a single value with the ModelValidator.
-    /// </summary>
-    public class ValueValidationResult
-    {
-        /// <summary>
-        /// Gets or sets a value indicating whether the value is valid.
-        /// </summary>
-        public bool IsValid { get; set; } = true;
-
-        /// <summary>
-        /// Gets the messages of the failed validation attributes (empty when no message is available).
-        /// </summary>
-        public List<string> Msg { get; } = new List<string>();
     }
 }
