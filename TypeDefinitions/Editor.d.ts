@@ -1165,7 +1165,16 @@ declare namespace componyx
             activateDocument(): void;
             /** <p>Deactivates the current document (resets $lib.document to window.document).</p> */
             deactivateDocument(): void;
-
+            /**
+             * <p>Activates the editor for the editable element and shows the toolbar.</p>
+             * @param element - <p>The editable element.</p>
+             */
+            activate(element: HTMLElement): void;
+            /**
+             * <p>Deactivates the editor and hides the toolbar.</p>
+             * @param element - <p>The editable element.</p>
+             */
+            deactivate(element: HTMLElement): void;
             /**
              * <p>Sets the link dialog content template. Available placeholders: {href}, {text}, {title}, {target}.</p>
              * @param content - <p>The HTML template.</p>

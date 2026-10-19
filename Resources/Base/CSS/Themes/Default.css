@@ -221,14 +221,9 @@
         {
             background-color: var(--cui-negative-bg-color);
         }
-    /* list item */
-    tr > td
-    {
-        background: var(--cui-color-surface);
-    }
 
-    li.item.odd,
-    tr.odd > td
+    /* list item */
+    li.item.odd
     {
         background: var(--cui-item-odd-bg-color);
     }

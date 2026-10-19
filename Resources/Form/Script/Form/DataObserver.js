@@ -175,7 +175,9 @@ componyx.UI.form_modules.DataObserver = class DataObserver
 
         if (this.#shouldIgnoreChange(keyParts) || !templateItem)
         {
-            this.form.scheduleSave(); // we still need to save this change (e.g. conditional rule updates)
+            if (keyParts.at(-1) !== 'selected')
+                this.form.scheduleSave(); // we still need to save this change (e.g. conditional rule updates)
+
             return; // Skip processing
         }
 

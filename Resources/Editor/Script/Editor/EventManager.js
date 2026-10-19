@@ -73,38 +73,12 @@ componyx.UI.editor_modules.EventManager = class EventManager
 
     focus(e)
     {
-        if (!this.editor.setActiveEditor(e.target))
-            return;
-
-        this.editor.activateDocument();
-        this.editor.cancelSelectionChange = false;
-
-        if (!this.editor.contentManager.hasContent())
-            this.editor.contentManager.insertParagraph();
-
-        if (!this.editor.hasEditables())
-            this.editor.element.classList.add(this.editor.getCssClass(this.editor.classOption.FOCUS));
-
-        this.editor.setToolbarBoxDisplay();
-        this.editor.layoutState.resetActiveModes();
+        this.editor.activate(e.target);
     }
 
     blur(e)
     {
-        if (this.editor.allowToolbarBoxHide)
-        {
-            const editorEl = this.editor.getActiveEditor(e.target);
-
-            if (editorEl)
-                this.editor.contentManager.clearEmptyParagraph(editorEl);
-        }
-
-        if (!this.editor.hasEditables())
-            this.editor.element.classList.remove(this.editor.getCssClass(this.editor.classOption.FOCUS));
-
-        this.editor.deactivateDocument();
-        this.editor.setToolbarBoxDisplay(false);
-        this.editor.cancelSelectionChange = true;
+        this.editor.deactivate(e.target);
     }
 
     selectionChange(e)

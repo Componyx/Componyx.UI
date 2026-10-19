@@ -1,6 +1,16 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 .grid.theme.theme-default
 {
+    tr > td
+    {
+        background: var(--cui-color-surface);
+    }
+
+    tr.odd > td
+    {
+        background: var(--cui-item-odd-bg-color);
+    }
+
     > div.header
     {
         > div:first-child

@@ -700,7 +700,7 @@ componyx.UI.form_modules.Renderer = class Renderer
         if (field.type === 'ContentField' && this.#contentEditor)
         {
             const contentId = this.form.getId(field, 'content'),
-                index = this.#contentEditor.editableElements.findIndex(item => item.id === contentId);
+                index = this.#contentEditor.editableElements.findIndex(item => item.element.id === contentId);
 
             if (index !== -1)
             {
@@ -1117,8 +1117,8 @@ componyx.UI.form_modules.Renderer = class Renderer
                         if (this.#contentEditor.getValue(element) === value)
                             return;
 
-                        const editableElement = this.#contentEditor.editableElements.find(item => item.id === element.id);
-                        this.#contentEditor.setValue(value, editableElement);
+                        const editableElement = this.#contentEditor.editableElements.find(item => item.element.id === element.id);
+                        this.#contentEditor.setValue(value, editableElement.element);
                     };
 
                 if (this.#valueHandlers[contentFieldEl.id])
@@ -1772,14 +1772,18 @@ componyx.UI.form_modules.Renderer = class Renderer
             return;
 
         const contentId = this.form.getId(field, 'content'),
-            index = component.editableElements.findIndex(item => item.id === contentId);
+            editable = component.editableElements.find(item => item.element.id === contentId);
 
-        if (index !== -1)
-        {
-            const currentValue = component.getValue();
-            if (currentValue !== field.value)
-                component.setValue(field.value, component.editableElements[index]);
-        }
+        if (!editable)
+            return;
+
+        if (component.getValue(editable.element) !== field.value)
+            component.setValue(field.value, editable.element);
+
+        const isSelected = (this.form.selectedFieldId === field.id || field.selected);
+
+        if (isSelected && editable.element.contains(document.activeElement))
+            component.activate(editable.element);
     }
 
     #updateComponentValue(field)

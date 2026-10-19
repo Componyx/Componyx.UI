@@ -1468,6 +1468,50 @@
         }
 
         /**
+        * Activates the editor for the editable element and shows the toolbar.
+        * @param {HTMLElement} element The editable element.
+        */
+        this.activate = function (element)
+        {
+            if (!_instance.setActiveEditor(element))
+                return;
+
+            _instance.activateDocument();
+            _instance.cancelSelectionChange = false;
+
+            if (!_instance.contentManager.hasContent())
+                _instance.contentManager.insertParagraph();
+
+            if (!_instance.hasEditables())
+                _instance.element.classList.add(_instance.getCssClass(_instance.classOption.FOCUS));
+
+            _instance.setToolbarBoxDisplay();
+            _instance.layoutState.resetActiveModes();
+        }
+
+        /**
+         * Deactivates the editor and hides the toolbar.
+         * @param {HTMLElement} element The editable element.
+         */
+        this.deactivate = function (element)
+        {
+            if (_instance.allowToolbarBoxHide)
+            {
+                const editorEl = _instance.getActiveEditor(element);
+
+                if (editorEl)
+                    _instance.contentManager.clearEmptyParagraph(editorEl);
+            }
+
+            if (!_instance.hasEditables())
+                _instance.element.classList.remove(_instance.getCssClass(_instance.classOption.FOCUS));
+
+            _instance.deactivateDocument();
+            _instance.setToolbarBoxDisplay(false);
+            _instance.cancelSelectionChange = true;
+        }
+
+        /**
          * Binds events for selectable elements within a node.
          * @param {Node} node - The node whose child elements will receive events.
          * @ignore

@@ -344,6 +344,7 @@
                 cursor: text;
                 border-style: solid;
                 border-width: 1px;
+                outline: none;
             }
         }
 
