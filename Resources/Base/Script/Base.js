@@ -893,6 +893,9 @@ componyx.UI.base = {};
             {
                 var c = $UI.elementStore.get(el);
 
+                if (c && $lib.isElement(c) && (c.renderWhenConnected || c === el) && c.renderState) // live webcomponent, skipped in create as well
+                    return;
+
                 if (c && (c.inputId || c.hiddenInputId) && overwrite)
                     inputList.push(c);
             };
@@ -1013,7 +1016,7 @@ componyx.UI.base = {};
 
                 if ($lib.isElement(obj))
                 {
-                    if (obj.renderWhenConnected && obj.renderState) // standard webcomponent type
+                    if ((obj.renderWhenConnected || obj === el) && obj.renderState) // standard webcomponent type, already live
                     {
                         delete el.__uiDetected;
                         return;
