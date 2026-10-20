@@ -259,7 +259,8 @@ componyx.UI.form_modules.RuleEngine = class RuleEngine
                                 runtime = this.form.runtimeActions[action.runtimeActionId];
 
                             this.#storeFieldState(currentField, action);
-                            const result = await this.form.executeAction(action, target); // await confirmation if mustAwait
+                            const result = runtime?.mustAwait ? await this.form.executeAction(action, target) : this.form.executeAction(action, target);
+
 
                             if (runtime?.mustAwait && result && result.success === false)
                                 break; // skip remaining actions in this ruleCase
