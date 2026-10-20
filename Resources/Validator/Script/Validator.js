@@ -1279,7 +1279,7 @@
                     value = fieldEl.value;
             }
             else if (fieldEl.nodeName.toLowerCase() == 'select')
-                value = fieldEl.options[fieldEl.selectedIndex].value;
+                value = fieldEl.value; // the value of the first selected option, or '' when nothing is selected
             else // content-editable
             {
                 let grab = field.getValue;
@@ -1710,7 +1710,7 @@
                         }
                     case _dataTypeOption.EMAIL:
                         {
-                            valid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(value);
+                            valid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
                             break;
                         }
                     case _dataTypeOption.URL:
@@ -1779,16 +1779,16 @@
                 }
                 else if (dataType == _dataTypeOption.INTEGER || dataType == _dataTypeOption.FLOAT)
                 {
-                    var number = value.replace(_instance.decimalSeparator, '.');
+                    var number = normalizeValue(value, dataType); // removes group separators, '.' as decimal separator
 
                     valid = (!isNaN(number));
 
                     if (valid)
                     {
-                        if (!isNaN(settings.min))
+                        if (!$lib.isEmpty(settings.min))
                             valid = parseFloat(number) >= parseFloat(settings.min);
 
-                        if (valid && !isNaN(settings.max))
+                        if (valid && !$lib.isEmpty(settings.max))
                             valid = parseFloat(number) <= parseFloat(settings.max);
                     }
                 }
@@ -1836,7 +1836,8 @@
                 const f = fields[i],
                     operator = operators[i] || operators[0] || '==';
 
-                let compareValue;
+                let compareValue,
+                    fieldValue = value; // converted per comparison, so value stays the original for the next field
 
                 if (f instanceof HTMLElement)
                 {
@@ -1854,13 +1855,13 @@
                 // convert types
                 if (dataType === _dataTypeOption.INTEGER || dataType === _dataTypeOption.FLOAT)
                 {
-                    const v1 = parseFloat(value.replace(_instance.decimalSeparator, '.')),
-                        v2 = parseFloat(compareValue.replace(_instance.decimalSeparator, '.'));
+                    const v1 = parseFloat(normalizeValue(value, dataType)),
+                        v2 = parseFloat(normalizeValue(compareValue, dataType));
 
                     if (isNaN(v1) || isNaN(v2))
                         return addMsg(settings, msg, false);
 
-                    value = v1;
+                    fieldValue = v1;
                     compareValue = v2;
                 } else if (dataType === _dataTypeOption.DATETIME)
                 {
@@ -1871,19 +1872,19 @@
                     if (!d1 || !d2)
                         return addMsg(settings, msg, false);
 
-                    value = comparableDate(d1);
+                    fieldValue = comparableDate(d1);
                     compareValue = comparableDate(d2);
                 }
 
                 // compare
                 switch (operator)
                 {
-                    case '<': valid = value < compareValue; break;
-                    case '<=': valid = value <= compareValue; break;
-                    case '>=': valid = value >= compareValue; break;
-                    case '>': valid = value > compareValue; break;
-                    case '!=': valid = value != compareValue; break;
-                    default: valid = value == compareValue;
+                    case '<': valid = fieldValue < compareValue; break;
+                    case '<=': valid = fieldValue <= compareValue; break;
+                    case '>=': valid = fieldValue >= compareValue; break;
+                    case '>': valid = fieldValue > compareValue; break;
+                    case '!=': valid = fieldValue != compareValue; break;
+                    default: valid = fieldValue == compareValue;
                 }
 
                 if (!valid) break;
@@ -1987,7 +1988,7 @@
             fieldData.lastValue = fieldData.lastMsg = null;
             fieldData.isValid = false;
             fieldData.silent = false;
-            msg = _instance.ajaxErrorMessage;
+            msg = $lib.isEmpty(_instance.ajaxErrorMessage) ? [] : [_instance.ajaxErrorMessage]; // an empty list shows the invalidFieldMessage
 
             if (data && data.validationFields)
             {
@@ -2015,8 +2016,8 @@
                     getMethod(settings.onAfterValidation)(_instance, { field: field, fieldName: fieldName, fieldValue: fieldValue });
             }
 
+            delete _ajaxFields[fieldName]; // before completing, so the last finished ajax field completes the form validation
             validateFieldComplete(field, summarise, msg, true);
-            delete _ajaxFields[fieldName];
 
             if (cached && cached.length)
                 cached.forEach((callback) => callback());
