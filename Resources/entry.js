@@ -69,6 +69,7 @@ import "C:/Users/edaan/source/repos/componyx.ui/Resources/Menu/Script/Menu.min.j
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/NumericBox/Script/NumericBox.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/PanelBar/Script/PanelBar.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/PieChart/Script/PieChart.min.js";
+import "C:/Users/edaan/source/repos/componyx.ui/Resources/SignaturePad/Script/SignaturePad.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Slider/Script/Slider.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/TabStrip/Script/TabStrip.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/TimePicker/Script/TimePicker.min.js";
