@@ -157,7 +157,7 @@
          * Gets or sets the URL of the icon.
          * @type {String|null}
          */
-        this.iconUrl = null;
+        this.iconURL = null;
 
         /**
          * Gets or sets the size option.
@@ -844,8 +844,9 @@
                         toggleSelect();
 
                     _isKeyboardNavigation = true;
-                    return commandClick();
+                    let returnValue = commandClick();
                     _isKeyboardNavigation = false;
+                    return returnValue;
                 }
             });
 
@@ -1179,7 +1180,7 @@
     componyx.UI.Button.ShortcutManager = (() =>
     {
         const shortcutButtons = new Map(),
-            isMac = navigator.userAgent.toLowerCase().includes('Mac');
+            isMac = navigator.userAgent.toLowerCase().includes('mac');
 
         /**
          * Build a normalized key combo string from a KeyboardEvent.
@@ -1293,7 +1294,7 @@
              */
             unregisterButton(button)
             {
-                if (!button.key)
+                if (!button.shortcutKey)
                     return;
 
                 let key = button.shortcutKey.toLowerCase(),

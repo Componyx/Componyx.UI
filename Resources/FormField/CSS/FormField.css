@@ -226,7 +226,7 @@
     {
         font-family: 'UI';
         font-size: 10px;
-        content: "\e917";
+        content: var(--cui-ico-star);
         margin-right: 6px;
     }
 
@@ -413,7 +413,7 @@
 
     .form-field.theme.switch > input[type="checkbox"]:checked ~ b::before
     {
-        content: '\e90b';
+        content: var(--cui-ico-check);
         left: 16px;
     }
 

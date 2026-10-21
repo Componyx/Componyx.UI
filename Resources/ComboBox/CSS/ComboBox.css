@@ -134,7 +134,7 @@
 
             > span.icon::after
             {
-                content: '\e90a';
+                content: var(--cui-ico-cross);
             }
         }
 
@@ -180,7 +180,7 @@
     /* clear icon */
     .button.theme.clear > span.icon::after
     {
-        content: '\e90a';
+        content: var(--cui-ico-cross);
     }
     /* dataPager */
     .data-pager.theme
@@ -296,7 +296,7 @@
 
     &.multi li.selected span.checkbox::after
     {
-        content: '\e90b';
+        content: var(--cui-ico-check);
     }
 
     div.header

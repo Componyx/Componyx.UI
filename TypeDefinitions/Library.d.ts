@@ -1317,29 +1317,39 @@ declare namespace componyx
          */
         static keepAlive(src: string, delay: number): (...params: any[]) => any;
         /**
-         * <p>Creates a new HTMLElement.</p>
-         * @example
-         * // Traditional usage (positional arguments)
-        $.element(container, before, 'div', 'Hello', { id: 'greeting' }, { className: 'text' });
-         * @example
-         * // Using a settings object (all parameters are optional and can be selectively provided)
-        $.element({
-          container: container,
-          before: before,
-          tagName: 'div',
-          content: 'Hello',
-          attrs: { id: 'greeting' },
-          props: { className: 'text' }
-        });
+         * <p>* Creates a new HTMLElement or an SVG element when isSvg is true.</p>
+        * @example
+        * // Traditional usage (positional arguments)
+        * $.element(container, before, 'div', 'Hello', { id: 'greeting' }, { className: 'text' });
+        * @example
+        * // Using a settings object (all parameters are optional and can be selectively provided)
+        * $.element({
+        *   container: container,
+        *   before: before,
+        *   tag: 'div',
+        *   content: 'Hello',
+        *   attrs: { id: 'greeting' },
+        *   props: { className: 'text' }
+        * });
+        * @example
+        * // Creating an SVG element
+        * $.element({
+        *   container: container,
+        *   tag: 'svg',
+        *   isSvg: true,
+        *   attrs: { class: 'drawing', viewBox: '0 0 300 100' }
+        * });
          * @param [container] - <p>The container element to append the new element to, or a settings object holding the properties to configure element creation.</p>
          * @param [before] - <p>The element to insert before (if using positional parameters).</p>
          * @param [tag = 'div'] - <p>The tag name for the new element.</p>
          * @param [content] - <p>The content of the new element. String[] is treated as HTML.</p>
          * @param [attrs] - <p>Attributes to set on the element.</p>
          * @param [props] - <p>Properties to set on the element.</p>
+         * @param [isSvg] A value indicating if an SVG element (svg, path, circle, etc.) should be created.
+         * Note: on SVG elements, set the CSS class via attrs ({ class: '...' }), because the className property of SVG elements is read-only.
          * @returns <p>The created element.</p>
          */
-        static element(container?: HTMLElement | any, before?: HTMLElement, tag?: string, content?: Node[] | Node | string | String[], attrs?: any, props?: any): HTMLElement;
+        static element(container?: HTMLElement | any, before?: HTMLElement, tag?: string, content?: Node[] | Node | string | String[], attrs?: any, props?: any, isSvg?: boolean): HTMLElement;
         /**
          * <p>Gets the common ancestor for 2 nodes.</p>
          * @param firstNode - <p>The first node.</p>

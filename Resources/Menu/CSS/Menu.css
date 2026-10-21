@@ -236,12 +236,12 @@
         /* check/radio icon */
         &.check.selected span.icon::before
         {
-            content: '\e90b';
+            content: var(--cui-ico-check);
         }
 
         &.radio.selected span.icon::before
         {
-            content: '\e90c';
+            content: var(--cui-ico-radio);
         }
 
         /* arrow icon */

@@ -97,7 +97,7 @@
     .dialog.theme .box.dialog-box .button.theme.close span.icon::after
     {
         font-family: 'UI';
-        content: '\e90a';
+        content: var(--cui-ico-cross);
     }
 
     .dialog.theme .box.dialog-box

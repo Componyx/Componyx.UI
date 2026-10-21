@@ -6447,36 +6447,49 @@ globalThis.CMP = globalThis.componyx;
     }
 
     /**
-     * Creates a new HTMLElement.
-     * @param {HTMLElement|Object} [container] The container element to append the new element to, or a settings object holding the properties to configure element creation.
-     * @param {HTMLElement} [before] The element to insert before (if using positional parameters).
-     * @param {String} [tag='div'] The tag name for the new element.
-     * @param {Node[]|Node|String|String[]} [content] The content of the new element. String[] is treated as HTML.
-     * @param {Object} [attrs] Attributes to set on the element.
-     * @param {Object} [props] Properties to set on the element.
-     * @returns {HTMLElement} The created element.
-     * @example
-     * // Traditional usage (positional arguments)
-     * $.element(container, before, 'div', 'Hello', { id: 'greeting' }, { className: 'text' });
-     * @example
-     * // Using a settings object (all parameters are optional and can be selectively provided)
-     * $.element({
-     *   container: container,
-     *   before: before,
-     *   tagName: 'div',
-     *   content: 'Hello',
-     *   attrs: { id: 'greeting' },
-     *   props: { className: 'text' }
-     * });
-     */
-    $.element = function (container, before, tag, content, attrs, props)
+    * Creates a new HTMLElement or an SVG element when isSvg is true.
+    * @param {HTMLElement|Object} [container] The container element to append the new element to, or a settings object holding the properties to configure element creation.
+    * @param {HTMLElement} [before] The element to insert before (if using positional parameters).
+    * @param {String} [tag='div'] The tag name for the new element.
+    * @param {Node[]|Node|String|String[]} [content] The content of the new element. String[] is treated as HTML.
+    * @param {Object} [attrs] Attributes to set on the element.
+    * @param {Object} [props] Properties to set on the element.
+    * @param {Boolean} [isSvg=false] A value indicating if an SVG element (svg, path, circle, etc.) should be created.
+    * Note: on SVG elements, set the CSS class via attrs ({ class: '...' }), because the className property of SVG elements is read-only.
+    * @returns {Element} The created element.
+    * @example
+    * // Traditional usage (positional arguments)
+    * $.element(container, before, 'div', 'Hello', { id: 'greeting' }, { className: 'text' });
+    * @example
+    * // Using a settings object (all parameters are optional and can be selectively provided)
+    * $.element({
+    *   container: container,
+    *   before: before,
+    *   tag: 'div',
+    *   content: 'Hello',
+    *   attrs: { id: 'greeting' },
+    *   props: { className: 'text' }
+    * });
+    * @example
+    * // Creating an SVG element
+    * $.element({
+    *   container: container,
+    *   tag: 'svg',
+    *   isSvg: true,
+    *   attrs: { class: 'drawing', viewBox: '0 0 300 100' }
+    * });
+    */
+    $.element = function (container, before, tag, content, attrs, props, isSvg)
     {
         if (arguments.length === 1 && $.isPlainObject(container))
         {
-            ({ container, before, tag, content, attrs, props } = container);
+            ({ container, before, tag, content, attrs, props, isSvg } = container);
         }
 
-        let el = $.getDocument().createElement(tag || 'div');
+        // SVG elements must be created in the SVG namespace, otherwise the browser treats them as unknown HTML elements and draws nothing
+        let el = isSvg
+            ? $.getDocument().createElementNS('http://www.w3.org/2000/svg', tag)
+            : $.getDocument().createElement(tag || 'div');
 
         if (before)
             before.parentElement.insertBefore(el, before);

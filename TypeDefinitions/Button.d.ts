@@ -173,7 +173,7 @@ declare namespace componyx
             /**
              * <p>Gets or sets the URL of the icon.</p>
             */
-            iconUrl: string | null;
+            iconURL: string | null;
             /**
              * <p>Gets or sets the size option.</p>
             */

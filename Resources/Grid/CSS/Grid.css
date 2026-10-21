@@ -536,7 +536,7 @@
     & tr > th span.checkbox.selected::after,
     & tr.selected span.checkbox::after
     {
-        content: '\e90b';
+        content: var(--cui-ico-check);
     }
     /* item */
     & div.content.selectable table tr

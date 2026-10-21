@@ -40,12 +40,12 @@
 
         .validator.theme > li span.icon::after
         {
-            content: '\e90b';
+            content: var(--cui-ico-check);
         }
 
     .validator.theme.invalid > li span.icon::after
     {
-        content: '\e90a';
+        content: var(--cui-ico-cross);
     }
 
     .validator.theme.validating > li span.icon
