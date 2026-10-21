@@ -11,7 +11,9 @@
   "copyToEsm": [
     "../README.md",
     "../LICENSE",
-    "../componyx.html-data.json"
+    "../componyx.html-data.json",
+    "../NodeBackend"
+
   ],
   "scriptOrder": [ "Library.js", "Base.js", "UIResourcePath.js", "ResponsiveTemplates.js", "NavigationManager.js", "Sanitizer.js" ],
   "moduleFolders": {
