@@ -113,16 +113,18 @@ declare namespace componyx
             /**
              * Events attached to the component.
              */
-            events: componyx.UI.base.Events<componyx.UI.SignaturePad> & componyx.UI.SignaturePad.SignaturePadEvents;
+            events: componyx.UI.SignaturePad.SignaturePadEvents;
         }
         namespace SignaturePad
         {
-            /**
-             * @property onChanged - Fires when the signature has changed (after drawing a line or clearing).
-             */
-            type SignaturePadEvents = {
-                onChanged: componyx.UI.base.Event<componyx.UI.SignaturePad>;
-            };
+            class SignaturePadEvents extends componyx.UI.base.Events<componyx.UI.SignaturePad>
+            {
+                constructor();
+                /**
+                  * Event which fires when the signature has changed (after drawing a line or clearing).
+                */
+                onChanged: componyx.UI.base.Event<componyx.UI.SignaturePad, componyx.UI.SignaturePadEventArgs>;
+            }
             /**
              * The event arguments of onChanged.
              * @property value - The current value (SVG markup, or an empty string when there is no signature).

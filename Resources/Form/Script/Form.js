@@ -4009,7 +4009,7 @@
                 panelBar.hidePanel('ComponentPanel');
 
             if (!validationPanel)
-                panelBar.hidePanel('ComponentPanel');
+                panelBar.hidePanel('ValidationPanel');
 
             if (!isActive) // render panel content
             {

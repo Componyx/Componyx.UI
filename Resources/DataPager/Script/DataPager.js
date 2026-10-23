@@ -165,8 +165,8 @@
          * @class
          * @augments componyx.UI.base.Events
          * @memberof componyx.UI.DataPager
-         * @property {componyx.UI.base.Event} onFocus        - Event which fires when the datapager is focused.
-         * @property {componyx.UI.base.Event} onBlur         - Event which fires when the datapager is blurred.
+         * @property {componyx.UI.base.Event} onFocus        - Event which fires when the component is focused. @see {@link componyx.UI.base.EventArgs}
+         * @property {componyx.UI.base.Event} onBlur         - Event which fires when the component is blurred. @see {@link componyx.UI.base.EventArgs}
          * @property {componyx.UI.base.Event} onIndexChange  - Event which fires on a page index change. @see {@link componyx.UI.DataPager.IndexChangeEventArgs}
          * @see {@link componyx.UI.base.Events}
          */

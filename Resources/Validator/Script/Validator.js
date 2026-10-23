@@ -871,7 +871,7 @@
                 {
                     let fieldEls = [fieldEl];
 
-                    if (fieldEl.type == 'radio')
+                    if (fieldEl.type == 'radio' || fieldEl.type == 'checkbox')
                         fieldEls = getGroupFields(fieldEl);
 
                     if (type === _typeOption.COMPARE && settings.fields) // make sure original field gets validated
@@ -882,7 +882,7 @@
 
                             if (cfEl && fieldEls.indexOf(cfEl) === -1)
                             {
-                                if (cfEl.type == 'radio')
+                                if (cfEl.type == 'radio' || cfEl.type == 'checkbox')
                                     fieldEls = fieldEls.concat(getGroupFields(cfEl));
                                 else
                                     fieldEls.push(cfEl);
@@ -1649,24 +1649,10 @@
                 if (settings.when && !isRequired(settings.when, fieldEl))
                     return true;
 
-                if (fieldEl.type == 'checkbox')
-                    valid = fieldEl.checked;
-                else if (fieldEl.type == 'radio')
-                {
-                    let fields = getGroupFields(fieldEl);
-                    $lib.each(fields, function (fld)
-                    {
-                        if (fld.checked)
-                        {
-                            valid = true;
-                            return false;
-                        }
-                    });
-                }
+                if (fieldEl.type == 'radio' || fieldEl.type == 'checkbox')
+                    valid = getGroupFields(fieldEl).some(fld => fld.checked);
                 else
-                {
                     valid = !$lib.isEmpty(getFieldValue(fieldEl));
-                }
             }
 
             if (!valid && !$lib.isEmpty(settings.msg))
@@ -2467,7 +2453,7 @@
             if (!fieldEl)
                 return;
 
-            if (fieldEl.type == 'radio')
+            if (fieldEl.type == 'radio' || fieldEl.type == 'checkbox')
                 fieldEls = getGroupFields(fieldEl);
 
             $lib.each(fieldEls, function (fld)

@@ -391,7 +391,6 @@
             this.#clearButton.cssClass = this.#clearButton.cssClass || this.#getCssClass(this.classOption.CLEAR);
             this.#clearButton.command = (e) => this.#clearCommand(e);
             this.#clearButton.disabled = this.#disabled || this.#readOnly || this.isEmpty();
-            this.#clearButton.delegateFocusEvents(this);
             this.#clearButton.events.onPostRender.priorityAdd(() => { this.isReady(); }, null);
             this.#clearButton.showing = true;
         }
