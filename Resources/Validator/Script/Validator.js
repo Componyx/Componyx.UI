@@ -872,7 +872,7 @@
                     let fieldEls = [fieldEl];
 
                     if (fieldEl.type == 'radio')
-                        fieldEls = getRadioFields(fieldEl);
+                        fieldEls = getGroupFields(fieldEl);
 
                     if (type === _typeOption.COMPARE && settings.fields) // make sure original field gets validated
                     {
@@ -883,7 +883,7 @@
                             if (cfEl && fieldEls.indexOf(cfEl) === -1)
                             {
                                 if (cfEl.type == 'radio')
-                                    fieldEls = fieldEls.concat(getRadioFields(cfEl));
+                                    fieldEls = fieldEls.concat(getGroupFields(cfEl));
                                 else
                                     fieldEls.push(cfEl);
                             }
@@ -1227,17 +1227,17 @@
             }, _container || getForm(), '*', true);
         }
 
-        function getRadioFields(el)
+        function getGroupFields(el)
         {
             let name = getFieldName(el),
                 root = getForm() || document,
-                radios = root.querySelectorAll('input[type="radio"]'),
+                inputs = root.querySelectorAll('input[type="' + el.type + '"]'),
                 fields = [];
 
-            $lib.each(radios, function (r)
+            $lib.each(inputs, function (input)
             {
-                if (name == getFieldName(r))
-                    fields.push(r);
+                if (name == getFieldName(input))
+                    fields.push(input);
             });
 
             return fields;
@@ -1264,7 +1264,7 @@
             {
                 if (fieldEl.type == 'radio')
                 {
-                    let fields = getRadioFields(fieldEl);
+                    let fields = getGroupFields(fieldEl);
 
                     $lib.each(fields, function (el)
                     {
@@ -1274,6 +1274,11 @@
                             return false;
                         }
                     });
+                }
+                else if (fieldEl.type == 'checkbox')
+                {
+                    let fields = getGroupFields(fieldEl);
+                    value = (fields.length > 1) ? fields.filter(el => el.checked).map(el => el.value) : fieldEl.value; // a checkbox group returns its checked values
                 }
                 else
                     value = fieldEl.value;
@@ -1648,7 +1653,7 @@
                     valid = fieldEl.checked;
                 else if (fieldEl.type == 'radio')
                 {
-                    let fields = getRadioFields(fieldEl);
+                    let fields = getGroupFields(fieldEl);
                     $lib.each(fields, function (fld)
                     {
                         if (fld.checked)
@@ -2463,7 +2468,7 @@
                 return;
 
             if (fieldEl.type == 'radio')
-                fieldEls = getRadioFields(fieldEl);
+                fieldEls = getGroupFields(fieldEl);
 
             $lib.each(fieldEls, function (fld)
             {

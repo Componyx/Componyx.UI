@@ -123,8 +123,17 @@ namespace Componyx.UI
                 return failed;
             }
 
-            if (text == null) // multi-value field (list): only required applies
+            int minLength = Int(settings, "minLength") ?? 0, maxLength = Int(settings, "maxLength") ?? 0; // 0 means not set, like the client
+
+            if (text == null) // multi-value field (list): only required and length (the number of selected values) apply
+            {
+                int count = ((JsonArray)entry.Value).Count;
+
+                if ((minLength > 0 && count < minLength) || (maxLength > 0 && count > maxLength))
+                    failed.Add(RuleLength);
+
                 return failed;
+            }
 
             Type valueType = GetValueType(dataType);
 
@@ -136,8 +145,6 @@ namespace Componyx.UI
 
             if ((dataType == DataTypeEmail && !new EmailAddressAttribute().IsValid(text)) || (dataType == DataTypeUrl && !new UrlAttribute().IsValid(text)))
                 failed.Add(RuleDataType);
-
-            int minLength = Int(settings, "minLength") ?? 0, maxLength = Int(settings, "maxLength") ?? 0; // 0 means not set, like the client
 
             if (valueType == typeof(string) && (minLength > 0 || maxLength > 0)
                 && !new StringLengthAttribute(maxLength > 0 ? maxLength : int.MaxValue) { MinimumLength = minLength }.IsValid(text))

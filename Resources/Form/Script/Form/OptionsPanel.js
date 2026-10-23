@@ -119,7 +119,7 @@ componyx.UI.form_modules.OptionsPanel = class OptionsPanel
                 allowInput: false,
                 _disableDataBinding: true,
                 _mustRender: false,
-                multiSelect: field.inputType === this.InputTypeOption.CHECKBOX || field.inputType === this.InputTypeOption.SWITCH || (field.componentSettings && field.componentSettings.multiSelect)
+                multiSelect: field.inputType === this.InputTypeOption.CHECKBOX || field.inputType === this.InputTypeOption.SWITCH || field.componentSettings?.multiSelect
             });
 
         $lib.clone(comboBox, config, true, true, true, true, true, null);

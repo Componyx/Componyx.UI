@@ -140,7 +140,7 @@ componyx.UI.form_modules.ValidationManager = class ValidationManager
         }
         if (s.minLength || s.maxLength)
         {
-            hasRules = this.#add(field, this.TypeOption.LENGTH, "length", { min: s.minLength, max: s.maxLength });
+            hasRules = this.#add(field, this.TypeOption.LENGTH, (this.form.isListField(field)) ? "list_length" : "length", { min: s.minLength, max: s.maxLength });
         }
         if (!$lib.isEmpty(s.dataType))
         {

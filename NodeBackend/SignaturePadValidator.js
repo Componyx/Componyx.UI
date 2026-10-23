@@ -1,8 +1,9 @@
-// A SignaturePad value looks like this:
-//   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" ...><path d="M 10 20 Q ..."/><path d="..."/></svg>
-//
-// It's checked in three parts: the frame (<svg ... > and </svg>), the attributes of the svg, and the paths inside.
-// Each part may only contain what the SignaturePad itself writes. Valid pieces are removed, and if anything is left over, the value is invalid.
+/** A SignaturePad value looks like this:
+*   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" ...><path d="M 10 20 Q ..."/><path d="..."/></svg>
+* It's checked in three parts: the frame (<svg ... > and </svg>), the attributes of the svg, and the paths inside.
+* Each part may only contain what the SignaturePad itself writes. Valid pieces are removed, and if anything is left over, the value is invalid.
+*Port of Componyx.UI.SignaturePadValidator(C#), without dependencies.
+*/ 
 
 const _namespaceAttribute = ' xmlns="http://www.w3.org/2000/svg"';
 

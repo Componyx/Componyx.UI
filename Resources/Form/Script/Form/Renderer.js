@@ -1561,6 +1561,12 @@ componyx.UI.form_modules.Renderer = class Renderer
                     labelInput.value = item.label;
             }
 
+            if (item.inputType === this.InputTypeOption.SIGNATUREPAD) // update aria-label for signature pad component
+            {
+                const component = $UI.store[this.form.getId(item, 'input')];
+                component.label = item.label;
+            }
+
             return;
         }
         else // fieldset

@@ -38,6 +38,7 @@
   --cui-ico-com-masked-textbox: '\e914';
   --cui-ico-com-panel-bar: '\e915';
   --cui-ico-com-editor: '\e916';
+  --cui-ico-com-signature-pad: '\f000';
 }
 
 .ico-com-app-skin::before         { content: var(--cui-ico-com-app-skin); }
@@ -64,3 +65,4 @@
 .ico-com-masked-textbox::before   { content: var(--cui-ico-com-masked-textbox); }
 .ico-com-panel-bar::before        { content: var(--cui-ico-com-panel-bar); }
 .ico-com-pie-chart::before        { content: var(--cui-ico-pie-chart); font-family: 'UI' !important; }
+.ico-com-signature-pad::before    { content: var(--cui-ico-com-signature-pad); }

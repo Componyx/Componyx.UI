@@ -418,6 +418,7 @@ await (async function ()
                 idPrefix = `${this.form.id}_${panelId}_`,
                 namePrefix = 'validationSettings.',
                 settings = field.validationSettings || new this.form.constructor.ValidationSettings(),
+                isListField = this.form.isListField(field),
                 events = this.createBindingEvents(field); // bind components 
 
             if (!settings.compareOperator)
@@ -427,11 +428,11 @@ await (async function ()
 
             this.renderPanel(field, contentEl, [
                 { id: 'required', label: this.labels.validationRequired, type: 'checkbox', config: { switch: true } },
-                { id: 'dataType', name: `${namePrefix}dataType`, label: this.labels.validationDataType, fieldElement: this.#createDataTypeCombo(idPrefix, namePrefix, events) },
+                (!isListField) ? { id: 'dataType', name: `${namePrefix}dataType`, label: this.labels.validationDataType, fieldElement: this.#createDataTypeCombo(idPrefix, namePrefix, events) } : null,
                 { id: 'length', label: this.labels.validationLength, fieldElement: this.#createLengthField(idPrefix, namePrefix, events) },
-                { id: 'range', label: this.labels.validationRange, fieldElement: this.#createRangeField(idPrefix, namePrefix, events) },
-                { id: 'pattern', name: `${namePrefix}pattern`, label: this.labels.validationPattern, placeholder: this.labels.validationPatternHint, type: 'textarea' },
-                { id: 'compare', label: this.labels.validationCompare, fieldElement: this.#createCompareField(idPrefix, namePrefix, field, events), config: { disabled: this.form.getFields().length <= 1 } },
+                (!isListField) ? { id: 'range', label: this.labels.validationRange, fieldElement: this.#createRangeField(idPrefix, namePrefix, events) } : null,
+                (!isListField) ? { id: 'pattern', name: `${namePrefix}pattern`, label: this.labels.validationPattern, placeholder: this.labels.validationPatternHint, type: 'textarea' } : null,
+                (!isListField) ? { id: 'compare', label: this.labels.validationCompare, fieldElement: this.#createCompareField(idPrefix, namePrefix, field, events), config: { disabled: this.form.getFields().length <= 1 } } : null,
             ], templateId, idPrefix);
 
             this.bindProperties(field, contentEl);

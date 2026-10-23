@@ -76,277 +76,279 @@
 
 
     /**
-      * @typedef {Object} LabelSettings
-      * @memberof componyx.UI.Form
-      * @property {String} newItemPrefix                            = New                                                                   - Gets or sets the prefix used when a new type is created without a custom label.
-      * @property {String} addItemPrefix                            = Add                                                                   - Gets or sets the prefix used for adding an item. The type description of the item is used as suffix.
-      * @property {String} removeItemPrefix                         = Remove                                                                - Gets or sets the prefix used for removing an item. The type description of the item is used as suffix.
-      * @property {String} applyToPrefix                            = Apply to                                                              - Gets or sets the prefix used for apply to. The type description of the item is used as suffix.
-      * @property {String} labelPlaceholder                         = Enter a label                                                         - Gets or sets the placeholder to display when a label is empty.
-      * @property {String} headerTitle                              = Form Header                                                           - Gets or sets the header title.
-      * @property {String} sectionSwitch                            = Enable Sections                                                       - Gets or sets the label for the Sections switch.
-      * @property {String} lineBreak                                = Line break                                                            - Gets or sets the label for the lineBreak setting in the FieldSet/Field/FieldOption configuration panel.
-      * @property {String} visible                                  = Visible                                                               - Gets or sets the label for the visible setting field in the FieldSet/Field configuration panel.
-      * @property {String} disabled                                 = Disabled                                                              - Gets or sets the label for the disabled setting in the FieldSet/Field/FieldOption configuration panel.
-      * @property {String} readOnly                                 = Readonly                                                              - Gets or sets the label for the readOnly setting in the Field configuration panel.
-      * @property {String} selected                                 = Selected                                                              - Gets or sets the label for the selected setting in the FieldOption configuration panel.
-      * @property {String} tooltip                                  = Tooltip                                                               - Gets or sets the label for the tooltip setting in the FieldSet/Field configuration panel.
-      * @property {String} tooltipHint                              = Text shown via info icon                                              - Gets or sets the label for the tooltip setting hint in the FieldSet/Field configuration panel.
-      * @property {String} value                                    = Default Value                                                         - Gets or sets the label for the value setting in the Field- and Component- configuration panels.
-      * @property {String} minValue                                 = Minimum Value                                                         - Gets or sets the label for the minValue setting in the DatePicker/NumericBox/Slider/TimePicker configuration panel.
-      * @property {String} maxValue                                 = Maximum Value                                                         - Gets or sets the label for the maxValue setting in the DatePicker/NumericBox/Slider/TimePicker configuration panel.
-      * @property {String} comboBoxDefaultHint                      = - Select -                                                            - Gets or sets the label for the ComboBox placeholder.
-      * @property {String} comboBoxSelectAll                        = Select All                                                            - Gets or sets the label for the ComboBox placeholder.
-      * 
-      * @property {String} section                                  = Section                                                               - Gets or sets the label used to describe a section.
-      * @property {String} fieldSet                                 = Field Set                                                             - Gets or sets the label used to describe a field set.
-      * @property {String} fieldSets                                = Field Sets                                                            - Gets or sets the label used to describe field sets.
-      * @property {String} fieldPaneEmptyHint                       = Drag a field here...                                                  - Gets or sets the message to display when a field pane of a field set is empty.
-      * @property {String} fieldSetId                               = ID                                                                    - Gets or sets the label for the id read-only setting field in the FieldSet configuration panel.
-      * @property {String} fieldSetLayout                           = Layout                                                                - Gets or sets the label for the layout setting field in the FieldSet configuration panel.
-      * @property {String} fieldSetLayoutNone                       = None                                                                  - Gets or sets the label for the 'None' option of the Layout dropdown in the FieldSet configuration panel.
-      * @property {String} fieldSetLayoutDefault                    = Default                                                               - Gets or sets the label for the 'Default' option of the Layout dropdown in the FieldSet configuration panel.
-      * @property {String} fieldSetLayoutBannered                   = Bannered                                                              - Gets or sets the label for the 'Bannered' option of the Layout dropdown in the FieldSet configuration panel.
-      * @property {String} fieldSetLabelDisplay                     = Label Display (this group)                                            - Gets or sets the label for the label display setting in the FieldSet configuration panel.
-      * @property {String} fieldSetRepeatable                       = Repeatable                                                            - Gets or sets the label for the repeatable setting field in the FieldSet configuration panel.
-      * @property {String} fieldSetMaxRepeats                       = Max Repeats                                                           - Gets or sets the label for the maximum repeats setting field in the FieldSet configuration panel.
-      * @property {String} fieldSetRepeatLabel                      = Repeat Label                                                          - Gets or sets the label for the repeat label setting field in the FieldSet configuration panel.
-      * @property {String} fieldSetRepeatButton                     = Add Another                                                           - Gets or sets the label for the button to add a repeated field set if the field set does not have a label, otherwise addItemPrefix + label are used.
-      * 
-      * @property {String} field                                    = Field                                                                 - Gets or sets the label used to describe a field.
-      * @property {String} fields                                   = Fields                                                                - Gets or sets the label used to describe fields.
-      * @property {String} fieldName                                = Field Name                                                            - Gets or sets the label for the name setting in the Field configuration panel.
-      * @property {String} fieldPlaceholder                         = Placeholder                                                           - Gets or sets the label for the placeholder setting in the Field configuration panel.
-      * @property {String} fieldPlaceholderHint                     = Text shown when empty                                                 - Gets or sets the label for the placeholder setting hint in the Field configuration panel.
-      * @property {String} fieldWidth                               = Width                                                                 - Gets or sets the label for the width setting in the Field configuration panel.
-      * @property {String} fieldWidthHint                           = - Select option or type a value -                                     - Gets or sets the label for the width setting hint in the Field configuration panel.
-      * @property {String} fieldWidthTooltip                                                                                                - Gets or sets the label for the width setting tooltip in the Field configuration panel.
-      * @property {String} fieldWidthAuto                           = Auto (360px)                                                          - Gets or sets the label for the 'Auto' option of the fieldWidth dropdown in the Field configuration panel.
-      * @property {String} fieldWidth1PerRow                        = 100% (1 field per row)                                                - Gets or sets the label for the '100%' option of the fieldWidth dropdown in the Field configuration panel.
-      * @property {String} fieldWidth2PerRow                        = 50% (2 fields per row)                                                - Gets or sets the label for the '50%' option of the fieldWidth dropdown in the Field configuration panel.
-      * @property {String} fieldWidth3PerRow                        = 33% (3 fields per row)                                                - Gets or sets the label for the '33%' option of the fieldWidth dropdown in the Field configuration panel.
-      * @property {String} fieldWidth4PerRow                        = 25% (4 fields per row)                                                - Gets or sets the label for the '25%' option of the fieldWidth dropdown in the Field configuration panel.
-      * @property {String} fieldRole                                = Role                                                                  - Gets or sets the label for the role setting in the Field configuration panel.
-      * @property {String} fieldRoleTooltip                                                                                                 - Gets or sets the label for the role setting tooltip in the Field configuration panel.
-      * 
-      * @property {String} fieldLabelDisplay                        = Label Display                                                         - Gets or sets the label for the label display setting in the Field configuration panel.
-      * @property {String} fieldLabelDisplayAbove                   = Above                                                                 - Gets or sets the label for the 'Above' label display option.
-      * @property {String} fieldLabelDisplayBefore                  = Before                                                                - Gets or sets the label for the 'Before' label display option.
-      * @property {String} fieldLabelDisplayFloating                = Floating                                                              - Gets or sets the label for the 'Floating' label display option.
-      * @property {String} fieldLabelDisplayInside                  = Inside                                                                - Gets or sets the label for the 'Inside' label display option.
-      * @property {String} fieldMoreSettings                        = More Settings...                                                      - Gets or sets the label for the more settings button in the Field configuration panel.
-      * 
-      * @property {String} fieldInlineOptions                       = Inline Options                                                        - Gets or sets the label for the inline options setting in the Field Options configuration panel.
-      * @property {String} fieldOptionWidth                         = Option Width                                                          - Gets or sets the label for the option width setting in the Field Options configuration panel.
-      * @property {String} fieldOptionWidthAuto                     = Auto                                                                  - Gets or sets the label for the 'Auto' option of the optionWidth dropdown in the Field Options configuration panel.
-      * @property {String} fieldOptionWidth2PerRow                  = 50% (2 items per row)                                                 - Gets or sets the label for the '50%' option of the optionWidth dropdown in the Field Options configuration panel.
-      * @property {String} fieldOptionWidth3PerRow                  = 33% (3 items per row)                                                 - Gets or sets the label for the '33%' option of the optionWidth dropdown in the Field Options configuration panel.
-      * @property {String} fieldOptionWidth4PerRow                  = 25% (4 items per row)                                                 - Gets or sets the label for the '25%' option of the optionWidth dropdown in the Field Options configuration panel.
-      * 
-      * @property {String} fieldOption                              = Option                                                                - Gets or sets the label used to describe a field option.
-      * @property {String} fieldOptions                             = Options                                                               - Gets or sets the label used to describe field options.
-      * @property {String} fieldOptionValue                         = Option Value                                                          - Gets or sets the label used to describe a field option value.
-      * @property {String} fieldOptionsType                         = Options Type                                                          - Gets or sets the label for the options type setting in the Field Option configuration panel.
-      * @property {String} fieldOptionsTypeStatic                   = Static                                                                - Gets or sets the label for the 'Static' options of the option type radio button in the Field Options configuration panel.
-      * @property {String} fieldOptionsTypeDataSource               = Data Source                                                           - Gets or sets the label for the 'DataSource' options of the option type radio button in the Field Options configuration panel.
-      * @property {String} fieldOptionLabelHeader                   = Label                                                                 - Gets or sets the label for the label header of a field-option.
-      * @property {String} fieldOptionValueHeader                   = Value                                                                 - Gets or sets the label for the value header of a field-option.
-      * @property {String} fieldOptionSelectedHeader                = Selected                                                              - Gets or sets the label for the selected header of a field-option.
-      * @property {String} fieldOptionDisabledHeader                = Disabled                                                              - Gets or sets the label for the disabled header of a field-option.
-      * @property {String} dataSourceId                             = Data Source ID                                                        - Gets or sets the label for the data source id setting in the Field Options configuration panel.
-      * @property {String} dataSourcePreview                        = Data Source Preview                                                   - Gets or sets the label for the data source preview setting in the Field Options configuration panel.
-      * 
-      * @property {String} validationRequired                       = Required                                                              - Gets or sets the label for the required setting in the Validation configuration panel.
-      * @property {String} validationDataType                       = Data Type                                                             - Gets or sets the label for the dataType setting in the Validation configuration panel.
-      * @property {String} validationDataTypeInteger                = Integer                                                               - Gets or sets the label for the 'Integer' option of the dataType dropdown in the Validation configuration panel.
-      * @property {String} validationDataTypeFloat                  = Float                                                                 - Gets or sets the label for the 'Float' option of the dataType dropdown in the Validation configuration panel.
-      * @property {String} validationDataTypeDateTime               = DateTime                                                              - Gets or sets the label for the 'DateTime' option of the dataType dropdown in the Validation configuration panel.
-      * @property {String} validationDataTypeEmail                  = Email                                                                 - Gets or sets the label for the 'Email' option of the dataType dropdown in the Validation configuration panel.
-      * @property {String} validationDataTypeURL                    = URL                                                                   - Gets or sets the label for the 'URL' option of the dataType dropdown in the Validation configuration panel.
-      * @property {String} validationDataTypeSource                 = Source                                                                - Gets or sets the label for the 'Source' option of the DataType dropdown in the Validation configuration panel.
-      * @property {String} validationPattern                        = Pattern                                                               - Gets or sets the label for the pattern setting in the Validation configuration panel.
-      * @property {String} validationPatternHint                    = Regular expression (e.g. ^[0-9]+$)                                    - Gets or sets the label for the pattern setting hint in the Validation configuration panel.
-      * @property {String} validationLength                         = Length                                                                - Gets or sets the label for the length setting in the Validation configuration panel.
-      * @property {String} validationMinLengthHint                  = Min Length                                                            - Gets or sets the label for the min length setting hint in the Validation configuration panel.
-      * @property {String} validationMaxLengthHint                  = Max Length                                                            - Gets or sets the label for the max length setting hint in the Validation configuration panel.
-      * @property {String} validationRange                          = Range                                                                 - Gets or sets the label for the range setting in the Validation configuration panel.
-      * @property {String} validationMinRangeHint                   = Min Range                                                             - Gets or sets the label for the min range setting hint in the Validation configuration panel.
-      * @property {String} validationMaxRangeHint                   = Max Range                                                             - Gets or sets the label for the max range setting hint in the Validation configuration panel.
-      * @property {String} validationCompare                        = Compare To                                                            - Gets or sets the label for the compare setting in the Validation configuration panel.
-      * 
-      * @property {String} validatorMessage_required                = {field} is required.                                                  - Gets or sets the label for required field validation error messages.
-      * @property {String} validatorMessage_range                   = {field} must be between {min} and {max}.                              - Gets or sets the label for numeric range validation error messages.
-      * @property {String} validatorMessage_length                  = {field} must be between {min} and {max} characters long.              - Gets or sets the label for minimum/maximum length validation error messages.
-      * @property {String} validatorMessage_integer                 = {field} must be a valid number.                                       - Gets or sets the label for integer data type validation error messages.
-      * @property {String} validatorMessage_float                   = {field} must be a valid decimal number.                               - Gets or sets the label for float data type validation error messages.
-      * @property {String} validatorMessage_datetime                = {field} must be a valid date.                                         - Gets or sets the label for datetime data type validation error messages.
-      * @property {String} validatorMessage_email                   = {field} must be a valid email address.                                - Gets or sets the label for email data type validation error messages.
-      * @property {String} validatorMessage_url                     = {field} must be a valid URL.                                          - Gets or sets the label for URL data type validation error messages.
-      * @property {String} validatorMessage_source                  = {field} must be a valid source.                                       - Gets or sets the label for source data type validation error messages.
-      * @property {String} validatorMessage_compare                 = {field} must be {operator} {compareField}.                            - Gets or sets the label for comparison validation error messages.
-      * @property {String} validatorMessage_pattern                 = {field} has an invalid format.                                        - Gets or sets the label for regex/pattern validation error messages.
-      * 
-      * @property {String} ruleCase                                 = Rule Case                                                             - Gets or sets the label used to describe a rule case.
-      * @property {String} ruleGroup                                = Rule Group                                                            - Gets or sets the label used to describe a rule group.
-      * @property {String} ruleCaseHeader                           = Rule Case                                                             - Gets or sets the label for the rule case header in the Rules configuration panel.
-      * @property {String} ruleCaseTrigger                          = Case Trigger                                                          - Gets or sets the label for the rule case trigger setting in the Rules configuration panel.
-      * @property {String} ruleCaseRunVisibility                    = Run When                                                              - Gets or sets the label for the rule case run visibility setting in the Rules configuration panel.
-      * @property {String} ruleGroupConnector                       = Group Connector                                                       - Gets or sets the label for the rule group connector setting in the Rules configuration panel.
-      * @property {String} ruleGroupsEmptyHint                      = Actions will fire unconditionally                                     - Gets or sets the message to display when the rule groups container element is empty.
-      * @property {String} actionsHeader                            = Actions                                                               - Gets or sets the label for the actions header in the Rules configuration panel.
-      * @property {String} ruleFieldHint                            = - Field -                                                             - Gets or sets the label for the rule field setting hint in the Rules configuration panel.
-      * @property {String} ruleComparisonOperatorHint               = - Condition -                                                         - Gets or sets the label for the rule comparison operator hint in the Rules configuration panel.
-      * 
-      * @property {String} operator_and                             = AND                                                                   - Gets or sets the label for the AND logical operator.
-      * @property {String} operator_or                              = OR                                                                    - Gets or sets the label for the OR logical operator.
-      * @property {String} operator_equal                           = Equal                                                                 - Gets or sets the label for the equal operator.
-      * @property {String} operator_not_equal                       = Not Equal                                                             - Gets or sets the label for the not equal operator.
-      * @property {String} operator_less_than                       = Less Than                                                             - Gets or sets the label for the less than operator.
-      * @property {String} operator_less_than_or_equal              = Less Than Or Equal                                                    - Gets or sets the label for the less than or equal operator.
-      * @property {String} operator_greater_than_or_equal           = Greater Than Or Equal                                                 - Gets or sets the label for the greater than or equal operator.
-      * @property {String} operator_greater_than                    = Greater Than                                                          - Gets or sets the label for the greater than operator.
-      * @property {String} operator_contains                        = Contains                                                              - Gets or sets the label for the contains operator.
-      * @property {String} operator_not_contains                    = Does Not Contain                                                      - Gets or sets the label for the not contains operator.
-      * @property {String} operator_starts_with                     = Starts With                                                           - Gets or sets the label for the starts with operator.
-      * @property {String} operator_ends_with                       = Ends With                                                             - Gets or sets the label for the ends with operator.
-      * @property {String} operator_empty                           = Empty                                                                 - Gets or sets the label for the empty operator.
-      * @property {String} operator_not_empty                       = Not Empty                                                             - Gets or sets the label for the not empty operator.
-      * @property {String} operator_visible                         = Visible                                                               - Gets or sets the label for the visible operator.
-      * @property {String} operator_hidden                          = Hidden                                                                - Gets or sets the label for the hidden (not visible) operator.
-      * @property {String} operator_enabled                         = Enabled                                                               - Gets or sets the label for the enabled operator.
-      * @property {String} operator_disabled                        = Disabled                                                              - Gets or sets the label for the disabled operator.
-      * @property {String} operator_required                        = Required                                                              - Gets or sets the label for the required operator.
-      * @property {String} operator_optional                        = Optional                                                              - Gets or sets the label for the optional operator.
-      *
-      * @property {String} trigger_always                           = Always                                                                - Gets or sets the label for the always rule case trigger.
-      * @property {String} trigger_change                           = On Field Change                                                       - Gets or sets the label for the change rule case trigger.
-      * @property {String} trigger_init                             = On Form Load                                                          - Gets or sets the label for the init rule case trigger.
-      * @property {String} trigger_show_section                     = On Show Section                                                       - Gets or sets the label for the show section rule case trigger.
-      * @property {String} trigger_before_submit                    = Before Form Submit                                                    - Gets or sets the label for the before submit rule case trigger.
-      * @property {String} trigger_submit_succeeded                 = After Successful Submit                                               - Gets or sets the label for the succeeded submit rule case trigger.
-      * @property {String} trigger_submit_failed                    = After Failed Submit                                                   - Gets or sets the label for the failed submit rule case trigger.
-      * 
-      * @property {String} run_visibility_visible                   = Field is Visible                                                      - Gets or sets the label for the rule case run visibility 'visible' option.
-      * @property {String} run_visibility_hidden                    = Field is Visible or Hidden                                            - Gets or sets the label for the rule case run visibility 'hidden' option.
-      * @property {String} run_visibility_section_hidden            = Section is Hidden                                                     - Gets or sets the label for the rule case run visibility 'section_hidden' option.
-      * 
-      * @property {String} action_value                             = Set Value                                                             - Gets or sets the label for the set field value action.
-      * @property {String} action_expression                        = Set Value Expression                                                  - Gets or sets the label for the set field value expression action.
-      * @property {String} action_feedback                          = Feedback Message                                                      - Gets or sets the label for the set field feedback value action.
-      * @property {String} action_alert                             = Alert Dialog                                                          - Gets or sets the label for the set field alert value action.
-      * @property {String} action_confirm                           = Confirmation Dialog                                                   - Gets or sets the label for the set field confirm value action.
-      * @property {String} action_required                          = Set Required                                                          - Gets or sets the label for the set field required action.
-      * @property {String} action_optional                          = Set Optional                                                          - Gets or sets the label for the set field optional action.
-      * @property {String} action_hide                              = Hide                                                                  - Gets or sets the label for the hide field action.
-      * @property {String} action_show                              = Show                                                                  - Gets or sets the label for the show field action.
-      * @property {String} action_disable                           = Enable                                                                - Gets or sets the label for the disable field action.
-      * @property {String} action_enable                            = Disable                                                               - Gets or sets the label for the enable field action.
-      * @property {String} action_read                              = Read only                                                             - Gets or sets the label for the readonly field action.
-      * @property {String} action_editable                          = Editable                                                              - Gets or sets the label for the editable field action.
-      * @property {String} action_disable_next                      = Disable Next/Submit                                                   - Gets or sets the label for the disable next/submit button action.
-      * @property {String} action_enable_next                       = Enable Next/Submit                                                    - Gets or sets the label for the disable next/submit button action.
-      * @property {String} action_cancel                            = Cancel Submit                                                         - Gets or sets the label for the cancel submit action.
-      * @property {String} action_show_section                      = Show Section                                                          - Gets or sets the label for the show section action.
-      * @property {String} action_end                               = End Form                                                              - Gets or sets the label for the end form action.
-      * 
-      * @property {String} actionValueHint                          = Enter a Value                                                         - Gets or sets the label for the 'Set Value' action hint in the Rules configuration panel.
-      * @property {String} actionExpressionHint                     = Enter an Expression                                                   - Gets or sets the label for the 'Set Expression' action in the Rules configuration panel.
-      * 
-      * @property {String} componentPanelHeader                     = {0} Configuration                                                     - Gets or sets the label for the component configuration panel header. The {0} tag gets replaced with the name of the component.
-      * 
-      * @property {String} textbox                                  = Textbox                                                               - Gets or sets the label for the friendly name when the field input type is a textbox element.
-      * @property {String} textarea                                 = Textarea                                                              - Gets or sets the label for the friendly name when the field input type is a textarea element.
-      * @property {String} checkbox                                 = Checkbox                                                              - Gets or sets the label for the friendly name when the field input type is a checkbox element.
-      * @property {String} radio                                    = Radio                                                                 - Gets or sets the label for the friendly name when the field input type is a radio element.
-      * @property {String} switch                                   = Switch                                                                - Gets or sets the label for the friendly name when the field input type is a switch element.
-      * @property {String} maskedTextBox                            = Masked Textbox                                                        - Gets or sets the label for the friendly name when the field input type is a MaskedTextBox component.
-      * @property {String} numericBox                               = Number                                                                - Gets or sets the label for the friendly name when the field input type is a NumericBox component.
-      * @property {String} comboBox                                 = Dropdown                                                              - Gets or sets the label for the friendly name when the field input type is a ComboBox component.
-      * @property {String} datePicker                               = Date                                                                  - Gets or sets the label for the friendly name when the field input type is a DatePicker component.
-      * @property {String} timePicker                               = Time                                                                  - Gets or sets the label for the friendly name when the field input type is a TimePicker component.
-      * @property {String} slider                                   = Slider                                                                - Gets or sets the label for the friendly name when the field input type is a Slider component.
-      * @property {String} fileUpload                               = File Upload                                                           - Gets or sets the label for the friendly name when the field input type is a FileUpload component. 
-      * @property {String} editor                                   = Editor                                                                - Gets or sets the label for the friendly name when the field input type is a Editor component.
-      * @property {String} contentField                             = Content                                                               - Gets or sets the label for the friendly name when the field type is a Content field.
-      * @property {String} spacerField                              = Spacer                                                                - Gets or sets the label for the friendly name when the field type is a Spacer field.
-      * 
-      * @property {String} multiSelect                              = Enable Multi-Selection                                                - Gets or sets the label for the multiSelect setting in the ComboBox configuration panel.
-      * @property {String} multiSelectTagging                       = Selections as Tags                                                    - Gets or sets the label for the multiSelectTagging setting in the ComboBox configuration panel.
-      * @property {String} allowInput                               = Allow Typing                                                          - Gets or sets the label for the allowInput setting in the ComboBox configuration panel.
-      * 
-      * @property {String} today                                    = Default to Today                                                      - Gets or sets the label for the today setting in the DatePicker configuration panel.
-      * @property {String} allowedDates                             = Allow Listed Dates                                                    - Gets or sets the label for the allowedDates setting in the DatePicker configuration panel.
-      * @property {String} disallowDates                            = Disallow Listed Dates                                                 - Gets or sets the label for the disallowDates setting in the DatePicker configuration panel.
-      * 
-      * @property {String} precision                                = Decimal Precision                                                     - Gets or sets the label for the precision setting in the NumericBox configuration panel.
-      * 
-      * @property {String} mask                                     = Mask                                                                  - Gets or sets the label for the mask setting in the MaskedTextBox configuration panel.
-      * @property {String} maskTooltip                                                                                                      - Gets or sets the label for the tooltip for the mask setting in the MaskedTextBox configuration panel. 
-      *                      
-      * @property {String} allowedCharacters                        = Allowed Characters                                                    - Gets or sets the label for the allowedCharacters setting in the MaskedTextBox configuration panel.
-      * @property {String} allowedCharactersAlphanumeric            = Alphanumeric                                                          - Gets or sets the label for the 'Alphanumeric' option of the allowedCharacters dropdown in the MaskedTextBox configuration panel.
-      * @property {String} allowedCharactersDigits                  = Digits                                                                - Gets or sets the label for the 'Digits' option of the allowedCharacters dropdown in the MaskedTextBox configuration panel.
-      * @property {String} allowedCharactersLetters                 = Letters                                                               - Gets or sets the label for the 'Letters' option of the allowedCharacters dropdown in the MaskedTextBox configuration panel.
-      * 
-      * @property {String} range                                    = Enable Range Selection                                                - Gets or sets the label for the range setting in the Slider configuration panel.
-      * @property {String} trackSize                                = Track Size                                                            - Gets or sets the label for the trackSize setting in the Slider configuration panel.
-      * @property {String} trackSizeHint                            = 200px, 100%, 20ch — use CSS units                                     - Gets or sets the label for the trackSize setting hint in the Field configuration panel.
-      * @property {String} startValue                               = Start Value                                                           - Gets or sets the label for the startValue setting in the Slider configuration panel.
-      * @property {String} tickMarks                                = Tick Marks                                                            - Gets or sets the label for the tickMarks setting in the Slider configuration panel. 
-      * 
-      * @property {String} incrementalValue                         = Step Interval (minutes)                                               - Gets or sets the label for the incrementalValue setting in the TimePicker configuration panel.
-      * @property {String} allowedTimes                             = Allowed Times                                                         - Gets or sets the label for the allowedTimes setting in the TimePicker configuration panel.
-      * @property {String} disallowTimes                            = Disallow Listed Times                                                 - Gets or sets the label for the disallowTimes setting in the TimePicker configuration panel.
-      * 
-      * @property {String} accept                                   = Accept                                                                - Gets or sets the label for the accept setting in the FileUpload configuration panel.
-      * @property {String} acceptHint                               = .png, .jpg, .jpeg                                                     - Gets or sets the label for the placeholder setting hint for the accept setting in the FileUpload configuration panel.
-      * @property {String} maxFileSize                              =  Max. File Size (KB)                                                  - Gets or sets the label for the maxFileSize setting in the FileUpload configuration panel.
-      * @property {String} maxFiles                                 =  Max. Files                                                           - Gets or sets the label for the maxFiles setting in the FileUpload configuration panel.
-      * 
-      * @property {String} all                                      = All Options                                                           - Gets or sets the label for the all setting in the Editor configuration panel.
-      * @property {String} block                                    = Block styles                                                          - Gets or sets the label for the block setting in the Editor configuration panel.
-      * @property {String} link                                     = Links                                                                 - Gets or sets the label for the link setting in the Editor configuration panel.
-      * @property {String} list                                     = Lists                                                                 - Gets or sets the label for the list setting in the Editor configuration panel.
-      * @property {String} special                                  = Special Chars                                                         - Gets or sets the label for the special setting in the Editor configuration panel. 
-      *
-      * @property {String} margin                                   = Margin                                                                - Gets or sets the label for the margin setting in the Content configuration panel. 
-      * @property {String} marginHint                               = 5px, 100% - use CSS units                                             - Gets or sets the label for the margin setting hint in the Content configuration panel.
-      * @property {String} padding                                  = Padding                                                               - Gets or sets the label for the padding setting in the Content configuration panel. 
-      * @property {String} paddingHint                              = 5px, 100% - use CSS units                                             - Gets or sets the label for the padding setting hint in the Content configuration panel.
-      * @property {String} backgroundColor                          = Background color                                                      - Gets or sets the label for the backgroundColor setting in the Content configuration panel.
-      * @property {String} borderWidth                              = Border width                                                          - Gets or sets the label for the borderWidth setting in the Content configuration panel.
-      * @property {String} borderColor                              = Border color                                                          - Gets or sets the label for the borderColor setting in the Content configuration panel.
-      * @property {String} borderRadius                             = Border radius                                                         - Gets or sets the label for the borderRadius setting in the Content configuration panel.
-      * @property {String} borderRadiusHint                         = 5px, 100% - use CSS units                                             - Gets or sets the label for the borderRadius setting hint in the Content configuration panel.
-      * 
-      * @property {String} showDivider                              = Show Divider                                                          - Gets or sets the label for the showDivider setting in the Spacer configuration panel. 
-      * @property {String} height                                   = Height                                                                - Gets or sets the label for the height setting in the Spacer configuration panel.
-      * @property {String} heightHint                               = 10px, 2em - use CSS units                                             - Gets or sets the label for the height setting hint in the Spacer configuration panel.
-      * 
-      * @property {String} saveInProgress                           = Saving...                                                             - Gets or sets the label for the save-status when the save is in progress.
-      * @property {String} saveSuccess                              = Saved...                                                              - Gets or sets the label for the save-status when the save is successful.
-      * @property {String} saveFailed                               = Save failed                                                           - Gets or sets the label for the save-status when the save failed.
-      * 
-      * @property {String} alertDialogHeader                        = Alert                                                                 - Gets or sets the header label for the alert dialog.
-      * @property {String} confirmDialogHeader                      = Confirmation                                                          - Gets or sets the header label for the confirmation dialog.
-      * 
-      * @property {String} previous                                 = Previous                                                              - Gets or sets the label for the previous section button.
-      * @property {String} next                                     = Next                                                                  - Gets or sets the label for the next section button.
-      * @property {String} submit                                   = Submit                                                                - Gets or sets the label for the submit button.
-      * 
-      * @property {String} navigatorSearchHint                      = Find Field                                                            - Gets or sets the label for the navigator search-box hint in the Navigator panel.
-      * 
-      * @property {String} buildPanel_fields                       = Fields                                                                - Gets or sets the label for the title of the Fields build-panel.
-      * @property {String} buildPanel_content                      = Content                                                               - Gets or sets the label for the title of the Content build-panel.
-      * @property {String} buildPanel_navigator                    = Navigator                                                             - Gets or sets the label for the title of the Navigator build-panel.
-      * @property {String} configPanel_fieldset                    = FieldSet Configuration                                                - Gets or sets the label for the title of the FieldSet config-panel.
-      * @property {String} configPanel_field                       = Field Configuration                                                   - Gets or sets the label for the title of the Field config-panel.
-      * @property {String} configPanel_content                     = Content Field Configuration                                           - Gets or sets the label for the title of the Content config-panel.
-      * @property {String} configPanel_spacer                      = Spacer Field Configuration                                            - Gets or sets the label for the title of the Spacer config-panel.
-      * @property {String} configPanel_fieldOptions                = Field Options                                                         - Gets or sets the label for the title of the Field Options config-panel.
-      * @property {String} configPanel_validation                  = Validation Rules                                                      - Gets or sets the label for the title of the Validation Rules config-panel.
-      * @property {String} configPanel_rules                       = Conditional Rules                                                     - Gets or sets the label for the title of the Conditional Rules config-panel.
-      */
+    * @typedef {Object} LabelSettings
+    * @memberof componyx.UI.Form
+    * @property {String} [newItemPrefix=New]                                                                 - Gets or sets the prefix used when a new type is created without a custom label.
+    * @property {String} [addItemPrefix=Add]                                                                 - Gets or sets the prefix used for adding an item. The type description of the item is used as suffix.
+    * @property {String} [removeItemPrefix=Remove]                                                           - Gets or sets the prefix used for removing an item. The type description of the item is used as suffix.
+    * @property {String} [applyToPrefix=Apply to]                                                            - Gets or sets the prefix used for apply to. The type description of the item is used as suffix.
+    * @property {String} [labelPlaceholder=Enter a label]                                                    - Gets or sets the placeholder to display when a label is empty.
+    * @property {String} [headerTitle=Form Header]                                                           - Gets or sets the header title.
+    * @property {String} [sectionSwitch=Enable Sections]                                                     - Gets or sets the label for the Sections switch.
+    * @property {String} [lineBreak=Line break]                                                              - Gets or sets the label for the lineBreak setting in the FieldSet/Field/FieldOption configuration panel.
+    * @property {String} [visible=Visible]                                                                   - Gets or sets the label for the visible setting field in the FieldSet/Field configuration panel.
+    * @property {String} [disabled=Disabled]                                                                 - Gets or sets the label for the disabled setting in the FieldSet/Field/FieldOption configuration panel.
+    * @property {String} [readOnly=Readonly]                                                                 - Gets or sets the label for the readOnly setting in the Field configuration panel.
+    * @property {String} [selected=Selected]                                                                 - Gets or sets the label for the selected setting in the FieldOption configuration panel.
+    * @property {String} [tooltip=Tooltip]                                                                   - Gets or sets the label for the tooltip setting in the FieldSet/Field configuration panel.
+    * @property {String} [tooltipHint=Text shown via info icon]                                              - Gets or sets the label for the tooltip setting hint in the FieldSet/Field configuration panel.
+    * @property {String} [value=Default Value]                                                               - Gets or sets the label for the value setting in the Field- and Component- configuration panels.
+    * @property {String} [minValue=Minimum Value]                                                            - Gets or sets the label for the minValue setting in the DatePicker/NumericBox/Slider/TimePicker configuration panel.
+    * @property {String} [maxValue=Maximum Value]                                                            - Gets or sets the label for the maxValue setting in the DatePicker/NumericBox/Slider/TimePicker configuration panel.
+    * @property {String} [comboBoxDefaultHint=- Select -]                                                    - Gets or sets the label for the ComboBox placeholder.
+    * @property {String} [comboBoxSelectAll=Select All]                                                      - Gets or sets the label for the 'Select All' option of a multi-select ComboBox.
+    *
+    * @property {String} [section=Section]                                                                   - Gets or sets the label used to describe a section.
+    * @property {String} [fieldSet=Field Set]                                                                - Gets or sets the label used to describe a field set.
+    * @property {String} [fieldSets=Field Sets]                                                              - Gets or sets the label used to describe field sets.
+    * @property {String} [fieldPaneEmptyHint=Drag a field here...]                                           - Gets or sets the message to display when a field pane of a field set is empty.
+    * @property {String} [fieldSetId=ID]                                                                     - Gets or sets the label for the id read-only setting field in the FieldSet configuration panel.
+    * @property {String} [fieldSetLayout=Layout]                                                             - Gets or sets the label for the layout setting field in the FieldSet configuration panel.
+    * @property {String} [fieldSetLayoutNone=None]                                                           - Gets or sets the label for the 'None' option of the Layout dropdown in the FieldSet configuration panel.
+    * @property {String} [fieldSetLayoutDefault=Default]                                                     - Gets or sets the label for the 'Default' option of the Layout dropdown in the FieldSet configuration panel.
+    * @property {String} [fieldSetLayoutBannered=Bannered]                                                   - Gets or sets the label for the 'Bannered' option of the Layout dropdown in the FieldSet configuration panel.
+    * @property {String} [fieldSetLabelDisplay=Label Display (this group)]                                   - Gets or sets the label for the label display setting in the FieldSet configuration panel.
+    * @property {String} [fieldSetRepeatable=Repeatable]                                                     - Gets or sets the label for the repeatable setting field in the FieldSet configuration panel.
+    * @property {String} [fieldSetMaxRepeats=Max Repeats]                                                    - Gets or sets the label for the maximum repeats setting field in the FieldSet configuration panel.
+    * @property {String} [fieldSetRepeatLabel=Repeat Label]                                                  - Gets or sets the label for the repeat label setting field in the FieldSet configuration panel.
+    * @property {String} [fieldSetRepeatButton=Add Another]                                                  - Gets or sets the label for the button to add a repeated field set if the field set does not have a label, otherwise addItemPrefix + label are used.
+    *
+    * @property {String} [field=Field]                                                                       - Gets or sets the label used to describe a field.
+    * @property {String} [fields=Fields]                                                                     - Gets or sets the label used to describe fields.
+    * @property {String} [fieldName=Field Name]                                                              - Gets or sets the label for the name setting in the Field configuration panel.
+    * @property {String} [fieldPlaceholder=Placeholder]                                                      - Gets or sets the label for the placeholder setting in the Field configuration panel.
+    * @property {String} [fieldPlaceholderHint=Text shown when empty]                                        - Gets or sets the label for the placeholder setting hint in the Field configuration panel.
+    * @property {String} [fieldWidth=Width]                                                                  - Gets or sets the label for the width setting in the Field configuration panel.
+    * @property {String} [fieldWidthHint=- Select option or type a value -]                                  - Gets or sets the label for the width setting hint in the Field configuration panel.
+    * @property {String} [fieldWidthTooltip]                                                                 - Gets or sets the label for the width setting tooltip in the Field configuration panel.
+    * @property {String} [fieldWidthAuto=Auto (360px)]                                                       - Gets or sets the label for the 'Auto' option of the fieldWidth dropdown in the Field configuration panel.
+    * @property {String} [fieldWidth1PerRow=100% (1 field per row)]                                          - Gets or sets the label for the '100%' option of the fieldWidth dropdown in the Field configuration panel.
+    * @property {String} [fieldWidth2PerRow=50% (2 fields per row)]                                          - Gets or sets the label for the '50%' option of the fieldWidth dropdown in the Field configuration panel.
+    * @property {String} [fieldWidth3PerRow=33% (3 fields per row)]                                          - Gets or sets the label for the '33%' option of the fieldWidth dropdown in the Field configuration panel.
+    * @property {String} [fieldWidth4PerRow=25% (4 fields per row)]                                          - Gets or sets the label for the '25%' option of the fieldWidth dropdown in the Field configuration panel.
+    * @property {String} [fieldRole=Role]                                                                    - Gets or sets the label for the role setting in the Field configuration panel.
+    * @property {String} [fieldRoleTooltip]                                                                  - Gets or sets the label for the role setting tooltip in the Field configuration panel.
+    *
+    * @property {String} [fieldLabelDisplay=Label Display]                                                   - Gets or sets the label for the label display setting in the Field configuration panel.
+    * @property {String} [fieldLabelDisplayAbove=Above]                                                      - Gets or sets the label for the 'Above' label display option.
+    * @property {String} [fieldLabelDisplayBefore=Before]                                                    - Gets or sets the label for the 'Before' label display option.
+    * @property {String} [fieldLabelDisplayFloating=Floating]                                                - Gets or sets the label for the 'Floating' label display option.
+    * @property {String} [fieldLabelDisplayInside=Inside]                                                    - Gets or sets the label for the 'Inside' label display option.
+    * @property {String} [fieldMoreSettings=More Settings...]                                                - Gets or sets the label for the more settings button in the Field configuration panel.
+    *
+    * @property {String} [fieldInlineOptions=Inline Options]                                                 - Gets or sets the label for the inline options setting in the Field Options configuration panel.
+    * @property {String} [fieldOptionWidth=Option Width]                                                     - Gets or sets the label for the option width setting in the Field Options configuration panel.
+    * @property {String} [fieldOptionWidthAuto=Auto]                                                         - Gets or sets the label for the 'Auto' option of the optionWidth dropdown in the Field Options configuration panel.
+    * @property {String} [fieldOptionWidth2PerRow=50% (2 items per row)]                                     - Gets or sets the label for the '50%' option of the optionWidth dropdown in the Field Options configuration panel.
+    * @property {String} [fieldOptionWidth3PerRow=33% (3 items per row)]                                     - Gets or sets the label for the '33%' option of the optionWidth dropdown in the Field Options configuration panel.
+    * @property {String} [fieldOptionWidth4PerRow=25% (4 items per row)]                                     - Gets or sets the label for the '25%' option of the optionWidth dropdown in the Field Options configuration panel.
+    *
+    * @property {String} [fieldOption=Option]                                                                - Gets or sets the label used to describe a field option.
+    * @property {String} [fieldOptions=Options]                                                              - Gets or sets the label used to describe field options.
+    * @property {String} [fieldOptionValue=Option Value]                                                     - Gets or sets the label used to describe a field option value.
+    * @property {String} [fieldOptionsType=Options Type]                                                     - Gets or sets the label for the options type setting in the Field Option configuration panel.
+    * @property {String} [fieldOptionsTypeStatic=Static]                                                     - Gets or sets the label for the 'Static' options of the option type radio button in the Field Options configuration panel.
+    * @property {String} [fieldOptionsTypeDataSource=Data Source]                                            - Gets or sets the label for the 'DataSource' options of the option type radio button in the Field Options configuration panel.
+    * @property {String} [fieldOptionLabelHeader=Label]                                                      - Gets or sets the label for the label header of a field-option.
+    * @property {String} [fieldOptionValueHeader=Value]                                                      - Gets or sets the label for the value header of a field-option.
+    * @property {String} [fieldOptionSelectedHeader=Selected]                                                - Gets or sets the label for the selected header of a field-option.
+    * @property {String} [fieldOptionDisabledHeader=Disabled]                                                - Gets or sets the label for the disabled header of a field-option.
+    * @property {String} [dataSourceId=Data Source ID]                                                       - Gets or sets the label for the data source id setting in the Field Options configuration panel.
+    * @property {String} [dataSourcePreview=Data Source Preview]                                             - Gets or sets the label for the data source preview setting in the Field Options configuration panel.
+    *
+    * @property {String} [validationRequired=Required]                                                       - Gets or sets the label for the required setting in the Validation configuration panel.
+    * @property {String} [validationDataType=Data Type]                                                      - Gets or sets the label for the dataType setting in the Validation configuration panel.
+    * @property {String} [validationDataTypeInteger=Integer]                                                 - Gets or sets the label for the 'Integer' option of the dataType dropdown in the Validation configuration panel.
+    * @property {String} [validationDataTypeFloat=Float]                                                     - Gets or sets the label for the 'Float' option of the dataType dropdown in the Validation configuration panel.
+    * @property {String} [validationDataTypeDateTime=DateTime]                                               - Gets or sets the label for the 'DateTime' option of the dataType dropdown in the Validation configuration panel.
+    * @property {String} [validationDataTypeEmail=Email]                                                     - Gets or sets the label for the 'Email' option of the dataType dropdown in the Validation configuration panel.
+    * @property {String} [validationDataTypeURL=URL]                                                         - Gets or sets the label for the 'URL' option of the dataType dropdown in the Validation configuration panel.
+    * @property {String} [validationDataTypeSource=Source]                                                   - Gets or sets the label for the 'Source' option of the dataType dropdown in the Validation configuration panel.
+    * @property {String} [validationPattern=Pattern]                                                         - Gets or sets the label for the pattern setting in the Validation configuration panel.
+    * @property {String} [validationPatternHint=Regular expression (e.g. ^[0-9]+$)]                          - Gets or sets the label for the pattern setting hint in the Validation configuration panel.
+    * @property {String} [validationLength=Length]                                                           - Gets or sets the label for the length setting in the Validation configuration panel.
+    * @property {String} [validationMinLengthHint=Min Length]                                                - Gets or sets the label for the min length setting hint in the Validation configuration panel.
+    * @property {String} [validationMaxLengthHint=Max Length]                                                - Gets or sets the label for the max length setting hint in the Validation configuration panel.
+    * @property {String} [validationRange=Range]                                                             - Gets or sets the label for the range setting in the Validation configuration panel.
+    * @property {String} [validationMinRangeHint=Min Range]                                                  - Gets or sets the label for the min range setting hint in the Validation configuration panel.
+    * @property {String} [validationMaxRangeHint=Max Range]                                                  - Gets or sets the label for the max range setting hint in the Validation configuration panel.
+    * @property {String} [validationCompare=Compare To]                                                      - Gets or sets the label for the compare setting in the Validation configuration panel.
+    *
+    * @property {String} [validatorMessage_required={field} is required.]                                    - Gets or sets the label for required field validation error messages.
+    * @property {String} [validatorMessage_range={field} must be between {min} and {max}.]                   - Gets or sets the label for numeric range validation error messages.
+    * @property {String} [validatorMessage_length={field} must be between {min} and {max} characters long.]  - Gets or sets the label for minimum/maximum length validation error messages.
+    * @property {String} [validatorMessage_list_length=Select between {min} and {max} options.]              - Gets or sets the label for minimum/maximum selection count validation error messages of list fields.
+    * @property {String} [validatorMessage_integer={field} must be a valid number.]                          - Gets or sets the label for integer data type validation error messages.
+    * @property {String} [validatorMessage_float={field} must be a valid decimal number.]                    - Gets or sets the label for float data type validation error messages.
+    * @property {String} [validatorMessage_datetime={field} must be a valid date.]                           - Gets or sets the label for datetime data type validation error messages.
+    * @property {String} [validatorMessage_email={field} must be a valid email address.]                     - Gets or sets the label for email data type validation error messages.
+    * @property {String} [validatorMessage_url={field} must be a valid URL.]                                 - Gets or sets the label for URL data type validation error messages.
+    * @property {String} [validatorMessage_source={field} must be a valid source.]                           - Gets or sets the label for source data type validation error messages.
+    * @property {String} [validatorMessage_compare={field} must be {operator} {compareField}.]               - Gets or sets the label for comparison validation error messages.
+    * @property {String} [validatorMessage_pattern={field} has an invalid format.]                           - Gets or sets the label for regex/pattern validation error messages.
+    *
+    * @property {String} [ruleCase=Rule Case]                                                                - Gets or sets the label used to describe a rule case.
+    * @property {String} [ruleGroup=Rule Group]                                                              - Gets or sets the label used to describe a rule group.
+    * @property {String} [ruleCaseHeader=Rule Case]                                                          - Gets or sets the label for the rule case header in the Rules configuration panel.
+    * @property {String} [ruleCaseTrigger=Case Trigger]                                                      - Gets or sets the label for the rule case trigger setting in the Rules configuration panel.
+    * @property {String} [ruleCaseRunVisibility=Run When]                                                    - Gets or sets the label for the rule case run visibility setting in the Rules configuration panel.
+    * @property {String} [ruleGroupConnector=Group Connector]                                                - Gets or sets the label for the rule group connector setting in the Rules configuration panel.
+    * @property {String} [ruleGroupsEmptyHint=Actions will fire unconditionally]                             - Gets or sets the message to display when the rule groups container element is empty.
+    * @property {String} [actionsHeader=Actions]                                                             - Gets or sets the label for the actions header in the Rules configuration panel.
+    * @property {String} [ruleFieldHint=- Field -]                                                           - Gets or sets the label for the rule field setting hint in the Rules configuration panel.
+    * @property {String} [ruleComparisonOperatorHint=- Condition -]                                          - Gets or sets the label for the rule comparison operator hint in the Rules configuration panel.
+    *
+    * @property {String} [operator_and=AND]                                                                  - Gets or sets the label for the AND logical operator.
+    * @property {String} [operator_or=OR]                                                                    - Gets or sets the label for the OR logical operator.
+    * @property {String} [operator_equal=Equal]                                                              - Gets or sets the label for the equal operator.
+    * @property {String} [operator_not_equal=Not Equal]                                                      - Gets or sets the label for the not equal operator.
+    * @property {String} [operator_less_than=Less Than]                                                      - Gets or sets the label for the less than operator.
+    * @property {String} [operator_less_than_or_equal=Less Than Or Equal]                                    - Gets or sets the label for the less than or equal operator.
+    * @property {String} [operator_greater_than_or_equal=Greater Than Or Equal]                              - Gets or sets the label for the greater than or equal operator.
+    * @property {String} [operator_greater_than=Greater Than]                                                - Gets or sets the label for the greater than operator.
+    * @property {String} [operator_contains=Contains]                                                        - Gets or sets the label for the contains operator.
+    * @property {String} [operator_not_contains=Does Not Contain]                                            - Gets or sets the label for the not contains operator.
+    * @property {String} [operator_starts_with=Starts With]                                                  - Gets or sets the label for the starts with operator.
+    * @property {String} [operator_ends_with=Ends With]                                                      - Gets or sets the label for the ends with operator.
+    * @property {String} [operator_empty=Empty]                                                              - Gets or sets the label for the empty operator.
+    * @property {String} [operator_not_empty=Not Empty]                                                      - Gets or sets the label for the not empty operator.
+    * @property {String} [operator_visible=Visible]                                                          - Gets or sets the label for the visible operator.
+    * @property {String} [operator_hidden=Hidden]                                                            - Gets or sets the label for the hidden (not visible) operator.
+    * @property {String} [operator_enabled=Enabled]                                                          - Gets or sets the label for the enabled operator.
+    * @property {String} [operator_disabled=Disabled]                                                        - Gets or sets the label for the disabled operator.
+    * @property {String} [operator_required=Required]                                                        - Gets or sets the label for the required operator.
+    * @property {String} [operator_optional=Optional]                                                        - Gets or sets the label for the optional operator.
+    *
+    * @property {String} [trigger_always=Always]                                                             - Gets or sets the label for the always rule case trigger.
+    * @property {String} [trigger_change=On Field Change]                                                    - Gets or sets the label for the change rule case trigger.
+    * @property {String} [trigger_init=On Form Load]                                                         - Gets or sets the label for the init rule case trigger.
+    * @property {String} [trigger_show_section=On Show Section]                                              - Gets or sets the label for the show section rule case trigger.
+    * @property {String} [trigger_before_submit=Before Form Submit]                                          - Gets or sets the label for the before submit rule case trigger.
+    * @property {String} [trigger_submit_succeeded=After Successful Submit]                                  - Gets or sets the label for the succeeded submit rule case trigger.
+    * @property {String} [trigger_submit_failed=After Failed Submit]                                         - Gets or sets the label for the failed submit rule case trigger.
+    *
+    * @property {String} [run_visibility_visible=Field is Visible]                                           - Gets or sets the label for the rule case run visibility 'visible' option.
+    * @property {String} [run_visibility_hidden=Field is Visible or Hidden]                                  - Gets or sets the label for the rule case run visibility 'hidden' option.
+    * @property {String} [run_visibility_section_hidden=Section is Hidden]                                   - Gets or sets the label for the rule case run visibility 'section_hidden' option.
+    *
+    * @property {String} [action_value=Set Value]                                                            - Gets or sets the label for the set field value action.
+    * @property {String} [action_expression=Set Value Expression]                                            - Gets or sets the label for the set field value expression action.
+    * @property {String} [action_feedback=Feedback Message]                                                  - Gets or sets the label for the set field feedback value action.
+    * @property {String} [action_alert=Alert Dialog]                                                         - Gets or sets the label for the set field alert value action.
+    * @property {String} [action_confirm=Confirmation Dialog]                                                - Gets or sets the label for the set field confirm value action.
+    * @property {String} [action_required=Set Required]                                                      - Gets or sets the label for the set field required action.
+    * @property {String} [action_optional=Set Optional]                                                      - Gets or sets the label for the set field optional action.
+    * @property {String} [action_hide=Hide]                                                                  - Gets or sets the label for the hide field action.
+    * @property {String} [action_show=Show]                                                                  - Gets or sets the label for the show field action.
+    * @property {String} [action_disable=Disable]                                                            - Gets or sets the label for the disable field action.
+    * @property {String} [action_enable=Enable]                                                              - Gets or sets the label for the enable field action.
+    * @property {String} [action_read=Read only]                                                             - Gets or sets the label for the readonly field action.
+    * @property {String} [action_editable=Editable]                                                          - Gets or sets the label for the editable field action.
+    * @property {String} [action_disable_next=Disable Next/Submit]                                           - Gets or sets the label for the disable next/submit button action.
+    * @property {String} [action_enable_next=Enable Next/Submit]                                             - Gets or sets the label for the enable next/submit button action.
+    * @property {String} [action_cancel=Cancel Submit]                                                       - Gets or sets the label for the cancel submit action.
+    * @property {String} [action_show_section=Show Section]                                                  - Gets or sets the label for the show section action.
+    * @property {String} [action_end=End Form]                                                               - Gets or sets the label for the end form action.
+    *
+    * @property {String} [actionValueHint=Enter a Value]                                                     - Gets or sets the label for the 'Set Value' action hint in the Rules configuration panel.
+    * @property {String} [actionExpressionHint=Enter an Expression]                                          - Gets or sets the label for the 'Set Expression' action in the Rules configuration panel.
+    *
+    * @property {String} [componentPanelHeader={0} Configuration]                                            - Gets or sets the label for the component configuration panel header. The {0} tag gets replaced with the name of the component.
+    *
+    * @property {String} [textbox=Textbox]                                                                   - Gets or sets the label for the friendly name when the field input type is a textbox element.
+    * @property {String} [textarea=Textarea]                                                                 - Gets or sets the label for the friendly name when the field input type is a textarea element.
+    * @property {String} [checkbox=Checkbox]                                                                 - Gets or sets the label for the friendly name when the field input type is a checkbox element.
+    * @property {String} [radio=Radio]                                                                       - Gets or sets the label for the friendly name when the field input type is a radio element.
+    * @property {String} [switch=Switch]                                                                     - Gets or sets the label for the friendly name when the field input type is a switch element.
+    * @property {String} [maskedTextBox=Masked Textbox]                                                      - Gets or sets the label for the friendly name when the field input type is a MaskedTextBox component.
+    * @property {String} [numericBox=Number]                                                                 - Gets or sets the label for the friendly name when the field input type is a NumericBox component.
+    * @property {String} [comboBox=Dropdown]                                                                 - Gets or sets the label for the friendly name when the field input type is a ComboBox component.
+    * @property {String} [datePicker=Date]                                                                   - Gets or sets the label for the friendly name when the field input type is a DatePicker component.
+    * @property {String} [timePicker=Time]                                                                   - Gets or sets the label for the friendly name when the field input type is a TimePicker component.
+    * @property {String} [slider=Slider]                                                                     - Gets or sets the label for the friendly name when the field input type is a Slider component.
+    * @property {String} [fileUpload=File Upload]                                                            - Gets or sets the label for the friendly name when the field input type is a FileUpload component.
+    * @property {String} [editor=Editor]                                                                     - Gets or sets the label for the friendly name when the field input type is an Editor component.
+    * @property {String} [signaturePad=Signature Pad]                                                        - Gets or sets the label for the friendly name when the field input type is a SignaturePad component.
+    * @property {String} [contentField=Content]                                                              - Gets or sets the label for the friendly name when the field type is a Content field.
+    * @property {String} [spacerField=Spacer]                                                                - Gets or sets the label for the friendly name when the field type is a Spacer field.
+    *
+    * @property {String} [multiSelect=Enable Multi-Selection]                                                - Gets or sets the label for the multiSelect setting in the ComboBox configuration panel.
+    * @property {String} [multiSelectTagging=Selections as Tags]                                             - Gets or sets the label for the multiSelectTagging setting in the ComboBox configuration panel.
+    * @property {String} [allowInput=Allow Typing]                                                           - Gets or sets the label for the allowInput setting in the ComboBox configuration panel.
+    *
+    * @property {String} [today=Default to Today]                                                            - Gets or sets the label for the today setting in the DatePicker configuration panel.
+    * @property {String} [allowedDates=Allow Listed Dates]                                                   - Gets or sets the label for the allowedDates setting in the DatePicker configuration panel.
+    * @property {String} [disallowDates=Disallow Listed Dates]                                               - Gets or sets the label for the disallowDates setting in the DatePicker configuration panel.
+    *
+    * @property {String} [precision=Decimal Precision]                                                       - Gets or sets the label for the precision setting in the NumericBox configuration panel.
+    *
+    * @property {String} [mask=Mask]                                                                         - Gets or sets the label for the mask setting in the MaskedTextBox configuration panel.
+    * @property {String} [maskTooltip]                                                                       - Gets or sets the label for the tooltip for the mask setting in the MaskedTextBox configuration panel.
+    *
+    * @property {String} [allowedCharacters=Allowed Characters]                                              - Gets or sets the label for the allowedCharacters setting in the MaskedTextBox configuration panel.
+    * @property {String} [allowedCharactersAlphanumeric=Alphanumeric]                                        - Gets or sets the label for the 'Alphanumeric' option of the allowedCharacters dropdown in the MaskedTextBox configuration panel.
+    * @property {String} [allowedCharactersDigits=Digits]                                                    - Gets or sets the label for the 'Digits' option of the allowedCharacters dropdown in the MaskedTextBox configuration panel.
+    * @property {String} [allowedCharactersLetters=Letters]                                                  - Gets or sets the label for the 'Letters' option of the allowedCharacters dropdown in the MaskedTextBox configuration panel.
+    *
+    * @property {String} [range=Enable Range Selection]                                                      - Gets or sets the label for the range setting in the Slider configuration panel.
+    * @property {String} [trackSize=Track Size]                                                              - Gets or sets the label for the trackSize setting in the Slider configuration panel.
+    * @property {String} [trackSizeHint=200px, 100%, 20ch - use CSS units]                                   - Gets or sets the label for the trackSize setting hint in the Slider configuration panel.
+    * @property {String} [startValue=Start Value]                                                            - Gets or sets the label for the startValue setting in the Slider configuration panel.
+    * @property {String} [tickMarks=Tick Marks]                                                              - Gets or sets the label for the tickMarks setting in the Slider configuration panel.
+    *
+    * @property {String} [incrementalValue=Step Interval (minutes)]                                          - Gets or sets the label for the incrementalValue setting in the TimePicker configuration panel.
+    * @property {String} [allowedTimes=Allowed Times]                                                        - Gets or sets the label for the allowedTimes setting in the TimePicker configuration panel.
+    * @property {String} [disallowTimes=Disallow Listed Times]                                               - Gets or sets the label for the disallowTimes setting in the TimePicker configuration panel.
+    *
+    * @property {String} [accept=Accept]                                                                     - Gets or sets the label for the accept setting in the FileUpload configuration panel.
+    * @property {String} [acceptHint=.png, .jpg, .jpeg]                                                      - Gets or sets the label for the placeholder setting hint for the accept setting in the FileUpload configuration panel.
+    * @property {String} [maxFileSize=Max. File Size (KB)]                                                   - Gets or sets the label for the maxFileSize setting in the FileUpload configuration panel.
+    * @property {String} [maxFiles=Max. Files]                                                               - Gets or sets the label for the maxFiles setting in the FileUpload configuration panel.
+    *
+    * @property {String} [all=All Options]                                                                   - Gets or sets the label for the all setting in the Editor configuration panel.
+    * @property {String} [block=Block styles]                                                                - Gets or sets the label for the block setting in the Editor configuration panel.
+    * @property {String} [link=Links]                                                                        - Gets or sets the label for the link setting in the Editor configuration panel.
+    * @property {String} [list=Lists]                                                                        - Gets or sets the label for the list setting in the Editor configuration panel.
+    * @property {String} [special=Special Chars]                                                             - Gets or sets the label for the special setting in the Editor configuration panel.
+    *
+    * @property {String} [margin=Margin]                                                                     - Gets or sets the label for the margin setting in the Content configuration panel.
+    * @property {String} [marginHint=5px, 100% - use CSS units]                                              - Gets or sets the label for the margin setting hint in the Content configuration panel.
+    * @property {String} [padding=Padding]                                                                   - Gets or sets the label for the padding setting in the Content configuration panel.
+    * @property {String} [paddingHint=5px, 100% - use CSS units]                                             - Gets or sets the label for the padding setting hint in the Content configuration panel.
+    * @property {String} [backgroundColor=Background color]                                                  - Gets or sets the label for the backgroundColor setting in the Content configuration panel.
+    * @property {String} [borderWidth=Border width]                                                          - Gets or sets the label for the borderWidth setting in the Content configuration panel.
+    * @property {String} [borderColor=Border color]                                                          - Gets or sets the label for the borderColor setting in the Content configuration panel.
+    * @property {String} [borderRadius=Border radius]                                                        - Gets or sets the label for the borderRadius setting in the Content configuration panel.
+    * @property {String} [borderRadiusHint=5px, 100% - use CSS units]                                        - Gets or sets the label for the borderRadius setting hint in the Content configuration panel.
+    *
+    * @property {String} [showDivider=Show Divider]                                                          - Gets or sets the label for the showDivider setting in the Spacer configuration panel.
+    * @property {String} [height=Height]                                                                     - Gets or sets the label for the height setting in the Spacer configuration panel.
+    * @property {String} [heightHint=10px, 2em - use CSS units]                                              - Gets or sets the label for the height setting hint in the Spacer configuration panel.
+    *
+    * @property {String} [saveInProgress=Saving...]                                                          - Gets or sets the label for the save-status when the save is in progress.
+    * @property {String} [saveSuccess=Saved...]                                                              - Gets or sets the label for the save-status when the save is successful.
+    * @property {String} [saveFailed=Save failed]                                                            - Gets or sets the label for the save-status when the save failed.
+    *
+    * @property {String} [alertDialogHeader=Alert]                                                           - Gets or sets the header label for the alert dialog.
+    * @property {String} [confirmDialogHeader=Confirmation]                                                  - Gets or sets the header label for the confirmation dialog.
+    *
+    * @property {String} [previous=Previous]                                                                 - Gets or sets the label for the previous section button.
+    * @property {String} [next=Next]                                                                         - Gets or sets the label for the next section button.
+    * @property {String} [submit=Submit]                                                                     - Gets or sets the label for the submit button.
+    *
+    * @property {String} [navigatorSearchHint=Find Field]                                                    - Gets or sets the label for the navigator search-box hint in the Navigator panel.
+    *
+    * @property {String} [buildPanel_fields=Fields]                                                          - Gets or sets the label for the title of the Fields build-panel.
+    * @property {String} [buildPanel_content=Content]                                                        - Gets or sets the label for the title of the Content build-panel.
+    * @property {String} [buildPanel_navigator=Navigator]                                                    - Gets or sets the label for the title of the Navigator build-panel.
+    * @property {String} [configPanel_fieldset=FieldSet Configuration]                                       - Gets or sets the label for the title of the FieldSet config-panel.
+    * @property {String} [configPanel_field=Field Configuration]                                             - Gets or sets the label for the title of the Field config-panel.
+    * @property {String} [configPanel_content=Content Field Configuration]                                   - Gets or sets the label for the title of the Content config-panel.
+    * @property {String} [configPanel_spacer=Spacer Field Configuration]                                     - Gets or sets the label for the title of the Spacer config-panel.
+    * @property {String} [configPanel_fieldOptions=Field Options]                                            - Gets or sets the label for the title of the Field Options config-panel.
+    * @property {String} [configPanel_validation=Validation Rules]                                           - Gets or sets the label for the title of the Validation Rules config-panel.
+    * @property {String} [configPanel_rules=Conditional Rules]                                               - Gets or sets the label for the title of the Conditional Rules config-panel.
+    */
 
     /**
      * Form CSS Variables.
@@ -808,6 +810,12 @@
                     cssClassIcon: 'ico-com-file-upload',
                 }),
                 new Form.BuildBlock({
+                    label: ':signaturePad',
+                    inputType: Form.InputTypeOption.SIGNATUREPAD,
+                    cssClass: 'signature-pad-field',
+                    cssClassIcon: 'ico-com-signature-pad'
+                }),
+                new Form.BuildBlock({
                     label: ':editor',
                     inputType: Form.InputTypeOption.EDITOR,
                     cssClass: 'rich-textbox-field',
@@ -1007,6 +1015,7 @@
                 validatorMessage_required: "{field} is required.",
                 validatorMessage_range: "{field} must be between {min} and {max}.",
                 validatorMessage_length: "{field} must be between {min} and {max} characters long.",
+                validatorMessage_list_length: "Select between {min} and {max} options.",
                 validatorMessage_integer: "{field} must be a valid number.",
                 validatorMessage_float: "{field} must be a valid decimal number.",
                 validatorMessage_email: "{field} must be a valid email address.",
@@ -1096,6 +1105,7 @@
                 timePicker: "Time",
                 slider: "Slider",
                 fileUpload: "File Upload",
+                signaturePad: "Signature Pad",
                 editor: "Editor",
                 contentField: "Content",
                 spacerField: "Spacer",
@@ -2315,6 +2325,16 @@
         isField(type)
         {
             return this.isInputField(type) || this.isContentField(type);
+        }
+
+        /**
+         * Checks if the field holds a list of values (checkbox or switch group, multi-select ComboBox).
+         * @param {componyx.UI.Form.Field} field - The field to check.
+         * @returns {boolean} True if the field holds a list of values.
+         */
+        isListField(field)
+        {
+            return (field.inputType === Form.InputTypeOption.CHECKBOX || field.inputType === Form.InputTypeOption.SWITCH || (field.inputType === Form.InputTypeOption.COMBOBOX && field.componentSettings?.multiSelect === true));
         }
 
         /** 
@@ -3954,7 +3974,8 @@
                 isActive = manager.isFieldActive(field),
                 panelBar = manager.panelBar,
                 optionsPanel = (field.inputType == Form.InputTypeOption.CHECKBOX || field.inputType == Form.InputTypeOption.RADIO || field.inputType == Form.InputTypeOption.SWITCH || field.inputType == Form.InputTypeOption.COMBOBOX),
-                componentPanel = (field.inputType >= Form.InputTypeOption.MASKEDTEXTBOX),
+                componentPanel = (field.inputType >= Form.InputTypeOption.MASKEDTEXTBOX && field.inputType !== Form.InputTypeOption.SIGNATUREPAD),
+                validationPanel = (field.inputType != Form.InputTypeOption.RADIO && field.inputType != Form.InputTypeOption.FILEUPLOAD && field.inputType != Form.InputTypeOption.SIGNATUREPAD),
                 fieldPanelName = field.type + 'Panel',
                 labelInput = field.element.querySelector(`label > input`),
                 doc = this.ownerDocument || document;
@@ -3987,6 +4008,9 @@
             if (!componentPanel)
                 panelBar.hidePanel('ComponentPanel');
 
+            if (!validationPanel)
+                panelBar.hidePanel('ComponentPanel');
+
             if (!isActive) // render panel content
             {
                 if (labelInput)
@@ -3994,7 +4018,10 @@
 
                 ['Field', 'ContentField', 'SpacerField'].forEach(name => fieldPanelName !== name + 'Panel' && panelBar.hidePanel(name + 'Panel'));
                 manager.renderFieldTypePanel(field);
-                manager.renderValidationPanel(field);
+
+                if (validationPanel)
+                    manager.renderValidationPanel(field);
+
                 manager.renderRulesPanel(field);
 
                 if (!this.dataObserver.activePanelId)
@@ -4564,7 +4591,7 @@
 
             $lib.each(Form.InputTypeOption, (value) =>
             {
-                if (value >= Form.InputTypeOption.MASKEDTEXTBOX)
+                if (value >= Form.InputTypeOption.MASKEDTEXTBOX && value !== Form.InputTypeOption.SIGNATUREPAD)
                     this.#setDefaultTemplate(`ComponentPanel_${Form.InputTypeOption.getName(value)}`);
             });
         }
@@ -4620,6 +4647,9 @@
 
             if (this.isBuildMode() || $lib.indexOf(fields, comparer(Form.InputTypeOption.FILEUPLOAD)) > -1)
                 script.push('FileUpload');
+
+            if (this.isBuildMode() || $lib.indexOf(fields, comparer(Form.InputTypeOption.SIGNATUREPAD)) > -1)
+                script.push('SignaturePad');
 
             if (this.isBuildMode() || $lib.indexOf(fields, comparer(Form.InputTypeOption.EDITOR)) > -1 || fields.findIndex(f => f.type === Form.BlockTypeOption.CONTENT_FIELD) > -1)
                 script.push('Editor');

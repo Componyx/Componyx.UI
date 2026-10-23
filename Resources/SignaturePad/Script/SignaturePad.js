@@ -44,6 +44,7 @@
         #points = [];           // the pointer positions of the current line
         #matrix = null;         // converts screen positions to drawing positions, read once per line
         #drawing = false;       // a value to indicate we are in drawing mode (true while the pointer is down)
+        #label = 'Signature';
         #value = '';
         #disabled = false;
         #readOnly = false;
@@ -81,12 +82,6 @@
              * @type {Boolean}
              */
             this.showClearButton = true;
-
-            /**
-             * Gets or sets the accessible label of the drawing area.
-             * @type {String}
-             */
-            this.label = 'Signature';
 
             /**
              * Gets or sets the id of the HTML input to use.
@@ -164,6 +159,27 @@
 
             if (this.renderState === $base.static.RenderState.RENDERED)
                 this.renderValue();
+        }
+
+        /**
+         * Gets or sets the accessible label of the drawing area.
+         * @type {String}
+        */
+        get label()
+        {
+            return this.#label;
+        }
+
+        /**
+         * Sets the accessible label.
+         * @param {String} value
+         */
+        set label(value)
+        {
+            this.#label = value;
+
+            if (this.renderState === $base.static.RenderState.RENDERED)
+                this.#svg.setAttribute('aria-label', value);
         }
 
         /**
@@ -305,6 +321,7 @@
         destroy(keepEvents, removeElement = true)
         {
             this.#disposeEvents();
+            this.#clearButton = null;
             super.destroy(keepEvents, removeElement);
         }
 
@@ -327,7 +344,7 @@
 
         #preRender()
         {
-            return [SignaturePad.name];
+            return [SignaturePad.name, ['Button']];
         }
 
         #draw()
@@ -575,7 +592,10 @@
             if (this.#input)
                 this.#input.disabled = this.#disabled;
 
-            if (this.#clearButton && (locked || this.isEmpty()))
+            if (!this.#clearButton)
+                return;
+
+            if (locked || this.isEmpty())
                 this.#clearButton.disable();
             else
                 this.#clearButton.enable();

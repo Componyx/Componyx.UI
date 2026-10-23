@@ -106,6 +106,7 @@ componyx.UI.form_modules.ComponentPanel = class ComponentPanel
                             {
                                 field.options?.forEach(opt => { opt.selected = false; });
                                 this.cpm.renderOptionsPanel(field);
+                                this.cpm.renderValidationPanel(field);
                             }
                         }
                     },

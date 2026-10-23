@@ -195,10 +195,12 @@ const InputTypeOption =
     FILEUPLOAD: 11,
     /** Rich text editor (componyx.UI.Editor). */
     EDITOR: 12,
+    /**  Signature drawing area (componyx.UI.SignaturePad).  */
+    SIGNATUREPAD: 13,
 
     getName(value)
     {
-        let names = { 5: 'MaskedTextBox', 6: 'NumericBox', 7: 'ComboBox', 8: 'DatePicker', 9: 'TimePicker', 10: 'Slider', 11: 'FileUpload', 12: 'Editor' };
+        let names = { 5: 'MaskedTextBox', 6: 'NumericBox', 7: 'ComboBox', 8: 'DatePicker', 9: 'TimePicker', 10: 'Slider', 11: 'FileUpload', 12: 'Editor', 13: 'SignaturePad' };
 
         if (names[value])
             return names[value];
