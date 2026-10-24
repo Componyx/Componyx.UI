@@ -565,6 +565,16 @@ declare namespace componyx
                     BASE = 0,
                     DEFAULT = 1
                 }
+                /**
+                * Size options.
+                */
+                enum SizeOption
+                {
+                    SMALL = 's',
+                    MEDIUM = 'm',
+                    LARGE = 'l',
+                    XLARGE = 'xl'
+                }
                 namespace ThemeOption
                 {
                     /**

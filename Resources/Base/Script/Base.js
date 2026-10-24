@@ -31,6 +31,7 @@ componyx.UI.base = {};
         _namespace = 'componyx.UI.',
         _customTagPrefix = 'cui-',
         _cssClassHidden = 'hidden',
+        _cssClassSizePrefix = 'size-',
         _detected = Symbol('detected'),
         _settings = {},
         _addVersion = function (src)
@@ -1386,6 +1387,18 @@ componyx.UI.base = {};
             }
         },
         /**
+        * Size options.
+        * @readonly
+        * @enum {string}
+        */
+        SizeOption:
+        {
+            SMALL: 's',
+            MEDIUM: 'm',
+            LARGE: 'l',
+            XLARGE: 'xl'
+        },
+        /**
         * Render states.
         * @readonly
         * @enum {number}
@@ -2346,6 +2359,9 @@ componyx.UI.base = {};
             element.id = instance.id;
             element.className = this.disableDefaultCssClass ? instance.cssClass ?? "" : `${defaultName} ${instance.cssClass || ""}`.trim();
             element.style.display = '';
+
+            if (instance.size)
+                element.classList.add(_cssClassSizePrefix + instance.size);
 
             if (typeof instance.style === 'string')
                 $lib.setStyle(element, instance.style);

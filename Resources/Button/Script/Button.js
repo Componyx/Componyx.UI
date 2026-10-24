@@ -17,7 +17,6 @@
         // define private properties
         let _instance = this,
             _contentElement,
-            _sizeOption = componyx.UI.Button.SizeOption,
             _typeOption = componyx.UI.Button.TypeOption,
             _expandDirectionOption = componyx.UI.Button.ExpandDirectionOption,
             _alignOption = componyx.UI.Button.AlignOption,
@@ -28,7 +27,6 @@
             _isKeyboardNavigation,
             _classOption =
             {
-                SIZE_PREFIX: 'size-',
                 CONTENT_ALIGN: 'content',
                 SPLIT: 'split',
                 TRANSPARENT: 'lucent',
@@ -160,10 +158,10 @@
         this.iconURL = null;
 
         /**
-         * Gets or sets the size option.
-         * @type {componyx.UI.Button.SizeOption}
+         * Gets or sets the size option. When null, the component will use the default medium size.
+         * @type {componyx.UI.base.static.SizeOption|null}
          */
-        this.size = _sizeOption.MEDIUM;
+        this.size = null;
 
         /**
          * Gets or sets the content alignment option.
@@ -602,9 +600,6 @@
                 button.classList.add(_classOption.CHECK);
             else if (_instance.type == _typeOption.RADIOBUTTON)
                 button.classList.add(_classOption.RADIO);
-
-            if (_instance.size && _instance.size !== _sizeOption.MEDIUM)
-                button.classList.add(_classOption.SIZE_PREFIX + _instance.size);
 
             _contentElement.className = _instance.cssClassContentHolder || _classOption.CONTENT_HOLDER;
 
@@ -1322,19 +1317,6 @@
     componyx.UI.Button.getSelected = function (radioGroupId)
     {
         return componyx.UI.Button.RadioGroups[radioGroupId];
-    }
-
-    /**
-    * SizeOption
-    * @readonly
-    * @enum {string}
-    */
-    componyx.UI.Button.SizeOption =
-    {
-        SMALL: 's',
-        MEDIUM: 'm',
-        LARGE: 'l',
-        XLARGE: 'xl'
     }
 
     /**

@@ -2,27 +2,27 @@
 /* default button */
 :root
 {
-    --button-height: 28px;
+    --button-height: var(--cui-control-height-m);
     --button-padding-x: 6px;
     --button-expand-width: 14px;
 }
 
 .button.theme.size-s
 {
-    --button-height: 24px;
+    --button-height: var(--cui-control-height-s);
     --button-expand-width: 12px;
 }
 
 .button.theme.size-l
 {
-    --button-height: 38px;
+    --button-height: var(--cui-control-height-l);
     --button-padding-x: 10px;
     --button-expand-width: 19px;
 }
 
 .button.theme.size-xl
 {
-    --button-height: 48px;
+    --button-height: var(--cui-control-height-xl);
     --button-padding-x: 14px;
     --button-expand-width: 24px;
 }

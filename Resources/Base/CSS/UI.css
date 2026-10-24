@@ -7,6 +7,10 @@
     font-style: normal;
     font-weight: normal;
     font-style: normal;
+    --cui-control-height-s: 24px;
+    --cui-control-height-m: 28px;
+    --cui-control-height-l: 38px;
+    --cui-control-height-xl: 48px;
 }
 
 :root {
