@@ -1,23 +1,34 @@
 {
   "version": 1.1,
-  "tags": [
-    {
-      "name": "cui-form",
-      "description": "Componyx UI Form component."
-    },
-    {
-      "name": "cui-masked-text-box",
-      "description": "Componyx UI MaskedTextBox component."
-    },
-    {
-      "name": "cui-panel-bar",
-      "description": "Componyx UI PanelBar component."
-    },
-    {
-      "name": "cui-pie-chart",
-      "description": "Componyx UI PieChart component."
-    }
-  ],
+	"tags": [
+		{ "name": "cui-app-skin", "description": "Componyx UI AppSkin component." },
+		{ "name": "cui-bookmark-spy", "description": "Componyx UI BookmarkSpy component." },
+		{ "name": "cui-box", "description": "Componyx UI Box component." },
+		{ "name": "cui-button", "description": "Componyx UI Button component." },
+		{ "name": "cui-carousel", "description": "Componyx UI Carousel component." },
+		{ "name": "cui-color-button", "description": "Componyx UI ColorButton component." },
+		{ "name": "cui-color-picker", "description": "Componyx UI ColorPicker component." },
+		{ "name": "cui-combo-box", "description": "Componyx UI ComboBox component." },
+		{ "name": "cui-data-pager", "description": "Componyx UI DataPager component." },
+		{ "name": "cui-date-picker", "description": "Componyx UI DatePicker component." },
+		{ "name": "cui-dialog", "description": "Componyx UI Dialog component." },
+		{ "name": "cui-editor", "description": "Componyx UI Editor component." },
+		{ "name": "cui-file-upload", "description": "Componyx UI FileUpload component." },
+		{ "name": "cui-form", "description": "Componyx UI Form component." },
+		{ "name": "cui-form-field", "description": "Componyx UI FormField component." },
+		{ "name": "cui-grid", "description": "Componyx UI Grid component." },
+		{ "name": "cui-masked-text-box", "description": "Componyx UI MaskedTextBox component." },
+		{ "name": "cui-menu", "description": "Componyx UI Menu component." },
+		{ "name": "cui-numeric-box", "description": "Componyx UI NumericBox component." },
+		{ "name": "cui-panel-bar", "description": "Componyx UI PanelBar component." },
+		{ "name": "cui-pie-chart", "description": "Componyx UI PieChart component." },
+		{ "name": "cui-signature-pad", "description": "Componyx UI SignaturePad component." },
+		{ "name": "cui-slider", "description": "Componyx UI Slider component." },
+		{ "name": "cui-tab-strip", "description": "Componyx UI TabStrip component." },
+		{ "name": "cui-time-picker", "description": "Componyx UI TimePicker component." },
+		{ "name": "cui-tooltip-manager", "description": "Componyx UI TooltipManager component." },
+		{ "name": "cui-validator", "description": "Componyx UI Validator component." }
+	],
   "globalAttributes": [
     {
       "name": "data-bindary-context",
