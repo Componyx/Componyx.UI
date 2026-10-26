@@ -5,32 +5,6 @@ declare namespace componyx
         interface TimePicker extends componyx.UI.base.methods { }
         /**
          * <p>TimePicker class.</p>
-         * @property cssClassNumericBox - <p>Gets or sets the css class of the numericbox.</p>
-         * @property cssClassHour - <p>Gets or sets the css class of the hour input.</p>
-         * @property cssClassMinute - <p>Gets or sets the css class of the minute input.</p>
-         * @property hourPlaceholder - <p>Gets or sets the placeholder which is visible when the hour input box has no value. Default: HH.</p>
-         * @property minutePlaceholder - <p>Gets or sets the placeholder which is visible when the minute input box has no value. Default: MM.</p>
-         * @property readOnly - <p>Gets or sets a value indicating whether the timepicker is readonly.</p>
-         * @property disabled - <p>Gets or sets a value indicating whether the timepicker is disabled.</p>
-         * @property autoFocus - <p>Gets or sets a value indicating whether focus on an input field is automaticly moved to the next field while typing.</p>
-         * @property hourLeadingZero - <p>Gets or sets a value indicating whether a leading zero is added to the hour input box if it is not provided. Default: true.</p>
-         * @property is24HourClock - <p>Gets or sets a value indicating whether a 12 or 24 hour clock is used.</p>
-         * @property meridiemValue - <p>Gets or sets the meridiem value if its not set to a 24 hour clock.</p>
-         * @property name - <p>Gets or sets the hidden input field name which contains the selected time value.</p>
-         * @property value - <p>Gets or sets the the selected time value in format 'HH:MM'.</p>
-         * @property minValue - <p>Gets or sets the minimum allowed time in format 'HH:MM'. Minutes must be divisible by 5.</p>
-         * @property maxValue - <p>Gets or sets the maximum allowed time in format 'HH:MM'. Minutes must be divisible by 5.</p>
-         * @property incrementalValue - <p>Gets or sets the incremental value in minutes. Minutes must be divisible by 5.</p>
-         * @property allowedTimes - <p>Gets or sets a list of allowed clock times (format 'HH:MM'). Separate two date strings with a space to specify allowed range. When allowed times are set, date input fields are rendered in readonly mode.</p>
-         * @property disallowTimes - <p>Gets or sets a value indicating if the times specified in the times property are disallowed instead of the default allowed.</p>
-         * @property viewMode - <p>Gets or sets the view mode in which the time picker is rendered.</p>
-         * @property hourNumericBoxId - <p>Gets or sets the id of the hour numeric box from which the settings are cloned.</p>
-         * @property minuteNumericBoxId - <p>Gets or sets the id of the minute numeric box from which the settings are cloned.</p>
-         * @property clockDialogId - <p>Gets or sets the id of the clock dialog from which the settings are cloned.</p>
-         * @property pmButtonId - <p>Gets or sets the id of the post meridiem (PM) button from which the settings are cloned.</p>
-         * @property amButtonId - <p>Gets or sets the id of the ante meridiem (AM) button from which the settings are cloned.</p>
-         * @property pickerButtonId - <p>Gets or sets the id of the picker button from which the settings are cloned.</p>
-         * @property hiddenInputId - <p>Gets or sets the id of the hidden input from which the settings are cloned.</p>
          * @param id - <p>The id of the component.</p>
          * @param properties - <p>The properties used to initialize the component or the container element.</p>
          */
@@ -159,6 +133,10 @@ declare namespace componyx
              * <p>Gets or sets the meridiem value if its not set to a 24 hour clock.</p>
             */
             meridiemValue: string;
+            /**
+             * <p>Gets or sets the size option.
+            */
+            size: componyx.UI.base.static.SizeOption;
             /**
              * <p>Gets or sets the hidden input field name which contains the selected time value.</p>
             */

@@ -121,6 +121,12 @@
         this.maxValue = null;
 
         /**
+        * Gets or sets the size option.
+        * @type {componyx.UI.base.static.SizeOption}
+        */
+        this.size = $base.static.SizeOption.MEDIUM;
+
+        /**
          * Gets or sets the width of the component in the specified CSS unit (e.g., px, %, or ch).
          * @type {String}
          */

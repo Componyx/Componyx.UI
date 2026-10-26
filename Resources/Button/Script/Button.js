@@ -158,10 +158,10 @@
         this.iconURL = null;
 
         /**
-         * Gets or sets the size option. When null, the component will use the default medium size.
-         * @type {componyx.UI.base.static.SizeOption|null}
+         * Gets or sets the size option.
+         * @type {componyx.UI.base.static.SizeOption}
          */
-        this.size = null;
+        this.size = $base.static.SizeOption.MEDIUM;
 
         /**
          * Gets or sets the content alignment option.

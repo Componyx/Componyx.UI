@@ -236,6 +236,10 @@ declare namespace componyx
             */
             maxValue: string | Date;
             /**
+             * <p>Gets or sets the size option.
+            */
+            size: componyx.UI.base.static.SizeOption;
+            /**
              * <p>Gets or sets a list of allowed calendar dates. Separate two date strings with a space to specify allowed range. When allowed dates are set, date input fields are rendered in readonly mode.</p>
             */
             allowedDates: String[] | Date[];

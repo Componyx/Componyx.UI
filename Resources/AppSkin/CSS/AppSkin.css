@@ -1141,10 +1141,7 @@ input[type=password]::-ms-clear
         box-sizing: content-box;
     }
 
-    & input[type="text"],
-    & input[type="password"],
-    & textarea,
-    & select
+    & :where(input[type="text"], input[type="password"], textarea, select)
     {
         font-family: inherit;
         border-width: 1px;

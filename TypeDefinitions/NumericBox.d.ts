@@ -134,6 +134,10 @@ declare namespace componyx
             */
             maxValue: number | null;
             /**
+             * <p>Gets or sets the size option.
+            */
+            size: componyx.UI.base.static.SizeOption;
+            /**
              * <p>Gets or sets the width of the component in the specified CSS unit (e.g., px, %, or ch).</p>
             */
             width: string;

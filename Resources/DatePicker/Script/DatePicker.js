@@ -2,6 +2,7 @@
 "use strict";
 (function (window)
 {
+
     /**
     * DatePicker class.
     * @class
@@ -11,48 +12,7 @@
     * @param {String} id The id of the component.
     * @param {Object|HTMLElement} properties The properties used to initialize the component or the container element.
     * @returns {Object} An instance of the component.
-    * @property {String} cssClassNumericBox                                                 - Gets or sets the css class of the numericbox.
-    * @property {String} cssClassDay                                                        - Gets or sets the css class of the day input.
-    * @property {String} cssClassMonth                                                      - Gets or sets the css class of the month input.
-    * @property {String} cssClassYear                                                       - Gets or sets the css class of the year input.
-    * @property {String} cssClassPicker                                                     - Gets or sets the css class of the picker button.
-    * @property {String} cssClassCalendar                                                   - Gets or sets the css class of the calendar dialog.
-    * @property {String} cssClassPrevMonth                                                  - Gets or sets the css class of the prev month button.
-    * @property {String} cssClassNextMonth                                                  - Gets or sets the css class of the next month button.
-    * @property {String} cssClassHeaderLabel                                                - Gets or sets the css class of the calendar header label.
-    * @property {String} cssClassWeekNumber                                                 - Gets or sets the css class of the week number cell in the calendar.
-    * @property {String} cssClassCurrentWeek                                                - Gets or sets the css class of the current week row in the calendar.
-    * @property {String} cssClassToday                                                      - Gets or sets the css class of the current day cell in the calendar.
-    * @property {String} cssClassInactive                                                   - Gets or sets the css class of an inactive day cell in the calendar.
-    * @property {String} dateFormat                                                         - Gets or sets the input format for dates. Default: MM/dd/yyyy.
-    * @property {componyx.UI.DatePicker.FirstDayOfWeekOption} firstDayOfWeek             - Gets or sets the first day of the week.
-    * @property {Boolean} today                                                             - Gets or sets a value indicating whether today should be used as initial selected date.
-    * @property {String} dayPlaceholder                                                     - Gets or sets the placeholder which is visible when the day input box has no value. Default: DD.
-    * @property {String} monthPlaceholder                                                   - Gets or sets the placeholder which is visible when the month input box has no value. Default: MM.
-    * @property {String} yearPlaceholder                                                    - Gets or sets the placeholder which is visible when the year input box has no value. Default: YYYY.
-    * @property {componyx.UI.DatePicker.ViewModeOption} viewMode                         - Gets or sets the view mode in which the date picker is rendered.
-    * @property {Boolean} weekNumbers                                                       - Gets or sets a value indicating if week numbers are displayed in the calendar.
-    * @property {Boolean} readOnly                                                          - Gets or sets a value indicating whether the date picker is readonly.
-    * @property {Boolean} disabled                                                          - Gets or sets a value indicating whether the date picker is disabled.
-    * @property {Boolean} calendarDayLeadingZero                                            - Gets or sets a value indicating whether a calendar day has a leading zero.
-    * @property {Boolean} autoFocus                                                         - Gets or sets a value indicating whether focus on an input field is automaticly moved to the next field while typing.
-    * @property {String[]} months                                                           - Gets or sets the month names as List of StringValue objects.
-    * @property {String[]} days                                                             - Gets or sets the day names as List of StringValue objects.
-    * @property {String} name                                                               - Gets or sets the hidden input field name which contains the selected date in the specified date format.
-    * @property {String|Date} value                                                         - Gets or sets the initial date value.
-    * @property {String|Date} minValue                                                      - Gets or sets the minimum allowed date value.
-    * @property {String|Date} maxValue                                                      - Gets or sets the maximum allowed date value.
-    * @property {String[]|Date[]} allowedDates				                                - Gets or sets a list of allowed calendar dates. Separate two date strings with a space to specify allowed range. When allowed dates are set, date input fields are rendered in readonly mode.
-    * @property {Boolean} disallowDates						                                - Gets or sets a value indicating if the dates specified in the dates property are disallowed instead of the default allowed.
-    * @property {String} pickerButtonId                                                     - Gets or sets the id of the picker button from which the settings are cloned.
-    * @property {String} dayNumericBoxId                                                    - Gets or sets the id of the day numeric box from which the settings are cloned.
-    * @property {String} monthNumericBoxId                                                  - Gets or sets the id of the month numeric box from which the settings are cloned.
-    * @property {String} yearNumericBoxId                                                   - Gets or sets the id of the year numeric box from which the settings are cloned.
-    * @property {String} calendarMonthNumericBoxId                                          - Gets or sets the id of the month numeric box in the calendar from which the settings are cloned.
-    * @property {String} calendarYearNumericBoxId                                           - Gets or sets the id of the year numeric box in the calendar from which the settings are cloned.
-    * @property {String} dialogId                                                           - Gets or sets the id of the dialog from which the settings are cloned.
-    * @property {String} hiddenInputId                                                      - Gets or sets the id of the hidden input from which the settings are cloned. The hidden input contains the date in the configured date-format when a valid date is given.
-    */
+   */
     componyx.UI.DatePicker = function DatePicker(id, properties)
     {
         // define private properties
@@ -91,50 +51,261 @@
                 WEEKNUMBER: 'week-number',
                 CURRENTWEEK: 'current-week',
                 TODAY: 'today',
-                INACTIVE: 'inactive'
+                INACTIVE: 'inactive',
+                SEPARATOR: 'separator'
             }
 
         // define public properties
+        /**
+         * Gets or sets the css class of the numericbox.
+         * @type {String}
+         */
         this.cssClassNumericBox = '';
+
+        /**
+         * Gets or sets the css class of the day input.
+         * @type {String}
+         */
         this.cssClassDay = '';
+
+        /**
+         * Gets or sets the css class of the month input.
+         * @type {String}
+         */
         this.cssClassMonth = '';
+
+        /**
+         * Gets or sets the css class of the year input.
+         * @type {String}
+         */
         this.cssClassYear = '';
+
+        /**
+         * Gets or sets the css class of the picker button.
+         * @type {String}
+         */
         this.cssClassPicker = '';
+
+        /**
+         * Gets or sets the css class of the calendar dialog.
+         * @type {String}
+         */
         this.cssClassCalendar = '';
+
+        /**
+         * Gets or sets the css class of the prev month button.
+         * @type {String}
+         */
         this.cssClassPrevMonth = '';
+
+        /**
+         * Gets or sets the css class of the next month button.
+         * @type {String}
+         */
         this.cssClassNextMonth = '';
+
+        /**
+         * Gets or sets the css class of the calendar header label.
+         * @type {String}
+         */
         this.cssClassHeaderLabel = '';
+
+        /**
+         * Gets or sets the css class of the week number cell in the calendar.
+         * @type {String}
+         */
         this.cssClassWeekNumber = '';
+
+        /**
+         * Gets or sets the css class of the current week row in the calendar.
+         * @type {String}
+         */
         this.cssClassCurrentWeek = '';
+
+        /**
+         * Gets or sets the css class of the current day cell in the calendar.
+         * @type {String}
+         */
         this.cssClassToday = '';
+
+        /**
+         * Gets or sets the css class of an inactive day cell in the calendar.
+         * @type {String}
+         */
         this.cssClassInactive = '';
+
+        /**
+         * Gets or sets the input format for dates. Default: MM/dd/yyyy.
+         * @type {String}
+         */
         this.dateFormat = 'MM/dd/yyyy';
+
+        /**
+         * Gets or sets the first day of the week.
+         * @type {componyx.UI.DatePicker.FirstDayOfWeekOption}
+         */
         this.firstDayOfWeek = _firstDayOfWeekOption.SUNDAY;
+
+        /**
+         * Gets or sets a value indicating whether today should be used as initial selected date.
+         * @type {Boolean}
+         */
         this.today = false;
+
+        /**
+         * Gets or sets the placeholder which is visible when the day input box has no value. Default: DD.
+         * @type {String}
+         */
         this.dayPlaceholder = 'DD';
+
+        /**
+         * Gets or sets the placeholder which is visible when the month input box has no value. Default: MM.
+         * @type {String}
+         */
         this.monthPlaceholder = 'MM';
+
+        /**
+         * Gets or sets the placeholder which is visible when the year input box has no value. Default: YYYY.
+         * @type {String}
+         */
         this.yearPlaceholder = 'YYYY';
+
+        /**
+         * Gets or sets the view mode in which the date picker is rendered.
+         * @type {componyx.UI.DatePicker.ViewModeOption}
+         */
         this.viewMode = _viewModeOption.INPUT_CALENDAR_POPUP;
+
+        /**
+         * Gets or sets a value indicating if week numbers are displayed in the calendar.
+         * @type {Boolean}
+         */
         this.weekNumbers = true;
+
+        /**
+         * Gets or sets a value indicating whether the date picker is readonly.
+         * @type {Boolean}
+         */
         this.readOnly = false;
+
+        /**
+         * Gets or sets a value indicating whether the date picker is disabled.
+         * @type {Boolean}
+         */
         this.disabled = false;
+
+        /**
+         * Gets or sets a value indicating whether a calendar day has a leading zero.
+         * @type {Boolean}
+         */
         this.calendarDayLeadingZero = false;
+
+        /**
+         * Gets or sets a value indicating whether focus on an input field is automatically moved to the next field while typing.
+         * @type {Boolean}
+         */
         this.autoFocus = true;
+
+        /**
+         * Gets or sets the month names.
+         * @type {String[]}
+         */
         this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        /**
+         * Gets or sets the day names.
+         * @type {String[]}
+         */
         this.days = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
+
+        /**
+         * Gets or sets the hidden input field name which contains the selected date in the specified date format.
+         * @type {String}
+         */
         this.name = '';
+
+        /**
+         * Gets or sets the initial date value.
+         * @type {String|Date|null}
+         */
         this.value = null;
+
+        /**
+         * Gets or sets the minimum allowed date value.
+         * @type {String|Date|null}
+         */
         this.minValue = null;
+
+        /**
+         * Gets or sets the maximum allowed date value.
+         * @type {String|Date|null}
+         */
         this.maxValue = null;
+
+        /**
+         * Gets or sets the size option.
+         * @type {componyx.UI.base.static.SizeOption}
+         */
+        this.size = $base.static.SizeOption.MEDIUM;
+
+        /**
+         * Gets or sets a list of allowed calendar dates. Separate two date strings with a space to specify allowed range. When allowed dates are set, date input fields are rendered in readonly mode.
+         * @type {String[]|Date[]}
+         */
         this.allowedDates = [];
+
+        /**
+         * Gets or sets a value indicating if the dates specified in the dates property are disallowed instead of the default allowed.
+         * @type {Boolean}
+         */
         this.disallowDates = false;
+
+        /**
+         * Gets or sets the id of the picker button from which the settings are cloned.
+         * @type {String|null}
+         */
         this.pickerButtonId = null;
+
+        /**
+         * Gets or sets the id of the day numeric box from which the settings are cloned.
+         * @type {String|null}
+         */
         this.dayNumericBoxId = null;
+
+        /**
+         * Gets or sets the id of the month numeric box from which the settings are cloned.
+         * @type {String|null}
+         */
         this.monthNumericBoxId = null;
+
+        /**
+         * Gets or sets the id of the year numeric box from which the settings are cloned.
+         * @type {String|null}
+         */
         this.yearNumericBoxId = null;
+
+        /**
+         * Gets or sets the id of the month numeric box in the calendar from which the settings are cloned.
+         * @type {String|null}
+         */
         this.calendarMonthNumericBoxId = null;
+
+        /**
+         * Gets or sets the id of the year numeric box in the calendar from which the settings are cloned.
+         * @type {String|null}
+         */
         this.calendarYearNumericBoxId = null;
+
+        /**
+         * Gets or sets the id of the dialog from which the settings are cloned.
+         * @type {String|null}
+         */
         this.dialogId = null;
+
+        /**
+         * Gets or sets the id of the hidden input from which the settings are cloned. The hidden input contains the date in the configured date-format when a valid date is given.
+         * @type {String|null}
+         */
         this.hiddenInputId = null;
 
         /**
@@ -425,10 +596,10 @@
             {
                 addInput(format);
                 format = format.substring(format.indexOf(splitChar) + 1);
-                _instance.applyTemplate(_instance.element, 'Separator');
+                createSeparator();
                 addInput(format);
                 format = format.substring(format.indexOf(splitChar) + 1);
-                _instance.applyTemplate(_instance.element, 'Separator');
+                createSeparator();
                 addInput(format);
             }
 
@@ -447,6 +618,14 @@
                 createCalendar();
 
             _instance.renderChildren();
+        }
+
+        function createSeparator()
+        {
+            if (!_instance.hasTemplate('Separator'))
+                return;
+
+            _instance.applyTemplate($lib.element({ container: _instance.element, tag: 'span', attrs: { class: _classOption.SEPARATOR } }), 'Separator');
         }
 
         function initDates()
@@ -604,6 +783,9 @@
             input.focusGroupId = _instance.id;
             input.focusableButtons = false;
             input.events.onPostRender.priorityAdd(() => { _instance.isReady.apply(_instance); }, null);
+
+            if (!calendar)
+                input.size = _instance.size;
 
             if (!calendar && _instance.viewMode == _viewModeOption.INPUT_CALENDAR_POPUP && !_instance.disabled)
             {
@@ -906,6 +1088,7 @@
             _pickerButton = $UI.createComponent(componyx.UI.Button, { id: id, containerElement: _instance.element });
 
             _pickerButton.clone($UI.store[_instance.pickerButtonId], _instance);
+            _pickerButton.size = _instance.size;
             _pickerButton.transparent = true;
             _pickerButton.cssClass = _pickerButton.cssClass || _instance.cssClassPicker || _classOption.PICKER;
             _pickerButton.hasIcon = true;

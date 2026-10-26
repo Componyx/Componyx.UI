@@ -334,6 +334,10 @@ declare namespace componyx
             */
             placeholder: string;
             /**
+             * <p>Gets or sets the size option.
+            */
+            size: componyx.UI.base.static.SizeOption;
+            /**
              * <p>Gets or sets the input width in the specified unit.</p>
             */
             width: string;

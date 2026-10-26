@@ -7,13 +7,14 @@
     font-style: normal;
     font-weight: normal;
     font-style: normal;
+}
+
+:root {
     --cui-control-height-s: 24px;
     --cui-control-height-m: 28px;
     --cui-control-height-l: 38px;
     --cui-control-height-xl: 48px;
-}
 
-:root {
     --cui-duration: .2s;
     --cui-ease: ease-in-out;
     --cui-mask-width: 0;

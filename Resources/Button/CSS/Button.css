@@ -1,16 +1,18 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 /* default button */
-:root
+.button.theme
 {
     --button-height: var(--cui-control-height-m);
     --button-padding-x: 6px;
     --button-expand-width: 14px;
+    --button-icon-size: 16px;
 }
 
 .button.theme.size-s
 {
     --button-height: var(--cui-control-height-s);
     --button-expand-width: 12px;
+    --button-icon-size: 14px;
 }
 
 .button.theme.size-l
@@ -18,6 +20,7 @@
     --button-height: var(--cui-control-height-l);
     --button-padding-x: 10px;
     --button-expand-width: 19px;
+    --button-icon-size: 20px;
 }
 
 .button.theme.size-xl
@@ -25,6 +28,7 @@
     --button-height: var(--cui-control-height-xl);
     --button-padding-x: 14px;
     --button-expand-width: 24px;
+    --button-icon-size: 24px;
 }
 
 .button.theme
@@ -173,16 +177,17 @@
 
 
     /* icon */
+    /* icon */
     .button.theme span.icon
     {
         position: relative;
-        min-width: 16px;
-        min-height: 16px;
+        min-width: var(--button-icon-size);
+        min-height: var(--button-icon-size);
         background-repeat: no-repeat;
         background-image: none;
         font-family: 'UI';
         font-weight: normal;
-        font-size: 16px;
+        font-size: var(--button-icon-size);
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         display: inline-flex;

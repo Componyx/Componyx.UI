@@ -273,6 +273,12 @@
         this.placeholder = '';
 
         /**
+         * Gets or sets the size option.
+         * @type {componyx.UI.base.static.SizeOption}
+         */
+        this.size = $base.static.SizeOption.MEDIUM;
+
+        /**
          * Gets or sets the input width in the specified unit.
          * @type {String}
          */
@@ -1099,6 +1105,7 @@
             _expandButton.transparentBorder = _expandButton.primary = false;
             _expandButton.clone($UI.store[_instance.expandButtonId], _instance);
 
+            _expandButton.size = _instance.size;
             _expandButton.showing = true;
             _expandButton.textSelection = true;
             _expandButton.split = _instance.splitButton;

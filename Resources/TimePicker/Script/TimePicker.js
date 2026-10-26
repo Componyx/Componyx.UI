@@ -114,6 +114,12 @@
 		this.meridiemValue = 'AM';
 
 		/**
+		 * Gets or sets the size option.
+		 * @type {componyx.UI.base.static.SizeOption}
+		 */
+		this.size = $base.static.SizeOption.MEDIUM;
+
+		/**
 		 * Gets or sets the hidden input field name which contains the selected time value.
 		 * @type {String}
 		 */
@@ -579,6 +585,7 @@
 			var input = $UI.createComponent(componyx.UI.NumericBox, { id: id, containerElement: container });
 
 			input.clone($UI.store[numericBoxId], _instance);
+			input.size = _instance.size;
 			input.cssClass = input.cssClass || _instance.cssClassNumericBox || _classOption.NUMERICBOX;
 			input.focusGroupId = _instance.id;
 			input.readOnly = _instance.readOnly;
@@ -676,6 +683,7 @@
 			var id = _instance.id + '_Picker';
 			_pickerButton = createButton(_instance.element, id, _instance.pickerButtonId);
 
+			_pickerButton.size = _instance.size;
 			_pickerButton.transparent = true;
 			_pickerButton.cssClass = _classOption.PICKER;
 			_pickerButton.hasIcon = true;
@@ -698,6 +706,12 @@
 			_buttonPM.transparent = true;
 			_buttonPM.primary = (container !== _instance.element);
 			_buttonPM.cssClass = _classOption.PM;
+
+			if (container === _instance.element)
+			{
+				_buttonAM.size = _instance.size;
+				_buttonPM.size = _instance.size;
+			}
 		}
 
 		function createButton(container, id, cloneId, text)

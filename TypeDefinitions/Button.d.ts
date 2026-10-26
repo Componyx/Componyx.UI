@@ -175,9 +175,9 @@ declare namespace componyx
             */
             iconURL: string | null;
             /**
-             * <p>Gets or sets the size option. When null, the component will use the default medium size.</p>
+             * <p>Gets or sets the size option.
             */
-            size: componyx.UI.base.static.SizeOption | null;
+            size: componyx.UI.base.static.SizeOption;
             /**
              * <p>Gets or sets the content alignment option.</p>
             */
