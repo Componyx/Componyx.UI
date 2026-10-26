@@ -18,6 +18,14 @@ For a working demo with full code examples, see [Bindary with a Node.js backend]
 **AppSkin search middleware** (`AppSkinSearchMiddleware.js`)
 Express-style middleware that answers AppSkin search requests from a prebuilt keyword index, generated with the Componyx Search Indexer.
 
+**Form validation** (`FormValidator.js`, `SignaturePadValidator.js`)
+Server-side checks for values submitted by a Form, ported from the .NET validators, without dependencies.
+
+* `FormValidator` validates submitted values against a Form definition (the Form component's JSON), using each field's required flag and validation settings. Failed rules are reported as Validator rule types, so the client shows its own localized message for each rule.
+* `SignaturePadValidator` checks that a SignaturePad value contains only the SVG the SignaturePad itself writes: the `<svg>` frame, its attributes and the paths inside. Anything else makes the value invalid.
+
+`FormValidator` checks values against the rules of the form; it doesn't sanitize them. Cleaning up submitted values, such as Editor HTML, is up to your own server code.
+
 **Component data classes**
 Plain classes that mirror the .NET types, for building the JSON that components consume:
 
