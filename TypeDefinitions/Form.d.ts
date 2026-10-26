@@ -177,6 +177,7 @@ declare namespace componyx
             * @property [action_end=End Form] - <p>Gets or sets the label for the end form action.</p>
             * @property [actionValueHint=Enter a Value] - <p>Gets or sets the label for the 'Set Value' action hint in the Rules configuration panel.</p>
             * @property [actionExpressionHint=Enter an Expression] - <p>Gets or sets the label for the 'Set Expression' action in the Rules configuration panel.</p>
+            * @property [expressionUnknownField=[Unknown field: {0}]] - <p>Gets or sets the text shown in preview mode when an expression refers to a field that doesn't exist. The {0} tag gets replaced with the field name.</p>
             * @property [componentPanelHeader={0} Configuration] - <p>Gets or sets the label for the component configuration panel header. The {0} tag gets replaced with the name of the component.</p>
             * @property [textbox=Textbox] - <p>Gets or sets the label for the friendly name when the field input type is a textbox element.</p>
             * @property [textarea=Textarea] - <p>Gets or sets the label for the friendly name when the field input type is a textarea element.</p>
@@ -241,6 +242,8 @@ declare namespace componyx
             * @property [saveFailed=Save failed] - <p>Gets or sets the label for the save-status when the save failed.</p>
             * @property [alertDialogHeader=Alert] - <p>Gets or sets the header label for the alert dialog.</p>
             * @property [confirmDialogHeader=Confirmation] - <p>Gets or sets the header label for the confirmation dialog.</p>
+            * @property [ruleLegendTitle=Active rules ({0})] - <p>Gets or sets the title of the rule legend dialog in preview mode. The {0} tag gets replaced with the number of active rules.</p>
+            * @property [ruleLegendEmpty=No rules are active.] - <p>Gets or sets the message displayed in the rule legend dialog when no rules are active.</p>
             * @property [previous=Previous] - <p>Gets or sets the label for the previous section button.</p>
             * @property [next=Next] - <p>Gets or sets the label for the next section button.</p>
             * @property [submit=Submit] - <p>Gets or sets the label for the submit button.</p>
@@ -365,6 +368,11 @@ declare namespace componyx
                 FEEDBACK: 'feedback';
                 VALIDATION_FEEDBACK: 'val-feedback';
                 RULE_FEEDBACK: 'rule-feedback';
+                RULE_LEGEND: 'rule-legend';
+                RULE_LEGEND_LIST: 'rule-legend-list';
+                RULE_LEGEND_FIELD: 'rule-legend-field';
+                RULE_LEGEND_ACTIONS: 'rule-legend-actions';
+                RULE_LEGEND_REASON: 'rule-legend-reason';
                 SAVE_STATUS: 'save-status';
                 SAVE_STATUS_BUSY: 'busy';
                 SAVE_STATUS_SUCCESS: 'success';
@@ -1048,6 +1056,10 @@ declare namespace componyx
                 REQUIRED = "required",
                 OPTIONAL = "optional"
             }
+            /**
+             * <p>Comparison operators that only take the source field, without a value to compare against.</p>
+             */
+            const RuleUnaryOperators: RuleComparisonOperatorOption[];
             /**
                * @property [headerTemplate] - <p>Gets or sets the header template.</p>
                * @property [footerTemplate] - <p>Gets or sets the footer template.</p>
@@ -1787,6 +1799,7 @@ declare namespace componyx
              * @param [properties.cssClassIcon = 'ico-undo'] - <p>Gets or sets the CSS class name for the icon to display.</p>
              * @param [properties.events = null] - <p>Gets or sets the events of the button component.</p>
              * @param [properties.buttonId = null] - <p>Gets or sets the id of the button component from which the settings are cloned.</p>
+             * @param [properties.boxId = null] - <p>Gets or sets the id of the box or dialog that the command button expands.</p>
              */
             class Command
             {
@@ -1800,6 +1813,7 @@ declare namespace componyx
                     cssClassIcon?: string;
                     events?: any;
                     buttonId?: string | null;
+                    boxId?: string | null;
                 });
                 /**
                  * <p>Gets or sets the id of the command. The id is generated if it's not set.</p>
@@ -1841,6 +1855,10 @@ declare namespace componyx
                  * <p>Gets or sets the id of the button component from which the settings are cloned.</p>
                  */
                 buttonId: string | null;
+                /**
+                 * <p>Gets or sets the id of the box or dialog that the command button expands.</p>
+                 */
+                boxId: string | null;
             }
             /**
              * <p>The RuleCase class represents a case of rules that result in actions.</p>
@@ -2362,6 +2380,10 @@ declare namespace componyx
              * <p>Gets or sets the id of the component from which the settings are cloned for the confirmation dialog action.</p>
              */
             confirmDialogId: string;
+            /**
+             * <p>Gets or sets the id of the component from which the settings are cloned for the rule legend dialog (preview mode).</p>
+             */
+            ruleLegendDialogId: string;
             /**
              * <p>Gets or sets the id of the component from which the settings are cloned for the previous section button.</p>
              */

@@ -891,7 +891,7 @@ componyx.UI.form_modules.RulesPanel = class RulesPanel
                     const valueContainer = this.#getValueContainer(container);
                     rule.comparisonOperator = args.item.id;
 
-                    if (['empty', 'not_empty', 'visible', 'hidden', 'enabled', 'disabled', 'required', 'optional'].includes(args.item.id))
+                    if (this.#formCtor.RuleUnaryOperators.includes(args.item.id))
                     {
                         this.#toggleContainer(valueContainer);
                     }

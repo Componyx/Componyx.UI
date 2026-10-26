@@ -314,6 +314,23 @@ const RuleComparisonOperatorOption =
 };
 
 /**
+ * Comparison operators that only take the source field, without a value to compare against.
+ * @readonly
+ * @type {string[]}
+ * @memberof componyx.UI.Form
+ */
+const RuleUnaryOperators = [
+    RuleComparisonOperatorOption.EMPTY,
+    RuleComparisonOperatorOption.NOT_EMPTY,
+    RuleComparisonOperatorOption.VISIBLE,
+    RuleComparisonOperatorOption.HIDDEN,
+    RuleComparisonOperatorOption.ENABLED,
+    RuleComparisonOperatorOption.DISABLED,
+    RuleComparisonOperatorOption.REQUIRED,
+    RuleComparisonOperatorOption.OPTIONAL
+];
+
+/**
  * @typedef {Object} BaseSetProperties
  * @memberof componyx.UI.Form
  * @property {HTMLElement|HTMLElement[]|DocumentFragment|string|null} [headerTemplate] Gets or sets the header template.
@@ -1408,6 +1425,7 @@ class Command
      * @param {String} [properties.cssClassIcon='ico-undo'] Gets or sets the CSS class name for the icon to display.
      * @param {Object} [properties.events=null] Gets or sets the events of the button component.
      * @param {String|null} [properties.buttonId=null] Gets or sets the id of the button component from which the settings are cloned.
+     * @param {String|null} [properties.boxId=null] - Gets or sets the id of the box or dialog that the command button expands.
      */
     constructor(properties)
     {
@@ -1470,6 +1488,12 @@ class Command
          * @type {string|null}
          */
         this.buttonId = null;
+
+        /**
+           * Gets or sets the id of the box or dialog that the command button expands.
+           * @type {String|null}
+           */
+        this.boxId = null;
 
         _clone(this, properties);
     }
@@ -1658,6 +1682,7 @@ class Action extends BaseType
  * @property {RuleCaseTriggerOption} RuleCaseTriggerOption
  * @property {RuleCaseRunVisibilityOption} RuleCaseRunVisibilityOption
  * @property {RuleComparisonOperatorOption} RuleComparisonOperatorOption
+ * @property {RuleComparisonOperatorOption[]} RuleUnaryOperators
  * @property {FieldRole} FieldRole
  * @property {ServerEndpoint} ServerEndpoint
  * @property {DataSource} DataSource
@@ -1688,6 +1713,7 @@ componyx.UI.form_modules.Types =
     RuleCaseTriggerOption,
     RuleCaseRunVisibilityOption,
     RuleComparisonOperatorOption,
+    RuleUnaryOperators,
     FieldRole,
     ServerEndpoint,
     DataSource,

@@ -47,6 +47,7 @@ import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/DataO
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/OptionsPanel.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/Renderer.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/RuleEngine.min.js";
+import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/RuleLegend.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/RulesPanel.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form/ValidationManager.min.js";
 import "C:/Users/edaan/source/repos/componyx.ui/Resources/Form/Script/Form.min.js";

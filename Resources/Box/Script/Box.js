@@ -18,6 +18,7 @@
         var _instance = this,
             _contentElement,
             _draggable,
+            _dragged = false,
             _focusable = [],
             _timerId = null,
             _showTimerId, _hideTimerId,
@@ -663,6 +664,7 @@
             var el = _instance.element;
 
             _hideTimerId = null;
+            _dragged = false;
 
             if (_instance.modal || _instance.handleFocus)
                 $lib.off(el, 'keydown', setFocus);
@@ -932,7 +934,18 @@
 
             if (_instance.draggable)
             {
-                _draggable = $lib.draggable(_instance.element, $base.static.initDragSettings(_instance.dragSettings));
+                const dragSettings = $base.static.initDragSettings(_instance.dragSettings),
+                    onDragEnd = dragSettings.onDragEnd;
+
+                dragSettings.onDragEnd = function (...args)
+                {
+                    _dragged = true;
+
+                    if (onDragEnd)
+                        return onDragEnd.apply(this, args);
+                };
+
+                _draggable = $lib.draggable(_instance.element, dragSettings);
             }
 
             _instance.postRender();
@@ -1053,7 +1066,7 @@
                 $lib.removeClass(divBox, _instance.cssClassVerticalInverted || _classOption.VERTICALINVERTED);
             }
 
-            if (_instance.autoPosition != _autoPositionOption.NONE)
+            if (_instance.autoPosition != _autoPositionOption.NONE && !_dragged)
             {
                 var stylePos = _styleCache.position || $lib.styleValue(divBox, 'position');
 
@@ -1220,12 +1233,25 @@
             }
         }
 
+        function anchorTopLeft(divBox)
+        {
+            const rect = $lib.getPos(divBox, null, true);
+
+            $lib.updateStyle(divBox.style, 'right:auto;bottom:auto;');
+            divBox.style.left = $lib.unit(rect.left - parseFloat($lib.styleValue(divBox, 'margin-left', true)));
+            divBox.style.top = $lib.unit(rect.top - parseFloat($lib.styleValue(divBox, 'margin-top', true)));
+        }
+
         function fit()
         {
-            var divBox = _instance.element,
-                winSize = $lib.getWindowSize(),
+            let divBox = _instance.element;
+
+            if (_instance.autoPosition == _autoPositionOption.NONE || _dragged)
+                anchorTopLeft(divBox);
+
+            let winSize = $lib.getWindowSize(),
                 rect = $lib.getPos(divBox, null, true),
-                autoPos = (_instance.autoPosition == _autoPositionOption.NONE || _instance.autoPosition == _autoPositionOption.EXPAND || _instance.autoPosition == _autoPositionOption.POINTER),
+                autoPos = (_dragged || _instance.autoPosition == _autoPositionOption.NONE || _instance.autoPosition == _autoPositionOption.EXPAND || _instance.autoPosition == _autoPositionOption.POINTER),
                 fitX = (autoPos && (rect.left < 0 || rect.right > winSize.width)) ? true : false,
                 fitY = (autoPos && (rect.top < 0 || rect.bottom > winSize.height)) ? true : false,
                 vertical = (_instance.expandDirection == _expandDirectionOption.DOWN || _instance.expandDirection == _expandDirectionOption.UP);
@@ -1629,6 +1655,7 @@
                 _draggable.disable();
 
             _draggable = null;
+            _dragged = false;
             _pointerCoordinates = null;
             _styleCache = {};
         }

@@ -1632,6 +1632,51 @@
         }
     }
 
+    .rule-legend
+    {
+        .rule-legend-list
+        {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            width: 320px;
+            max-width: calc(100vw - 32px);
+            overflow-wrap: anywhere;
+
+            &:empty::before
+            {
+                content: attr(data-placeholder);
+                display: block;
+                padding: 8px 0;
+                opacity: 0.7;
+            }
+
+            > li
+            {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                padding: 8px 0;
+            }
+
+                > li + li
+                {
+                    border-top-style: solid;
+                }
+        }
+
+        .rule-legend-field
+        {
+            font-weight: 600;
+        }
+
+        .rule-legend-reason
+        {
+            font-style: italic;
+            opacity: 0.8;
+        }
+    }
+
     & .icon.ico-validator::before
     {
         font-family: 'ComponentIcons';
@@ -1655,7 +1700,7 @@
 
     & .box
     {
-        z-index: calc(var(--z-index) + 1);
+        z-index: calc(var(--z-index) + 1) !important;
     }
 
     & .tooltip-manager.theme .box.tooltip.field-tooltip

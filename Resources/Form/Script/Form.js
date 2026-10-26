@@ -15,19 +15,20 @@
      */
     componyx.UI.form_modules.loaded = (async () =>
     {
-            // these dynamic imports are removed when files are bundled into UI(.min).js
-            await import(`${$UI.getScriptResourcePath('Base.Sanitizer')}`);
-            await import(`${$UI.getScriptResourcePath('Form.ActionManager')}`);
-            await import(`${$UI.getScriptResourcePath('Form.BuildPanelManager')}`);
-            await import(`${$UI.getScriptResourcePath('Form.ComponentFactory')}`);
-            await import(`${$UI.getScriptResourcePath('Form.ConfigPanelManager')}`);
-            await import(`${$UI.getScriptResourcePath('Form.DataBinder')}`);
-            await import(`${$UI.getScriptResourcePath('Form.Draggable')}`);
-            await import(`${$UI.getScriptResourcePath('Form.DataObserver')}`);
-            await import(`${$UI.getScriptResourcePath('Form.Renderer')}`);
-            await import(`${$UI.getScriptResourcePath('Form.RuleEngine')}`);
-            await import(`${$UI.getScriptResourcePath('Form.Types')}`);
-            await import(`${$UI.getScriptResourcePath('Form.ValidationManager')}`);
+        // these dynamic imports are removed when files are bundled into UI(.min).js
+        await import(`${$UI.getScriptResourcePath('Base.Sanitizer')}`);
+        await import(`${$UI.getScriptResourcePath('Form.ActionManager')}`);
+        await import(`${$UI.getScriptResourcePath('Form.BuildPanelManager')}`);
+        await import(`${$UI.getScriptResourcePath('Form.ComponentFactory')}`);
+        await import(`${$UI.getScriptResourcePath('Form.ConfigPanelManager')}`);
+        await import(`${$UI.getScriptResourcePath('Form.DataBinder')}`);
+        await import(`${$UI.getScriptResourcePath('Form.Draggable')}`);
+        await import(`${$UI.getScriptResourcePath('Form.DataObserver')}`);
+        await import(`${$UI.getScriptResourcePath('Form.Renderer')}`);
+        await import(`${$UI.getScriptResourcePath('Form.RuleEngine')}`);
+        await import(`${$UI.getScriptResourcePath('Form.RuleLegend')}`);
+        await import(`${$UI.getScriptResourcePath('Form.Types')}`);
+        await import(`${$UI.getScriptResourcePath('Form.ValidationManager')}`);
     })();
 
     await componyx.UI.form_modules.loaded;
@@ -41,6 +42,7 @@
     const ConfigPanelManager = componyx.UI.form_modules.ConfigPanelManager;
     const Renderer = componyx.UI.form_modules.Renderer;
     const RuleEngine = componyx.UI.form_modules.RuleEngine;
+    const RuleLegend = componyx.UI.form_modules.RuleLegend;
     const Types = componyx.UI.form_modules.Types;
     const ValidationManager = componyx.UI.form_modules.ValidationManager;
 
@@ -252,7 +254,11 @@
     *
     * @property {String} [actionValueHint=Enter a Value]                                                     - Gets or sets the label for the 'Set Value' action hint in the Rules configuration panel.
     * @property {String} [actionExpressionHint=Enter an Expression]                                          - Gets or sets the label for the 'Set Expression' action in the Rules configuration panel.
+    * @property {String} [expressionUnknownField=[Unknown field: {0}]]                                       - Gets or sets the text shown in preview mode when an expression refers to a field that doesn't exist. The {0} tag gets replaced with the field name.
     *
+    * @property {String} [ruleLegendTitle=Active rules ({0})]                                                - Gets or sets the title of the rule legend dialog in preview mode. The {0} tag gets replaced with the number of active rules.
+    * @property {String} [ruleLegendEmpty=No rules are active.]                                              - Gets or sets the message displayed in the rule legend dialog when no rules are active.
+    * 
     * @property {String} [componentPanelHeader={0} Configuration]                                            - Gets or sets the label for the component configuration panel header. The {0} tag gets replaced with the name of the component.
     *
     * @property {String} [textbox=Textbox]                                                                   - Gets or sets the label for the friendly name when the field input type is a textbox element.
@@ -413,6 +419,7 @@
         draggable;
         dataObserver;
         #saveTimerId;
+        #ruleLegendCommand;
 
         /**
          * Internal CSS class name constants.
@@ -519,6 +526,11 @@
                 RULES: 'rules',
                 RULE: 'rule',
                 RULE_VALUE: 'rule-value',
+                RULE_LEGEND: 'rule-legend',
+                RULE_LEGEND_LIST: 'rule-legend-list',
+                RULE_LEGEND_FIELD: 'rule-legend-field',
+                RULE_LEGEND_ACTIONS: 'rule-legend-actions',
+                RULE_LEGEND_REASON: 'rule-legend-reason',
                 ACTION: 'action',
                 ACTION_FOLLOW_UP: 'follow-up',
                 ACTION_VALUE: 'action-value',
@@ -850,7 +862,7 @@
             this.commands = [
                 new Form.Command({
                     command: this.undo.bind(this),
-                    events: { 'onMouseDown': this.setActiveElement.bind(this) },
+                    events: { 'onPointerDown': this.setActiveElement.bind(this) },
                     shortcutKey: 'z',
                     isVisible: this.isBuildMode.bind(this),
                     isEnabled: this.canPerformHistoryAction.bind(this, 'undo'),
@@ -861,13 +873,21 @@
                 }),
                 new Form.Command({
                     command: this.redo.bind(this),
-                    events: { 'onMouseDown': this.setActiveElement.bind(this) },
+                    events: { 'onPointerDown': this.setActiveElement.bind(this) },
                     isVisible: this.isBuildMode.bind(this),
                     isEnabled: this.canPerformHistoryAction.bind(this, 'redo'),
                     shortcutKey: 'y',
                     cssClass: 'redo',
                     cssClassIcon: 'ico-redo',
                     location: Form.CommandLocationOption.HEADER,
+                    buttonId: null
+                }),
+                this.#ruleLegendCommand = new Form.Command({
+                    isVisible: this.isPreviewMode.bind(this),
+                    location: Form.CommandLocationOption.HEADER,
+                    shortcutKey: 'r',
+                    cssClass: 'rule-legend',
+                    cssClassIcon: 'ico-chip',
                     buttonId: null
                 }),
                 new Form.Command({
@@ -1090,6 +1110,10 @@
 
                 actionValueHint: "Enter a value",
                 actionExpressionHint: "Enter a value or expression",
+                expressionUnknownField: "[Unknown field: {0}]",
+
+                ruleLegendTitle: "Active rules ({0})",
+                ruleLegendEmpty: "No rules are active.",
 
                 componentPanelHeader: "{0} Configuration",
 
@@ -1714,6 +1738,13 @@
              * @type {string}
              */
             this.navigatorMenuId = null;
+
+            /**
+             * Gets or sets the id of the component from which the settings are cloned for the rule legend Dialog used by the form component.
+             * @type {string}
+             */
+            this.ruleLegendDialogId = null;
+
 
             /** @private
              *  @type {Boolean}
@@ -4237,9 +4268,9 @@
 
                 return;
             }
-                  
+
             if (!bindToModel)
-                initForm();    
+                initForm();
         }
 
         /**
@@ -4458,6 +4489,7 @@
             this.dataObserver = new DataObserver(this);
             this.renderer = new Renderer(this);
             this.ruleEngine = new RuleEngine(this);
+            this.ruleLegend = new RuleLegend(this);
             this.actionManager = new ActionManager(this);
             this.validationManager = new ValidationManager(this);
         }
@@ -4661,6 +4693,12 @@
         {
             this.tooltipManager = this.componentFactory.createTooltipManager(this, this.id + '_TooltipManager', this.tooltipManagerId);
             this.colorPicker = this.componentFactory.createComponent(this, componyx.UI.ColorPicker, this.id + '_ColorPicker', this.colorPickerId, { popupView: true });
+
+            if (this.isPreviewMode() && this.commands.includes(this.#ruleLegendCommand))
+                this.ruleLegend.create(this.#ruleLegendCommand);
+            else
+                this.#ruleLegendCommand.boxId = null;
+
             this.renderer.createHeader();
 
             const panesEl = $lib.element(this, '', '', '', { "class": this.getCssClass(this.classOption.PANES) });
@@ -4946,6 +4984,7 @@
     Form.RuleCaseTriggerOption = Types.RuleCaseTriggerOption;
     Form.RuleCaseRunVisibilityOption = Types.RuleCaseRunVisibilityOption;
     Form.RuleComparisonOperatorOption = Types.RuleComparisonOperatorOption;
+    Form.RuleUnaryOperators = Types.RuleUnaryOperators;
     Form.FieldRole = Types.FieldRole;
     Form.ServerEndpoint = Types.ServerEndpoint;
     Form.DataSource = Types.DataSource;

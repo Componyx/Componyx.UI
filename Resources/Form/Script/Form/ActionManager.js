@@ -356,9 +356,12 @@ componyx.UI.form_modules.ActionManager = class ActionManager
         const resolver = (token) =>
         {
             const field = fields.find(f => f.name === token);
-            if (!field) return '""';
+
+            if (!field)
+                return this.form.isPreviewMode() ? $lib.format(this.form.labels.expressionUnknownField, token) : '';
+
             const value = this.form.dataBinder.getModelValue(field);
-            return (value !== undefined) ? value : null;
+            return (value !== undefined && value !== null) ? value : '';
         };
 
         return this.expressionEngine.evaluate(expr)(resolver); // create and execute directly with our field resolver

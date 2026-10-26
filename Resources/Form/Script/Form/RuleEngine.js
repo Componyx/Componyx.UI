@@ -95,6 +95,7 @@ componyx.UI.form_modules.RuleEngine = class RuleEngine
     #hiddenFieldCache;
     #dependencyMap;
     #originalFieldStates = new Map();
+    #activeRuleCases = new Map();
     #visible = { on: 'show', off: 'hide' };
     #readOnly = { on: 'readOnly', off: 'editable' };
     #disabled = { on: 'disable', off: 'enable' };
@@ -114,6 +115,16 @@ componyx.UI.form_modules.RuleEngine = class RuleEngine
     destroy()
     {
         this.#restoreFields();
+        this.#activeRuleCases = new Map();
+    }
+
+    /**
+     * Gets the rule cases that are currently applied, by field id. Only tracked in preview mode.
+     * @returns {Map<string, Object[]>} The active rule cases per field id.
+     */
+    getActiveRuleCases()
+    {
+        return this.#activeRuleCases;
     }
 
     /**
@@ -231,6 +242,9 @@ componyx.UI.form_modules.RuleEngine = class RuleEngine
 
                 this.#restoreOriginalState(currentField);
 
+                if (this.form.isPreviewMode())
+                    this.#activeRuleCases.delete(currentId);
+
                 if (this.form.ended) return; // If form ended, stop executing rules and actions
 
                 const section = this.form.getParentSection(currentField);
@@ -251,6 +265,9 @@ componyx.UI.form_modules.RuleEngine = class RuleEngine
                         const caseMatched = this.#evaluateCase(ruleCase);
                         if (!caseMatched)
                             continue;
+
+                        if (this.form.isPreviewMode())
+                            this.#trackActiveRuleCase(currentId, ruleCase);
 
                         const actions = ruleCase.actions || [];
                         for (const action of actions)
@@ -279,7 +296,41 @@ componyx.UI.form_modules.RuleEngine = class RuleEngine
         finally
         {
             this.#isExecuting = false;
+
+            if (this.form.isPreviewMode())
+                this.form.ruleLegend.update();
         }
+    }
+
+    /**
+    * Stores a matched rule case as active for the field, when it has at least one action that changes a field's state.
+     * @private
+     * @param {string} fieldId - The id of the field that owns the rule case.
+     * @param {Object} ruleCase - The matched rule case.
+     */
+    #trackActiveRuleCase(fieldId, ruleCase)
+    {
+        const stateActions = this.#getStateActionIds(),
+            hasStateAction = (ruleCase.actions || []).some(action => stateActions.includes(action.runtimeActionId));
+
+        if (!hasStateAction)
+            return;
+
+        if (!this.#activeRuleCases.has(fieldId))
+            this.#activeRuleCases.set(fieldId, []);
+
+        this.#activeRuleCases.get(fieldId).push(ruleCase);
+    }
+
+    /**
+    * Gets the ids of the actions that change a field's state, which is restored when the rule case no longer matches.
+     * @private
+     * @returns {string[]} The action ids.
+     */
+    #getStateActionIds()
+    {
+        return [this.#visible.on, this.#visible.off, this.#readOnly.on, this.#readOnly.off,
+        this.#disabled.on, this.#disabled.off, this.#required.on, this.#required.off, 'value', 'expression', 'feedback'];
     }
 
     #getUnconditionalFields(trigger)
@@ -307,8 +358,7 @@ componyx.UI.form_modules.RuleEngine = class RuleEngine
 
     #storeFieldState(field, action)
     {
-        const relevantActions = [this.#visible.on, this.#visible.off, this.#readOnly.on, this.#readOnly.off,
-        this.#disabled.on, this.#disabled.off, this.#required.on, this.#required.off, 'value', 'expression', 'feedback'];
+        const relevantActions = this.#getStateActionIds();
 
         if (!relevantActions.includes(action?.runtimeActionId)) return; // nothing to store
 
@@ -377,7 +427,7 @@ componyx.UI.form_modules.RuleEngine = class RuleEngine
             {
                 if (Operators.equal(entry.ruleState?.value, this.dataBinder.getModelValue(f)))
                     this.form.dataBinder.setModelValue(f, entry.original.value); // only restore if it holds the value set by the action
-            }                
+            }
 
             if (('feedback' in entry.original))
             {
