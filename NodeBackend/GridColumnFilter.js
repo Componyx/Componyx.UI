@@ -1,7 +1,8 @@
 /**
- * This class has no specific description yet.
+ * Represents a grid column filter, including its type and filter value.
+ * @memberof componyx.ui
  */
-export class GridColumnFilter
+class GridColumnFilter
 {
     constructor(properties)
     {
@@ -20,3 +21,5 @@ export class GridColumnFilter
         Object.assign(this, properties);
     }
 }
+
+export { GridColumnFilter };

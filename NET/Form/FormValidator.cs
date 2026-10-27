@@ -50,10 +50,6 @@ namespace Componyx.UI
             return new FormValidationResult(errors);
         }
 
-        /// <summary>
-        /// Collects all fields with the values scope they read from, mirroring the client: fields inside a repeatable field set
-        /// read from that set's array item (keyed by the set's id), all other fields read from the root values.
-        /// </summary>
         private static void CollectFields(JsonNode node, JsonNode parent, JsonObject root, JsonNode scope, string prefix, List<Entry> entries, Dictionary<string, List<int>> errors)
         {
             if (node == null || Str(node, "repeatGroupId") != null) // clones of a repeated set are covered by the original's value array
@@ -167,9 +163,6 @@ namespace Componyx.UI
             return failed;
         }
 
-        /// <summary>
-        /// Finds the compared field: in the same repeat item when both fields share a field set, otherwise its first occurrence.
-        /// </summary>
         private static Entry FindCompareEntry(Entry entry, List<Entry> entries, string compareFieldId)
         {
             Entry first = null;
@@ -310,15 +303,10 @@ namespace Componyx.UI
             return (value != null && value.TryGetValue(out double result)) ? result : null;
         }
 
-        // componyx.UI.Validator.DataTypeOption
         private const int DataTypeInteger = 0, DataTypeFloat = 1, DataTypeDateTime = 2, DataTypeEmail = 3, DataTypeUrl = 4;
 
-        // componyx.UI.Validator.TypeOption
         private const int RuleRequired = 0, RuleDataType = 1, RuleLength = 2, RuleRange = 3, RuleRegEx = 4, RuleCompare = 5;
 
-        /// <summary>
-        /// A field from the definition, with its parent node, its submitted value and its value path.
-        /// </summary>
         private class Entry
         {
             public JsonNode Field { get; }

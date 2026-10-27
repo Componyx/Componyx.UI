@@ -793,4 +793,4 @@ class ClientActivityMonitor
 // Exports
 // ---------------------------------------------------------------------------
 
-module.exports = { DataRules, DataResponse, DataContainer, DataUpdateManager, ClientActivityMonitor, Subscription };
+export { DataRules, DataResponse, DataContainer, DataUpdateManager, ClientActivityMonitor, Subscription };

@@ -906,4 +906,4 @@ class Server
 // Exports
 // ---------------------------------------------------------------------------
 
-module.exports = { Server, Client, DataRequest };
+export { Server, Client, DataRequest };

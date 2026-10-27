@@ -1,12 +1,12 @@
 /**
+ * Server-side validation of submitted Form values.
+ * Checks the values a client posts against the Form definition, using the same rules the Form component applies in the browser,
+ * so a request that bypasses the client validation is still rejected.
  * @namespace FormValidator
+ * @memberof componyx.ui
  */
 
-/**
- * Validates submitted values against a Form definition (the Form component's JSON), using each field's required flag and validation settings.
- * Failed rules are reported as Validator rule types (componyx.UI.Validator.TypeOption), so the client shows its own (localized) message for each rule.
- * Port of Componyx.UI.FormValidator (C#), without dependencies.
- */
+// Port of Componyx.UI.FormValidator (C#), without dependencies.
 
 /**
 * Data type options, the subset of componyx.UI.Validator.DataTypeOption that is validated on the server.
@@ -43,13 +43,24 @@ const _integerPattern = /^\s*[+-]?\d+\s*$/,
 
 /**
  * Validates the submitted form values against the form definition.
+ * Every active field is checked on its required flag and validation settings (data type, length, range, pattern and compare).
+ * Failed rules are returned as Validator rule types (componyx.UI.Validator.TypeOption) per value path, so the client can show its own localized message for each rule.
  * @param {string} definitionJson The form definition JSON.
  * @param {string} valuesJson The submitted form values JSON. Fields are stored by name or binding key. A repeatable field set is stored as an object key, where the key is the field set id and the value is the array of repeated values.
  * @param {function(object): boolean} [isActive] Determines whether a field is validated (default: visible and not disabled).
  * @returns {{ isValid: boolean, errors: Object<string, number[]> }} The validation result with the failed rule types per value path.
- * @memberof FormValidator
+ * @example
+ * import { validate } from './FormValidator.js';
+ *
+ * const result = validate(definitionJson, valuesJson);
+ *
+ * if (!result.isValid)
+ * {
+ *     // result.errors looks like: { "email": [1], "addresses[0].zipCode": [0] }
+ * }
+ * @memberof componyx.ui.FormValidator
  */
-export function validate(definitionJson, valuesJson, isActive)
+function validate(definitionJson, valuesJson, isActive)
 {
     const rootSets = JSON.parse(definitionJson), // the root sections or field sets
         values = (valuesJson == null || valuesJson.trim() === '') ? {} : JSON.parse(valuesJson),
@@ -366,3 +377,5 @@ function dbl(node, key)
     const value = get(node, key);
     return (typeof value === 'number') ? value : null;
 }
+
+export { validate };

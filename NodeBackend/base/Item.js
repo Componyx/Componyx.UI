@@ -1,7 +1,8 @@
 /**
- * This class has no specific description yet.
+ * Represents a configurable item with properties for identification, display, selection, and custom attributes.
+ * @memberof componyx.ui
  */
-export class Item
+class Item
 {
     constructor(properties)
     {
@@ -62,3 +63,5 @@ export class Item
         Object.assign(this, properties);
     }
 }
+
+export { Item };

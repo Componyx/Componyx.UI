@@ -1,9 +1,10 @@
 import { Item } from './base/Item.js';
 
 /**
- * This class has no specific description yet.
+ * Represents a combo box item with additional properties for icons, checkboxes, and tooltips.
+ * @memberof componyx.ui
  */
-export class ComboBoxItem extends Item
+class ComboBoxItem extends Item
 {
     constructor(properties)
     {
@@ -36,3 +37,5 @@ export class ComboBoxItem extends Item
         Object.assign(this, properties);
     }
 }
+
+export { ComboBoxItem };

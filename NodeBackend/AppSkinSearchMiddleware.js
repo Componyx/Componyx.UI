@@ -5,9 +5,29 @@ let _cache = null;
 let _watcher = null;
 
 /**
- * This class has no specific description yet.
+ * Server-side search for the AppSkin portal.
+ * Provides the middleware that answers the AppSkin search requests, by looking up the search terms in a keyword index of the application routes.
+ * @namespace AppSkinSearchMiddleware
+ * @memberof componyx.ui
  */
-export function createAppSkinSearchMiddleware(options)
+
+/**
+ * Creates middleware that searches application routes using a compressed keyword index.
+ * The request body is JSON with the search text in "terms" (words separated by spaces). The response is a JSON array of { route, title } objects,
+ * sorted by the number of search words that matched each route.
+ * The keyword index is a gzipped JSON file with "keywords" (keyword to array of routes) and "routes" (route to title). It is cached in memory
+ * and reloaded when the file changes.
+ * @param {Object} options The middleware options.
+ * @param {String} options.keywordFilePath The path of the gzipped keyword index file.
+ * @param {Boolean} [options.contains=false] Matches keywords containing a search word (true) instead of keywords starting with it (false).
+ * @returns {function(Object, Object, function): Promise} The middleware function (req, res, next).
+ * @example
+ * import { createAppSkinSearchMiddleware } from './AppSkinSearchMiddleware.js';
+ *
+ * app.post('/search', createAppSkinSearchMiddleware({ keywordFilePath: './keywords.json.gz' }));
+ * @memberof componyx.ui.AppSkinSearchMiddleware
+ */
+function createAppSkinSearchMiddleware(options)
 {
     const keywordFilePath = options.keywordFilePath;
     const contains = options.contains || false;
@@ -150,3 +170,5 @@ function getKeywordIndex(keywordFilePath)
 
     return _cache;
 }
+
+export { createAppSkinSearchMiddleware };

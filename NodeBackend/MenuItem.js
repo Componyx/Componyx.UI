@@ -1,9 +1,10 @@
 import { Item } from './base/Item.js';
 
 /**
- * This class has no specific description yet.
+ * Represents a menu item with support for nested navigation, icons, commands, selection, and expandable child items.
+ * @memberof componyx.ui
  */
-export class MenuItem extends Item
+class MenuItem extends Item
 {
     constructor(properties)
     {
@@ -257,3 +258,5 @@ MenuItem.ColumnDirectionOption =
      */
     VERTICAL: 1
 };
+
+export { MenuItem };

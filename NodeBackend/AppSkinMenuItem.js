@@ -2,8 +2,9 @@ import { MenuItem } from './MenuItem.js';
 
 /**
  * Represents a menu-item rendered within the AppSkin portal menu.
+ * @memberof componyx.ui
  */
-export class AppSkinMenuItem extends MenuItem
+class AppSkinMenuItem extends MenuItem
 {
     constructor(properties)
     {
@@ -87,3 +88,5 @@ AppSkinMenuItem.TileSizeOption =
     /** renders the menu-item button as large tile in the portal-menu */
     LARGE: 16
 };
+
+export { AppSkinMenuItem };

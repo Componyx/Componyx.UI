@@ -1,9 +1,10 @@
 import { Item } from './base/Item.js';
 
 /**
- * This class has no specific description yet.
+ * Represents a grid row with support for dragging, expanding, collapsing, and hierarchical grouping.
+ * @memberof componyx.ui
  */
-export class GridItem extends Item
+class GridItem extends Item
 {
     constructor(properties)
     {
@@ -72,3 +73,5 @@ export class GridItem extends Item
         Object.assign(this, properties);
     }
 }
+
+export { GridItem };

@@ -2,8 +2,9 @@ import { Item } from './base/Item.js';
 
 /**
  * This class has no specific description yet.
+ * @memberof componyx.ui
  */
-export class TabStripItem extends Item
+class TabStripItem extends Item
 {
     constructor(properties)
     {
@@ -113,3 +114,5 @@ TabStripItem.DecorationOption =
      */
     BACKLINE: 4
 };
+
+export { TabStripItem };

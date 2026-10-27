@@ -1,7 +1,8 @@
 /**
- * This class has no specific description yet.
+ * Represents the result of an AJAX request, including the returned items and total item count for paging.
+ * @memberof componyx.ui
  */
-export class AjaxResult
+class AjaxResult
 {
     constructor(itemList, totalItemCount)
     {
@@ -18,3 +19,5 @@ export class AjaxResult
         this.totalItemCount = totalItemCount || 0;
     }
 }
+
+export { AjaxResult };

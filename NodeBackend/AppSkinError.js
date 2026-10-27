@@ -1,7 +1,8 @@
 /**
- * This class has no specific description yet.
+ * Represents an application error containing the error message, stack trace, timestamp, and optional log identifier.
+ * @memberof componyx.ui
  */
-export class AppSkinError
+class AppSkinError
 {
     constructor(ex, logId)
     {
@@ -58,3 +59,5 @@ export class AppSkinError
         });
     }
 }
+
+export { AppSkinError };

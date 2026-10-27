@@ -1,9 +1,10 @@
 import { AjaxResult } from './base/AjaxResult.js';
 
 /**
- * This class has no specific description yet.
+ * Represents a combo box AJAX result, including the returned items, total item count, and applied column filters.
+ * @memberof componyx.ui.ComboBox
  */
-export class ComboBoxAjaxResult extends AjaxResult
+class ComboBoxAjaxResult extends AjaxResult
 {
     constructor(itemList, totalItemCount)
     {
@@ -18,9 +19,10 @@ export class ComboBoxAjaxResult extends AjaxResult
 }
 
 /**
- * Describes how a single column was filtered, for the combo box to display active filters.
+ * Represents the filter criteria applied to a combo box column, including the match type and filter value.
+ * @memberof componyx.ui.ComboBox
  */
-export class FilteredColumn
+class FilteredColumn
 {
     constructor(filter, value)
     {
@@ -61,3 +63,5 @@ FilteredColumn.FilterOption = {
      */
     ENDSWITH: 3
 };
+
+export { ComboBoxAjaxResult, FilteredColumn };
