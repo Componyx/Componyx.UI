@@ -1,4 +1,8 @@
 /**
+ * @namespace FormValidator
+ */
+
+/**
  * Validates submitted values against a Form definition (the Form component's JSON), using each field's required flag and validation settings.
  * Failed rules are reported as Validator rule types (componyx.UI.Validator.TypeOption), so the client shows its own (localized) message for each rule.
  * Port of Componyx.UI.FormValidator (C#), without dependencies.
@@ -41,8 +45,9 @@ const _integerPattern = /^\s*[+-]?\d+\s*$/,
  * Validates the submitted form values against the form definition.
  * @param {string} definitionJson The form definition JSON.
  * @param {string} valuesJson The submitted form values JSON. Fields are stored by name or binding key. A repeatable field set is stored as an object key, where the key is the field set id and the value is the array of repeated values.
- * @param {(field: object) => boolean} [isActive] Determines whether a field is validated (default: visible and not disabled).
+ * @param {function(object): boolean} [isActive] Determines whether a field is validated (default: visible and not disabled).
  * @returns {{ isValid: boolean, errors: Object<string, number[]> }} The validation result with the failed rule types per value path.
+ * @memberof FormValidator
  */
 export function validate(definitionJson, valuesJson, isActive)
 {

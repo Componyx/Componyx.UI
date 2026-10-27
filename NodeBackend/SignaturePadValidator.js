@@ -1,3 +1,7 @@
+/**
+ * @namespace SignaturePadValidator
+ */
+
 /** A SignaturePad value looks like this:
 *   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" ...><path d="M 10 20 Q ..."/><path d="..."/></svg>
 * It's checked in three parts: the frame (<svg ... > and </svg>), the attributes of the svg, and the paths inside.
@@ -18,6 +22,7 @@ const _pathPattern = /<path d="[MLQ0-9.\- ]*"(\/>|><\/path>)/g;
  * @param {string} value The submitted value.
  * @param {number} [maxLength=200000] The maximum allowed length of the value in characters.
  * @returns {boolean}
+ * @memberof SignaturePadValidator
  */
 function validate(value, maxLength = 200000)
 {
