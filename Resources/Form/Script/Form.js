@@ -544,6 +544,7 @@
                 SAVE_STATUS_SUCCESS: 'success',
                 SAVE_STATUS_FAILED: 'failed',
                 SPINNER: 'spinner',
+                PRINT_TARGET: 'form-print-target'
             });
 
         constructor(id, properties)
@@ -2749,6 +2750,21 @@
         redo()
         {
             this.dataObserver.redo();
+        }
+
+        /**
+         * Prints the form without the rest of the page. All sections are printed each section starting on a new page.
+         */
+        print()
+        {
+            this.classList.add(this.getCssClass(this.classOption.PRINT_TARGET));
+
+            window.addEventListener('afterprint', () =>
+            {
+                this.classList.remove(this.getCssClass(this.classOption.PRINT_TARGET));
+            }, { once: true });
+
+            window.print();
         }
 
         /**

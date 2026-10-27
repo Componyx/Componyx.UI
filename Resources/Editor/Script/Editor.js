@@ -396,7 +396,8 @@
                 FILE_SELECT: 'file-select',
                 FIELD_HALF: 'field-half',
                 PARAGRAPH: 'paragraph',
-                PDF_EXPORT: 'editor-pdf-export'
+                PDF_EXPORT: 'editor-pdf-export',
+                PRINT_TARGET: 'editor-print-target'
             });
 
         // define public properties
@@ -3864,9 +3865,16 @@
             const original = editorEl.innerHTML;
 
             editorEl.innerHTML = _instance.getContent();
+            editorEl.classList.add(_instance.getCssClass(_instance.classOption.PRINT_TARGET));
+
+            win.addEventListener('afterprint', () =>
+            {
+                editorEl.classList.remove(_instance.getCssClass(_instance.classOption.PRINT_TARGET));
+                editorEl.innerHTML = original;
+                _instance.contentManager.createSelectables(editorEl);
+            }, { once: true });
+
             win.print();
-            editorEl.innerHTML = original;
-            _instance.contentManager.createSelectables(editorEl);
         }
 
         /**

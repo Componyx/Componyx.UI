@@ -1523,15 +1523,15 @@ html:has(.editor.theme.fullscreen)
 
 @media print
 {
-    /* print only the editor content: hide everything that isn't the content, an ancestor of it, or inside it */
-    body:has(.editor-content) *:not(:has(.editor-content)):not(.editor-content):not(.editor-content *)
+    /* print only the target: hide everything that isn't the target, inside it, or an ancestor of it */
+    body:has(.editor-print-target) *:not(:has(.editor-print-target)):not(.editor-print-target):not(.editor-print-target *)
     {
         display: none !important;
     }
 
-    /* the editor and its ancestors only serve as the path to the content: strip their layout, so they don't add frames, spacing or clipping */
-    body:has(.editor-content),
-    body *:has(.editor-content)
+    /* ancestors only serve as the path to the target: strip their layout, so they don't add frames, spacing or clipping */
+    body:has(.editor-print-target),
+    body *:has(.editor-print-target)
     {
         height: auto !important;
         max-height: none !important;
@@ -1543,14 +1543,19 @@ html:has(.editor.theme.fullscreen)
         background: none !important;
     }
 
+    /* the target itself: no fixed height or scroll area, otherwise only the visible part prints */
+    .editor-print-target
+    {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
 
     .editor.theme > .editor-content
     {
-        height: auto;
         min-height: 0;
         padding: 0;
         box-shadow: none;
-        overflow: visible;
     }
 
     .editor.theme.preview *[data-ui-editor-selected]

@@ -2764,6 +2764,10 @@ declare namespace componyx
              */
             redo(): void;
             /**
+             * <p>Prints the form without the rest of the page. All sections are printed each section starting on a new page.</p>
+             */
+            print(): void;
+            /**
              * <p>Sets the active element for the data observer.</p>
              */
             setActiveElement(): void;

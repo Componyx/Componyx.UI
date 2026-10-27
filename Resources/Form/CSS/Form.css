@@ -1975,3 +1975,89 @@
         z-index: 1;
     }
 }
+
+
+@media print
+{
+
+    .form.theme
+    {
+        & > header,
+        & .build-pane,
+        & .config-pane,
+        & nav.sections,
+        & .tab-strip,
+        & .step-indicator,
+        & .panes > footer,
+        & .save-status,
+        & .drag-handle,
+        & .build-menu,
+        & .field-indicators,
+        & .button.repeat-add,
+        & .button.repeat-remove,
+        & .box,
+        & .tooltip-manager
+        {
+            display: none !important;
+        }
+
+        /* plain blocks while printing: page breaks between flex items are unreliable, especially in Firefox */
+        &,
+        & .panes,
+        & .form-pane
+        {
+            display: block !important;
+        }
+
+        /* fixed-layout and padding margins only make sense next to the panes */
+        & .form-pane
+        {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* show all sections, not just the selected one */
+        & .form-pane > section
+        {
+            display: flex !important;
+        }
+
+        /* every section starts on a new page */
+        & .form-pane > section + section
+        {
+            break-before: page;
+        }
+
+        /* keep a label and its value together */
+        & .form-field
+        {
+            break-inside: avoid;
+        }
+    }
+
+    /* when API print is called, hide everything but the form */
+    body:has(.form-print-target) *:not(:has(.form-print-target)):not(.form-print-target):not(.form-print-target *)
+    {
+        display: none !important;
+    }
+
+    body:has(.form-print-target),
+    body *:has(.form-print-target)
+    {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: none !important;
+    }
+
+    .form-print-target
+    {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+}
