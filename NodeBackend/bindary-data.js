@@ -10,6 +10,8 @@
  *   - ClientActivityMonitor
  */
 
+import { WebSocket } from 'ws';
+
 // ---------------------------------------------------------------------------
 // DataRules
 // ---------------------------------------------------------------------------
@@ -721,7 +723,6 @@ class ClientActivityMonitor
      */
     #removeInactiveClients()
     {
-        const { WebSocket } = require('ws');
         const now = new Date();
 
         for (const [clientId, client] of [...this.#server.clients])

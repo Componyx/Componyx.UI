@@ -12,13 +12,15 @@
  * npm install ws
  *
  * Usage:
- *   const { Server } = require('./bindary-server');
- *   const server = new Server({ controllers: require('./controllers') });
+ *   import { Server } from './bindary-server.js';
+ *   import controllers from './controllers.js';
+ *
+ *   const server = new Server({ controllers: controllers });
  *   server.attach(expressApp, httpServer);
  */
 
-const { WebSocketServer, WebSocket } = require('ws');
-const { randomUUID } = require('crypto');
+import { WebSocketServer, WebSocket } from 'ws';
+import { randomUUID } from 'crypto';
 
 // ---------------------------------------------------------------------------
 // Client
@@ -193,7 +195,7 @@ class DataRequest
 class Server
 {
     #controllers;
-	#defaultNamespace;
+    #defaultNamespace;
     #useSessionForClients;
     #getSession;
     #sessionMiddleware;
@@ -214,7 +216,7 @@ class Server
         this.clients = new Map();
 
         this.#controllers = options.controllers ?? {};
-		this.#defaultNamespace = options.defaultNamespace ?? null;
+        this.#defaultNamespace = options.defaultNamespace ?? null;
         this.#useSessionForClients = options.useSessionForClients ?? true;
         this.#getSession = options.getSession ?? ((req) => req.session ?? null);
         this.#sessionMiddleware = options.sessionMiddleware ?? null;
@@ -278,7 +280,7 @@ class Server
      * is cached in the Session property of this class.
      * @param {object} req
      */
-    onOpen(req) {}
+    onOpen(req) { }
 
     /**
      * This abstract method is invoked when a client is loaded.
@@ -286,25 +288,25 @@ class Server
      * @param {componyx.bindary.DataRequest} request - The incoming message deserialized as DataRequest.
      * @param {componyx.bindary.Client} client - The loaded client.
      */
-    onClientLoaded(message, request, client) {}
+    onClientLoaded(message, request, client) { }
 
     /**
      * This abstract method is invoked when a text message is received from the Client.
      * @param {string} message - The incoming message.
      */
-    onMessage(message) {}
+    onMessage(message) { }
 
     /**
      * This abstract method is invoked when a byte message is received from the Client.
      * @param {Buffer} message - The incoming message.
      */
-    onMessageBinary(message) {}
+    onMessageBinary(message) { }
 
     /**
      * This abstract method is invoked when a DataRequest message is received from the Client.
      * @param {componyx.bindary.DataRequest} request - The incoming message deserialized as DataRequest.
      */
-    onDataRequest(request) {}
+    onDataRequest(request) { }
 
     /**
      * Handles possible exceptions that occur inside the custom implementation while processing the request.
@@ -666,13 +668,13 @@ class Server
      */
     async #invokeMethod(request, client)
     {
-		let method = request.serverMethod;
+        let method = request.serverMethod;
 
-		if (this.#defaultNamespace && !method.startsWith(`${this.#defaultNamespace}.`))
-		{
-			method = `${this.#defaultNamespace}.${method}`;
-		}
-		
+        if (this.#defaultNamespace && !method.startsWith(`${this.#defaultNamespace}.`))
+        {
+            method = `${this.#defaultNamespace}.${method}`;
+        }
+
         const lastDot = method.lastIndexOf('.');
         const fullTypeName = method.substring(0, lastDot);
         const methodName = method.substring(lastDot + 1);

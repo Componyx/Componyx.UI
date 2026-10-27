@@ -10,8 +10,6 @@ class AppSkinMenuItem extends MenuItem
     {
         super(properties);
 
-        let _itemList = [];
-
         /**
          * Gets or sets a value indicating in which menu-section the item is displayed.
          * @type {AppSkinMenuItem.MenuSectionOption}
@@ -35,19 +33,6 @@ class AppSkinMenuItem extends MenuItem
          * @type {Boolean}
          */
         this.categoryInHeader = false;
-
-        /**
-         * Gets the child-item list of the item.
-         * @type {Array}
-         */
-        Object.defineProperty(this, 'itemList',
-        {
-            get()
-            {
-                return _itemList;
-            },
-            enumerable: true
-        });
 
         Object.assign(this, properties);
     }
