@@ -2671,6 +2671,9 @@
 
             return new Promise(resolve =>
             {
+                this.render();
+
+                // registered after render(): a re-render destroys the component first, which would clear an earlier registered handler
                 this.events.onPostRender.priorityAdd(() =>
                 {
                     if (!$lib.isEmpty(selectedFieldId) && displayMode === Form.DisplayModeOption.BUILD)
@@ -2683,8 +2686,6 @@
 
                     resolve();
                 }, null, true);
-
-                this.render();
             });
         }
 

@@ -1488,15 +1488,18 @@ componyx.UI.form_modules.Renderer = class Renderer
             {
                 if (item.inputType === this.InputTypeOption.COMBOBOX)
                 {
-                    (item.options || []).forEach((opt) =>
+                    if (!this.form.isBuildMode()) // in build mode the combo-box has no items, it only shows the option count
                     {
                         const comboBox = $UI.store[this.form.getId(item, 'input')];
 
-                        if (opt.disabled)
-                            comboBox.disableItem(opt.id);
-                        else
-                            comboBox.enableItem(opt.id);
-                    });
+                        (item.options || []).forEach((opt) =>
+                        {
+                            if (opt.disabled)
+                                comboBox.disableItem(opt.id);
+                            else
+                                comboBox.enableItem(opt.id);
+                        });
+                    }
                 }
                 else if (isOptionField)
                 {
@@ -1735,12 +1738,14 @@ componyx.UI.form_modules.Renderer = class Renderer
         {
             const getPlaceholderValue = (optionCount) =>
             {
+                const placeholder = field.placeholder || this.labels.comboBoxDefaultHint;
+
                 if (optionCount > 0)
                 {
-                    const base = field.placeholder ? `${field.placeholder} ` : '';
+                    const base = placeholder ? `${placeholder} ` : '';
                     return `${base}(${optionCount} ${this.labels.fieldOptions})`;
                 }
-                return field.placeholder;
+                return placeholder;
             };
 
             if (field.dataSourceId)

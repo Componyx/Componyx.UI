@@ -756,6 +756,8 @@
                 return;
             }
 
+            setupItemList();
+
             var selectedItems = _instance.getSelectedItems();
 
             if (!$lib.isEmpty(selectedItems))
@@ -770,7 +772,7 @@
 
             if (!$lib.isEmpty(value))
             {
-                var values = value.split(',');
+                var values = Array.isArray(value) ? value : value.split(',');
 
                 $lib.each(values, function (value)
                 {
@@ -975,7 +977,7 @@
         {
             var ajaxResult = null;
 
-            _loading = false
+            _loading = false;
             _onDemand = onDemand || false;
 
             if (ajaxArgs)
@@ -1025,7 +1027,7 @@
 
             _instance.events.onPostRenderItemList.fire(_instance, null);
         }
-
+      
         function setupItemList()
         {
             if (!_instance.itemList)
@@ -1185,7 +1187,6 @@
             _clearButton.command = clearCommand;
             _clearButton.disabled = _instance.disabled;
             _clearButton.delegateFocusEvents(_instance);
-            _clearButton.events.onPostRender.priorityAdd(() => { _instance.isReady.apply(_instance); }, null);
             _clearButton.events.onPostRender.priorityAdd(() => { _instance.isReady.apply(_instance); }, null);
             _clearButton.showing = true;
         }
@@ -1570,6 +1571,8 @@
             if (!_instance.keyboardNavigation)
                 return;
 
+            setupItemList();
+
             var input = _input, value,
                 itemList = _instance.itemList,
                 itemId = _focusedItemId || _selectedItemId,
@@ -1774,7 +1777,7 @@
             const tooltipManager = $UI.store[_instance.tooltipManagerId],
                 id = `${_instance.id}_${item.id}`;
 
-            tooltipManager.addTooltip(id, tooltip);
+            tooltipManager.addTooltip(id, item.tooltip);
             tooltipManager.addTrigger(li, id);
         }
 
@@ -1788,7 +1791,7 @@
                 else
                     selectItem(itemId);
 
-                _instance.events.onItemClick.fire(_instance, eventArgs(_instance.itemList.get(itemId)));
+                _instance.events.onItemClick.fire(_instance, eventArgs(getItem(itemId)));
             }, item.id, _instance);
         }
 
@@ -1861,7 +1864,7 @@
             return { item: item, event: $lib.event }
         }
 
-        function selectAll(id)
+        function selectAll()
         {
             var id = _selectAllId,
                 li = _elements[id],
@@ -1894,8 +1897,6 @@
 
         function focusItem(id, scroll, e)
         {
-            var item = _instance.itemList.get(id);
-
             if (!_listBox.showing || id == _focusedItemId)
                 return;
 
@@ -1916,8 +1917,6 @@
 
         function toggleSelectItem(id)
         {
-            var item = _instance.itemList.get(id);
-
             if (_selectedItems[id])
                 deselectItem(id);
             else
@@ -1928,7 +1927,7 @@
 
         function selectItem(id, forceShow = false)
         {
-            var item = _instance.itemList.get(id),
+            var item = getItem(id),
                 li = _elements[id];
 
             if (item.disabled)
@@ -1994,7 +1993,7 @@
 
         function deselectItem(id, clearValue)
         {
-            var item = _instance.itemList.get(id),
+            var item = getItem(id),
                 li = _elements[id];
 
             if (item)
@@ -2221,6 +2220,7 @@
 
         function getItem(itemId)
         {
+            setupItemList();
             return (typeof (itemId) == 'string') ? _instance.itemList.get(itemId) : itemId;
         }
 

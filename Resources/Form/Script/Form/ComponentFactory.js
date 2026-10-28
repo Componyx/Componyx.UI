@@ -338,6 +338,9 @@ componyx.UI.form_modules.ComponentFactory = class ComponentFactory
             }
         }
 
+        config.placeholder = field.placeholder || this.form.labels.comboBoxDefaultHint;
+        config.allowInput = (settings.allowInput === true); 
+
         return config;
     }
 
