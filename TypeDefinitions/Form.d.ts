@@ -2736,8 +2736,9 @@ declare namespace componyx
             /**
              * <p>Sets the display mode and re-renders the component.</p>
              * @param displayMode - <p>The display mode in which the form will be rendered.</p>
+             * @returns <p>Resolves when the form has been rendered in the new display mode.</p>
              */
-            setDisplayMode(displayMode: componyx.UI.Form.DisplayModeOption): void;
+            setDisplayMode(displayMode: componyx.UI.Form.DisplayModeOption): Promise<void>;
             /**
              * <p>Toggles the visibility of a specified side pane (build or config).
              * Adds or removes a CSS class that controls visibility.</p>

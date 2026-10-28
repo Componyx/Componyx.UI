@@ -2662,22 +2662,30 @@
         /**
          * Sets the display mode and re-renders the component.
          * @param {componyx.UI.Form.DisplayModeOption} displayMode The display mode in which the form will be rendered.
+         * @returns {Promise<void>} Resolves when the form has been rendered in the new display mode.
          */
         setDisplayMode(displayMode)
         {
             this.displayMode = displayMode;
             const selectedFieldId = this.#selectedFieldId;
-            this.render();
-            if (!$lib.isEmpty(selectedFieldId) && displayMode === Form.DisplayModeOption.BUILD)
+
+            return new Promise(resolve =>
             {
                 this.events.onPostRender.priorityAdd(() =>
                 {
-                    const field = this.getFields().find((f) => f.id === selectedFieldId);
+                    if (!$lib.isEmpty(selectedFieldId) && displayMode === Form.DisplayModeOption.BUILD)
+                    {
+                        const field = this.getFields().find((f) => f.id === selectedFieldId);
 
-                    if (field)
-                        this.selectField(field);
+                        if (field)
+                            this.selectField(field);
+                    }
+
+                    resolve();
                 }, null, true);
-            }
+
+                this.render();
+            });
         }
 
         /**
