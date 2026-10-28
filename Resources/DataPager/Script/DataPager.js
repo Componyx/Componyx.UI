@@ -1,6 +1,6 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 "use strict";
-(function (window)
+(function ()
 {
     /**
     * DataPager class.
@@ -664,4 +664,4 @@
     */
     componyx.UI.DataPager.prototype = Object.create($base.methods);
     componyx.UI.DataPager.prototype.constructor = componyx.UI.DataPager;
-})(window);
+})();

@@ -1,6 +1,6 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 "use strict";
-(function (window)
+(function ()
 {
     /**
     * Carousel class.
@@ -600,4 +600,4 @@
     */
     componyx.UI.Carousel.prototype = Object.create($base.methods);
     componyx.UI.Carousel.prototype.constructor = componyx.UI.Carousel;
-})(window);
+})();

@@ -1,6 +1,6 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 "use strict";
-(function (window)
+(function ()
 {
 
     /**
@@ -1707,4 +1707,4 @@
         CALENDAR: 3,
         CALENDAR_POPUP: 4
     }
-})(window);
+})();

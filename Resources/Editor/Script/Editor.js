@@ -1,7 +1,7 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 "use strict";
 
-(async function (window)
+(async function ()
 {
     /**
      * Namespace for editor modules.
@@ -4111,4 +4111,4 @@
     */
     componyx.UI.Editor.prototype = Object.create($base.methods);
     componyx.UI.Editor.prototype.constructor = componyx.UI.Editor;
-})(window);
+})();

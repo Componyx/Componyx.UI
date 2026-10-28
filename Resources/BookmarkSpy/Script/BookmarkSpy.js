@@ -1,6 +1,6 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 "use strict";
-(function (window)
+(function ()
 {
     /**
     * BookmarkSpy class.
@@ -422,4 +422,4 @@
     componyx.UI.BookmarkSpy.prototype = Object.create($base.methods);
     componyx.UI.BookmarkSpy.prototype.constructor = componyx.UI.BookmarkSpy;
 
-})(window);
+})();

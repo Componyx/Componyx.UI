@@ -1,6 +1,6 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 "use strict";
-(function (window)
+(function ()
 {
     /**
     * ColorPicker class.
@@ -963,4 +963,4 @@
     {
         return $lib.hsvToRgb(h, s, v);
     }
-})(window);
+})();

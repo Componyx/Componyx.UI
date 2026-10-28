@@ -1,6 +1,6 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 "use strict";
-(function (window)
+(function ()
 {
     /**
     * Dialog class.
@@ -562,4 +562,4 @@
     */
     componyx.UI.Dialog.prototype = Object.create($base.methods);
     componyx.UI.Dialog.prototype.constructor = componyx.UI.Dialog;
-})(window);
+})();

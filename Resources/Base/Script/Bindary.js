@@ -172,7 +172,7 @@
  */
 
 "use strict";
-(async function (window)
+(async function ()
 {
     /**
      * Namespace for bindary modules.
@@ -2174,4 +2174,4 @@
 
     componyx.bindary.TemplateItem = componyx.bindary_modules.TemplateItem;
 
-})(window);
+})();

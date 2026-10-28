@@ -7,7 +7,7 @@
 globalThis.componyx = {};
 globalThis.CMP = globalThis.componyx;
 
-(function (window)
+(function ()
 {
     /**
     * @typedef {Object} componyx.library.Toggle
@@ -8479,4 +8479,4 @@ globalThis.CMP = globalThis.componyx;
 
     window.$ = window.$ || window.$lib;
 
-})(window);
+})();

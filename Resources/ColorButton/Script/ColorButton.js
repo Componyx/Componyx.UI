@@ -1,6 +1,6 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 "use strict";
-(function (window)
+(function ()
 {
     /**
     * ColorButton class.
@@ -327,4 +327,4 @@
     componyx.UI.ColorButton.prototype = Object.create($base.methods);
     componyx.UI.ColorButton.prototype.constructor = componyx.UI.ColorButton;
 
-})(window);
+})();

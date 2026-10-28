@@ -19,7 +19,7 @@ globalThis.$UI = componyx.UI;
  */
 componyx.UI.base = {};
 
-(function (window)
+(function ()
 {
     var _initComponent = {},
         _renderCount = 0, _isDetectAwaiting, _isBusy, _readyTimerId,
@@ -3426,4 +3426,4 @@ componyx.UI.base = {};
             $UI.detect.bind(window, null)(); // register component detection on DOM ready event
     });
 
-})(window);
+})();

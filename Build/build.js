@@ -303,7 +303,7 @@ async function minifyJS(filePath)
     }
 
     // ---- WRAP IF NEEDED ----
-    const wrapped = `${strict}(async function(window){${body}})(window);`;
+    const wrapped = `${strict}(async function(){${body}})();`;
     fs.writeFileSync(outputFile, wrapped, 'utf8');
     prependHeader(outputFile);
 }

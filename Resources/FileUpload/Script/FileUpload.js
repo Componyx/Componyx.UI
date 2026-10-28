@@ -1,6 +1,6 @@
 /*! Componyx.UI | (c) E.H. Daanen / Componyx | BUSL-1.1 | componyx.com/license */
 "use strict";
-(function (window)
+(function ()
 {
     /**
    * FileUpload class.
@@ -888,4 +888,4 @@
     */
     componyx.UI.FileUpload.prototype = Object.create($base.methods);
     componyx.UI.FileUpload.prototype.constructor = componyx.UI.FileUpload;
-})(window);
+})();
