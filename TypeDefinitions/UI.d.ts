@@ -23,6 +23,7 @@
 /// <reference path="PanelBar.d.ts" />
 /// <reference path="PieChart.d.ts" />
 /// <reference path="Slider.d.ts" />
+/// <reference path="SignaturePad.d.ts" />
 /// <reference path="TabStrip.d.ts" />
 /// <reference path="TimePicker.d.ts" />
 /// <reference path="TooltipManager.d.ts" />
