@@ -50,7 +50,7 @@ const _integerPattern = /^\s*[+-]?\d+\s*$/,
  * @param {function(object): boolean} [isActive] Determines whether a field is validated (default: visible and not disabled).
  * @returns {{ isValid: boolean, errors: Object<string, number[]> }} The validation result with the failed rule types per value path.
  * @example
- * import { validate } from './FormValidator.js';
+ * import { validate } from './form-validator.js';
  *
  * const result = validate(definitionJson, valuesJson);
  *

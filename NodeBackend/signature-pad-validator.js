@@ -28,7 +28,7 @@ const _pathPattern = /<path d="[MLQ0-9.\- ]*"(\/>|><\/path>)/g;
  * @param {number} [maxLength=200000] The maximum allowed length of the value in characters.
  * @returns {boolean}
  * @example
- * import { validate } from './SignaturePadValidator.js';
+ * import { validate } from './signature-pad-validator.js';
  *
  * if (!validate(request.body.signature))
  *     throw new Error('Invalid signature.');

@@ -1,4 +1,4 @@
-import { Item } from './base/Item.js';
+import { Item } from './base/item.js';
 
 /**
  * Represents a menu item with support for nested navigation, icons, commands, selection, and expandable child items.

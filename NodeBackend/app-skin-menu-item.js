@@ -1,4 +1,4 @@
-import { MenuItem } from './MenuItem.js';
+import { MenuItem } from './menu-item.js';
 
 /**
  * Represents a menu-item rendered within the AppSkin portal menu.

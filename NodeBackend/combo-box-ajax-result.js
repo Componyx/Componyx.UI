@@ -1,4 +1,4 @@
-import { AjaxResult } from './base/AjaxResult.js';
+import { AjaxResult } from './base/ajax-result.js';
 
 /**
  * Represents a combo box AJAX result, including the returned items, total item count, and applied column filters.

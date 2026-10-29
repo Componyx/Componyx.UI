@@ -1,4 +1,4 @@
-import { Item } from './base/Item.js';
+import { Item } from './base/item.js';
 
 /**
  * Represents a grid row with support for dragging, expanding, collapsing, and hierarchical grouping.

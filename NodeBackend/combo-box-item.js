@@ -1,4 +1,4 @@
-import { Item } from './base/Item.js';
+import { Item } from './base/item.js';
 
 /**
  * Represents a combo box item with additional properties for icons, checkboxes, and tooltips.

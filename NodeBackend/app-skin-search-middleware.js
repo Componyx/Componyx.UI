@@ -22,7 +22,7 @@ let _watcher = null;
  * @param {Boolean} [options.contains=false] Matches keywords containing a search word (true) instead of keywords starting with it (false).
  * @returns {function(Object, Object, function): Promise} The middleware function (req, res, next).
  * @example
- * import { createAppSkinSearchMiddleware } from './AppSkinSearchMiddleware.js';
+ * import { createAppSkinSearchMiddleware } from './app-skin-search-middleware.js';
  *
  * app.post('/search', createAppSkinSearchMiddleware({ keywordFilePath: './keywords.json.gz' }));
  * @memberof componyx.ui.AppSkinSearchMiddleware

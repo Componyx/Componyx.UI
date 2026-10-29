@@ -1,4 +1,4 @@
-import { Item } from './base/Item.js';
+import { Item } from './base/item.js';
 
 /**
  * This class has no specific description yet.
