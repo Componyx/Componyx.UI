@@ -424,7 +424,14 @@ declare namespace componyx
                 decimalSeparator: string;
                 groupSeparator: string;
             };
-
+            /**
+             * @property hidden - The ids of the hidden field sets and fields.
+             * @property disabled - The ids of the disabled field sets and fields.
+             */
+            type InactiveIds = {
+                hidden: Set<string>;
+                disabled: Set<string>;
+            };
             /**
              * @property fieldSet - <p>The fieldset instance. Use <code>fieldSet.element</code> to access the fieldset's root element.</p>
              */
@@ -464,7 +471,7 @@ declare namespace componyx
                 sanitizer: componyx.base_modules.Sanitizer;
             };
             /**
-             * <p>// empty additional fields besides form instance</p>
+             * <p>empty additional fields besides form instance</p>
              */
             type BaseEventArgs = any;
             /**
@@ -549,6 +556,7 @@ declare namespace componyx
              * @param eventArgs - <p>The event details.</p>
              */
             type SaveEventHandler = (form: componyx.UI.Form, eventArgs: componyx.UI.Form.SaveEventArgs) => void;
+
             /**
              * @property onRenderFieldSet - <p>Fires when a fieldset is rendered.</p>
              * @property onRenderField - <p>Fires when a field is rendered.</p>
@@ -2471,10 +2479,18 @@ declare namespace componyx
              */
             getParentSection(field: componyx.UI.Form.Field): componyx.UI.Form.Section;
             /**
-             * <p>Gets the values of enabled form fields (excludes disabled fields).</p>
-             * @returns <p>The form values of all enabled fields.</p>
+             * Gets a copy of the values of all active fields. Every active field has a key (null when empty).
+             * Hidden fields and disabled fields are left out.
+             * @param includeDisabled A value indicating whether disabled fields are included (default: false).
+             * @returns The values of all active fields.
              */
-            getEnabledFieldValues(): any;
+            getActiveFieldValues(includeDisabled?: boolean): any;
+            /**
+             * Gets the ids of all field sets and fields that are currently inactive (hidden or disabled),
+             * including everything inside a hidden or disabled parent. Sections are pages, so they don't count as hidden.
+             * @returns The ids of the hidden and disabled items.
+             */
+            getInactiveIds(): componyx.UI.Form.InactiveIds;
             /**
              * <p>Check if the given type belongs to a group container (e.g., FieldSet, Section).</p>
              * @param type - <p>The type to check.</p>

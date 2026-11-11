@@ -199,7 +199,7 @@ componyx.UI.form_modules.DataBinder = class DataBinder
                 model = customModel;
         }
 
-        return this.#getNestedValue(model, key);
+        return this.getNestedValue(model, key);
     }
 
     /**
@@ -212,14 +212,14 @@ componyx.UI.form_modules.DataBinder = class DataBinder
     {
         const key = this.getValueBindingKey(field);
         const normValue = this.#normalizeValue(field, value);
-        this.#setNestedValue(this.form.values, key, normValue);
+        this.setNestedValue(this.form.values, key, normValue);
 
         if (syncCustomModel && !this.form.isPreviewMode() && this.form.bindToCustomModel && this.form.customModelGetter)
         {
             const customModel = this.form.customModelGetter();
 
             if (customModel)
-                this.#setNestedValue(customModel, key, normValue);
+                this.setNestedValue(customModel, key, normValue);
         }
     }
 
@@ -253,13 +253,13 @@ componyx.UI.form_modules.DataBinder = class DataBinder
         return key;
     }
 
-    #getNestedValue = (obj, path) =>
+    getNestedValue = (obj, path) =>
     {
         const ctx = this.#traversePath(obj, path, false);
         return ctx ? ctx.parent[ctx.lastKey] : undefined;
     }
 
-    #setNestedValue = (obj, path, val) =>
+    setNestedValue = (obj, path, val) =>
     {
         const ctx = this.#traversePath(obj, path, true);
         if (ctx)

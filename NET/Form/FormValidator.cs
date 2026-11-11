@@ -19,8 +19,10 @@ namespace Componyx.UI
         /// </summary>
         /// <param name="definitionJson">The form definition JSON.</param>
         /// <param name="valuesJson">The submitted form values JSON. Fields are stored by name or binding key. A repeatable field set is stored as an object key, where the key is the field set id and the value is the array of repeated values.</param>
-        /// <param name="isActive">Determines whether a field (JSON node) is validated (default: visible and not disabled).</param>
+        /// <param name="isActive">An extra check whether a field (JSON node) is validated (default: all fields).</param>
         /// <returns>The validation result with the failed rule types per value path.</returns>
+        /// <remarks>Fields that no rule can show, hide, enable, disable or make required/optional are validated by their definition, submitted or not. Fields a rule can change are only validated when submitted.
+        /// Pass valuesJson as received, without re-serializing it with options that drop nulls or rename keys!</remarks>
         public static FormValidationResult Validate(string definitionJson, string valuesJson, Func<JsonNode, bool> isActive = null)
         {
             JsonArray rootSets = JsonNode.Parse(definitionJson).AsArray(); // the root sections or field sets; throws when the definition is not an array
@@ -28,15 +30,24 @@ namespace Componyx.UI
             var entries = new List<Entry>();
             var errors = new Dictionary<string, List<int>>();
 
+            var conditionalIds = new HashSet<string>();
+
             if (isActive == null)
-                isActive = field => Bool(field, "visible", true) && !Bool(field, "disabled");
+                isActive = field => true;
 
             foreach (JsonNode node in rootSets)
+            {
+                CollectConditionalIds(node, conditionalIds);
                 CollectFields(node, null, values, values, string.Empty, entries, errors);
+            }
+
+            CollectSkippableSections(rootSets, conditionalIds); // a section that can be skipped counts like a field set a rule can hide
 
             foreach (Entry entry in entries)
             {
-                if (!isActive(entry.Field))
+                bool conditional = IsConditional(entry.Field, conditionalIds);
+
+                if (!isActive(entry.Field) || (conditional ? !entry.Present : !IsActiveByDesign(entry.Field))) // a rule may have hidden or disabled it, so only its key tells
                     continue;
 
                 string compareFieldId = Str(entry.Field["validationSettings"], "compareFieldId");
@@ -64,7 +75,7 @@ namespace Componyx.UI
                 if (string.IsNullOrEmpty(key))
                     key = Str(node, "name");
 
-                entries.Add(new Entry(node, parent, GetValue(scope, key), prefix + key));
+                entries.Add(new Entry(node, parent, GetValue(scope, key), prefix + key, HasKey(scope, key)));
                 return;
             }
 
@@ -116,6 +127,12 @@ namespace Componyx.UI
                 if (Bool(field, "required"))
                     failed.Add(RuleRequired);
 
+                return failed;
+            }
+
+            if (!IsOptionValue(field, entry.Value))
+            {
+                failed.Add(RuleDataType);
                 return failed;
             }
 
@@ -234,6 +251,144 @@ namespace Componyx.UI
             return node.ToJsonString(); // numbers in invariant notation
         }
 
+        private static bool HasKey(JsonNode scope, string key)
+        {
+            JsonNode node = scope;
+
+            foreach (string part in (key ?? string.Empty).Split('.'))
+            {
+                JsonObject obj = node as JsonObject;
+
+                if (obj == null || !obj.ContainsKey(part)) // ContainsKey is also true for a key with a null value
+                    return false;
+
+                node = obj[part];
+            }
+
+            return true;
+        }
+
+        private static void CollectConditionalIds(JsonNode node, HashSet<string> ids)
+        {
+            foreach (JsonNode ruleCase in Children(node, "ruleCases"))
+            {
+                foreach (JsonNode action in Children(ruleCase, "actions"))
+                {
+                    if (StateActions.Contains(Str(action, "runtimeActionId")))
+                        ids.Add(Str(action, "targetFieldSetId") ?? Str(node, "id")); // the action targets the field itself or a field set
+                }
+            }
+
+            foreach (JsonNode child in Children(node, "fieldSets").Concat(Children(node, "fields")))
+                CollectConditionalIds(child, ids);
+        }
+
+        private static void CollectSkippableSections(JsonArray rootSets, HashSet<string> ids)
+        {
+            List<JsonNode> sections = rootSets.Where(node => Str(node, "type") == "Section").ToList();
+
+            for (int index = 0; index < sections.Count; index++)
+            {
+                var fields = new List<JsonNode>();
+                CollectFieldNodes(sections[index], fields); // all fields inside this section
+
+                foreach (JsonNode field in fields)
+                {
+                    foreach (JsonNode ruleCase in Children(field, "ruleCases"))
+                    {
+                        int from = (Str(ruleCase, "runVisibility") == "section_hidden") ? 0 : index; // also runs from other pages, so it may jump before the user gets here
+
+                        foreach (JsonNode action in Children(ruleCase, "actions"))
+                        {
+                            string actionId = Str(action, "runtimeActionId");
+                            int to;
+
+                            if (actionId == "end_form")
+                                to = sections.Count;
+                            else if (actionId == "show_section")
+                                to = sections.FindIndex(section => Str(section, "id") == Str(action, "value"));
+                            else
+                                continue;
+
+                            for (int skipped = from + 1; skipped < to; skipped++) // the sections jumped over (none for a jump back)
+                                ids.Add(Str(sections[skipped], "id"));
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void CollectFieldNodes(JsonNode node, List<JsonNode> fields)
+        {
+            if (Str(node, "type") == "Field")
+            {
+                fields.Add(node);
+                return;
+            }
+
+            foreach (JsonNode child in Children(node, "fieldSets").Concat(Children(node, "fields")))
+                CollectFieldNodes(child, fields);
+        }
+
+        private static bool IsConditional(JsonNode field, HashSet<string> conditionalIds)
+        {
+            for (JsonNode node = field; node != null; node = GetParentNode(node))
+            {
+                if (conditionalIds.Contains(Str(node, "id")))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsActiveByDesign(JsonNode field)
+        {
+            for (JsonNode node = field; node != null; node = GetParentNode(node))
+            {
+                if (Bool(node, "disabled") || (Str(node, "type") != "Section" && !Bool(node, "visible", true))) // a section's visible state is just the current page
+                    return false;
+            }
+
+            return true;
+        }
+
+        private static JsonNode GetParentNode(JsonNode node)
+        {
+            JsonNode list = node.Parent; // the "fields" or "fieldSets" array the node is in
+            return (list != null) ? list.Parent : null;
+        }
+
+        private static bool IsOptionValue(JsonNode field, object value)
+        {
+            JsonArray options = field["options"] as JsonArray;
+
+            if (options == null || options.Count == 0 || Str(field, "dataSourceId") != null || Bool(field["componentSettings"], "allowInput"))
+                return true; // no fixed options to check against
+
+            var allowed = new HashSet<string>();
+
+            foreach (JsonNode option in Children(field, "options"))
+            {
+                if (Str(option, "name") != null || Str(option, "bindingKey") != null)
+                    return true; // options bound to their own keys hold booleans, not option values
+
+                allowed.Add(ToText(option["value"]));
+            }
+
+            JsonArray list = value as JsonArray;
+            return (list != null) ? list.All(item => allowed.Contains(ToText(item))) : allowed.Contains((string)value);
+        }
+
+        private static string ToText(JsonNode node)
+        {
+            JsonValue jsonValue = node as JsonValue;
+
+            if (jsonValue != null && jsonValue.TryGetValue(out string text))
+                return text;
+
+            return (node != null) ? node.ToJsonString() : string.Empty; // numbers and booleans as submitted text, like GetValue
+        }
+
         private static bool IsMatch(string value, string pattern)
         {
             try
@@ -307,19 +462,23 @@ namespace Componyx.UI
 
         private const int RuleRequired = 0, RuleDataType = 1, RuleLength = 2, RuleRange = 3, RuleRegEx = 4, RuleCompare = 5;
 
+        private static readonly HashSet<string> StateActions = new HashSet<string> { "show", "hide", "enable", "disable", "required", "optional" };
+
         private class Entry
         {
             public JsonNode Field { get; }
             public JsonNode Parent { get; }
             public object Value { get; }
             public string Path { get; }
+            public bool Present { get; }
 
-            public Entry(JsonNode field, JsonNode parent, object value, string path)
+            public Entry(JsonNode field, JsonNode parent, object value, string path, bool present)
             {
                 Field = field;
                 Parent = parent;
                 Value = value;
                 Path = path;
+                Present = present;
             }
         }
     }

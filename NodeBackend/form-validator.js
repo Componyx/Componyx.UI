@@ -37,17 +37,19 @@ const TypeOption =
     COMPARE: 5
 };
 
+const _stateActions = new Set(['show', 'hide', 'enable', 'disable', 'required', 'optional']);
+
 const _integerPattern = /^\s*[+-]?\d+\s*$/,
     _floatPattern = /^\s*[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?\s*$/,
     _datePattern = /^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?)?$/; // yyyy-mm-dd, optionally with a time (no time zone)
 
 /**
  * Validates the submitted form values against the form definition.
- * Every active field is checked on its required flag and validation settings (data type, length, range, pattern and compare).
- * Failed rules are returned as Validator rule types (componyx.UI.Validator.TypeOption) per value path, so the client can show its own localized message for each rule.
+ * Fields that no rule can show, hide, enable, disable or make required/optional are validated by their definition, submitted or not. Fields a rule can change are only validated when submitted.
+ * Pass valuesJson as received, without re-serializing it with options that drop nulls or rename keys!
  * @param {string} definitionJson The form definition JSON.
  * @param {string} valuesJson The submitted form values JSON. Fields are stored by name or binding key. A repeatable field set is stored as an object key, where the key is the field set id and the value is the array of repeated values.
- * @param {function(object): boolean} [isActive] Determines whether a field is validated (default: visible and not disabled).
+ * @param {function(object): boolean} [isActive] An extra check whether a field is validated (default: all fields).
  * @returns {{ isValid: boolean, errors: Object<string, number[]> }} The validation result with the failed rule types per value path.
  * @example
  * import { validate } from './form-validator.js';
@@ -73,15 +75,26 @@ function validate(definitionJson, valuesJson, isActive)
     if (!isObject(values))
         throw new Error('The form values must be an object.');
 
+    const conditionalIds = new Set(),
+        parents = new Map(); // node -> parent node, plain objects don't know their parent
+
     if (!isActive)
-        isActive = field => bool(field, 'visible', true) && !bool(field, 'disabled');
+        isActive = field => true;
 
     for (const node of rootSets)
+    {
+        mapParents(node, null, parents);
+        collectConditionalIds(node, conditionalIds);
         collectFields(node, null, values, values, '', entries, errors);
+    }
+
+    collectSkippableSections(rootSets, conditionalIds); // a section that can be skipped counts like a field set a rule can hide
 
     for (const entry of entries)
     {
-        if (!isActive(entry.field))
+        const conditional = isConditional(entry.field, conditionalIds, parents);
+
+        if (!isActive(entry.field) || (conditional ? !entry.present : !isActiveByDesign(entry.field, parents))) // a rule may have hidden or disabled it, so only its key tells
             continue;
 
         const compareFieldId = str(get(entry.field, 'validationSettings'), 'compareFieldId'),
@@ -110,7 +123,7 @@ function collectFields(node, parent, root, scope, prefix, entries, errors)
     {
         const key = str(node, 'bindingKey') || str(node, 'name') || '';
 
-        entries.push({ field: node, parent: parent, value: getValue(scope, key), path: prefix + key });
+        entries.push({ field: node, parent: parent, value: getValue(scope, key), path: prefix + key, present: hasKey(scope, key) });
         return;
     }
 
@@ -158,6 +171,12 @@ function validateField(entry, compareEntry)
         if (bool(field, 'required'))
             failed.push(TypeOption.REQUIRED);
 
+        return failed;
+    }
+
+    if (!isOptionValue(field, text))
+    {
+        failed.push(TypeOption.DATATYPE);
         return failed;
     }
 
@@ -251,6 +270,139 @@ function getValue(scope, key)
         return node;
 
     return (typeof node === 'number') ? String(node) : JSON.stringify(node); // numbers in invariant notation
+}
+
+function hasKey(scope, key)
+{
+    let node = scope;
+
+    for (const part of key.split('.'))
+    {
+        if (!isObject(node) || !Object.hasOwn(node, part)) // own keys only, also true for a key with a null value
+            return false;
+
+        node = node[part];
+    }
+
+    return true;
+}
+
+function mapParents(node, parent, parents)
+{
+    if (!isObject(node))
+        return;
+
+    parents.set(node, parent);
+
+    for (const child of children(node, 'fieldSets').concat(children(node, 'fields')))
+        mapParents(child, node, parents);
+}
+
+function collectConditionalIds(node, ids)
+{
+    for (const ruleCase of children(node, 'ruleCases'))
+    {
+        for (const action of children(ruleCase, 'actions'))
+        {
+            if (_stateActions.has(str(action, 'runtimeActionId')))
+                ids.add(str(action, 'targetFieldSetId') ?? str(node, 'id')); // the action targets the field itself or a field set
+        }
+    }
+
+    for (const child of children(node, 'fieldSets').concat(children(node, 'fields')))
+        collectConditionalIds(child, ids);
+}
+
+function collectSkippableSections(rootSets, ids)
+{
+    const sections = rootSets.filter(node => str(node, 'type') === 'Section');
+
+    for (let index = 0; index < sections.length; index++)
+    {
+        const fields = [];
+        collectFieldNodes(sections[index], fields); // all fields inside this section
+
+        for (const field of fields)
+        {
+            for (const ruleCase of children(field, 'ruleCases'))
+            {
+                const from = (str(ruleCase, 'runVisibility') === 'section_hidden') ? 0 : index; // also runs from other pages, so it may jump before the user gets here
+
+                for (const action of children(ruleCase, 'actions'))
+                {
+                    const actionId = str(action, 'runtimeActionId');
+                    let to;
+
+                    if (actionId === 'end_form')
+                        to = sections.length;
+                    else if (actionId === 'show_section')
+                        to = sections.findIndex(section => str(section, 'id') === str(action, 'value'));
+                    else
+                        continue;
+
+                    for (let skipped = from + 1; skipped < to; skipped++) // the sections jumped over (none for a jump back)
+                        ids.add(str(sections[skipped], 'id'));
+                }
+            }
+        }
+    }
+}
+
+function collectFieldNodes(node, fields)
+{
+    if (str(node, 'type') === 'Field')
+    {
+        fields.push(node);
+        return;
+    }
+
+    for (const child of children(node, 'fieldSets').concat(children(node, 'fields')))
+        collectFieldNodes(child, fields);
+}
+
+function isConditional(field, conditionalIds, parents)
+{
+    for (let node = field; node; node = parents.get(node))
+    {
+        if (conditionalIds.has(str(node, 'id')))
+            return true;
+    }
+
+    return false;
+}
+
+function isActiveByDesign(field, parents)
+{
+    for (let node = field; node; node = parents.get(node))
+    {
+        if (bool(node, 'disabled') || (str(node, 'type') !== 'Section' && !bool(node, 'visible', true))) // a section's visible state is just the current page
+            return false;
+    }
+
+    return true;
+}
+
+function isOptionValue(field, value)
+{
+    const options = children(field, 'options');
+
+    if (options.length === 0 || str(field, 'dataSourceId') !== null || bool(get(field, 'componentSettings'), 'allowInput'))
+        return true; // no fixed options to check against
+
+    if (options.some(option => str(option, 'name') !== null || str(option, 'bindingKey') !== null))
+        return true; // options bound to their own keys hold booleans, not option values
+
+    const allowed = new Set(options.map(option => toText(get(option, 'value'))));
+
+    return Array.isArray(value) ? value.every(item => allowed.has(toText(item))) : allowed.has(value);
+}
+
+function toText(value)
+{
+    if (typeof value === 'string')
+        return value;
+
+    return (value === undefined || value === null) ? '' : JSON.stringify(value); // numbers and booleans as submitted text, like getValue
 }
 
 /**

@@ -390,6 +390,14 @@
     };
 
     /**
+     * The ids of the field sets and fields that are currently hidden or disabled.
+     * @typedef {Object} InactiveIds
+     * @memberof componyx.UI.Form
+     * @property {Set.<string>} hidden - The ids of the hidden field sets and fields.
+     * @property {Set.<string>} disabled - The ids of the disabled field sets and fields.
+     */
+
+    /**
      * Form class.
      * @class
      * @memberof componyx.UI
@@ -2303,20 +2311,65 @@
         }
 
         /**
-         * Gets the values of enabled form fields (excludes disabled fields).
-         * @returns {Object} The form values of all enabled fields.
+         * Gets a copy of the values of all active fields. Every active field has a key (null when empty).
+         * Hidden fields and disabled fields are left out.
+         * @param {Boolean} [includeDisabled=false] A value indicating whether disabled fields are included.
+         * @returns {Object} The values of all active fields.
          */
-        getEnabledFieldValues()
+        getActiveFieldValues(includeDisabled = false)
         {
-            const values = JSON.parse(JSON.stringify(this.values));
+            const values = JSON.parse(JSON.stringify(this.values)),
+                inactiveIds = this.getInactiveIds();
 
             for (const field of this.getFields())
             {
-                if (field.disabled)
-                    this.dataBinder.setModelValue(field, undefined);
+                if (!this.isInputField(field.type))
+                    continue;
+
+                const key = this.dataBinder.getValueBindingKey(field),
+                    hasValue = this.dataBinder.getModelValue(field) !== undefined,
+                    excluded = inactiveIds.hidden.has(field.id) || (!includeDisabled && inactiveIds.disabled.has(field.id));
+
+                if (excluded)
+                {
+                    if (hasValue)
+                        this.dataBinder.setNestedValue(values, key, undefined); // clears the value from the model
+                }
+                else if (!hasValue)
+                    this.dataBinder.setNestedValue(values, key, null); // active but empty, the key shows the field was active
             }
 
             return values;
+        }
+
+        /**
+         * Gets the ids of all field sets and fields that are currently inactive (hidden or disabled)
+         * @returns {componyx.UI.Form.InactiveIds} The ids of the hidden and disabled items.
+        */
+        getInactiveIds()
+        {
+            const ids = { hidden: new Set(), disabled: new Set() };
+
+            const collect = (items, parentHidden, parentDisabled) =>
+            {
+                for (const item of items)
+                {
+                    const hidden = parentHidden || (item.type !== 'Section' && item.visible === false), // exclude sections from the hidden check, they are virtual pages so they can be hidden
+                        disabled = parentDisabled || !!item.disabled;
+
+                    if (hidden)
+                        ids.hidden.add(item.id);
+
+                    if (disabled)
+                        ids.disabled.add(item.id);
+
+                    collect(item.fieldSets || [], hidden, disabled);
+                    collect(item.fields || [], hidden, disabled);
+                }
+            };
+
+            collect(this.fieldSets, false, false);
+            return ids;
         }
 
         /**
@@ -4374,10 +4427,11 @@
             if (this.isPreviewMode())
                 return;
 
-            const values = (this.includeDisabledFields) ? this.values : this.getEnabledFieldValues();
             let result;
 
             await this.ruleEngine.initRules(this.constructor.RuleCaseTriggerOption.BEFORE_SUBMIT);
+
+            const values = this.getActiveFieldValues(this.includeDisabledFields);
 
             if (this.submitCanceled)
             {
