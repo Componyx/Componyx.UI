@@ -343,6 +343,9 @@ componyx.UI.editor_modules.ComponentFactory = class ComponentFactory
         if (settings.cssVariable)
             button.__cssVariable = settings.cssVariable;
 
+        if (this.editor.renderState == $base.static.RenderState.RENDERED)
+            button.show();
+
         return button;
     }
 
@@ -384,7 +387,8 @@ componyx.UI.editor_modules.ComponentFactory = class ComponentFactory
         if (settings.onClear)
             comboBox.events.onClear.priorityAdd(() => { settings.onClear(); });
 
-        comboBox.show();
+        if (this.editor.renderState == $base.static.RenderState.RENDERED)
+            comboBox.show();
 
         return comboBox;
     }

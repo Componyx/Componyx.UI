@@ -1027,7 +1027,7 @@
 
             _instance.events.onPostRenderItemList.fire(_instance, null);
         }
-      
+
         function setupItemList()
         {
             if (!_instance.itemList)
@@ -1563,7 +1563,19 @@
             if (_loading)
                 return;
 
-            _loadTimerId = setTimeout(function () { load(null, null, null, true); }, (!$.isEmpty(delay)) ? delay : _instance.loadOnDemandDelay);
+            _loadTimerId = setTimeout(function ()
+            {
+                _loadTimerId = null; // timer has fired, load() can return early without resetting it
+
+                load(null, null, null, true);
+
+                if (!_loading && _pendingCustomValue) // load was skipped (query unchanged), so the current item list is up to date
+                {
+                    let value = _pendingCustomValue;
+                    _pendingCustomValue = null;
+                    addCustomValue(value);
+                }
+            }, (!$.isEmpty(delay)) ? delay : _instance.loadOnDemandDelay);
         }
 
         function navigate(keyCode)
