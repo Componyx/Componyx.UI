@@ -1382,7 +1382,7 @@ declare namespace componyx
                 /**
                  * <p>Gets the name of the class, required for identifying the object type when stored as JSON data.</p>
                  */
-                readonly type: string;
+                readonly type?: string;
             }
             /**
              * <p>The base class for all form field and fieldSet types.</p>
