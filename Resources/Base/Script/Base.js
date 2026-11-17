@@ -2889,10 +2889,10 @@ componyx.UI.base = {};
             instance.events.onPreApplyTemplate.fire(instance, { id: templateId, template: templateEl, element: element, values: values, matchHandler: matchHandler });
 
             if (interpolate && !$lib.isEmpty(values))
-                templateEl = parseTemplate(templateEl);
+                parseTemplate(isTemplate ? templateEl.content : templateEl);
 
             if (element.nodeName.toLowerCase() == 'input')
-                element.value = templateEl.textContent;
+                element.value = (isTemplate) ? templateEl.content.textContent : templateEl.textContent;
             else
             {
                 if (keepRootElement)
@@ -2937,32 +2937,41 @@ componyx.UI.base = {};
                     nodes.push(node); // Store each text node
                 }
 
+                if (keepRootElement)
+                    collectAttributes(template); // the walker never returns the root element itself
+
                 walker = template.ownerDocument.createTreeWalker(template, NodeFilter.SHOW_ELEMENT, null, false);
                 while (node = walker.nextNode())
                 {
-                    for (let attr of node.attributes)
-                    {
-                        if (regex.test(attr.value))
-                        {
-                            attrNodes.push({ element: node, name: attr.name, value: attr.value }); // Store each attribute
-                        }
-                    }
+                    collectAttributes(node);
                 }
 
                 $lib.each(nodes, function (node)
                 {
-                    if (node.nodeValue.match(regex))
+                    let text = node.nodeValue;
+
+                    if (text.match(regex))
                     {
-                        let tempElement = template.ownerDocument.createElement('div'); // use temporary element node because the replacement value might include html
-                        tempElement.innerHTML = node.nodeValue.replace(regex, replace); // replace the {name}, {name/} and {/name} occurences for the corresponding values
+                        let tempElement = template.ownerDocument.createElement('div'), // use temporary element node because the replacement value might include html
+                            html = '',
+                            lastIndex = 0;
+
+                        text.replace(regex, function (match, name, offset) // replace the {name}, {name/} and {/name} occurences for the corresponding values
+                        {
+                            html += escapeHtml(text.substring(lastIndex, offset)) + replace(match); // only the replacement value may contain html, the template text stays text
+                            lastIndex = offset + match.length;
+                            return match;
+                        });
+
+                        tempElement.innerHTML = html + escapeHtml(text.substring(lastIndex));
 
                         for (let guid in replacementNodes)
                         {
-                            const el = tempElement.querySelector('#' + guid);
+                            const el = tempElement.querySelector('[id="' + guid + '"]');
                             if (el) el.replaceWith(replacementNodes[guid]);
                         }
 
-                        node.parentElement.replaceChild(tempElement, node);
+                        node.parentNode.replaceChild(tempElement, node);
                         $.unsurround(tempElement); // remove the temporary element
                     }
                 });
@@ -2971,6 +2980,24 @@ componyx.UI.base = {};
                 {
                     attr.element.setAttribute(attr.name, attr.value.replace(regex, replace));
                 });
+
+                function escapeHtml(text)
+                {
+                    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                }
+
+                function collectAttributes(element)
+                {
+                    for (let attr of element.attributes)
+                    {
+                        regex.lastIndex = 0;
+
+                        if (regex.test(attr.value))
+                        {
+                            attrNodes.push({ element: element, name: attr.name, value: attr.value }); // Store each attribute
+                        }
+                    }
+                }
 
                 function replace(match)
                 {
@@ -3008,7 +3035,7 @@ componyx.UI.base = {};
                         {
                             return value;
                         }
-                        else if (value && value instanceof $lib.defaultView(template).Node)
+                        else if (value && typeof value.nodeType === 'number') // DOM node; instanceof fails for <template> content (its document has no window)
                         {
                             let guid = $lib.guid();
                             replacementNodes[guid] = value;
@@ -3023,7 +3050,7 @@ componyx.UI.base = {};
 
                             if (keyValuePair[key] != undefined)
                                 return keyValuePair[key];
-                            else if (keyValuePair.attributes && keyValuePair.attributes[key])
+                            else if (keyValuePair.attributes && keyValuePair.attributes[key] != undefined)
                                 return keyValuePair.attributes[key];
 
                             found = false;

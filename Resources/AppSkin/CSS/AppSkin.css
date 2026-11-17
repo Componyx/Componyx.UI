@@ -136,7 +136,6 @@ input[type=password]::-ms-clear
     {
         height: calc(100% - 144px);
     }
-
     /* header */
     & > header
     {
@@ -147,7 +146,6 @@ input[type=password]::-ms-clear
         height: 48px;
         vertical-align: middle;
         z-index: 2;
-
         /* header topbar content*/
         > .topbar > div.app-content
         {
@@ -155,34 +153,31 @@ input[type=password]::-ms-clear
             height: 100%;
         }
     }
-
-    /* header content */
-    & > header > div.app-content,
-    & > footer > div.app-content
-    {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 100%;
-    }
-
-    /* header-menu is in topbar by default */
-    & > header > div.app-content .menu.theme
-    {
-        position: absolute;
-        width: calc(100% - 400px); /* 400px is the default reserved space for the menu between the logo/menu-button and search-box. Change as desired accordingly to the displayed items in the header.  */
-        text-align: center;
-        white-space: nowrap;
-        left: 68px; /* 68px for menu-button */
-        top: 0px;
-    }
+        /* header content */
+        & > header > div.app-content,
+        & > footer > div.app-content
+        {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+            /* header-menu is in topbar by default */
+            & > header > div.app-content .menu.theme
+            {
+                position: absolute;
+                width: calc(100% - 400px); /* 400px is the default reserved space for the menu between the logo/menu-button and search-box. Change as desired accordingly to the displayed items in the header.  */
+                text-align: center;
+                white-space: nowrap;
+                left: 68px; /* 68px for menu-button */
+                top: 0px;
+            }
 
     &:not(.menu-left) > header > div.app-content .menu.theme
     {
         left: 208px; /* 208px for logo */
     }
-
     /* menu in footer */
     div &
     {
@@ -195,7 +190,6 @@ input[type=password]::-ms-clear
             white-space: nowrap;
         }
     }
-
     /* menu in topbar */
     & > header > div.app-content > .topbar > div.app-content .menu.theme
     {
@@ -204,7 +198,6 @@ input[type=password]::-ms-clear
         transform: none;
         width: 100%;
     }
-
     /* center first menu when both header- and quicklaunch- menu are in the same parent within header or footer  */
     & > header > div.app-content > div.header-menu ~ .menu.theme.quick-lauch,
     & > header > div.app-content > topbar > div.header-menu ~ .menu.theme.quick-lauch,
@@ -215,7 +208,6 @@ input[type=password]::-ms-clear
         width: auto;
         order: 3;
     }
-
     /* header item order for menu-right(default) or menu-left */
     &:not(.menu-left) > header > div.app-content > .button.theme
     {
@@ -238,7 +230,6 @@ input[type=password]::-ms-clear
         order: 3;
         margin-right: 20px;
     }
-
     /* top bar */
     & .topbar
     {
@@ -249,7 +240,6 @@ input[type=password]::-ms-clear
         z-index: 2;
         height: 48px;
     }
-
     /* shadow */
     & > header::after
     {
@@ -273,7 +263,6 @@ input[type=password]::-ms-clear
         padding-bottom: 48px;
         text-align: center;
         z-index: 3;
-
         /* -- viewport widths -- */
         @media screen and (min-width: 480px)
         {
@@ -313,45 +302,44 @@ input[type=password]::-ms-clear
         {
             left: calc((100% - var(--app-skin-content-width)) / 2);
         }
-
         /* -- margins when side-menu is visible, from this viewport width we no longer overlap the menu over the content -- */
 
-        /* menu pinned to content */
-        &.side-menu.menu-left
-        {
-            --app-skin-content-margin: calc((100% - var(--app-skin-content-width)) / 2 + var(--app-skin-menu-width));
-        }
-
         /* menu pinned to viewport */
-        &.full.side-menu.menu-left
+        &.full.side-menu
         {
             --app-skin-content-margin: var(--app-skin-menu-width);
+
+            div.page > * > div.app-content
+            {
+                margin-left: var(--app-skin-content-margin);
+            }
+
+            &:not(.menu-left) div.page > * > div.app-content
+            {
+                margin-left: 0;
+                margin-right: var(--app-skin-content-margin);
+            }
         }
 
-        &.full.side-menu div.page > * > div.app-content
+        /* menu pinned to content */
+        &:not(.full).side-menu 
         {
-            margin-left: var(--app-skin-content-margin);
-        }
+            --app-skin-content-margin: calc((100% - var(--app-skin-content-width)) / 2 + var(--app-skin-menu-width));
 
-        &.full.side-menu:not(.menu-left) div.page > * > div.app-content
-        {
-            margin-left: 0;
-            margin-right: var(--app-skin-content-margin);
-        }
-
-        /* apply margin to deepest nested content container */
-        &:not(.full).side-menu .app-content:not(:has(.app-content))
-        {
-            margin-left: var(--app-skin-content-margin);
-        }
-
-        &:not(.full).side-menu:not(.menu-left)  .app-content:not(:has(.app-content))
-        {
-            margin-left: 0;
-            margin-right: var(--app-skin-content-margin);
+            /* apply margin to deepest nested content container */
+            div.page .app-content:not(:has(.app-content))
+            {
+                margin-left: var(--app-skin-content-margin);
+                margin-right: calc((100% - var(--app-skin-content-width)) / 2);
+            }
+            
+            &:not(.menu-left) div.page .app-content:not(:has(.app-content))
+            {
+                margin-left: calc((100% - var(--app-skin-content-width)) / 2);
+                margin-right: var(--app-skin-content-margin);
+            }
         }
     }
-
     /* logo */
     & figure.logo
     {
@@ -378,7 +366,6 @@ input[type=password]::-ms-clear
     {
         margin-bottom: 0px;
     }
-
     /* search-box */
     & div.search
     {
@@ -417,11 +404,11 @@ input[type=password]::-ms-clear
         }
     }
 
-    & div.search:hover::after,
-    &.search-active div.search::after
-    {
-        opacity: 0.7;
-    }
+        & div.search:hover::after,
+        &.search-active div.search::after
+        {
+            opacity: 0.7;
+        }
 
     @media screen and (max-width: 767px)
     {
@@ -430,7 +417,6 @@ input[type=password]::-ms-clear
             width: 150px;
         }
     }
-
     /* footer */
     & > footer
     {
@@ -442,7 +428,6 @@ input[type=password]::-ms-clear
         text-align: right;
         z-index: 2;
     }
-
     /* header menu */
     & > header .menu > .item-group.root > nav
     {
@@ -455,7 +440,6 @@ input[type=password]::-ms-clear
     {
         z-index: 5;
     }
-
     /* side menu */
     & .box.side-menu
     {
@@ -534,7 +518,6 @@ input[type=password]::-ms-clear
     {
         position: relative;
     }
-
     /* side menu overlay */
     & .overlay
     {
@@ -553,7 +536,6 @@ input[type=password]::-ms-clear
     {
         top: 96px;
     }
-
     /* overlay only when the side-menu overlaps the content (below 960px there is no room next to the content) */
     @media screen and (max-width: 959px)
     {
@@ -562,7 +544,6 @@ input[type=password]::-ms-clear
             display: block;
         }
     }
-
     /* header, topbar, footer buttons */
     & .button.theme.menu-button, & .button.theme.account,
     & > header .menu > .item-group.root > nav > .button.theme,
@@ -578,7 +559,6 @@ input[type=password]::-ms-clear
         padding-right: 0px;
         text-align: center;
     }
-
     /* account button avatar */
     & .button.theme.account-avatar
     {
@@ -620,14 +600,12 @@ input[type=password]::-ms-clear
         flex: 1;
         justify-content: center;
     }
-
     /* header, footer content */
     & > header .menu > .item-group.root > nav > .button.theme:not(.childless) .content-holder,
     & > footer .menu > .item-group.root > nav > .button.theme:not(.childless) .content-holder
     {
         margin-right: 24px; /* reserve space for expand-icon to keep combined content centered */
     }
-
     /* header, footer expand icon */
     & > header .menu > .item-group.root > nav > .button.theme span.expand-icon,
     & > footer .menu > .item-group.root > nav > .button.theme span.expand-icon
@@ -635,7 +613,6 @@ input[type=password]::-ms-clear
         right: auto;
         margin-left: -12px;
     }
-
     /* portal icon */
     & > .menu.theme.portal .item-group.root > nav > * > .button.theme span.expand-icon
     {
@@ -660,7 +637,6 @@ input[type=password]::-ms-clear
     {
         padding: 0px;
     }
-
     /* fixed width buttons */
     & .button.theme.menu-button, & .button.theme.account
     {
@@ -687,7 +663,6 @@ input[type=password]::-ms-clear
         margin-left: 10px;
         margin-right: 10px;
     }
-
     /* icon only header buttons when there is a header overflow */
     &.header-overflow > header .menu > .item-group.root > nav > .button.theme span + .content-holder
     {
@@ -698,7 +673,6 @@ input[type=password]::-ms-clear
     {
         margin-right: 22px;
     }
-
     /* button icon size */
     & .button.theme.account span[class*='ico-'],
     & > header .menu > .item-group.root > nav > .button.theme span[class*='ico-'],
@@ -717,7 +691,6 @@ input[type=password]::-ms-clear
     {
         font-size: 48px;
     }
-
     /* portal menu (trick to center floats) */
     & > .menu.theme.portal .item-group.root
     {
@@ -731,7 +704,6 @@ input[type=password]::-ms-clear
             left: 50%;
         }
     }
-
     /* portal menu tile groups, sizes, and buttons */
     & .menu.theme.portal .item-group.root > nav
     {
@@ -765,13 +737,11 @@ input[type=password]::-ms-clear
             {
                 width: 240px;
                 height: 240px;
-
                 /* portal menu small buttons in large container */
                 > .button.theme.row-start
                 {
                     clear: both; /* move to bottom left */
                 }
-
                 /* portal menu button next to row-start button */
                 > .button.theme.small-wide.row-start + .button.theme,
                 > .button.theme.small.row-start + .button.theme.small + .button.theme
@@ -803,11 +773,11 @@ input[type=password]::-ms-clear
                 height: 54px;
             }
 
-            &.small .content-holder,
-            &.small-wide .content-holder
-            {
-                display: none;
-            }
+                &.small .content-holder,
+                &.small-wide .content-holder
+                {
+                    display: none;
+                }
 
             &.medium
             {
@@ -849,13 +819,11 @@ input[type=password]::-ms-clear
             }
         }
     }
-
     /* overwrite portal cat-nav icon */
     & > .menu.theme.portal.horizontal div.item-group.root .button.theme.cat-nav span.icon::before
     {
         transform: rotate(-135deg); /* left */
     }
-
     /* overwrite portal-menu category animation (slide not possible with complex floating positions) */
     & > .menu.theme.portal.cat
     {
@@ -872,13 +840,12 @@ input[type=password]::-ms-clear
             animation-direction: reverse;
         }
 
-        > .cat-container .item-group.show-animation + .item-group.cat,
-        > .cat-container .item-group.hide-animation + .item-group.cat
-        {
-            display: none;
-        }
+            > .cat-container .item-group.show-animation + .item-group.cat,
+            > .cat-container .item-group.hide-animation + .item-group.cat
+            {
+                display: none;
+            }
     }
-
     /* username label */
     & b.username
     {
@@ -893,7 +860,6 @@ input[type=password]::-ms-clear
     {
         font-style: italic;
     }
-
     /* login-screen */
     & div.login-screen
     {
@@ -1003,14 +969,13 @@ input[type=password]::-ms-clear
         }
     }
 
-    & div.login-screen div.content
-    {
-        padding: 50px;
-        width: 300px;
-        margin: auto;
-        text-align: center;
-    }
-
+        & div.login-screen div.content
+        {
+            padding: 50px;
+            width: 300px;
+            margin: auto;
+            text-align: center;
+        }
     /* login required launch screen (no header) */
     &.login.required
     {
@@ -1029,7 +994,6 @@ input[type=password]::-ms-clear
     {
         display: none;
     }
-
     /* preloader */
     & .box.preloader
     {
@@ -1077,7 +1041,6 @@ input[type=password]::-ms-clear
     {
         line-height: 34px;
     }
-
     /* page content */
     & .toolbar
     {
@@ -1134,7 +1097,6 @@ input[type=password]::-ms-clear
     {
         display: block;
     }
-
     /* inputs */
     & select
     {
@@ -1166,7 +1128,6 @@ input[type=password]::-ms-clear
         padding-top: 4px;
         padding-bottom: 4px;
     }
-
     /* search-result */
     & .search-result
     {
@@ -1196,7 +1157,6 @@ input[type=password]::-ms-clear
             }
         }
     }
-
     /* hide root category navigator in main side-menu when all navigation items are in header-menu and header-menu is visible */
     &.header-all:not(.header-menu-hidden) .menu.theme.side .button.theme.cat-nav.root
     {
