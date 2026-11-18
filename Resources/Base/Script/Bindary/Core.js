@@ -302,18 +302,32 @@ await (async function ()
 
         parseExp(route, routePath, text)
         {
-            if (!route || !route.pathExp || !text || text.search(/\$\d/) == -1)
+            if (!text)
                 return text;
 
-            let exp = route.path,
-                match = exp.exec(routePath);
-
-            for (let index = 0; index < match.length; ++index)
+            if (route && route.pathExp && text.search(/\$\d/) != -1)
             {
-                text = text.replace($lib.format('${0}', index), match[index] || '');
+                let exp = route.path,
+                    match = exp.exec(routePath);
+
+                for (let index = match.length - 1; index >= 0; --index) // backwards, so $10 is replaced before $1
+                {
+                    text = text.replaceAll($lib.format('${0}', index), JSON.stringify(match[index] || '').slice(1, -1));
+                }
+
+                route.path.lastIndex = 0; // always reset
             }
 
-            route.path.lastIndex = 0; // always reset
+            if (text.indexOf('"?') != -1) // replace "?name" values in route data with the matching query string parameter
+            {
+                let params = new URLSearchParams(location.search);
+
+                text = text.replace(/"\?(\w+)"/g, function (marker, name)
+                {
+                    return JSON.stringify(params.get(name) || '');
+                });
+            }
+
             return text;
         },
 
