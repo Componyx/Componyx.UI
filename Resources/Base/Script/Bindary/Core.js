@@ -441,7 +441,8 @@ await (async function ()
 
             this.href = 'javascript:void(0);';
             setTimeout(function (href) { this.href = href; }.bind(this, href), 0);
-            $bindary.loadRoute(routePath);
+
+            $bindary.loadRoute(routePath || '/');  // empty route path is the root, not "the current URL", so pass '/' to loadRoute instead of an empty string
         },
 
         dispatchable(a)
