@@ -795,6 +795,9 @@
                 routePath = core.getRoutePath();
             else if ($bindary.prettyURL)
             {
+                if (routePath.charAt(0) == '/')
+                    routePath = routePath.substring(1); // route paths are relative to the base 
+
                 let url = core.getFullPath(routePath);
 
                 routePath = core.removeAnchor(routePath);
@@ -805,7 +808,6 @@
 
             return router.load(routePath);
         },
-
 
         /** 
         * Dispatches anchor links so that they are handled by the framework's routing. Method is only applicable when "pretty URL" is enabled.
