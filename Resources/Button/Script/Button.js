@@ -776,9 +776,7 @@
             _handlers = [];
 
             if (_instance.keyboardExpand && expandable)
-            {
-                $lib.on(_instance.element, 'keydown', handleKeyboardExpand);
-            }
+                bind(_instance.element, 'keydown', handleKeyboardExpand);
 
             // Helper to bind focus and blur with _instance context
             const bindFocusBlur = (el) =>
@@ -911,6 +909,9 @@
 
         function createRipple(el)
         {
+            if (_ripple.has(el))
+                return;
+
             let ripple = $lib.element($lib.element(el), '', 'span');
             _ripple.set(el, ripple);
             ripple.parentNode.className = _classOption.RIPPLE_MASK;

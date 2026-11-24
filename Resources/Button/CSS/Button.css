@@ -296,6 +296,7 @@
         right: 0px;
         overflow: hidden;
         pointer-events: none;
+        border-radius: inherit;
     }
 
         .button.theme:not(.split) > .ripple-mask > span.ripple,
